@@ -59,7 +59,7 @@ The heatmap of granular drug type variables shows hormone based treatment regime
 ## additional data and method sources
 ### Clustering Intra and Inter DatasEts
 CoINcIDE is an unsupervised graph clustering algorithm used to categorize tumor types based on gene expression profiles: [paper](https://www.ncbi.nlm.nih.gov/pubmed/26961683), author's  [github](https://github.com/kplaney/CoINcIDE).  
-The author's github includes useful but outdated R code for processing and merging microarray data sets from [GEO](https://www.ncbi.nlm.nih.gov/geo/). Updating the code for current use is ongoing, see _cancer_ branch of fork of author's github repository in [_CoINcIDE_]().  
+The author's github includes useful but outdated R code for processing and merging microarray data sets from [GEO](https://www.ncbi.nlm.nih.gov/geo/). Updating the code for current use is ongoing, see _cancer_ branch of fork of author's github repository in [_CoINcIDE_](https://github.com/mjsduncan/CoINcIDE/tree/cancer).  
 
 [Link](https://www.ncbi.nlm.nih.gov/pubmed?linkname=pubmed_pubmed_citedin&from_uid=26961683) to papers citing CoINcIDE in pubmed for current related research in precision medicine.
   
