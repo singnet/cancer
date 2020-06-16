@@ -26,7 +26,7 @@ Each cancer set has data from multiple studies with different gene sets and clin
 **bcTreatmentVars** - treatment drug and drug type variables  
 **bcOutcomeVars** - treatment outcome variables including including time to event data  
 **bcClinicalTable** - dump of clinical variables for all patients in breast cancer data set  
-[MetaGxData: Clinically Annotated Breast, Ovarian and Pancreatic Cancer Datasets and Their Use in Generating a Multi-Cancer Gene Signature](https://pubmed.ncbi.nlm.nih.gov/31217513/)  
+
 ### Gene Expression data
  [**example15bmc**](https://s3.console.aws.amazon.com/s3/buckets/snet-bio-data/example15bmc/example15bmc/?region=us-west-2&tab=overview) - subset of patients from 15 studies (2 studies are divided into 2 batches so 17 expression level files) with at least 3 years of post-treatment follow up  
  [**merged-combat15.csv.xz**]( https://snet-bio-data.s3-us-west-2.amazonaws.com/example15bmc/merged-combat15.csv.xz) - the 15 studies above combined using empirical bayes normalization as implemented by the `ComBat` function of the `sva` Bioconductor package of expression values leaving 8,832 overlapping genes (studies range from 12,722 to 18,260 genes).  
@@ -56,14 +56,12 @@ The heatmap of granular drug type variables shows hormone based treatment regime
 ## additional data and method sources
 ### Clustering Intra and Inter DatasEts
 CoINcIDE is an unsupervised graph clustering algorithm used to categorize tumor types based on gene expression profiles: [paper](https://www.ncbi.nlm.nih.gov/pubmed/26961683), author's  [github](https://github.com/kplaney/CoINcIDE).  
-The author's github includes useful but outdated R code for processing and merging microarray data sets from [GEO](https://www.ncbi.nlm.nih.gov/geo/).  
+The author's github includes useful but outdated R code for processing and merging microarray data sets from [GEO](https://www.ncbi.nlm.nih.gov/geo/). Updating the code for current use is ongoing, see _cancer_ branch of fork of author's github repository in [_CoINcIDE_]().  
 
-![pam50 vs coincide](./plots/coincideFig4.gif)
-  
-   Updating the code for current use is ongoing, see _cancer_ branch of fork of author's github repository in [_CoINcIDE_]().
 [Link](https://www.ncbi.nlm.nih.gov/pubmed?linkname=pubmed_pubmed_citedin&from_uid=26961683) to papers citing CoINcIDE in pubmed for current related research in precision medicine.
   
-  state of the art tumor classification: [Dynamic Classification Using Case-Specific Training Cohorts Outperforms Static Gene Expression Signatures in Breast Cancer](https://pubmed.ncbi.nlm.nih.gov/25274406/)
+state of the art tumor classification: [Dynamic Classification Using Case-Specific Training Cohorts Outperforms Static Gene Expression Signatures in Breast Cancer](https://pubmed.ncbi.nlm.nih.gov/25274406/)
+
 ### TCGA
 ??? samples already included in breast cancer dataset  
 [Link](https://www.nature.com/articles/nature11412) to multi-omics breast cancer sub-typing paper with analysis data available from TCGA.  This a good paper for understanding current thinking about breast cancer.  
