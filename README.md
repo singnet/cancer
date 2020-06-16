@@ -7,13 +7,16 @@
 ## Breast, ovarian, and pancreatic cancer tumor transcriptomes and clinical data sets
 Each cancer set has data from multiple studies with different gene sets and clincal variables that can be analyzed as an ensemble/meta-analysis or merged into one large matrix.  Meta-analysis is more powerful with standard statistical methods due to data loss when variables from different studies are aligned and merged.
 ## Data sources
-**curatedBreastData**  4,923 breast tumor microarray expression sets from 2,613 patients in 20 studies [[paper](https://www.ncbi.nlm.nih.gov/pubmed/24303324)] [[github](https://github.com/kplaney/curatedBreastCancer)].  files have **bc** prefix  
-**MetaGxBreast** in progress
+**curatedBreastData**  4,923 breast tumor microarray expression sets from 2,613 patients in 20 studies [[paper](https://www.ncbi.nlm.nih.gov/pubmed/24303324)] [[github](https://github.com/kplaney/curatedBreastCancer)].  Related files have **bc** prefix  
+  
+**MetaGxBreast** in progress  
 **MetaGxOvarian** in progress  
 **MetaGxPancreas** in progress  
   
-  [MetaGxData: Clinically Annotated Breast, Ovarian and Pancreatic Cancer Datasets and Their Use in Generating a Multi-Cancer Gene Signature](https://pubmed.ncbi.nlm.nih.gov/31217513/) 
-**pdf copies of papers are in the [lit](./lit) dircetory**
+[MetaGxData: Clinically Annotated Breast, Ovarian and Pancreatic Cancer Datasets and Their Use in Generating a Multi-Cancer Gene Signature](https://pubmed.ncbi.nlm.nih.gov/31217513/)  
+
+**pdf copies of papers are in the [lit](./lit) dircetory**  
+
 ## Breast Cancer data set
 ### [bcTabs.ods](./data/bcTabs.ods)
 **bcVarDesc** -  description of all clinical variables with type annotations:
