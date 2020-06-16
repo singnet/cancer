@@ -1,0 +1,1234 @@
+there were  22582 genes that passed your max 0.01 NA filter out of a total of  22582 genes 
+there were  60 patients that passed your max 0.005 NA filter out of a total of  60 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  60 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  286 patients that passed your max 0.005 NA filter out of a total of  286 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  286 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  12657 genes that passed your max 0.01 NA filter out of a total of  19914 genes 
+there were  50 patients that passed your max 0.005 NA filter out of a total of  50 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  50 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  27648 genes that passed your max 0.01 NA filter out of a total of  27648 genes 
+there were  88 patients that passed your max 0.005 NA filter out of a total of  88 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  88 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22898 genes that passed your max 0.01 NA filter out of a total of  22898 genes 
+there were  155 patients that passed your max 0.005 NA filter out of a total of  155 patients 
+there are  3 genes with at least one NA value 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  155 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  5815 genes that passed your max 0.01 NA filter out of a total of  32296 genes 
+there were  46 patients that passed your max 0.005 NA filter out of a total of  46 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  46 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  136 patients that passed your max 0.005 NA filter out of a total of  136 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  136 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  54696 genes that passed your max 0.01 NA filter out of a total of  54696 genes 
+there were  48 patients that passed your max 0.005 NA filter out of a total of  48 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  48 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  54696 genes that passed your max 0.01 NA filter out of a total of  54696 genes 
+there were  114 patients that passed your max 0.005 NA filter out of a total of  114 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  114 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  103 patients that passed your max 0.005 NA filter out of a total of  103 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  103 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  195 patients that passed your max 0.005 NA filter out of a total of  195 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  195 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  54696 genes that passed your max 0.01 NA filter out of a total of  54696 genes 
+there were  21 patients that passed your max 0.005 NA filter out of a total of  21 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  21 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  54696 genes that passed your max 0.01 NA filter out of a total of  54696 genes 
+there were  115 patients that passed your max 0.005 NA filter out of a total of  115 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  115 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  54696 genes that passed your max 0.01 NA filter out of a total of  54696 genes 
+there were  24 patients that passed your max 0.005 NA filter out of a total of  24 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  24 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  53 patients that passed your max 0.005 NA filter out of a total of  53 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  53 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  261 patients that passed your max 0.005 NA filter out of a total of  261 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  261 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  41011 genes that passed your max 0.01 NA filter out of a total of  41011 genes 
+there were  32 patients that passed your max 0.005 NA filter out of a total of  32 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  32 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22504 genes that passed your max 0.01 NA filter out of a total of  23497 genes 
+there were  35 patients that passed your max 0.005 NA filter out of a total of  35 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  35 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  47013 genes that passed your max 0.01 NA filter out of a total of  47394 genes 
+there were  28 patients that passed your max 0.005 NA filter out of a total of  28 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  28 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  47064 genes that passed your max 0.01 NA filter out of a total of  47357 genes 
+there were  31 patients that passed your max 0.005 NA filter out of a total of  31 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  31 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  43091 genes that passed your max 0.01 NA filter out of a total of  44290 genes 
+there were  128 patients that passed your max 0.005 NA filter out of a total of  129 patients 
+there are  1855 genes with at least one NA value 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  128 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  44795 genes that passed your max 0.01 NA filter out of a total of  45220 genes 
+there were  20 patients that passed your max 0.005 NA filter out of a total of  20 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  20 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  47200 genes that passed your max 0.01 NA filter out of a total of  47394 genes 
+there were  122 patients that passed your max 0.005 NA filter out of a total of  122 patients 
+there are  2053 genes with at least one NA value 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  122 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  44195 genes that passed your max 0.01 NA filter out of a total of  44402 genes 
+there were  16 patients that passed your max 0.005 NA filter out of a total of  16 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  16 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  221 patients that passed your max 0.005 NA filter out of a total of  221 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  221 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  6 patients that passed your max 0.005 NA filter out of a total of  6 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  6 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  17 patients that passed your max 0.005 NA filter out of a total of  17 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  17 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  71 patients that passed your max 0.005 NA filter out of a total of  71 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  71 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  15 patients that passed your max 0.005 NA filter out of a total of  15 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  15 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  25 patients that passed your max 0.005 NA filter out of a total of  25 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  25 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  16 patients that passed your max 0.005 NA filter out of a total of  16 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  16 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  54 patients that passed your max 0.005 NA filter out of a total of  54 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  54 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  54634 genes that passed your max 0.01 NA filter out of a total of  54634 genes 
+there were  115 patients that passed your max 0.005 NA filter out of a total of  115 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  115 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  54696 genes that passed your max 0.01 NA filter out of a total of  54696 genes 
+there were  11 patients that passed your max 0.005 NA filter out of a total of  11 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  11 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22582 genes that passed your max 0.01 NA filter out of a total of  22582 genes 
+there were  60 patients that passed your max 0.005 NA filter out of a total of  60 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  60 patients. 
+
+found no multiple samples from the same patient(s) 
+
+calculating variance across all genes for plotting 
+finished calculating variance 
+found  0 genes with NA variance. Removing them. 
+there were  14801  genes with no NA values 
+     and the median variance of these genes was  0.2903952 
+ there were 7400 genes above this median 
+there were  14801  genes with no NA values and there were  14801 genes above the mininum variance of  0.001 
+there were  22582 genes that passed your max 0.01 NA filter out of a total of  22582 genes 
+there were  60 patients that passed your max 0.005 NA filter out of a total of  60 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  60 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  286 patients that passed your max 0.005 NA filter out of a total of  286 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  286 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  12657 genes that passed your max 0.01 NA filter out of a total of  19914 genes 
+there were  50 patients that passed your max 0.005 NA filter out of a total of  50 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  50 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  27648 genes that passed your max 0.01 NA filter out of a total of  27648 genes 
+there were  88 patients that passed your max 0.005 NA filter out of a total of  88 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  88 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22898 genes that passed your max 0.01 NA filter out of a total of  22898 genes 
+there were  155 patients that passed your max 0.005 NA filter out of a total of  155 patients 
+there are  3 genes with at least one NA value 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  155 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  5815 genes that passed your max 0.01 NA filter out of a total of  32296 genes 
+there were  46 patients that passed your max 0.005 NA filter out of a total of  46 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  46 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  136 patients that passed your max 0.005 NA filter out of a total of  136 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  136 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  54696 genes that passed your max 0.01 NA filter out of a total of  54696 genes 
+there were  48 patients that passed your max 0.005 NA filter out of a total of  48 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  48 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  54696 genes that passed your max 0.01 NA filter out of a total of  54696 genes 
+there were  114 patients that passed your max 0.005 NA filter out of a total of  114 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  114 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  103 patients that passed your max 0.005 NA filter out of a total of  103 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  103 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  195 patients that passed your max 0.005 NA filter out of a total of  195 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  195 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  54696 genes that passed your max 0.01 NA filter out of a total of  54696 genes 
+there were  21 patients that passed your max 0.005 NA filter out of a total of  21 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  21 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  54696 genes that passed your max 0.01 NA filter out of a total of  54696 genes 
+there were  115 patients that passed your max 0.005 NA filter out of a total of  115 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  115 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  54696 genes that passed your max 0.01 NA filter out of a total of  54696 genes 
+there were  24 patients that passed your max 0.005 NA filter out of a total of  24 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  24 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  53 patients that passed your max 0.005 NA filter out of a total of  53 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  53 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  261 patients that passed your max 0.005 NA filter out of a total of  261 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  261 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  41011 genes that passed your max 0.01 NA filter out of a total of  41011 genes 
+there were  32 patients that passed your max 0.005 NA filter out of a total of  32 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  32 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22504 genes that passed your max 0.01 NA filter out of a total of  23497 genes 
+there were  35 patients that passed your max 0.005 NA filter out of a total of  35 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  35 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  47013 genes that passed your max 0.01 NA filter out of a total of  47394 genes 
+there were  28 patients that passed your max 0.005 NA filter out of a total of  28 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  28 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  47064 genes that passed your max 0.01 NA filter out of a total of  47357 genes 
+there were  31 patients that passed your max 0.005 NA filter out of a total of  31 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  31 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  43091 genes that passed your max 0.01 NA filter out of a total of  44290 genes 
+there were  128 patients that passed your max 0.005 NA filter out of a total of  129 patients 
+there are  1855 genes with at least one NA value 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  128 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  44795 genes that passed your max 0.01 NA filter out of a total of  45220 genes 
+there were  20 patients that passed your max 0.005 NA filter out of a total of  20 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  20 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  47200 genes that passed your max 0.01 NA filter out of a total of  47394 genes 
+there were  122 patients that passed your max 0.005 NA filter out of a total of  122 patients 
+there are  2053 genes with at least one NA value 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  122 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  44195 genes that passed your max 0.01 NA filter out of a total of  44402 genes 
+there were  16 patients that passed your max 0.005 NA filter out of a total of  16 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  16 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  221 patients that passed your max 0.005 NA filter out of a total of  221 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  221 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  6 patients that passed your max 0.005 NA filter out of a total of  6 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  6 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  17 patients that passed your max 0.005 NA filter out of a total of  17 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  17 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  71 patients that passed your max 0.005 NA filter out of a total of  71 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  71 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  15 patients that passed your max 0.005 NA filter out of a total of  15 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  15 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  25 patients that passed your max 0.005 NA filter out of a total of  25 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  25 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  16 patients that passed your max 0.005 NA filter out of a total of  16 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  16 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  54 patients that passed your max 0.005 NA filter out of a total of  54 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  54 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  54634 genes that passed your max 0.01 NA filter out of a total of  54634 genes 
+there were  115 patients that passed your max 0.005 NA filter out of a total of  115 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  115 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  54696 genes that passed your max 0.01 NA filter out of a total of  54696 genes 
+there were  11 patients that passed your max 0.005 NA filter out of a total of  11 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  11 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22582 genes that passed your max 0.01 NA filter out of a total of  22582 genes 
+there were  60 patients that passed your max 0.005 NA filter out of a total of  60 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  60 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  286 patients that passed your max 0.005 NA filter out of a total of  286 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  286 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  12657 genes that passed your max 0.01 NA filter out of a total of  19914 genes 
+there were  50 patients that passed your max 0.005 NA filter out of a total of  50 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  50 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  27648 genes that passed your max 0.01 NA filter out of a total of  27648 genes 
+there were  88 patients that passed your max 0.005 NA filter out of a total of  88 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  88 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22898 genes that passed your max 0.01 NA filter out of a total of  22898 genes 
+there were  155 patients that passed your max 0.005 NA filter out of a total of  155 patients 
+there are  3 genes with at least one NA value 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  155 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  5815 genes that passed your max 0.01 NA filter out of a total of  32296 genes 
+there were  46 patients that passed your max 0.005 NA filter out of a total of  46 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  46 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  136 patients that passed your max 0.005 NA filter out of a total of  136 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  136 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  54696 genes that passed your max 0.01 NA filter out of a total of  54696 genes 
+there were  48 patients that passed your max 0.005 NA filter out of a total of  48 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  48 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  54696 genes that passed your max 0.01 NA filter out of a total of  54696 genes 
+there were  114 patients that passed your max 0.005 NA filter out of a total of  114 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  114 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  103 patients that passed your max 0.005 NA filter out of a total of  103 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  103 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  195 patients that passed your max 0.005 NA filter out of a total of  195 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  195 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  54696 genes that passed your max 0.01 NA filter out of a total of  54696 genes 
+there were  21 patients that passed your max 0.005 NA filter out of a total of  21 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  21 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  54696 genes that passed your max 0.01 NA filter out of a total of  54696 genes 
+there were  115 patients that passed your max 0.005 NA filter out of a total of  115 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  115 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  54696 genes that passed your max 0.01 NA filter out of a total of  54696 genes 
+there were  24 patients that passed your max 0.005 NA filter out of a total of  24 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  24 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  53 patients that passed your max 0.005 NA filter out of a total of  53 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  53 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  261 patients that passed your max 0.005 NA filter out of a total of  261 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  261 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  41011 genes that passed your max 0.01 NA filter out of a total of  41011 genes 
+there were  32 patients that passed your max 0.005 NA filter out of a total of  32 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  32 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22504 genes that passed your max 0.01 NA filter out of a total of  23497 genes 
+there were  35 patients that passed your max 0.005 NA filter out of a total of  35 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  35 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  47013 genes that passed your max 0.01 NA filter out of a total of  47394 genes 
+there were  28 patients that passed your max 0.005 NA filter out of a total of  28 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  28 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  47064 genes that passed your max 0.01 NA filter out of a total of  47357 genes 
+there were  31 patients that passed your max 0.005 NA filter out of a total of  31 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  31 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  43091 genes that passed your max 0.01 NA filter out of a total of  44290 genes 
+there were  128 patients that passed your max 0.005 NA filter out of a total of  129 patients 
+there are  1855 genes with at least one NA value 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  128 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  44795 genes that passed your max 0.01 NA filter out of a total of  45220 genes 
+there were  20 patients that passed your max 0.005 NA filter out of a total of  20 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  20 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  47200 genes that passed your max 0.01 NA filter out of a total of  47394 genes 
+there were  122 patients that passed your max 0.005 NA filter out of a total of  122 patients 
+there are  2053 genes with at least one NA value 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  122 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  44195 genes that passed your max 0.01 NA filter out of a total of  44402 genes 
+there were  16 patients that passed your max 0.005 NA filter out of a total of  16 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  16 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  221 patients that passed your max 0.005 NA filter out of a total of  221 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  221 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  6 patients that passed your max 0.005 NA filter out of a total of  6 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  6 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  17 patients that passed your max 0.005 NA filter out of a total of  17 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  17 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  71 patients that passed your max 0.005 NA filter out of a total of  71 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  71 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  15 patients that passed your max 0.005 NA filter out of a total of  15 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  15 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  25 patients that passed your max 0.005 NA filter out of a total of  25 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  25 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  16 patients that passed your max 0.005 NA filter out of a total of  16 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  16 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  22293 genes that passed your max 0.01 NA filter out of a total of  22293 genes 
+there were  54 patients that passed your max 0.005 NA filter out of a total of  54 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  54 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  54634 genes that passed your max 0.01 NA filter out of a total of  54634 genes 
+there were  115 patients that passed your max 0.005 NA filter out of a total of  115 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  115 patients. 
+
+found no multiple samples from the same patient(s) 
+
+there were  54696 genes that passed your max 0.01 NA filter out of a total of  54696 genes 
+there were  11 patients that passed your max 0.005 NA filter out of a total of  11 patients 
+there are zero NA genes in this dataset 
+          so returning original study 
+error rate not specified to be calculated or 
+      there are no missing genes in study  study  so imputation error rate not calculated. 
+getting the re-ordered and trimmed down class labels.finished imputing study  study 
+
+Starting with  11 patients. 
+
+found no multiple samples from the same patient(s) 
+
