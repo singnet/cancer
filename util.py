@@ -166,7 +166,7 @@ for i in range(16):
 
 
 
-def binary_genes(merged, by_median=True):
+def binary_genes(merged, genes_columns, by_median=True):
     n_patients, n_genes = merged[genes_columns].shape
     result = dict()
     for gene_col in range(len(genes_columns)):
@@ -196,13 +196,20 @@ def digitize_non_genes_data(col):
     digits = digits - digits.min()
     return digits
 
-def categorical_non_genes(merged, to_category=True):
+
+def categorical_non_genes(merged, genes_columns, feature_columns, to_letters=True, dtype=numpy.float16):
+    other_columns = [x for x in merged.columns[~merged.columns.isin(genes_columns)] if x in feature_columns]
     non_genes_data = dict()
     for oth in other_columns:
         dig = digitize_non_genes_data(merged[oth])
-        ar1 = numpy.zeros(len(merged[oth]), dtype=object)
+        if to_letters:
+            dtype=object
+        ar1 = numpy.zeros(len(merged[oth]), dtype=dtype)
         for i, d in enumerate(dig):
-            ar1[i] = string.ascii_letters[d]
+            if to_letters:
+                ar1[i] = string.ascii_letters[d]
+            else:
+                ar1[i] = dtype(d)
         non_genes_data[oth] = ar1
     return non_genes_data
 
@@ -226,17 +233,24 @@ def binary_non_genes(to_category=True):
             non_genes_data[col_name] = ar1[:, i]
     return non_genes_data
 
-def binarize_dataset(merged):
+def binarize_dataset(merged, genes_columns, feature_colum, to_letters):
+    """
+    merged: pandas.DataFrame
+    genes_columns: List[str]
+    feature_colum: List[str]
+    to_letters: bool
+        convert categorical variables to ascii letters
+        if false numpy.float16 is used
+    """
     patients_id = merged.patient_ID.to_list()
-    binary_genes_dict = binary_genes(merged)
-    binary_non_genes_dict = categorical_non_genes()
+    binary_genes_dict = binary_genes(merged, genes_columns)
+    binary_non_genes_dict = categorical_non_genes(merged, genes_columns, feature_colum, to_letters=to_letters)
     binary_non_genes_dict['patient_ID'] = patients_id
     binary_genes_dict['patient_ID'] = patients_id
     binary_non_genes_dict['posOutcome'] = merged.posOutcome.to_list()
     binary_genes_df = pandas.DataFrame(data=binary_genes_dict).sort_values(by='patient_ID') * 1
     binary_non_genes_df = pandas.DataFrame(data=binary_non_genes_dict).sort_values(by='patient_ID')
     result = pandas.merge(binary_genes_df, binary_non_genes_df, left_on='patient_ID', right_on='patient_ID').sort_values(by='patient_ID')
-    result.drop('patient_ID', axis=1, inplace=True)
     return result
 
 
@@ -250,3 +264,203 @@ def compute_metrics(result, y_true, y_pred, x_true, x_pred):
     confusion = result['confusion'][-1]
     accuracy = (confusion[0][0] + confusion[1][1]) / (sum(confusion[0]) + sum(confusion[1]))
     result['accuracy'].append(accuracy)
+
+
+# Convertors for mapping string data to numbers
+def convert_surgery(x, surgery_mapping=dict()):
+    if x not in surgery_mapping:
+        surgery_mapping[x] = len(surgery_mapping)# + 1
+    return surgery_mapping[x]
+
+
+def convert_node_status(x, mapping=dict()):
+    if x == 'NA' or x == 'NaN':
+        return numpy.nan
+    if not isinstance(x, str) and numpy.isnan(x):
+        return x
+    if x not in mapping:
+        mapping[x] = len(mapping) + 1
+    return mapping[x]
+
+
+def convert_race(x, mapping=dict()):
+    return convert_node_status(x, mapping)
+
+def convert_menapause(x, mapping=dict()):
+    return convert_node_status(x, mapping)
+
+converters=dict(preTrt_lymph_node_status=convert_node_status,
+               race=convert_race,
+               menopausal_status=convert_menapause,
+               surgery_type=convert_surgery,
+               surgery=convert_surgery)
+
+xgboost_top_100 = ['C9',
+ 'OR12D3',
+ 'TSPAN32',
+ 'SGK2',
+ 'preTrt_numPosLymphNodes',
+ 'DDN',
+ 'GABRQ',
+ 'GZMM',
+ 'COL11A1',
+ 'IGFBP4',
+ 'EIF1AY',
+ 'KCNH4',
+ 'F2R',
+ 'PSMD5',
+ 'PYCARD',
+ 'POU3F2',
+ 'taxaneGeneral',
+ 'DUOX2',
+ 'CLINT1',
+ 'SAG',
+ 'KIF17',
+ 'PPEF1',
+ 'ITPKC',
+ 'CCR4',
+ 'DTX2',
+ 'MAP1S',
+ 'C20orf43',
+ 'TDP1',
+ 'PLXNA1',
+ 'METAP2',
+ 'IQCG',
+ 'DLX6',
+ 'DAO',
+ 'CCNE2',
+ 'TNNI1',
+ 'PHF15',
+ 'RACGAP1',
+ 'MYBPC2',
+ 'RHOBTB1',
+ 'CES2',
+ 'CARD9',
+ 'TCFL5',
+ 'VPS8',
+ 'PPP1R12A',
+ 'NHLH2',
+ 'SERPINB2',
+ 'NAB1',
+ 'GPM6B',
+ 'PRPSAP2',
+ 'GPI',
+ 'CRMP1',
+ 'RPL36',
+ 'KLRF1',
+ 'ETV7',
+ 'ARHGAP15',
+ 'ICT1',
+ 'GP1BB',
+ 'KEL',
+ 'MGAT4A',
+ 'CREB3',
+ 'OSBP2',
+ 'IRS4',
+ 'TTC31',
+ 'ING2',
+ 'PEBP1',
+ 'MDM1',
+ 'CBX8',
+ 'ZNF14',
+ 'OTOR',
+ 'ST6GALNAC4',
+ 'ZNF613',
+ 'FBXO7',
+ 'CTNNA1',
+ 'KRT15',
+ 'ARID4B',
+ 'CBX4',
+ 'SLC6A8',
+ 'BTG1',
+ 'VPS39',
+ 'FOS',
+ 'MAP3K7',
+ 'GLI3',
+ 'RAD50',
+ 'RBM23',
+ 'C7orf10',
+ 'C16orf58',
+ 'GALNT8',
+ 'POLR2C',
+ 'NRGN',
+ 'SLCO4A1',
+ 'NME3',
+ 'F2RL3',
+ 'LY6H',
+ 'IFIT1',
+ 'MYO1A',
+ 'AZIN1',
+ 'PFN2',
+ 'CWF19L1',
+ 'PTGES',
+ 'C9orf38']
+
+
+pam50 = [x.strip() for x in """ACTR3B
+ANLN
+BAG1
+BCL2
+BIRC5
+BLVRA
+CCNB1
+CCNE1
+CDC20
+CDC6
+NUF2
+CDH3
+CENPF
+CEP55
+CXXC5
+EGFR
+ERBB2
+ESR1
+EXO1
+FGFR4
+FOXA1
+FOXC1
+GPR160
+GRB7
+KIF2C
+NDC80
+KRT14
+KRT17
+KRT5
+MAPT
+MDM2
+MELK
+MIA
+MKI67
+MLPH
+MMP11
+MYBL2
+MYC
+NAT1
+ORC6
+PGR
+PHGDH
+PTTG1
+RRM2
+SFRP1
+SLC39A6
+TMEM45B
+TYMS
+UBE2C
+UBE2T""".split()]
+
+treatment_columns = ['tumor_size_cm_preTrt_preSurgery',
+                     'preTrt_lymph_node_status',
+                     'preTrt_totalLymphNodes',
+                     'preTrt_numPosLymphNodes',
+                     'hist_grade',
+                     'nuclear_grade_preTrt',
+                     'age', 'race', 'menopausal_status', 'surgery_type', 'intarvenous', 'intramuscular', 'oral',
+                     'radiotherapyClass', 'chemotherapyClass', 'hormone_therapyClass', 'postmenopausal_only',
+                     'anthracycline', 'taxane', 'anti_estrogen', 'aromatase_inhibitor',
+                     'estrogen_receptor_blocker', 'estrogen_receptor_blocker_and_stops_production', 'anti_HER2',
+                     'tamoxifen', 'doxorubicin',
+                     'epirubicin', 'docetaxel', 'capecitabine', 'fluorouracil',
+                     'paclitaxel', 'cyclophosphamide', 'anastrozole',
+                     'trastuzumab', 'letrozole', 'chemotherapy',
+                     'no_treatment', 'methotrexate', 'other', 'taxaneGeneral']
+
