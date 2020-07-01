@@ -1,4 +1,6 @@
 from mnist import Net
+import matplotlib.pyplot as plt
+import matplotlib
 import numpy
 import torch
 from torchvision import datasets, transforms
@@ -17,7 +19,7 @@ def main():
                        transforms.ToTensor(),
                    ])),
     batch_size=test_batch_size, shuffle=True, **kwargs)
-    PATH = 'mnist_cnn100.pt'
+    PATH = 'mnist_cnn100.pt.bak'
     model.load_state_dict(torch.load(PATH, map_location=device))
     model = model.eval().to(device)
     with torch.no_grad():
@@ -25,9 +27,20 @@ def main():
            data, target = data.to(device), target.to(device)
            shape = data.shape
            x = data.reshape(shape[0], numpy.prod(shape[1:]))
-           output = model(x).reshape(shape)
+           output = model(x)['output'].reshape(shape)
            cv2.imshow('source', data[3][0].cpu().numpy())
            cv2.imshow('target', output[3][0].cpu().numpy())
+           output1 = model.decode(torch.normal(
+               torch.zeros((100, 2)), torch.ones((100, 2))).to(data)).reshape((100, 28, 28))
+           fig, axes = plt.subplots(10, 10)
+           plt.figure(1)
+           for i in range(100):
+               img = output1[i].cpu().numpy()
+               k = i // 10
+               j = i % 10
+               axes[k, j].imshow((img * 255).astype(numpy.int32), cmap='gray', vmin=0, vmax=255)
+           plt.subplots_adjust(wspace=0, hspace=0)
+           plt.show()
            q = cv2.waitKey()
            if q == 113: # q
                return
