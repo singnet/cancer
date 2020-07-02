@@ -1,0 +1,1620 @@
+==> pCR
+split  0
+full_xgboost  :  0.7753  0.9886  0.05769  0.5504
+full_logi     :  0.7753  0.9886  0.05769  0.5504
+
+split  1
+full_xgboost  :  0.7797  0.9829  0.09615  0.5704
+full_logi     :  0.7797  0.9829  0.09615  0.5704
+
+split  2
+full_xgboost  :  0.7885  0.9714  0.1731  0.5557
+full_logi     :  0.7885  0.9714  0.1731  0.5557
+
+split  3
+full_xgboost  :  0.7885  0.9771  0.1538  0.591
+full_logi     :  0.7885  0.9771  0.1538  0.591
+
+split  4
+full_xgboost  :  0.8142  0.9885  0.2308  0.6461
+full_logi     :  0.8142  0.9885  0.2308  0.6461
+
+split  5
+full_xgboost  :  0.7974  0.9829  0.1731  0.604
+full_logi     :  0.7974  0.9829  0.1731  0.604
+
+split  6
+full_xgboost  :  0.7753  0.9829  0.07692  0.544
+full_logi     :  0.7753  0.9829  0.07692  0.544
+
+split  7
+full_xgboost  :  0.8018  0.9829  0.1923  0.6162
+full_logi     :  0.8018  0.9829  0.1923  0.6162
+
+split  8
+full_xgboost  :  0.7797  0.9714  0.1346  0.5519
+full_logi     :  0.7797  0.9714  0.1346  0.5519
+
+split  9
+full_xgboost  :  0.792  0.9885  0.1346  0.5967
+full_logi     :  0.792  0.9885  0.1346  0.5967
+
+split  10
+full_xgboost  :  0.7753  0.9771  0.09615  0.5681
+full_logi     :  0.7753  0.9771  0.09615  0.5681
+
+split  11
+full_xgboost  :  0.7841  0.9771  0.1346  0.5717
+full_logi     :  0.7841  0.9771  0.1346  0.5717
+
+split  12
+full_xgboost  :  0.7753  0.9771  0.09615  0.5357
+full_logi     :  0.7753  0.9771  0.09615  0.5357
+
+split  13
+full_xgboost  :  0.8018  0.9886  0.1731  0.6118
+full_logi     :  0.8018  0.9886  0.1731  0.6118
+
+split  14
+full_xgboost  :  0.8097  0.9885  0.2115  0.6272
+full_logi     :  0.8097  0.9885  0.2115  0.6272
+
+split  15
+full_xgboost  :  0.7841  0.9771  0.1346  0.5648
+full_logi     :  0.7841  0.9771  0.1346  0.5648
+
+split  16
+full_xgboost  :  0.7885  0.9771  0.1538  0.6143
+full_logi     :  0.7885  0.9771  0.1538  0.6143
+
+split  17
+full_xgboost  :  0.8018  0.9943  0.1538  0.5954
+full_logi     :  0.8018  0.9943  0.1538  0.5954
+
+split  18
+full_xgboost  :  0.7885  0.9829  0.1346  0.5986
+full_logi     :  0.7885  0.9829  0.1346  0.5986
+
+split  19
+full_xgboost  :  0.7832  0.977  0.1346  0.5403
+full_logi     :  0.7832  0.977  0.1346  0.5403
+
+split  20
+full_xgboost  :  0.7797  0.9771  0.1154  0.5755
+full_logi     :  0.7797  0.9771  0.1154  0.5755
+
+split  21
+full_xgboost  :  0.8018  0.9886  0.1731  0.5786
+full_logi     :  0.8018  0.9886  0.1731  0.5786
+
+split  22
+full_xgboost  :  0.7974  0.9886  0.1538  0.597
+full_logi     :  0.7974  0.9886  0.1538  0.597
+
+split  23
+full_xgboost  :  0.7841  0.9829  0.1154  0.5793
+full_logi     :  0.7841  0.9829  0.1154  0.5793
+
+split  24
+full_xgboost  :  0.7832  0.9713  0.1538  0.5833
+full_logi     :  0.7832  0.9713  0.1538  0.5833
+
+split  25
+full_xgboost  :  0.815  0.9886  0.2308  0.6257
+full_logi     :  0.815  0.9886  0.2308  0.6257
+
+split  26
+full_xgboost  :  0.7709  0.9771  0.07692  0.5823
+full_logi     :  0.7709  0.9771  0.07692  0.5823
+
+split  27
+full_xgboost  :  0.7797  0.9829  0.09615  0.5352
+full_logi     :  0.7797  0.9829  0.09615  0.5352
+
+split  28
+full_xgboost  :  0.793  0.9886  0.1346  0.5682
+full_logi     :  0.793  0.9886  0.1346  0.5682
+
+split  29
+full_xgboost  :  0.7876  0.9713  0.1731  0.6024
+full_logi     :  0.7876  0.9713  0.1731  0.6024
+
+split  30
+full_xgboost  :  0.7841  0.9657  0.1731  0.5854
+full_logi     :  0.7841  0.9657  0.1731  0.5854
+
+split  31
+full_xgboost  :  0.8062  0.9886  0.1923  0.6619
+full_logi     :  0.8062  0.9886  0.1923  0.6619
+
+split  32
+full_xgboost  :  0.7797  0.9943  0.05769  0.5331
+full_logi     :  0.7797  0.9943  0.05769  0.5331
+
+split  33
+full_xgboost  :  0.7841  0.9829  0.1154  0.5497
+full_logi     :  0.7841  0.9829  0.1154  0.5497
+
+split  34
+full_xgboost  :  0.792  0.977  0.1731  0.582
+full_logi     :  0.792  0.977  0.1731  0.582
+
+split  35
+full_xgboost  :  0.8062  1  0.1538  0.572
+full_logi     :  0.8062  1  0.1538  0.572
+
+split  36
+full_xgboost  :  0.7753  0.9714  0.1154  0.5436
+full_logi     :  0.7753  0.9714  0.1154  0.5436
+
+split  37
+full_xgboost  :  0.7841  0.9886  0.09615  0.5839
+full_logi     :  0.7841  0.9886  0.09615  0.5839
+
+split  38
+full_xgboost  :  0.7797  0.9771  0.1154  0.5831
+full_logi     :  0.7797  0.9771  0.1154  0.5831
+
+split  39
+full_xgboost  :  0.8009  0.9713  0.2308  0.6295
+full_logi     :  0.8009  0.9713  0.2308  0.6295
+
+split  40
+full_xgboost  :  0.8062  0.9943  0.1731  0.6077
+full_logi     :  0.8062  0.9943  0.1731  0.6077
+
+split  41
+full_xgboost  :  0.7797  0.9829  0.09615  0.5644
+full_logi     :  0.7797  0.9829  0.09615  0.5644
+
+split  42
+full_xgboost  :  0.7753  0.9714  0.1154  0.5469
+full_logi     :  0.7753  0.9714  0.1154  0.5469
+
+split  43
+full_xgboost  :  0.8018  0.9886  0.1731  0.5833
+full_logi     :  0.8018  0.9886  0.1731  0.5833
+
+split  44
+full_xgboost  :  0.7832  0.9713  0.1538  0.6109
+full_logi     :  0.7832  0.9713  0.1538  0.6109
+
+split  45
+full_xgboost  :  0.7621  0.9714  0.05769  0.5065
+full_logi     :  0.7621  0.9714  0.05769  0.5065
+
+split  46
+full_xgboost  :  0.8018  0.9943  0.1538  0.5882
+full_logi     :  0.8018  0.9943  0.1538  0.5882
+
+split  47
+full_xgboost  :  0.8062  0.9829  0.2115  0.6291
+full_logi     :  0.8062  0.9829  0.2115  0.6291
+
+split  48
+full_xgboost  :  0.7797  0.9771  0.1154  0.5918
+full_logi     :  0.7797  0.9771  0.1154  0.5918
+
+split  49
+full_xgboost  :  0.7965  0.9828  0.1731  0.5991
+full_logi     :  0.7965  0.9828  0.1731  0.5991
+
+split  50
+full_xgboost  :  0.7885  0.9829  0.1346  0.5772
+full_logi     :  0.7885  0.9829  0.1346  0.5772
+
+split  51
+full_xgboost  :  0.8062  1  0.1538  0.5937
+full_logi     :  0.8062  1  0.1538  0.5937
+
+split  52
+full_xgboost  :  0.7753  0.96  0.1538  0.5745
+full_logi     :  0.7753  0.96  0.1538  0.5745
+
+split  53
+full_xgboost  :  0.7753  0.9771  0.09615  0.5519
+full_logi     :  0.7753  0.9771  0.09615  0.5519
+
+split  54
+full_xgboost  :  0.8009  0.9885  0.1731  0.6164
+full_logi     :  0.8009  0.9885  0.1731  0.6164
+
+split  55
+full_xgboost  :  0.7841  0.9714  0.1538  0.5737
+full_logi     :  0.7841  0.9714  0.1538  0.5737
+
+split  56
+full_xgboost  :  0.7665  0.9657  0.09615  0.5299
+full_logi     :  0.7665  0.9657  0.09615  0.5299
+
+split  57
+full_xgboost  :  0.815  0.9943  0.2115  0.6018
+full_logi     :  0.815  0.9943  0.2115  0.6018
+
+split  58
+full_xgboost  :  0.7974  0.9829  0.1731  0.6016
+full_logi     :  0.7974  0.9829  0.1731  0.6016
+
+split  59
+full_xgboost  :  0.7832  0.9943  0.07692  0.6084
+full_logi     :  0.7832  0.9943  0.07692  0.6084
+
+split  60
+full_xgboost  :  0.7709  0.9657  0.1154  0.5532
+full_logi     :  0.7709  0.9657  0.1154  0.5532
+
+split  61
+full_xgboost  :  0.7974  0.9943  0.1346  0.5953
+full_logi     :  0.7974  0.9943  0.1346  0.5953
+
+split  62
+full_xgboost  :  0.7885  0.9886  0.1154  0.5869
+full_logi     :  0.7885  0.9886  0.1154  0.5869
+
+split  63
+full_xgboost  :  0.7885  0.9771  0.1538  0.6049
+full_logi     :  0.7885  0.9771  0.1538  0.6049
+
+split  64
+full_xgboost  :  0.8009  0.9828  0.1923  0.5738
+full_logi     :  0.8009  0.9828  0.1923  0.5738
+
+split  65
+full_xgboost  :  0.8018  1  0.1346  0.5788
+full_logi     :  0.8018  1  0.1346  0.5788
+
+split  66
+full_xgboost  :  0.7841  0.9829  0.1154  0.5503
+full_logi     :  0.7841  0.9829  0.1154  0.5503
+
+split  67
+full_xgboost  :  0.8018  0.9771  0.2115  0.6582
+full_logi     :  0.8018  0.9771  0.2115  0.6582
+
+split  68
+full_xgboost  :  0.793  0.9657  0.2115  0.6077
+full_logi     :  0.793  0.9657  0.2115  0.6077
+
+split  69
+full_xgboost  :  0.7655  0.9828  0.03846  0.5185
+full_logi     :  0.7655  0.9828  0.03846  0.5185
+
+split  70
+full_xgboost  :  0.7841  0.9771  0.1346  0.5579
+full_logi     :  0.7841  0.9771  0.1346  0.5579
+
+split  71
+full_xgboost  :  0.7841  0.9829  0.1154  0.5667
+full_logi     :  0.7841  0.9829  0.1154  0.5667
+
+split  72
+full_xgboost  :  0.7841  0.9829  0.1154  0.6096
+full_logi     :  0.7841  0.9829  0.1154  0.6096
+
+split  73
+full_xgboost  :  0.793  0.9886  0.1346  0.5658
+full_logi     :  0.793  0.9886  0.1346  0.5658
+
+split  74
+full_xgboost  :  0.8009  0.977  0.2115  0.6137
+full_logi     :  0.8009  0.977  0.2115  0.6137
+
+split  75
+full_xgboost  :  0.793  0.9886  0.1346  0.5918
+full_logi     :  0.793  0.9886  0.1346  0.5918
+
+split  76
+full_xgboost  :  0.7841  0.9657  0.1731  0.5738
+full_logi     :  0.7841  0.9657  0.1731  0.5738
+
+split  77
+full_xgboost  :  0.7753  0.9771  0.09615  0.5562
+full_logi     :  0.7753  0.9771  0.09615  0.5562
+
+split  78
+full_xgboost  :  0.8106  0.9886  0.2115  0.6436
+full_logi     :  0.8106  0.9886  0.2115  0.6436
+
+split  79
+full_xgboost  :  0.7832  0.9885  0.09615  0.5484
+full_logi     :  0.7832  0.9885  0.09615  0.5484
+
+split  80
+full_xgboost  :  0.8106  0.9943  0.1923  0.6081
+full_logi     :  0.8106  0.9943  0.1923  0.6081
+
+split  81
+full_xgboost  :  0.7709  0.96  0.1346  0.5669
+full_logi     :  0.7709  0.96  0.1346  0.5669
+
+split  82
+full_xgboost  :  0.8062  0.9886  0.1923  0.6313
+full_logi     :  0.8062  0.9886  0.1923  0.6313
+
+split  83
+full_xgboost  :  0.7797  0.9771  0.1154  0.5524
+full_logi     :  0.7797  0.9771  0.1154  0.5524
+
+split  84
+full_xgboost  :  0.7788  0.9885  0.07692  0.5548
+full_logi     :  0.7788  0.9885  0.07692  0.5548
+
+split  85
+full_xgboost  :  0.7753  0.9771  0.09615  0.5493
+full_logi     :  0.7753  0.9771  0.09615  0.5493
+
+split  86
+full_xgboost  :  0.7885  0.9771  0.1538  0.6004
+full_logi     :  0.7885  0.9771  0.1538  0.6004
+
+split  87
+full_xgboost  :  0.7841  0.9829  0.1154  0.5736
+full_logi     :  0.7841  0.9829  0.1154  0.5736
+
+split  88
+full_xgboost  :  0.7974  0.9886  0.1538  0.5804
+full_logi     :  0.7974  0.9886  0.1538  0.5804
+
+split  89
+full_xgboost  :  0.8009  0.9828  0.1923  0.6089
+full_logi     :  0.8009  0.9828  0.1923  0.6089
+
+split  90
+full_xgboost  :  0.7841  0.9886  0.09615  0.5571
+full_logi     :  0.7841  0.9886  0.09615  0.5571
+
+split  91
+full_xgboost  :  0.7841  0.9771  0.1346  0.5623
+full_logi     :  0.7841  0.9771  0.1346  0.5623
+
+split  92
+full_xgboost  :  0.7841  0.9714  0.1538  0.5855
+full_logi     :  0.7841  0.9714  0.1538  0.5855
+
+split  93
+full_xgboost  :  0.793  0.9714  0.1923  0.6358
+full_logi     :  0.793  0.9714  0.1923  0.6358
+
+split  94
+full_xgboost  :  0.8009  1  0.1346  0.5719
+full_logi     :  0.8009  1  0.1346  0.5719
+
+split  95
+full_xgboost  :  0.815  0.9943  0.2115  0.6158
+full_logi     :  0.815  0.9943  0.2115  0.6158
+
+split  96
+full_xgboost  :  0.7621  0.96  0.09615  0.5547
+full_logi     :  0.7621  0.96  0.09615  0.5547
+
+split  97
+full_xgboost  :  0.8062  0.9886  0.1923  0.631
+full_logi     :  0.8062  0.9886  0.1923  0.631
+
+split  98
+full_xgboost  :  0.7709  0.9829  0.05769  0.5365
+full_logi     :  0.7709  0.9829  0.05769  0.5365
+
+split  99
+full_xgboost  :  0.792  0.9828  0.1538  0.5748
+full_logi     :  0.792  0.9828  0.1538  0.5748
+
+==>  full_xgboost  :  0.7892  0.9817  0.1423  0.5827
+==>  full_logi     :  0.7892  0.9817  0.1423  0.5827
+
+
+==> RFS
+split  0
+full_xgboost  :  0.7108  0  1  0.5253
+full_logi     :  0.7108  0  1  0.5255
+
+split  1
+full_xgboost  :  0.7108  0  1  0.6299
+full_logi     :  0.7108  0  1  0.635
+
+split  2
+full_xgboost  :  0.7108  0  1  0.607
+full_logi     :  0.7108  0  1  0.6137
+
+split  3
+full_xgboost  :  0.7143  0  1  0.6206
+full_logi     :  0.7143  0  1  0.6398
+
+split  4
+full_xgboost  :  0.7094  0  1  0.5175
+full_logi     :  0.7094  0  1  0.5307
+
+split  5
+full_xgboost  :  0.7108  0  1  0.5833
+full_logi     :  0.7108  0  1  0.5892
+
+split  6
+full_xgboost  :  0.7108  0  1  0.5636
+full_logi     :  0.7108  0  1  0.5634
+
+split  7
+full_xgboost  :  0.7108  0  1  0.5703
+full_logi     :  0.7108  0  1  0.5727
+
+split  8
+full_xgboost  :  0.7143  0  1  0.551
+full_logi     :  0.7143  0  1  0.5621
+
+split  9
+full_xgboost  :  0.7094  0  1  0.6242
+full_logi     :  0.7094  0  1  0.6472
+
+split  10
+full_xgboost  :  0.701  0  0.9862  0.5744
+full_logi     :  0.7108  0  1  0.6186
+
+split  11
+full_xgboost  :  0.7108  0  1  0.589
+full_logi     :  0.7108  0  1  0.6047
+
+split  12
+full_xgboost  :  0.7108  0  1  0.5248
+full_logi     :  0.7108  0  1  0.5631
+
+split  13
+full_xgboost  :  0.7143  0  1  0.5339
+full_logi     :  0.7143  0  1  0.5496
+
+split  14
+full_xgboost  :  0.7094  0  1  0.539
+full_logi     :  0.7094  0  1  0.531
+
+split  15
+full_xgboost  :  0.7108  0  1  0.5379
+full_logi     :  0.7108  0  1  0.5477
+
+split  16
+full_xgboost  :  0.7108  0  1  0.5483
+full_logi     :  0.7108  0  1  0.5582
+
+split  17
+full_xgboost  :  0.6961  0  0.9793  0.5818
+full_logi     :  0.7108  0  1  0.6106
+
+split  18
+full_xgboost  :  0.7143  0  1  0.5857
+full_logi     :  0.7143  0  1  0.6148
+
+split  19
+full_xgboost  :  0.7094  0  1  0.5693
+full_logi     :  0.7094  0  1  0.5745
+
+split  20
+full_xgboost  :  0.7108  0  1  0.6295
+full_logi     :  0.7108  0  1  0.6318
+
+split  21
+full_xgboost  :  0.7108  0  1  0.5887
+full_logi     :  0.7108  0  1  0.6099
+
+split  22
+full_xgboost  :  0.7108  0  1  0.5338
+full_logi     :  0.7108  0  1  0.5557
+
+split  23
+full_xgboost  :  0.7143  0  1  0.5454
+full_logi     :  0.7143  0  1  0.568
+
+split  24
+full_xgboost  :  0.7094  0  1  0.5451
+full_logi     :  0.7094  0  1  0.551
+
+split  25
+full_xgboost  :  0.7108  0  1  0.5274
+full_logi     :  0.7108  0  1  0.4929
+
+split  26
+full_xgboost  :  0.7108  0  1  0.6287
+full_logi     :  0.7108  0  1  0.6469
+
+split  27
+full_xgboost  :  0.7108  0  1  0.5708
+full_logi     :  0.7108  0  1  0.5741
+
+split  28
+full_xgboost  :  0.7143  0  1  0.6542
+full_logi     :  0.7143  0  1  0.6536
+
+split  29
+full_xgboost  :  0.7094  0  1  0.5576
+full_logi     :  0.7094  0  1  0.5614
+
+split  30
+full_xgboost  :  0.7108  0  1  0.5507
+full_logi     :  0.7108  0  1  0.559
+
+split  31
+full_xgboost  :  0.701  0  0.9862  0.5985
+full_logi     :  0.7108  0  1  0.6124
+
+split  32
+full_xgboost  :  0.7108  0  1  0.6043
+full_logi     :  0.7108  0  1  0.6198
+
+split  33
+full_xgboost  :  0.7143  0  1  0.5976
+full_logi     :  0.7143  0  1  0.6142
+
+split  34
+full_xgboost  :  0.7094  0  1  0.5381
+full_logi     :  0.7094  0  1  0.5414
+
+split  35
+full_xgboost  :  0.7108  0  1  0.5632
+full_logi     :  0.7108  0  1  0.5868
+
+split  36
+full_xgboost  :  0.7108  0  1  0.6054
+full_logi     :  0.7108  0  1  0.6107
+
+split  37
+full_xgboost  :  0.7108  0  1  0.5854
+full_logi     :  0.7108  0  1  0.6007
+
+split  38
+full_xgboost  :  0.7143  0  1  0.6058
+full_logi     :  0.7143  0  1  0.576
+
+split  39
+full_xgboost  :  0.7094  0  1  0.5536
+full_logi     :  0.7094  0  1  0.557
+
+split  40
+full_xgboost  :  0.7108  0  1  0.6006
+full_logi     :  0.7108  0  1  0.6097
+
+split  41
+full_xgboost  :  0.7108  0  1  0.6183
+full_logi     :  0.7108  0  1  0.6206
+
+split  42
+full_xgboost  :  0.7108  0  1  0.5485
+full_logi     :  0.7108  0  1  0.5601
+
+split  43
+full_xgboost  :  0.7143  0  1  0.584
+full_logi     :  0.7143  0  1  0.5834
+
+split  44
+full_xgboost  :  0.7094  0  1  0.5703
+full_logi     :  0.7094  0  1  0.58
+
+split  45
+full_xgboost  :  0.7108  0  1  0.5427
+full_logi     :  0.7108  0  1  0.562
+
+split  46
+full_xgboost  :  0.7108  0  1  0.5802
+full_logi     :  0.7108  0  1  0.5892
+
+split  47
+full_xgboost  :  0.6961  0  0.9793  0.5418
+full_logi     :  0.7108  0  1  0.5693
+
+split  48
+full_xgboost  :  0.7143  0  1  0.5995
+full_logi     :  0.7143  0  1  0.6013
+
+split  49
+full_xgboost  :  0.7094  0  1  0.5527
+full_logi     :  0.7094  0  1  0.558
+
+split  50
+full_xgboost  :  0.7108  0  1  0.5954
+full_logi     :  0.7108  0  1  0.6199
+
+split  51
+full_xgboost  :  0.7108  0  1  0.6227
+full_logi     :  0.7108  0  1  0.6324
+
+split  52
+full_xgboost  :  0.7108  0  1  0.521
+full_logi     :  0.7108  0  1  0.5614
+
+split  53
+full_xgboost  :  0.7143  0  1  0.5422
+full_logi     :  0.7143  0  1  0.5092
+
+split  54
+full_xgboost  :  0.7094  0  1  0.5874
+full_logi     :  0.7094  0  1  0.5887
+
+split  55
+full_xgboost  :  0.7108  0  1  0.6086
+full_logi     :  0.7108  0  1  0.6054
+
+split  56
+full_xgboost  :  0.7108  0  1  0.5718
+full_logi     :  0.7108  0  1  0.5854
+
+split  57
+full_xgboost  :  0.7108  0  1  0.5532
+full_logi     :  0.7108  0  1  0.5712
+
+split  58
+full_xgboost  :  0.7143  0  1  0.613
+full_logi     :  0.7143  0  1  0.6177
+
+split  59
+full_xgboost  :  0.7094  0  1  0.556
+full_logi     :  0.7094  0  1  0.5321
+
+split  60
+full_xgboost  :  0.7108  0  1  0.5721
+full_logi     :  0.7108  0  1  0.5756
+
+split  61
+full_xgboost  :  0.7108  0  1  0.606
+full_logi     :  0.7108  0  1  0.5576
+
+split  62
+full_xgboost  :  0.7108  0  1  0.5822
+full_logi     :  0.7108  0  1  0.5917
+
+split  63
+full_xgboost  :  0.7143  0  1  0.5354
+full_logi     :  0.7143  0  1  0.5786
+
+split  64
+full_xgboost  :  0.7094  0  1  0.6043
+full_logi     :  0.7094  0  1  0.5523
+
+split  65
+full_xgboost  :  0.7108  0  1  0.6222
+full_logi     :  0.7108  0  1  0.6425
+
+split  66
+full_xgboost  :  0.7108  0  1  0.5455
+full_logi     :  0.7108  0  1  0.5522
+
+split  67
+full_xgboost  :  0.7108  0  1  0.576
+full_logi     :  0.7108  0  1  0.5777
+
+split  68
+full_xgboost  :  0.7143  0  1  0.5922
+full_logi     :  0.7143  0  1  0.5926
+
+split  69
+full_xgboost  :  0.7094  0  1  0.5631
+full_logi     :  0.7094  0  1  0.5768
+
+split  70
+full_xgboost  :  0.7108  0  1  0.5404
+full_logi     :  0.7108  0  1  0.5405
+
+split  71
+full_xgboost  :  0.6961  0  0.9793  0.6272
+full_logi     :  0.7108  0  1  0.6367
+
+split  72
+full_xgboost  :  0.7108  0  1  0.5572
+full_logi     :  0.7108  0  1  0.6213
+
+split  73
+full_xgboost  :  0.7143  0  1  0.5032
+full_logi     :  0.7143  0  1  0.5072
+
+split  74
+full_xgboost  :  0.7094  0  1  0.6349
+full_logi     :  0.7094  0  1  0.6559
+
+split  75
+full_xgboost  :  0.7108  0  1  0.6147
+full_logi     :  0.7108  0  1  0.6409
+
+split  76
+full_xgboost  :  0.7108  0  1  0.6387
+full_logi     :  0.7108  0  1  0.6085
+
+split  77
+full_xgboost  :  0.7108  0  1  0.5801
+full_logi     :  0.7108  0  1  0.5518
+
+split  78
+full_xgboost  :  0.7143  0  1  0.519
+full_logi     :  0.7143  0  1  0.5118
+
+split  79
+full_xgboost  :  0.7094  0  1  0.5566
+full_logi     :  0.7094  0  1  0.5635
+
+split  80
+full_xgboost  :  0.7108  0  1  0.5628
+full_logi     :  0.7108  0  1  0.577
+
+split  81
+full_xgboost  :  0.7108  0  1  0.5171
+full_logi     :  0.7108  0  1  0.5925
+
+split  82
+full_xgboost  :  0.7108  0  1  0.5918
+full_logi     :  0.7108  0  1  0.5946
+
+split  83
+full_xgboost  :  0.7143  0  1  0.5855
+full_logi     :  0.7143  0  1  0.576
+
+split  84
+full_xgboost  :  0.7094  0  1  0.588
+full_logi     :  0.7094  0  1  0.5986
+
+split  85
+full_xgboost  :  0.7108  0  1  0.5555
+full_logi     :  0.7108  0  1  0.558
+
+split  86
+full_xgboost  :  0.7108  0  1  0.5686
+full_logi     :  0.7108  0  1  0.5652
+
+split  87
+full_xgboost  :  0.7108  0  1  0.5221
+full_logi     :  0.7108  0  1  0.5496
+
+split  88
+full_xgboost  :  0.7143  0  1  0.6136
+full_logi     :  0.7143  0  1  0.6359
+
+split  89
+full_xgboost  :  0.7094  0  1  0.5769
+full_logi     :  0.7094  0  1  0.5926
+
+split  90
+full_xgboost  :  0.7108  0  1  0.5262
+full_logi     :  0.7108  0  1  0.5212
+
+split  91
+full_xgboost  :  0.7108  0  1  0.5708
+full_logi     :  0.7108  0  1  0.576
+
+split  92
+full_xgboost  :  0.7108  0  1  0.548
+full_logi     :  0.7108  0  1  0.5677
+
+split  93
+full_xgboost  :  0.7143  0  1  0.6315
+full_logi     :  0.7143  0  1  0.6453
+
+split  94
+full_xgboost  :  0.7094  0  1  0.5653
+full_logi     :  0.7094  0  1  0.5447
+
+split  95
+full_xgboost  :  0.7108  0  1  0.5074
+full_logi     :  0.7108  0  1  0.5238
+
+split  96
+full_xgboost  :  0.7108  0  1  0.597
+full_logi     :  0.7108  0  1  0.5983
+
+split  97
+full_xgboost  :  0.7108  0  1  0.5791
+full_logi     :  0.7108  0  1  0.6378
+
+split  98
+full_xgboost  :  0.6946  0  0.9724  0.5737
+full_logi     :  0.7143  0  1  0.631
+
+split  99
+full_xgboost  :  0.7094  0  1  0.5815
+full_logi     :  0.7094  0  1  0.5787
+
+==>  full_xgboost  :  0.7104  0  0.9988  0.574
+==>  full_logi     :  0.7112  0  1  0.5833
+
+
+==> DFS
+split  0
+full_xgboost  :  0.7803  0  1  0.4777
+full_logi     :  0.7803  0  1  0.4777
+
+split  1
+full_xgboost  :  0.7786  0  1  0.5326
+full_logi     :  0.7786  0  1  0.5326
+
+split  2
+full_xgboost  :  0.7786  0  1  0.5598
+full_logi     :  0.7786  0  1  0.5598
+
+split  3
+full_xgboost  :  0.7786  0  1  0.4491
+full_logi     :  0.7786  0  1  0.4491
+
+split  4
+full_xgboost  :  0.7863  0  1  0.5929
+full_logi     :  0.7863  0  1  0.5929
+
+split  5
+full_xgboost  :  0.7803  0  1  0.5166
+full_logi     :  0.7803  0  1  0.5166
+
+split  6
+full_xgboost  :  0.7786  0  1  0.513
+full_logi     :  0.7786  0  1  0.513
+
+split  7
+full_xgboost  :  0.7786  0  1  0.5375
+full_logi     :  0.7786  0  1  0.5375
+
+split  8
+full_xgboost  :  0.7786  0  1  0.5575
+full_logi     :  0.7786  0  1  0.5575
+
+split  9
+full_xgboost  :  0.7863  0  1  0.486
+full_logi     :  0.7863  0  1  0.486
+
+split  10
+full_xgboost  :  0.7803  0  1  0.4675
+full_logi     :  0.7803  0  1  0.4675
+
+split  11
+full_xgboost  :  0.7786  0  1  0.5279
+full_logi     :  0.7786  0  1  0.5279
+
+split  12
+full_xgboost  :  0.7786  0  1  0.5892
+full_logi     :  0.7786  0  1  0.5892
+
+split  13
+full_xgboost  :  0.7786  0  1  0.5794
+full_logi     :  0.7786  0  1  0.5794
+
+split  14
+full_xgboost  :  0.7863  0  1  0.4454
+full_logi     :  0.7863  0  1  0.4454
+
+split  15
+full_xgboost  :  0.7803  0  1  0.5171
+full_logi     :  0.7803  0  1  0.5171
+
+split  16
+full_xgboost  :  0.7786  0  1  0.5105
+full_logi     :  0.7786  0  1  0.5105
+
+split  17
+full_xgboost  :  0.7786  0  1  0.5032
+full_logi     :  0.7786  0  1  0.5032
+
+split  18
+full_xgboost  :  0.7786  0  1  0.5402
+full_logi     :  0.7786  0  1  0.5402
+
+split  19
+full_xgboost  :  0.7863  0  1  0.5394
+full_logi     :  0.7863  0  1  0.5394
+
+split  20
+full_xgboost  :  0.7803  0  1  0.4578
+full_logi     :  0.7803  0  1  0.4578
+
+split  21
+full_xgboost  :  0.7786  0  1  0.5328
+full_logi     :  0.7786  0  1  0.5328
+
+split  22
+full_xgboost  :  0.7786  0  1  0.4958
+full_logi     :  0.7786  0  1  0.4958
+
+split  23
+full_xgboost  :  0.7786  0  1  0.5696
+full_logi     :  0.7786  0  1  0.5696
+
+split  24
+full_xgboost  :  0.7863  0  1  0.5557
+full_logi     :  0.7863  0  1  0.5557
+
+split  25
+full_xgboost  :  0.7803  0  1  0.5418
+full_logi     :  0.7803  0  1  0.5418
+
+split  26
+full_xgboost  :  0.7786  0  1  0.5179
+full_logi     :  0.7786  0  1  0.5179
+
+split  27
+full_xgboost  :  0.7786  0  1  0.5105
+full_logi     :  0.7786  0  1  0.5105
+
+split  28
+full_xgboost  :  0.7786  0  1  0.5867
+full_logi     :  0.7786  0  1  0.5867
+
+split  29
+full_xgboost  :  0.7863  0  1  0.4535
+full_logi     :  0.7863  0  1  0.4535
+
+split  30
+full_xgboost  :  0.7803  0  1  0.5139
+full_logi     :  0.7803  0  1  0.5139
+
+split  31
+full_xgboost  :  0.7786  0  1  0.5869
+full_logi     :  0.7786  0  1  0.5869
+
+split  32
+full_xgboost  :  0.7786  0  1  0.5549
+full_logi     :  0.7786  0  1  0.5549
+
+split  33
+full_xgboost  :  0.7786  0  1  0.4664
+full_logi     :  0.7786  0  1  0.4664
+
+split  34
+full_xgboost  :  0.7863  0  1  0.4875
+full_logi     :  0.7863  0  1  0.4875
+
+split  35
+full_xgboost  :  0.7803  0  1  0.544
+full_logi     :  0.7803  0  1  0.544
+
+split  36
+full_xgboost  :  0.7786  0  1  0.5401
+full_logi     :  0.7786  0  1  0.5401
+
+split  37
+full_xgboost  :  0.7786  0  1  0.5426
+full_logi     :  0.7786  0  1  0.5426
+
+split  38
+full_xgboost  :  0.7786  0  1  0.5303
+full_logi     :  0.7786  0  1  0.5303
+
+split  39
+full_xgboost  :  0.7863  0  1  0.4518
+full_logi     :  0.7863  0  1  0.4518
+
+split  40
+full_xgboost  :  0.7803  0  1  0.4804
+full_logi     :  0.7803  0  1  0.4804
+
+split  41
+full_xgboost  :  0.7786  0  1  0.4909
+full_logi     :  0.7786  0  1  0.4909
+
+split  42
+full_xgboost  :  0.7786  0  1  0.5032
+full_logi     :  0.7786  0  1  0.5032
+
+split  43
+full_xgboost  :  0.7786  0  1  0.6065
+full_logi     :  0.7786  0  1  0.6065
+
+split  44
+full_xgboost  :  0.7863  0  1  0.5296
+full_logi     :  0.7863  0  1  0.5296
+
+split  45
+full_xgboost  :  0.7803  0  1  0.5246
+full_logi     :  0.7803  0  1  0.5246
+
+split  46
+full_xgboost  :  0.7786  0  1  0.5426
+full_logi     :  0.7786  0  1  0.5426
+
+split  47
+full_xgboost  :  0.7786  0  1  0.4515
+full_logi     :  0.7786  0  1  0.4515
+
+split  48
+full_xgboost  :  0.7786  0  1  0.5843
+full_logi     :  0.7786  0  1  0.5843
+
+split  49
+full_xgboost  :  0.7863  0  1  0.5069
+full_logi     :  0.7863  0  1  0.5069
+
+split  50
+full_xgboost  :  0.7803  0  1  0.4874
+full_logi     :  0.7803  0  1  0.4874
+
+split  51
+full_xgboost  :  0.7786  0  1  0.5106
+full_logi     :  0.7786  0  1  0.5106
+
+split  52
+full_xgboost  :  0.7786  0  1  0.582
+full_logi     :  0.7786  0  1  0.582
+
+split  53
+full_xgboost  :  0.7786  0  1  0.5056
+full_logi     :  0.7786  0  1  0.5056
+
+split  54
+full_xgboost  :  0.7863  0  1  0.5248
+full_logi     :  0.7863  0  1  0.5248
+
+split  55
+full_xgboost  :  0.7803  0  1  0.5445
+full_logi     :  0.7803  0  1  0.5445
+
+split  56
+full_xgboost  :  0.7786  0  1  0.4785
+full_logi     :  0.7786  0  1  0.4785
+
+split  57
+full_xgboost  :  0.7786  0  1  0.5671
+full_logi     :  0.7786  0  1  0.5671
+
+split  58
+full_xgboost  :  0.7786  0  1  0.4834
+full_logi     :  0.7786  0  1  0.4834
+
+split  59
+full_xgboost  :  0.7863  0  1  0.5378
+full_logi     :  0.7863  0  1  0.5378
+
+split  60
+full_xgboost  :  0.7803  0  1  0.6081
+full_logi     :  0.7803  0  1  0.6081
+
+split  61
+full_xgboost  :  0.7786  0  1  0.4566
+full_logi     :  0.7786  0  1  0.4566
+
+split  62
+full_xgboost  :  0.7786  0  1  0.5375
+full_logi     :  0.7786  0  1  0.5375
+
+split  63
+full_xgboost  :  0.7786  0  1  0.486
+full_logi     :  0.7786  0  1  0.486
+
+split  64
+full_xgboost  :  0.7863  0  1  0.5215
+full_logi     :  0.7863  0  1  0.5215
+
+split  65
+full_xgboost  :  0.7803  0  1  0.4724
+full_logi     :  0.7803  0  1  0.4724
+
+split  66
+full_xgboost  :  0.7786  0  1  0.5598
+full_logi     :  0.7786  0  1  0.5598
+
+split  67
+full_xgboost  :  0.7786  0  1  0.5473
+full_logi     :  0.7786  0  1  0.5473
+
+split  68
+full_xgboost  :  0.7786  0  1  0.523
+full_logi     :  0.7786  0  1  0.523
+
+split  69
+full_xgboost  :  0.7863  0  1  0.5087
+full_logi     :  0.7863  0  1  0.5087
+
+split  70
+full_xgboost  :  0.7803  0  1  0.537
+full_logi     :  0.7803  0  1  0.537
+
+split  71
+full_xgboost  :  0.7786  0  1  0.5745
+full_logi     :  0.7786  0  1  0.5745
+
+split  72
+full_xgboost  :  0.7786  0  1  0.4809
+full_logi     :  0.7786  0  1  0.4809
+
+split  73
+full_xgboost  :  0.7786  0  1  0.5156
+full_logi     :  0.7786  0  1  0.5156
+
+split  74
+full_xgboost  :  0.7863  0  1  0.5021
+full_logi     :  0.7863  0  1  0.5021
+
+split  75
+full_xgboost  :  0.7803  0  1  0.502
+full_logi     :  0.7803  0  1  0.502
+
+split  76
+full_xgboost  :  0.7786  0  1  0.5747
+full_logi     :  0.7786  0  1  0.5747
+
+split  77
+full_xgboost  :  0.7786  0  1  0.5056
+full_logi     :  0.7786  0  1  0.5056
+
+split  78
+full_xgboost  :  0.7786  0  1  0.486
+full_logi     :  0.7786  0  1  0.486
+
+split  79
+full_xgboost  :  0.7863  0  1  0.5426
+full_logi     :  0.7863  0  1  0.5426
+
+split  80
+full_xgboost  :  0.7803  0  1  0.4653
+full_logi     :  0.7803  0  1  0.4653
+
+split  81
+full_xgboost  :  0.7786  0  1  0.5573
+full_logi     :  0.7786  0  1  0.5573
+
+split  82
+full_xgboost  :  0.7786  0  1  0.5426
+full_logi     :  0.7786  0  1  0.5426
+
+split  83
+full_xgboost  :  0.7786  0  1  0.5426
+full_logi     :  0.7786  0  1  0.5426
+
+split  84
+full_xgboost  :  0.7863  0  1  0.5021
+full_logi     :  0.7863  0  1  0.5021
+
+split  85
+full_xgboost  :  0.7803  0  1  0.4777
+full_logi     :  0.7803  0  1  0.4777
+
+split  86
+full_xgboost  :  0.7786  0  1  0.5032
+full_logi     :  0.7786  0  1  0.5032
+
+split  87
+full_xgboost  :  0.7786  0  1  0.5524
+full_logi     :  0.7786  0  1  0.5524
+
+split  88
+full_xgboost  :  0.7786  0  1  0.5475
+full_logi     :  0.7786  0  1  0.5475
+
+split  89
+full_xgboost  :  0.7863  0  1  0.5296
+full_logi     :  0.7863  0  1  0.5296
+
+split  90
+full_xgboost  :  0.7803  0  1  0.4729
+full_logi     :  0.7803  0  1  0.4729
+
+split  91
+full_xgboost  :  0.7786  0  1  0.4588
+full_logi     :  0.7786  0  1  0.4588
+
+split  92
+full_xgboost  :  0.7786  0  1  0.545
+full_logi     :  0.7786  0  1  0.545
+
+split  93
+full_xgboost  :  0.7786  0  1  0.5377
+full_logi     :  0.7786  0  1  0.5377
+
+split  94
+full_xgboost  :  0.7863  0  1  0.5995
+full_logi     :  0.7863  0  1  0.5995
+
+split  95
+full_xgboost  :  0.7803  0  1  0.4481
+full_logi     :  0.7803  0  1  0.4481
+
+split  96
+full_xgboost  :  0.7786  0  1  0.55
+full_logi     :  0.7786  0  1  0.55
+
+split  97
+full_xgboost  :  0.7786  0  1  0.5475
+full_logi     :  0.7786  0  1  0.5475
+
+split  98
+full_xgboost  :  0.7786  0  1  0.4909
+full_logi     :  0.7786  0  1  0.4909
+
+split  99
+full_xgboost  :  0.7863  0  1  0.5751
+full_logi     :  0.7863  0  1  0.5751
+
+==>  full_xgboost  :  0.7805  0  1  0.5221
+==>  full_logi     :  0.7805  0  1  0.5221
+
+
+==> posOutcome
+split  0
+full_xgboost  :  0.618  0  0.9928  0.6175
+full_logi     :  0.6225  0  1  0.6265
+
+split  1
+full_xgboost  :  0.6225  0  1  0.5898
+full_logi     :  0.6225  0  1  0.5956
+
+split  2
+full_xgboost  :  0.6225  0  1  0.6131
+full_logi     :  0.6225  0  1  0.6138
+
+split  3
+full_xgboost  :  0.6225  0  1  0.6172
+full_logi     :  0.6225  0  1  0.6177
+
+split  4
+full_xgboost  :  0.6247  0  1  0.5807
+full_logi     :  0.6247  0  1  0.5889
+
+split  5
+full_xgboost  :  0.618  0  0.9928  0.6013
+full_logi     :  0.6225  0  1  0.6099
+
+split  6
+full_xgboost  :  0.6225  0  1  0.6059
+full_logi     :  0.6225  0  1  0.6117
+
+split  7
+full_xgboost  :  0.6225  0  1  0.5991
+full_logi     :  0.6225  0  1  0.6015
+
+split  8
+full_xgboost  :  0.618  0  0.9928  0.6112
+full_logi     :  0.6225  0  1  0.619
+
+split  9
+full_xgboost  :  0.6247  0  1  0.5984
+full_logi     :  0.6247  0  1  0.6047
+
+split  10
+full_xgboost  :  0.6225  0  1  0.5846
+full_logi     :  0.6225  0  1  0.5919
+
+split  11
+full_xgboost  :  0.6225  0  1  0.6301
+full_logi     :  0.6225  0  1  0.6317
+
+split  12
+full_xgboost  :  0.618  0  0.9928  0.6107
+full_logi     :  0.6225  0  1  0.6188
+
+split  13
+full_xgboost  :  0.6225  0  1  0.6052
+full_logi     :  0.6225  0  1  0.6097
+
+split  14
+full_xgboost  :  0.6247  0  1  0.5979
+full_logi     :  0.6247  0  1  0.571
+
+split  15
+full_xgboost  :  0.6225  0  1  0.6007
+full_logi     :  0.6225  0  1  0.6025
+
+split  16
+full_xgboost  :  0.6225  0  1  0.6231
+full_logi     :  0.6225  0  1  0.6234
+
+split  17
+full_xgboost  :  0.6225  0  1  0.5809
+full_logi     :  0.6225  0  1  0.5826
+
+split  18
+full_xgboost  :  0.6225  0  1  0.6024
+full_logi     :  0.6225  0  1  0.6106
+
+split  19
+full_xgboost  :  0.6247  0  1  0.6267
+full_logi     :  0.6247  0  1  0.6272
+
+split  20
+full_xgboost  :  0.6225  0  1  0.5959
+full_logi     :  0.6225  0  1  0.5959
+
+split  21
+full_xgboost  :  0.6225  0  1  0.5917
+full_logi     :  0.6225  0  1  0.5972
+
+split  22
+full_xgboost  :  0.6225  0  1  0.6428
+full_logi     :  0.6225  0  1  0.6461
+
+split  23
+full_xgboost  :  0.6225  0  1  0.6031
+full_logi     :  0.6225  0  1  0.6053
+
+split  24
+full_xgboost  :  0.618  0  0.9892  0.5877
+full_logi     :  0.6247  0  1  0.5995
+
+split  25
+full_xgboost  :  0.6225  0  1  0.6068
+full_logi     :  0.6225  0  1  0.6119
+
+split  26
+full_xgboost  :  0.6225  0  1  0.6115
+full_logi     :  0.6225  0  1  0.6125
+
+split  27
+full_xgboost  :  0.6225  0  1  0.6206
+full_logi     :  0.6225  0  1  0.6229
+
+split  28
+full_xgboost  :  0.6225  0  1  0.6171
+full_logi     :  0.6225  0  1  0.6231
+
+split  29
+full_xgboost  :  0.6247  0  1  0.5714
+full_logi     :  0.6247  0  1  0.5722
+
+split  30
+full_xgboost  :  0.6225  0  1  0.5636
+full_logi     :  0.6225  0  1  0.5651
+
+split  31
+full_xgboost  :  0.6225  0  1  0.6281
+full_logi     :  0.6225  0  1  0.6341
+
+split  32
+full_xgboost  :  0.6225  0  1  0.6131
+full_logi     :  0.6225  0  1  0.6114
+
+split  33
+full_xgboost  :  0.6225  0  1  0.6076
+full_logi     :  0.6225  0  1  0.6092
+
+split  34
+full_xgboost  :  0.6247  0  1  0.619
+full_logi     :  0.6247  0  1  0.6252
+
+split  35
+full_xgboost  :  0.6225  0  1  0.6343
+full_logi     :  0.6225  0  1  0.6342
+
+split  36
+full_xgboost  :  0.6225  0  1  0.6023
+full_logi     :  0.6225  0  1  0.607
+
+split  37
+full_xgboost  :  0.6225  0  1  0.5789
+full_logi     :  0.6225  0  1  0.5783
+
+split  38
+full_xgboost  :  0.6225  0  1  0.6182
+full_logi     :  0.6225  0  1  0.6254
+
+split  39
+full_xgboost  :  0.6247  0  1  0.6009
+full_logi     :  0.6247  0  1  0.601
+
+split  40
+full_xgboost  :  0.618  0  0.9928  0.6459
+full_logi     :  0.6225  0  1  0.6531
+
+split  41
+full_xgboost  :  0.6225  0  1  0.5874
+full_logi     :  0.6225  0  1  0.5913
+
+split  42
+full_xgboost  :  0.6225  0  1  0.636
+full_logi     :  0.6225  0  1  0.642
+
+split  43
+full_xgboost  :  0.6225  0  1  0.5545
+full_logi     :  0.6225  0  1  0.5555
+
+split  44
+full_xgboost  :  0.6247  0  1  0.6032
+full_logi     :  0.6247  0  1  0.6032
+
+split  45
+full_xgboost  :  0.6157  0  0.9892  0.5736
+full_logi     :  0.6225  0  1  0.5847
+
+split  46
+full_xgboost  :  0.6225  0  1  0.5986
+full_logi     :  0.6225  0  1  0.6047
+
+split  47
+full_xgboost  :  0.6225  0  1  0.5672
+full_logi     :  0.6225  0  1  0.5673
+
+split  48
+full_xgboost  :  0.6225  0  1  0.652
+full_logi     :  0.6225  0  1  0.6533
+
+split  49
+full_xgboost  :  0.6247  0  1  0.6307
+full_logi     :  0.6247  0  1  0.634
+
+split  50
+full_xgboost  :  0.6225  0  1  0.5758
+full_logi     :  0.6225  0  1  0.5771
+
+split  51
+full_xgboost  :  0.6157  0  0.9892  0.6001
+full_logi     :  0.6225  0  1  0.61
+
+split  52
+full_xgboost  :  0.6225  0  1  0.5994
+full_logi     :  0.6225  0  1  0.599
+
+split  53
+full_xgboost  :  0.6225  0  1  0.6057
+full_logi     :  0.6225  0  1  0.629
+
+split  54
+full_xgboost  :  0.6247  0  1  0.6263
+full_logi     :  0.6247  0  1  0.6308
+
+split  55
+full_xgboost  :  0.6225  0  1  0.574
+full_logi     :  0.6225  0  1  0.5766
+
+split  56
+full_xgboost  :  0.6225  0  1  0.5783
+full_logi     :  0.6225  0  1  0.5846
+
+split  57
+full_xgboost  :  0.6225  0  1  0.6237
+full_logi     :  0.6225  0  1  0.6232
+
+split  58
+full_xgboost  :  0.618  0  0.9928  0.624
+full_logi     :  0.6225  0  1  0.6358
+
+split  59
+full_xgboost  :  0.6247  0  1  0.6177
+full_logi     :  0.6247  0  1  0.624
+
+split  60
+full_xgboost  :  0.6225  0  1  0.5938
+full_logi     :  0.6225  0  1  0.5997
+
+split  61
+full_xgboost  :  0.6225  0  1  0.6392
+full_logi     :  0.6225  0  1  0.6413
+
+split  62
+full_xgboost  :  0.6225  0  1  0.5983
+full_logi     :  0.6225  0  1  0.6
+
+split  63
+full_xgboost  :  0.6225  0  1  0.6104
+full_logi     :  0.6225  0  1  0.6201
+
+split  64
+full_xgboost  :  0.6247  0  1  0.5831
+full_logi     :  0.6247  0  1  0.5849
+
+split  65
+full_xgboost  :  0.6225  0  1  0.6271
+full_logi     :  0.6225  0  1  0.6281
+
+split  66
+full_xgboost  :  0.6225  0  1  0.6033
+full_logi     :  0.6225  0  1  0.6035
+
+split  67
+full_xgboost  :  0.618  0  0.9928  0.5921
+full_logi     :  0.6225  0  1  0.6204
+
+split  68
+full_xgboost  :  0.6225  0  1  0.5942
+full_logi     :  0.6225  0  1  0.5994
+
+split  69
+full_xgboost  :  0.6247  0  1  0.5892
+full_logi     :  0.6247  0  1  0.5902
+
+split  70
+full_xgboost  :  0.6225  0  1  0.6075
+full_logi     :  0.6225  0  1  0.6095
+
+split  71
+full_xgboost  :  0.6225  0  1  0.6167
+full_logi     :  0.6225  0  1  0.62
+
+split  72
+full_xgboost  :  0.6225  0  1  0.603
+full_logi     :  0.6225  0  1  0.6094
+
+split  73
+full_xgboost  :  0.6225  0  1  0.6079
+full_logi     :  0.6225  0  1  0.6065
+
+split  74
+full_xgboost  :  0.6247  0  1  0.601
+full_logi     :  0.6247  0  1  0.6028
+
+split  75
+full_xgboost  :  0.6225  0  1  0.5623
+full_logi     :  0.6225  0  1  0.5645
+
+split  76
+full_xgboost  :  0.618  0  0.9928  0.6427
+full_logi     :  0.6225  0  1  0.6509
+
+split  77
+full_xgboost  :  0.6225  0  1  0.57
+full_logi     :  0.6225  0  1  0.5714
+
+split  78
+full_xgboost  :  0.6225  0  1  0.655
+full_logi     :  0.6225  0  1  0.6571
+
+split  79
+full_xgboost  :  0.6202  0  0.9928  0.5959
+full_logi     :  0.6247  0  1  0.6036
+
+split  80
+full_xgboost  :  0.6225  0  1  0.6075
+full_logi     :  0.6225  0  1  0.6077
+
+split  81
+full_xgboost  :  0.6225  0  1  0.6201
+full_logi     :  0.6225  0  1  0.6213
+
+split  82
+full_xgboost  :  0.6225  0  1  0.6059
+full_logi     :  0.6225  0  1  0.6072
+
+split  83
+full_xgboost  :  0.6225  0  1  0.5707
+full_logi     :  0.6225  0  1  0.5714
+
+split  84
+full_xgboost  :  0.6247  0  1  0.6271
+full_logi     :  0.6247  0  1  0.6354
+
+split  85
+full_xgboost  :  0.6225  0  1  0.6493
+full_logi     :  0.6225  0  1  0.6504
+
+split  86
+full_xgboost  :  0.6225  0  1  0.5906
+full_logi     :  0.6225  0  1  0.5939
+
+split  87
+full_xgboost  :  0.6225  0  1  0.5721
+full_logi     :  0.6225  0  1  0.5777
+
+split  88
+full_xgboost  :  0.6225  0  1  0.6045
+full_logi     :  0.6225  0  1  0.6079
+
+split  89
+full_xgboost  :  0.6247  0  1  0.6108
+full_logi     :  0.6247  0  1  0.6134
+
+split  90
+full_xgboost  :  0.6225  0  1  0.637
+full_logi     :  0.6225  0  1  0.6366
+
+split  91
+full_xgboost  :  0.6225  0  1  0.6102
+full_logi     :  0.6225  0  1  0.6131
+
+split  92
+full_xgboost  :  0.6225  0  1  0.5713
+full_logi     :  0.6225  0  1  0.5764
+
+split  93
+full_xgboost  :  0.6225  0  1  0.6074
+full_logi     :  0.6225  0  1  0.6188
+
+split  94
+full_xgboost  :  0.6247  0  1  0.5931
+full_logi     :  0.6247  0  1  0.596
+
+split  95
+full_xgboost  :  0.6225  0  1  0.6085
+full_logi     :  0.6225  0  1  0.6088
+
+split  96
+full_xgboost  :  0.6225  0  1  0.6338
+full_logi     :  0.6225  0  1  0.6256
+
+split  97
+full_xgboost  :  0.6225  0  1  0.5977
+full_logi     :  0.6225  0  1  0.5989
+
+split  98
+full_xgboost  :  0.6225  0  1  0.6158
+full_logi     :  0.6225  0  1  0.6164
+
+split  99
+full_xgboost  :  0.6247  0  1  0.5842
+full_logi     :  0.6247  0  1  0.5917
+
+==>  full_xgboost  :  0.6223  0  0.999  0.605
+==>  full_logi     :  0.6229  0  1  0.6087
+
+

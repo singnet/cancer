@@ -1,0 +1,47 @@
+pCR study_16446_GPL570_all-bmc15 0.5665 0.5739
+pCR study_20181_GPL96_all-bmc15 0.5241 0.6029
+pCR study_20194_GPL96_all-bmc15 0.8216 0.8115
+pCR study_22226_GPL1708_all-bmc15 0.5049 0.5588
+pCR study_22358_GPL5325_all-bmc15 0.6923 0.8559
+pCR study_25055_GPL96_MDACC_M-bmc15 0.6393 0.5991
+pCR study_25065_GPL96_MDACC-bmc15 0.7312 0.5574
+pCR study_25065_GPL96_USO-bmc15 0.4684 0.7683
+pCR study_32646_GPL570_all-bmc15 0.7468 0.578
+total = 9   fb_better =  4   mean_auc_fb=0.6328   mean_auc_s=0.6562
+
+RFS study_16391_GPL570_all-bmc15 0.544 0.6491
+RFS study_17705_GPL96_JBI_Tissue_BC_Tamoxifen-bmc15 0.7239 0.5405
+RFS study_17705_GPL96_MDACC_Tissue_BC_Tamoxifen-bmc15 0.6697 0.6239
+RFS study_19615_GPL570_all-bmc15 0.6149 0.5402
+RFS study_2034_GPL96_all-bmc15 0.6272 0.6461
+RFS study_22226_GPL1708_all-bmc15 0.6247 0.6093
+RFS study_9893_GPL5049_all-bmc15 0.8254 0.8472
+total = 7   fb_better =  4   mean_auc_fb=0.6614   mean_auc_s=0.6366
+
+DFS study_12093_GPL96_all-bmc15 0.6268 0.3879
+DFS study_1379_GPL1223_all-bmc15 0.6189 0.7138
+DFS study_16446_GPL570_all-bmc15 0.5806 0.5372
+DFS study_25055_GPL96_MDACC_M-bmc15 0.6003 0.6013
+DFS study_25065_GPL96_MDACC-bmc15 0.75 0.6472
+DFS study_25065_GPL96_USO-bmc15 0.6066 0.7014
+total = 6   fb_better =  3   mean_auc_fb=0.6305   mean_auc_s=0.5981
+
+posOutcome study_12093_GPL96_all-bmc15 0.666 0.5229
+posOutcome study_1379_GPL1223_all-bmc15 0.6772 0.7554
+posOutcome study_16391_GPL570_all-bmc15 0.7786 0.8285
+posOutcome study_16446_GPL570_all-bmc15 0.5803 0.5208
+posOutcome study_17705_GPL96_JBI_Tissue_BC_Tamoxifen-bmc15 0.7218 0.728
+posOutcome study_17705_GPL96_MDACC_Tissue_BC_Tamoxifen-bmc15 0.65 0.6028
+posOutcome study_19615_GPL570_all-bmc15 0.6226 0.4793
+posOutcome study_20181_GPL96_all-bmc15 0.4854 0.561
+posOutcome study_20194_GPL96_all-bmc15 0.8285 0.7937
+posOutcome study_2034_GPL96_all-bmc15 0.6898 0.6732
+posOutcome study_22226_GPL1708_all-bmc15 0.5584 0.4866
+posOutcome study_22358_GPL5325_all-bmc15 0.6498 0.7536
+posOutcome study_25055_GPL96_MDACC_M-bmc15 0.6737 0.5399
+posOutcome study_25065_GPL96_MDACC-bmc15 0.6484 0.5274
+posOutcome study_25065_GPL96_USO-bmc15 0.5306 0.613
+posOutcome study_32646_GPL570_all-bmc15 0.761 0.709
+posOutcome study_9893_GPL5049_all-bmc15 0.8222 0.8632
+total = 17   fb_better =  10   mean_auc_fb=0.6673   mean_auc_s=0.6446
+
