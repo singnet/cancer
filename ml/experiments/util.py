@@ -289,11 +289,15 @@ def convert_race(x, mapping=dict()):
 def convert_menapause(x, mapping=dict()):
     return convert_node_status(x, mapping)
 
+def convert_study_id(x, mapping=dict()):
+    return convert_surgery(x, mapping)
+
 converters=dict(preTrt_lymph_node_status=convert_node_status,
                race=convert_race,
                menopausal_status=convert_menapause,
                surgery_type=convert_surgery,
-               surgery=convert_surgery)
+               surgery=convert_surgery,
+               study=convert_study_id)
 
 xgboost_top_100 = ['C9',
  'OR12D3',
