@@ -5,7 +5,7 @@
 
 ## variables
 description table coming soon
-![sample variables](./metaGXavailablePheno.png)
+![sample variables](./metaGXavailablePhenoHeatMap.png)
 
 ## studies
 |study|batch|count|PMID|Dataset accession|Notes|
