@@ -42,5 +42,5 @@ For initial supervised ML pipeline experiments, a set of composite binary treatm
 
 One or more treatment variables and an outcome variable should be selected and combined with the individual or merged expression datasets using `patient_ID` as the key.
 
-![heatmap of treatment variables](../plots/bmc15txHeatmap3.png)  
+![heatmap of treatment variables](../../plots/bmc15txHeatmap3.png)  
 The heatmap of granular drug type variables shows hormone based treatment regimens clustering on the left and chemotherapy regimens on the right.  The color bar on the left shows which study the patient is from.
