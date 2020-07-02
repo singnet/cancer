@@ -1,0 +1,152 @@
+==> pCR
+(1134, 9) (1134, 5)
+split  0
+full_xgboost    :  0.7841  0.9771  0.1346  0.7113
+full_logi       :  0.7797  0.9714  0.1346  0.7012
+notrea_xgboost  :  0.7709  1  0  0.673
+notrea_logi     :  0.7709  1  0  0.673
+
+split  1
+full_xgboost    :  0.7841  0.9657  0.1731  0.7175
+full_logi       :  0.7841  0.9657  0.1731  0.7192
+notrea_xgboost  :  0.7709  1  0  0.6269
+notrea_logi     :  0.7709  1  0  0.6269
+
+split  2
+full_xgboost    :  0.815  0.9657  0.3077  0.7384
+full_logi       :  0.8062  0.9543  0.3077  0.7425
+notrea_xgboost  :  0.7709  1  0  0.5998
+notrea_logi     :  0.7709  1  0  0.5998
+
+split  3
+full_xgboost    :  0.793  0.9771  0.1731  0.7019
+full_logi       :  0.7885  0.9714  0.1731  0.6993
+notrea_xgboost  :  0.7709  1  0  0.5938
+notrea_logi     :  0.7709  1  0  0.5938
+
+split  4
+full_xgboost    :  0.7965  0.977  0.1923  0.7492
+full_logi       :  0.792  0.9713  0.1923  0.7423
+notrea_xgboost  :  0.7699  1  0  0.6704
+notrea_logi     :  0.7699  1  0  0.6704
+
+==>  full_xgboost    :  0.7945  0.9725  0.1962  0.7237
+==>  full_logi       :  0.7901  0.9668  0.1962  0.7209
+==>  notrea_xgboost  :  0.7707  1  0  0.6328
+==>  notrea_logi     :  0.7707  1  0  0.6328
+
+
+==> RFS
+(1018, 9) (1018, 5)
+split  0
+full_xgboost    :  0.7108  0.05085  0.9793  0.5736
+full_logi       :  0.7206  0.0339  1  0.547
+notrea_xgboost  :  0.7108  0  1  0.5039
+notrea_logi     :  0.7108  0  1  0.5039
+
+split  1
+full_xgboost    :  0.7108  0.0678  0.9724  0.6004
+full_logi       :  0.7157  0.05085  0.9862  0.6183
+notrea_xgboost  :  0.7108  0  1  0.5562
+notrea_logi     :  0.7108  0  1  0.5562
+
+split  2
+full_xgboost    :  0.7206  0.1525  0.9517  0.6102
+full_logi       :  0.7206  0.05085  0.9931  0.5906
+notrea_xgboost  :  0.7108  0  1  0.4793
+notrea_logi     :  0.7108  0  1  0.4793
+
+split  3
+full_xgboost    :  0.7094  0.1207  0.9448  0.5695
+full_logi       :  0.7094  0.01724  0.9862  0.5939
+notrea_xgboost  :  0.7143  0  1  0.5226
+notrea_logi     :  0.7143  0  1  0.5226
+
+split  4
+full_xgboost    :  0.6355  0.0678  0.8681  0.5288
+full_logi       :  0.6995  0.0339  0.9722  0.4949
+notrea_xgboost  :  0.7094  0  1  0.4142
+notrea_logi     :  0.7094  0  1  0.4142
+
+==>  full_xgboost    :  0.6974  0.09193  0.9433  0.5765
+==>  full_logi       :  0.7131  0.03735  0.9875  0.5689
+==>  notrea_xgboost  :  0.7112  0  1  0.4952
+==>  notrea_logi     :  0.7112  0  1  0.4952
+
+
+==> DFS
+(656, 9) (656, 5)
+split  0
+full_xgboost    :  0.7803  0  1  0.7082
+full_logi       :  0.7803  0  1  0.6366
+notrea_xgboost  :  0.7803  0  1  0.5855
+notrea_logi     :  0.7803  0  1  0.5855
+
+split  1
+full_xgboost    :  0.7786  0  1  0.5441
+full_logi       :  0.7786  0  1  0.5221
+notrea_xgboost  :  0.7786  0  1  0.486
+notrea_logi     :  0.7786  0  1  0.485
+
+split  2
+full_xgboost    :  0.7786  0  1  0.559
+full_logi       :  0.7786  0  1  0.539
+notrea_xgboost  :  0.7786  0  1  0.5177
+notrea_logi     :  0.7786  0  1  0.5177
+
+split  3
+full_xgboost    :  0.7786  0  1  0.6029
+full_logi       :  0.7786  0  1  0.5969
+notrea_xgboost  :  0.7786  0  1  0.5166
+notrea_logi     :  0.7786  0  1  0.5166
+
+split  4
+full_xgboost    :  0.7863  0  1  0.4684
+full_logi       :  0.7863  0  1  0.4421
+notrea_xgboost  :  0.7863  0  1  0.5742
+notrea_logi     :  0.7863  0  1  0.5742
+
+==>  full_xgboost    :  0.7805  0  1  0.5765
+==>  full_logi       :  0.7805  0  1  0.5473
+==>  notrea_xgboost  :  0.7805  0  1  0.536
+==>  notrea_logi     :  0.7805  0  1  0.5358
+
+
+==> posOutcome
+(2225, 9) (2225, 5)
+split  0
+full_xgboost    :  0.6022  0.4286  0.7076  0.5723
+full_logi       :  0.6427  0.1012  0.9711  0.6053
+notrea_xgboost  :  0.6225  0  1  0.5065
+notrea_logi     :  0.6225  0  1  0.5065
+
+split  1
+full_xgboost    :  0.6742  0.5238  0.7653  0.6635
+full_logi       :  0.6629  0.1726  0.9603  0.6641
+notrea_xgboost  :  0.6225  0  1  0.5836
+notrea_logi     :  0.6225  0  1  0.5836
+
+split  2
+full_xgboost    :  0.6337  0.1845  0.9061  0.6403
+full_logi       :  0.6292  0.119  0.9386  0.6295
+notrea_xgboost  :  0.6045  0.1548  0.8773  0.5096
+notrea_logi     :  0.6045  0.1548  0.8773  0.5096
+
+split  3
+full_xgboost    :  0.636  0.2083  0.8953  0.6516
+full_logi       :  0.6382  0.131  0.9458  0.6546
+notrea_xgboost  :  0.6225  0.1548  0.9061  0.5227
+notrea_logi     :  0.6225  0.1548  0.9061  0.5227
+
+split  4
+full_xgboost    :  0.6315  0.1856  0.8993  0.612
+full_logi       :  0.6247  0.08982  0.946  0.619
+notrea_xgboost  :  0.6135  0.1557  0.8885  0.5216
+notrea_logi     :  0.6135  0.1557  0.8885  0.5216
+
+==>  full_xgboost    :  0.6355  0.3062  0.8347  0.6279
+==>  full_logi       :  0.6396  0.1227  0.9524  0.6345
+==>  notrea_xgboost  :  0.6171  0.09304  0.9344  0.5288
+==>  notrea_logi     :  0.6171  0.09304  0.9344  0.5288
+
+

@@ -1,0 +1,60 @@
+==> original mike dataset:
+split  0
+notrea_xgboost  :  0.991
+notrea_svm      :  0.4337
+notrea_logi     :  0.002247
+
+split  1
+notrea_xgboost  :  0.991
+notrea_svm      :  0.4382
+notrea_logi     :  0.002247
+
+split  2
+notrea_xgboost  :  0.9933
+notrea_svm      :  0.3843
+notrea_logi     :  0
+
+split  3
+notrea_xgboost  :  0.991
+notrea_svm      :  0.427
+notrea_logi     :  0
+
+split  4
+notrea_xgboost  :  0.9955
+notrea_svm      :  0.4449
+notrea_logi     :  0.002247
+
+==>  notrea_xgboost  :  0.9924
+==>  notrea_svm      :  0.4256
+==>  notrea_logi     :  0.001348
+
+
+==> combat dataset:
+split  0
+notrea_xgboost  :  0.9528
+notrea_svm      :  0.164
+notrea_logi     :  0
+
+split  1
+notrea_xgboost  :  0.9551
+notrea_svm      :  0.1685
+notrea_logi     :  0
+
+split  2
+notrea_xgboost  :  0.9551
+notrea_svm      :  0.1663
+notrea_logi     :  0.002247
+
+split  3
+notrea_xgboost  :  0.9663
+notrea_svm      :  0.1685
+notrea_logi     :  0.002247
+
+split  4
+notrea_xgboost  :  0.9596
+notrea_svm      :  0.1528
+notrea_logi     :  0.002247
+
+==>  notrea_xgboost  :  0.9578
+==>  notrea_svm      :  0.164
+==>  notrea_logi     :  0.001348

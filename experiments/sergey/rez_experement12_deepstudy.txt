@@ -1,0 +1,1241 @@
+==> study_12093_GPL96_all-bmc15 count_01=20/116
+split:  0 train:  count_01=16/92   test: count_01=4/24
+mike_notrea_f       :  0.5  0  1
+mike_notrea_s       :  0.5  0  1
+mike_notrea_svm_f   :  0.625  0.375  0.875
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.5  0.8333  0.1667
+mike_notrea_logi_s  :  0.5  0  1
+mike_pam50_svm_f    :  0.5417  0.2083  0.875
+mike_pam50_svm_s    :  0.4583  0  0.9167
+mike_pam50_logi_f   :  0.5  0.375  0.625
+mike_pam50_logi_s   :  0.4167  0  0.8333
+
+split:  1 train:  count_01=16/93   test: count_01=4/23
+mike_notrea_f       :  0.5435  0.08696  1
+mike_notrea_s       :  0.4565  0  0.913
+mike_notrea_svm_f   :  0.7391  0.6087  0.8696
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.5652  1  0.1304
+mike_notrea_logi_s  :  0.6957  0.4348  0.9565
+mike_pam50_svm_f    :  0.6304  0.4348  0.8261
+mike_pam50_svm_s    :  0.4783  0  0.9565
+mike_pam50_logi_f   :  0.5435  0.5652  0.5217
+mike_pam50_logi_s   :  0.3913  0  0.7826
+
+split:  2 train:  count_01=16/93   test: count_01=4/23
+mike_notrea_f       :  0.5  0  1
+mike_notrea_s       :  0.5  0  1
+mike_notrea_svm_f   :  0.913  1  0.8261
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.5652  1  0.1304
+mike_notrea_logi_s  :  0.6739  0.4348  0.913
+mike_pam50_svm_f    :  0.6304  0.3913  0.8696
+mike_pam50_svm_s    :  0.8478  0.8261  0.8696
+mike_pam50_logi_f   :  0.6957  0.6087  0.7826
+mike_pam50_logi_s   :  0.6957  0.6087  0.7826
+
+split:  3 train:  count_01=16/93   test: count_01=4/23
+mike_notrea_f       :  0.6522  0.3043  1
+mike_notrea_s       :  0.6304  0.2609  1
+mike_notrea_svm_f   :  0.7174  0.5652  0.8696
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.6739  1  0.3478
+mike_notrea_logi_s  :  0.6087  0.2609  0.9565
+mike_pam50_svm_f    :  0.6087  0.2609  0.9565
+mike_pam50_svm_s    :  0.6522  0.3043  1
+mike_pam50_logi_f   :  0.6522  0.3478  0.9565
+mike_pam50_logi_s   :  0.7391  0.5652  0.913
+
+split:  4 train:  count_01=16/93   test: count_01=4/23
+mike_notrea_f       :  0.6087  0.2174  1
+mike_notrea_s       :  0.4565  0  0.913
+mike_notrea_svm_f   :  0.6304  0.4348  0.8261
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.5217  1  0.04348
+mike_notrea_logi_s  :  0.5652  0.2174  0.913
+mike_pam50_svm_f    :  0.587  0.4783  0.6957
+mike_pam50_svm_s    :  0.4783  0.2609  0.6957
+mike_pam50_logi_f   :  0.6304  0.8696  0.3913
+mike_pam50_logi_s   :  0.3261  0.1739  0.4783
+
+==>  mike_notrea_f       :  0.5609  0.1217  1
+==>  mike_notrea_s       :  0.5087  0.05217  0.9652
+==>  mike_notrea_svm_f   :  0.725  0.5967  0.8533
+==>  mike_notrea_svm_s   :  0.5  0  1
+==>  mike_notrea_logi_f  :  0.5652  0.9667  0.1638
+==>  mike_notrea_logi_s  :  0.6087  0.2696  0.9478
+==>  mike_pam50_svm_f    :  0.5996  0.3547  0.8446
+==>  mike_pam50_svm_s    :  0.583  0.2783  0.8877
+==>  mike_pam50_logi_f   :  0.6043  0.5533  0.6554
+==>  mike_pam50_logi_s   :  0.5138  0.2696  0.758
+
+
+==> study_1379_GPL1223_all-bmc15 count_01=28/32
+split:  0 train:  count_01=22/26   test: count_01=6/6
+mike_notrea_f       :  0.9167  0.8333  1
+mike_notrea_s       :  0.6667  0.5  0.8333
+mike_notrea_svm_f   :  0.6667  0.3333  1
+mike_notrea_svm_s   :  0.75  0.5  1
+mike_notrea_logi_f  :  0.5  0.1667  0.8333
+mike_notrea_logi_s  :  0.75  0.6667  0.8333
+mike_pam50_svm_f    :  0.6667  0.3333  1
+mike_pam50_svm_s    :  0.8333  0.6667  1
+mike_pam50_logi_f   :  0.5833  0.3333  0.8333
+mike_pam50_logi_s   :  0.6667  0.5  0.8333
+
+split:  1 train:  count_01=22/26   test: count_01=6/6
+mike_notrea_f       :  0.75  0.8333  0.6667
+mike_notrea_s       :  0.4167  0.3333  0.5
+mike_notrea_svm_f   :  0.75  0.5  1
+mike_notrea_svm_s   :  0.6667  0.6667  0.6667
+mike_notrea_logi_f  :  0.5833  0.3333  0.8333
+mike_notrea_logi_s  :  0.5833  0.6667  0.5
+mike_pam50_svm_f    :  0.1667  0.1667  0.1667
+mike_pam50_svm_s    :  0.4167  0.5  0.3333
+mike_pam50_logi_f   :  0.3333  0.3333  0.3333
+mike_pam50_logi_s   :  0.3333  0.3333  0.3333
+
+split:  2 train:  count_01=22/26   test: count_01=6/6
+mike_notrea_f       :  0.6667  0.6667  0.6667
+mike_notrea_s       :  0.75  0.6667  0.8333
+mike_notrea_svm_f   :  0.5833  0.3333  0.8333
+mike_notrea_svm_s   :  0.75  0.6667  0.8333
+mike_notrea_logi_f  :  0.5  0.1667  0.8333
+mike_notrea_logi_s  :  0.6667  0.6667  0.6667
+mike_pam50_svm_f    :  0.6667  0.6667  0.6667
+mike_pam50_svm_s    :  0.5833  0.6667  0.5
+mike_pam50_logi_f   :  0.5  0.5  0.5
+mike_pam50_logi_s   :  0.5  0.6667  0.3333
+
+split:  3 train:  count_01=23/25   test: count_01=5/7
+mike_notrea_f       :  0.7143  0.5714  0.8571
+mike_notrea_s       :  0.7143  0.5714  0.8571
+mike_notrea_svm_f   :  0.6429  0.2857  1
+mike_notrea_svm_s   :  0.5714  0.2857  0.8571
+mike_notrea_logi_f  :  0.5714  0.1429  1
+mike_notrea_logi_s  :  0.7143  0.4286  1
+mike_pam50_svm_f    :  0.2857  0.1429  0.4286
+mike_pam50_svm_s    :  0.5  0.2857  0.7143
+mike_pam50_logi_f   :  0.5  0.1429  0.8571
+mike_pam50_logi_s   :  0.4286  0.1429  0.7143
+
+split:  4 train:  count_01=23/25   test: count_01=5/7
+mike_notrea_f       :  0.4286  0.5714  0.2857
+mike_notrea_s       :  0.5714  0.7143  0.4286
+mike_notrea_svm_f   :  0.4286  0  0.8571
+mike_notrea_svm_s   :  0.4286  0.1429  0.7143
+mike_notrea_logi_f  :  0.5714  0.2857  0.8571
+mike_notrea_logi_s  :  0.7143  0.7143  0.7143
+mike_pam50_svm_f    :  0.5714  0.4286  0.7143
+mike_pam50_svm_s    :  0.5  0.4286  0.5714
+mike_pam50_logi_f   :  0.4286  0.4286  0.4286
+mike_pam50_logi_s   :  0.4286  0.2857  0.5714
+
+==>  mike_notrea_f       :  0.6952  0.6952  0.6952
+==>  mike_notrea_s       :  0.6238  0.5571  0.6905
+==>  mike_notrea_svm_f   :  0.6143  0.2905  0.9381
+==>  mike_notrea_svm_s   :  0.6333  0.4524  0.8143
+==>  mike_notrea_logi_f  :  0.5452  0.219  0.8714
+==>  mike_notrea_logi_s  :  0.6857  0.6286  0.7429
+==>  mike_pam50_svm_f    :  0.4714  0.3476  0.5952
+==>  mike_pam50_svm_s    :  0.5667  0.5095  0.6238
+==>  mike_pam50_logi_f   :  0.469  0.3476  0.5905
+==>  mike_pam50_logi_s   :  0.4714  0.3857  0.5571
+
+
+==> study_16391_GPL570_all-bmc15 count_01=10/38
+split:  0 train:  count_01=8/30   test: count_01=2/8
+mike_notrea_f       :  0.4375  0  0.875
+mike_notrea_s       :  0.3125  0  0.625
+mike_notrea_svm_f   :  0.3125  0  0.625
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.625  1  0.25
+mike_notrea_logi_s  :  0.375  0  0.75
+mike_pam50_svm_f    :  0.375  0.5  0.25
+mike_pam50_svm_s    :  0.625  0.375  0.875
+mike_pam50_logi_f   :  0.4375  0.5  0.375
+mike_pam50_logi_s   :  0.6875  0.625  0.75
+
+split:  1 train:  count_01=8/30   test: count_01=2/8
+mike_notrea_f       :  0.6875  0.375  1
+mike_notrea_s       :  0.625  0.5  0.75
+mike_notrea_svm_f   :  0.5  0.25  0.75
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.6875  1  0.375
+mike_notrea_logi_s  :  0.8125  0.75  0.875
+mike_pam50_svm_f    :  0.625  0.375  0.875
+mike_pam50_svm_s    :  0.4375  0  0.875
+mike_pam50_logi_f   :  0.75  0.625  0.875
+mike_pam50_logi_s   :  0.625  0.375  0.875
+
+split:  2 train:  count_01=8/30   test: count_01=2/8
+mike_notrea_f       :  0.5  0  1
+mike_notrea_s       :  0.5  0  1
+mike_notrea_svm_f   :  0.5  0  1
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.6875  1  0.375
+mike_notrea_logi_s  :  0.5  0  1
+mike_pam50_svm_f    :  0.6875  0.375  1
+mike_pam50_svm_s    :  0.6875  0.375  1
+mike_pam50_logi_f   :  0.5  0.375  0.625
+mike_pam50_logi_s   :  0.5625  0.625  0.5
+
+split:  3 train:  count_01=8/31   test: count_01=2/7
+mike_notrea_f       :  0.6429  0.2857  1
+mike_notrea_s       :  0.4286  0  0.8571
+mike_notrea_svm_f   :  0.7143  0.5714  0.8571
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.2857  0.4286  0.1429
+mike_notrea_logi_s  :  0.6429  0.4286  0.8571
+mike_pam50_svm_f    :  0.7857  0.8571  0.7143
+mike_pam50_svm_s    :  0.4286  0.1429  0.7143
+mike_pam50_logi_f   :  0.4286  0.2857  0.5714
+mike_pam50_logi_s   :  0.6429  0.5714  0.7143
+
+split:  4 train:  count_01=8/31   test: count_01=2/7
+mike_notrea_f       :  0.9286  0.8571  1
+mike_notrea_s       :  0.6429  0.2857  1
+mike_notrea_svm_f   :  0.7857  0.5714  1
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.7143  1  0.4286
+mike_notrea_logi_s  :  0.7857  0.5714  1
+mike_pam50_svm_f    :  0.6429  0.4286  0.8571
+mike_pam50_svm_s    :  1  1  1
+mike_pam50_logi_f   :  0.9286  1  0.8571
+mike_pam50_logi_s   :  0.6429  0.4286  0.8571
+
+==>  mike_notrea_f       :  0.6393  0.3036  0.975
+==>  mike_notrea_s       :  0.5018  0.1571  0.8464
+==>  mike_notrea_svm_f   :  0.5625  0.2786  0.8464
+==>  mike_notrea_svm_s   :  0.5  0  1
+==>  mike_notrea_logi_f  :  0.6  0.8857  0.3143
+==>  mike_notrea_logi_s  :  0.6232  0.35  0.8964
+==>  mike_pam50_svm_f    :  0.6232  0.5071  0.7393
+==>  mike_pam50_svm_s    :  0.6357  0.3786  0.8929
+==>  mike_pam50_logi_f   :  0.6089  0.5571  0.6607
+==>  mike_pam50_logi_s   :  0.6321  0.525  0.7393
+
+
+==> study_16446_GPL570_all-bmc15 count_01=25/89
+split:  0 train:  count_01=20/71   test: count_01=5/18
+mike_notrea_f       :  0.5  0  1
+mike_notrea_s       :  0.5  0  1
+mike_notrea_svm_f   :  0.5  0.1111  0.8889
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.4722  0.5  0.4444
+mike_notrea_logi_s  :  0.4167  0  0.8333
+mike_pam50_svm_f    :  0.4444  0.2222  0.6667
+mike_pam50_svm_s    :  0.5  0.2222  0.7778
+mike_pam50_logi_f   :  0.5556  0.5556  0.5556
+mike_pam50_logi_s   :  0.4444  0.2222  0.6667
+
+split:  1 train:  count_01=20/71   test: count_01=5/18
+mike_notrea_f       :  0.4722  0  0.9444
+mike_notrea_s       :  0.3611  0  0.7222
+mike_notrea_svm_f   :  0.8056  0.8333  0.7778
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.5  0.7778  0.2222
+mike_notrea_logi_s  :  0.4722  0.1667  0.7778
+mike_pam50_svm_f    :  0.3611  0  0.7222
+mike_pam50_svm_s    :  0.3333  0  0.6667
+mike_pam50_logi_f   :  0.3333  0.1667  0.5
+mike_pam50_logi_s   :  0.3333  0  0.6667
+
+split:  2 train:  count_01=20/71   test: count_01=5/18
+mike_notrea_f       :  0.4722  0  0.9444
+mike_notrea_s       :  0.4167  0  0.8333
+mike_notrea_svm_f   :  0.6111  0.3889  0.8333
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.5556  0.6667  0.4444
+mike_notrea_logi_s  :  0.5556  0.1667  0.9444
+mike_pam50_svm_f    :  0.3611  0  0.7222
+mike_pam50_svm_s    :  0.5  0.1667  0.8333
+mike_pam50_logi_f   :  0.4167  0.2222  0.6111
+mike_pam50_logi_s   :  0.6667  0.5  0.8333
+
+split:  3 train:  count_01=20/71   test: count_01=5/18
+mike_notrea_f       :  0.5  0  1
+mike_notrea_s       :  0.4722  0  0.9444
+mike_notrea_svm_f   :  0.5556  0.3889  0.7222
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.6111  0.8333  0.3889
+mike_notrea_logi_s  :  0.4444  0  0.8889
+mike_pam50_svm_f    :  0.5  0.2222  0.7778
+mike_pam50_svm_s    :  0.5  0.2222  0.7778
+mike_pam50_logi_f   :  0.4722  0.5556  0.3889
+mike_pam50_logi_s   :  0.5  0.2222  0.7778
+
+split:  4 train:  count_01=20/72   test: count_01=5/17
+mike_notrea_f       :  0.6176  0.2353  1
+mike_notrea_s       :  0.5588  0.2353  0.8824
+mike_notrea_svm_f   :  0.7647  0.6471  0.8824
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.6471  0.8824  0.4118
+mike_notrea_logi_s  :  0.6176  0.4118  0.8235
+mike_pam50_svm_f    :  0.3824  0  0.7647
+mike_pam50_svm_s    :  0.5588  0.2941  0.8235
+mike_pam50_logi_f   :  0.7059  0.9412  0.4706
+mike_pam50_logi_s   :  0.6471  0.8235  0.4706
+
+==>  mike_notrea_f       :  0.5124  0.04706  0.9778
+==>  mike_notrea_s       :  0.4618  0.04706  0.8765
+==>  mike_notrea_svm_f   :  0.6474  0.4739  0.8209
+==>  mike_notrea_svm_s   :  0.5  0  1
+==>  mike_notrea_logi_f  :  0.5572  0.732  0.3824
+==>  mike_notrea_logi_s  :  0.5013  0.149  0.8536
+==>  mike_pam50_svm_f    :  0.4098  0.08889  0.7307
+==>  mike_pam50_svm_s    :  0.4784  0.181  0.7758
+==>  mike_pam50_logi_f   :  0.4967  0.4882  0.5052
+==>  mike_pam50_logi_s   :  0.5183  0.3536  0.683
+
+
+==> study_17705_GPL96_JBI_Tissue_BC_Tamoxifen-bmc15 count_01=18/85
+split:  0 train:  count_01=14/68   test: count_01=4/17
+mike_notrea_f       :  0.5882  0.1765  1
+mike_notrea_s       :  0.6176  0.2941  0.9412
+mike_notrea_svm_f   :  0.7059  0.4118  1
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.5588  0.7647  0.3529
+mike_notrea_logi_s  :  0.5882  0.2941  0.8824
+mike_pam50_svm_f    :  0.9118  0.8235  1
+mike_pam50_svm_s    :  0.6471  0.3529  0.9412
+mike_pam50_logi_f   :  0.8824  1  0.7647
+mike_pam50_logi_s   :  0.8529  0.8235  0.8824
+
+split:  1 train:  count_01=14/68   test: count_01=4/17
+mike_notrea_f       :  0.4706  0  0.9412
+mike_notrea_s       :  0.5294  0.2353  0.8235
+mike_notrea_svm_f   :  0.4412  0.1765  0.7059
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.4706  0.6471  0.2941
+mike_notrea_logi_s  :  0.4706  0  0.9412
+mike_pam50_svm_f    :  0.6765  0.7059  0.6471
+mike_pam50_svm_s    :  0.7353  0.6471  0.8235
+mike_pam50_logi_f   :  0.8235  1  0.6471
+mike_pam50_logi_s   :  0.9118  1  0.8235
+
+split:  2 train:  count_01=14/68   test: count_01=4/17
+mike_notrea_f       :  0.5  0  1
+mike_notrea_s       :  0.4706  0  0.9412
+mike_notrea_svm_f   :  0.4706  0.1765  0.7647
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.6176  1  0.2353
+mike_notrea_logi_s  :  0.4412  0  0.8824
+mike_pam50_svm_f    :  0.7353  0.6471  0.8235
+mike_pam50_svm_s    :  0.8824  0.8235  0.9412
+mike_pam50_logi_f   :  0.8529  0.8824  0.8235
+mike_pam50_logi_s   :  0.8824  0.8235  0.9412
+
+split:  3 train:  count_01=15/68   test: count_01=3/17
+mike_notrea_f       :  0.5  0  1
+mike_notrea_s       :  0.5  0.2353  0.7647
+mike_notrea_svm_f   :  0.5882  0.2941  0.8824
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.7059  1  0.4118
+mike_notrea_logi_s  :  0.8529  0.8824  0.8235
+mike_pam50_svm_f    :  0.3824  0  0.7647
+mike_pam50_svm_s    :  0.8529  0.8235  0.8824
+mike_pam50_logi_f   :  0.6471  0.4706  0.8235
+mike_pam50_logi_s   :  0.7059  0.5882  0.8235
+
+split:  4 train:  count_01=15/68   test: count_01=3/17
+mike_notrea_f       :  0.6471  0.2941  1
+mike_notrea_s       :  0.4706  0  0.9412
+mike_notrea_svm_f   :  0.3824  0  0.7647
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.2647  0.2353  0.2941
+mike_notrea_logi_s  :  0.4412  0  0.8824
+mike_pam50_svm_f    :  0.4412  0  0.8824
+mike_pam50_svm_s    :  0.5882  0.1765  1
+mike_pam50_logi_f   :  0.5588  0.4118  0.7059
+mike_pam50_logi_s   :  0.7941  0.7647  0.8235
+
+==>  mike_notrea_f       :  0.5412  0.09412  0.9882
+==>  mike_notrea_s       :  0.5176  0.1529  0.8824
+==>  mike_notrea_svm_f   :  0.5176  0.2118  0.8235
+==>  mike_notrea_svm_s   :  0.5  0  1
+==>  mike_notrea_logi_f  :  0.5235  0.7294  0.3176
+==>  mike_notrea_logi_s  :  0.5588  0.2353  0.8824
+==>  mike_pam50_svm_f    :  0.6294  0.4353  0.8235
+==>  mike_pam50_svm_s    :  0.7412  0.5647  0.9176
+==>  mike_pam50_logi_f   :  0.7529  0.7529  0.7529
+==>  mike_pam50_logi_s   :  0.8294  0.8  0.8588
+
+
+==> study_17705_GPL96_MDACC_Tissue_BC_Tamoxifen-bmc15 count_01=53/142
+split:  0 train:  count_01=42/114   test: count_01=11/28
+mike_notrea_f       :  0.5  0  1
+mike_notrea_s       :  0.5  0.1429  0.8571
+mike_notrea_svm_f   :  0.5536  0.25  0.8571
+mike_notrea_svm_s   :  0.5  0.03571  0.9643
+mike_notrea_logi_f  :  0.6429  0.8214  0.4643
+mike_notrea_logi_s  :  0.5357  0.1429  0.9286
+mike_pam50_svm_f    :  0.6786  0.6786  0.6786
+mike_pam50_svm_s    :  0.6607  0.6429  0.6786
+mike_pam50_logi_f   :  0.6786  0.8571  0.5
+mike_pam50_logi_s   :  0.5536  0.6786  0.4286
+
+split:  1 train:  count_01=42/114   test: count_01=11/28
+mike_notrea_f       :  0.5  0  1
+mike_notrea_s       :  0.4821  0  0.9643
+mike_notrea_svm_f   :  0.5536  0.1786  0.9286
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.5893  0.5714  0.6071
+mike_notrea_logi_s  :  0.4643  0  0.9286
+mike_pam50_svm_f    :  0.5536  0.2857  0.8214
+mike_pam50_svm_s    :  0.625  0.4286  0.8214
+mike_pam50_logi_f   :  0.625  0.5  0.75
+mike_pam50_logi_s   :  0.6964  0.6071  0.7857
+
+split:  2 train:  count_01=42/114   test: count_01=11/28
+mike_notrea_f       :  0.4643  0  0.9286
+mike_notrea_s       :  0.4464  0  0.8929
+mike_notrea_svm_f   :  0.5  0.1429  0.8571
+mike_notrea_svm_s   :  0.4821  0  0.9643
+mike_notrea_logi_f  :  0.6964  0.8214  0.5714
+mike_notrea_logi_s  :  0.5357  0.1429  0.9286
+mike_pam50_svm_f    :  0.5536  0.2857  0.8214
+mike_pam50_svm_s    :  0.5536  0.25  0.8571
+mike_pam50_logi_f   :  0.6964  0.6429  0.75
+mike_pam50_logi_s   :  0.4107  0.2143  0.6071
+
+split:  3 train:  count_01=43/113   test: count_01=10/29
+mike_notrea_f       :  0.4828  0.1034  0.8621
+mike_notrea_s       :  0.6207  0.4828  0.7586
+mike_notrea_svm_f   :  0.569  0.2759  0.8621
+mike_notrea_svm_s   :  0.6552  0.5172  0.7931
+mike_notrea_logi_f  :  0.6207  0.6552  0.5862
+mike_notrea_logi_s  :  0.6034  0.5172  0.6897
+mike_pam50_svm_f    :  0.5517  0.2759  0.8276
+mike_pam50_svm_s    :  0.6379  0.4828  0.7931
+mike_pam50_logi_f   :  0.6552  0.6897  0.6207
+mike_pam50_logi_s   :  0.7241  0.7586  0.6897
+
+split:  4 train:  count_01=43/113   test: count_01=10/29
+mike_notrea_f       :  0.5172  0.1034  0.931
+mike_notrea_s       :  0.4828  0.03448  0.931
+mike_notrea_svm_f   :  0.6034  0.3448  0.8621
+mike_notrea_svm_s   :  0.5  0.06897  0.931
+mike_notrea_logi_f  :  0.5  0.5862  0.4138
+mike_notrea_logi_s  :  0.5172  0.2414  0.7931
+mike_pam50_svm_f    :  0.4483  0.1724  0.7241
+mike_pam50_svm_s    :  0.3621  0.3448  0.3793
+mike_pam50_logi_f   :  0.5345  0.6552  0.4138
+mike_pam50_logi_s   :  0.5172  0.4483  0.5862
+
+==>  mike_notrea_f       :  0.4929  0.04138  0.9443
+==>  mike_notrea_s       :  0.5064  0.132  0.8808
+==>  mike_notrea_svm_f   :  0.5559  0.2384  0.8734
+==>  mike_notrea_svm_s   :  0.5275  0.1244  0.9305
+==>  mike_notrea_logi_f  :  0.6099  0.6911  0.5286
+==>  mike_notrea_logi_s  :  0.5313  0.2089  0.8537
+==>  mike_pam50_svm_f    :  0.5571  0.3397  0.7746
+==>  mike_pam50_svm_s    :  0.5679  0.4298  0.7059
+==>  mike_pam50_logi_f   :  0.6379  0.669  0.6069
+==>  mike_pam50_logi_s   :  0.5804  0.5414  0.6195
+
+
+==> study_19615_GPL570_all-bmc15 count_01=14/96
+split:  0 train:  count_01=12/76   test: count_01=2/20
+mike_notrea_f       :  0.5  0  1
+mike_notrea_s       :  0.5  0  1
+mike_notrea_svm_f   :  0.425  0  0.85
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.125  0  0.25
+mike_notrea_logi_s  :  0.475  0  0.95
+mike_pam50_svm_f    :  0.45  0  0.9
+mike_pam50_svm_s    :  0.475  0  0.95
+mike_pam50_logi_f   :  0.3  0  0.6
+mike_pam50_logi_s   :  0.3  0  0.6
+
+split:  1 train:  count_01=11/77   test: count_01=3/19
+mike_notrea_f       :  0.5  0  1
+mike_notrea_s       :  0.5  0  1
+mike_notrea_svm_f   :  0.4474  0  0.8947
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.6842  1  0.3684
+mike_notrea_logi_s  :  0.5  0  1
+mike_pam50_svm_f    :  0.5526  0.4211  0.6842
+mike_pam50_svm_s    :  0.3421  0  0.6842
+mike_pam50_logi_f   :  0.6579  0.7368  0.5789
+mike_pam50_logi_s   :  0.5789  0.4737  0.6842
+
+split:  2 train:  count_01=11/77   test: count_01=3/19
+mike_notrea_f       :  0.5  0  1
+mike_notrea_s       :  0.4737  0  0.9474
+mike_notrea_svm_f   :  0.9474  1  0.8947
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.6842  1  0.3684
+mike_notrea_logi_s  :  0.6053  0.2632  0.9474
+mike_pam50_svm_f    :  0.4737  0  0.9474
+mike_pam50_svm_s    :  0.6316  0.4211  0.8421
+mike_pam50_logi_f   :  0.6316  0.5263  0.7368
+mike_pam50_logi_s   :  0.3421  0  0.6842
+
+split:  3 train:  count_01=11/77   test: count_01=3/19
+mike_notrea_f       :  0.5  0  1
+mike_notrea_s       :  0.5  0.2105  0.7895
+mike_notrea_svm_f   :  0.4474  0.3158  0.5789
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.5  1  0
+mike_notrea_logi_s  :  0.4737  0  0.9474
+mike_pam50_svm_f    :  0.4474  0  0.8947
+mike_pam50_svm_s    :  0.6579  0.3684  0.9474
+mike_pam50_logi_f   :  0.3947  0.2632  0.5263
+mike_pam50_logi_s   :  0.6842  0.7368  0.6316
+
+split:  4 train:  count_01=11/77   test: count_01=3/19
+mike_notrea_f       :  0.5  0  1
+mike_notrea_s       :  0.4474  0  0.8947
+mike_notrea_svm_f   :  0.6842  0.7895  0.5789
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.6053  1  0.2105
+mike_notrea_logi_s  :  0.5  0  1
+mike_pam50_svm_f    :  0.6053  0.4211  0.7895
+mike_pam50_svm_s    :  0.5  0  1
+mike_pam50_logi_f   :  0.1579  0  0.3158
+mike_pam50_logi_s   :  0.3684  0  0.7368
+
+==>  mike_notrea_f       :  0.5  0  1
+==>  mike_notrea_s       :  0.4842  0.04211  0.9263
+==>  mike_notrea_svm_f   :  0.5903  0.4211  0.7595
+==>  mike_notrea_svm_s   :  0.5  0  1
+==>  mike_notrea_logi_f  :  0.5197  0.8  0.2395
+==>  mike_notrea_logi_s  :  0.5108  0.05263  0.9689
+==>  mike_pam50_svm_f    :  0.5058  0.1684  0.8432
+==>  mike_pam50_svm_s    :  0.5213  0.1579  0.8847
+==>  mike_pam50_logi_f   :  0.4284  0.3053  0.5516
+==>  mike_pam50_logi_s   :  0.4547  0.2421  0.6674
+
+
+==> study_20181_GPL96_all-bmc15 count_01=16/37
+split:  0 train:  count_01=13/29   test: count_01=3/8
+mike_notrea_f       :  0.5  0  1
+mike_notrea_s       :  0.5  0  1
+mike_notrea_svm_f   :  0.5  0  1
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.6875  0.875  0.5
+mike_notrea_logi_s  :  0.625  0.25  1
+mike_pam50_svm_f    :  0.5625  0.125  1
+mike_pam50_svm_s    :  0.75  0.75  0.75
+mike_pam50_logi_f   :  0.6875  0.5  0.875
+mike_pam50_logi_s   :  0.75  0.75  0.75
+
+split:  1 train:  count_01=13/29   test: count_01=3/8
+mike_notrea_f       :  0.375  0  0.75
+mike_notrea_s       :  0.4375  0  0.875
+mike_notrea_svm_f   :  0.4375  0  0.875
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.5625  0.75  0.375
+mike_notrea_logi_s  :  0.625  0.25  1
+mike_pam50_svm_f    :  0.625  0.25  1
+mike_pam50_svm_s    :  0.625  0.25  1
+mike_pam50_logi_f   :  0.8125  0.75  0.875
+mike_pam50_logi_s   :  0.5625  0.25  0.875
+
+split:  2 train:  count_01=12/30   test: count_01=4/7
+mike_notrea_f       :  0.6429  0.2857  1
+mike_notrea_s       :  0.5714  0.2857  0.8571
+mike_notrea_svm_f   :  0.4286  0  0.8571
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.2857  0.2857  0.2857
+mike_notrea_logi_s  :  0.5714  0.1429  1
+mike_pam50_svm_f    :  0.5  0.1429  0.8571
+mike_pam50_svm_s    :  0.5714  0.4286  0.7143
+mike_pam50_logi_f   :  0.2857  0.1429  0.4286
+mike_pam50_logi_s   :  0.7143  0.4286  1
+
+split:  3 train:  count_01=13/30   test: count_01=3/7
+mike_notrea_f       :  0.7143  1  0.4286
+mike_notrea_s       :  0.4286  0.7143  0.1429
+mike_notrea_svm_f   :  0.2857  0.4286  0.1429
+mike_notrea_svm_s   :  0.2143  0  0.4286
+mike_notrea_logi_f  :  0.6429  1  0.2857
+mike_notrea_logi_s  :  0.6429  1  0.2857
+mike_pam50_svm_f    :  0.4286  0.4286  0.4286
+mike_pam50_svm_s    :  0.4286  0.2857  0.5714
+mike_pam50_logi_f   :  0.7143  1  0.4286
+mike_pam50_logi_s   :  1  1  1
+
+split:  4 train:  count_01=13/30   test: count_01=3/7
+mike_notrea_f       :  0.4286  0  0.8571
+mike_notrea_s       :  0.4286  0.1429  0.7143
+mike_notrea_svm_f   :  0.4286  0  0.8571
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.5714  0.5714  0.5714
+mike_notrea_logi_s  :  0.4286  0  0.8571
+mike_pam50_svm_f    :  0.4286  0  0.8571
+mike_pam50_svm_s    :  0.5  0  1
+mike_pam50_logi_f   :  0.3571  0.2857  0.4286
+mike_pam50_logi_s   :  0.3571  0  0.7143
+
+==>  mike_notrea_f       :  0.5321  0.2571  0.8071
+==>  mike_notrea_s       :  0.4732  0.2286  0.7179
+==>  mike_notrea_svm_f   :  0.4161  0.08571  0.7464
+==>  mike_notrea_svm_s   :  0.4429  0  0.8857
+==>  mike_notrea_logi_f  :  0.55  0.6964  0.4036
+==>  mike_notrea_logi_s  :  0.5786  0.3286  0.8286
+==>  mike_pam50_svm_f    :  0.5089  0.1893  0.8286
+==>  mike_pam50_svm_s    :  0.575  0.3429  0.8071
+==>  mike_pam50_logi_f   :  0.5714  0.5357  0.6071
+==>  mike_pam50_logi_s   :  0.6768  0.4857  0.8679
+
+
+==> study_20194_GPL96_all-bmc15 count_01=206/55
+split:  0 train:  count_01=164/44   test: count_01=42/11
+mike_notrea_f       :  0.619  0.8571  0.381
+mike_notrea_s       :  0.5952  0.8095  0.381
+mike_notrea_svm_f   :  0.5952  0.1905  1
+mike_notrea_svm_s   :  0.5357  0.8333  0.2381
+mike_notrea_logi_f  :  0.631  0.2619  1
+mike_notrea_logi_s  :  0.6905  0.8095  0.5714
+mike_pam50_svm_f    :  0.7262  0.6429  0.8095
+mike_pam50_svm_s    :  0.7381  0.7143  0.7619
+mike_pam50_logi_f   :  0.8095  0.7143  0.9048
+mike_pam50_logi_s   :  0.7619  0.7381  0.7857
+
+split:  1 train:  count_01=165/44   test: count_01=41/11
+mike_notrea_f       :  0.5854  0.878  0.2927
+mike_notrea_s       :  0.561  0.9756  0.1463
+mike_notrea_svm_f   :  0.6098  0.2195  1
+mike_notrea_svm_s   :  0.6707  0.9756  0.3659
+mike_notrea_logi_f  :  0.5488  0.1463  0.9512
+mike_notrea_logi_s  :  0.622  0.9512  0.2927
+mike_pam50_svm_f    :  0.5122  0.7073  0.3171
+mike_pam50_svm_s    :  0.7927  0.8537  0.7317
+mike_pam50_logi_f   :  0.6951  0.7073  0.6829
+mike_pam50_logi_s   :  0.7317  0.8049  0.6585
+
+split:  2 train:  count_01=165/44   test: count_01=41/11
+mike_notrea_f       :  0.439  0.8537  0.02439
+mike_notrea_s       :  0.439  0.878  0
+mike_notrea_svm_f   :  0.5244  0.2439  0.8049
+mike_notrea_svm_s   :  0.4512  0.9024  0
+mike_notrea_logi_f  :  0.5488  0.122  0.9756
+mike_notrea_logi_s  :  0.6098  0.7805  0.439
+mike_pam50_svm_f    :  0.561  0.6585  0.4634
+mike_pam50_svm_s    :  0.6951  0.7805  0.6098
+mike_pam50_logi_f   :  0.6585  0.561  0.7561
+mike_pam50_logi_s   :  0.4146  0.6585  0.1707
+
+split:  3 train:  count_01=165/44   test: count_01=41/11
+mike_notrea_f       :  0.5244  0.878  0.1707
+mike_notrea_s       :  0.4146  0.7317  0.09756
+mike_notrea_svm_f   :  0.6463  0.3902  0.9024
+mike_notrea_svm_s   :  0.5366  0.8293  0.2439
+mike_notrea_logi_f  :  0.5854  0.3902  0.7805
+mike_notrea_logi_s  :  0.5366  0.9024  0.1707
+mike_pam50_svm_f    :  0.6098  0.8049  0.4146
+mike_pam50_svm_s    :  0.5244  0.6585  0.3902
+mike_pam50_logi_f   :  0.561  0.5366  0.5854
+mike_pam50_logi_s   :  0.439  0.6098  0.2683
+
+split:  4 train:  count_01=165/44   test: count_01=41/11
+mike_notrea_f       :  0.561  0.9756  0.1463
+mike_notrea_s       :  0.6341  0.9268  0.3415
+mike_notrea_svm_f   :  0.5854  0.2683  0.9024
+mike_notrea_svm_s   :  0.7317  0.9756  0.4878
+mike_notrea_logi_f  :  0.5976  0.1951  1
+mike_notrea_logi_s  :  0.7073  0.9756  0.439
+mike_pam50_svm_f    :  0.6585  0.9756  0.3415
+mike_pam50_svm_s    :  0.7683  0.9024  0.6341
+mike_pam50_logi_f   :  0.7805  0.8293  0.7317
+mike_pam50_logi_s   :  0.6829  0.8537  0.5122
+
+==>  mike_notrea_f       :  0.5458  0.8885  0.203
+==>  mike_notrea_s       :  0.5288  0.8643  0.1933
+==>  mike_notrea_svm_f   :  0.5922  0.2625  0.922
+==>  mike_notrea_svm_s   :  0.5852  0.9033  0.2671
+==>  mike_notrea_logi_f  :  0.5823  0.2231  0.9415
+==>  mike_notrea_logi_s  :  0.6332  0.8839  0.3826
+==>  mike_pam50_svm_f    :  0.6135  0.7578  0.4692
+==>  mike_pam50_svm_s    :  0.7037  0.7819  0.6256
+==>  mike_pam50_logi_f   :  0.7009  0.6697  0.7322
+==>  mike_pam50_logi_s   :  0.606  0.733  0.4791
+
+
+==> study_2034_GPL96_all-bmc15 count_01=107/179
+split:  0 train:  count_01=85/143   test: count_01=22/36
+mike_notrea_f       :  0.7083  0.5  0.9167
+mike_notrea_s       :  0.5278  0.3611  0.6944
+mike_notrea_svm_f   :  0.6944  0.5278  0.8611
+mike_notrea_svm_s   :  0.5833  0.3889  0.7778
+mike_notrea_logi_f  :  0.7222  0.6111  0.8333
+mike_notrea_logi_s  :  0.6389  0.5556  0.7222
+mike_pam50_svm_f    :  0.5556  0.4167  0.6944
+mike_pam50_svm_s    :  0.5417  0.5  0.5833
+mike_pam50_logi_f   :  0.6111  0.6667  0.5556
+mike_pam50_logi_s   :  0.6111  0.6389  0.5833
+
+split:  1 train:  count_01=86/143   test: count_01=21/36
+mike_notrea_f       :  0.5972  0.3333  0.8611
+mike_notrea_s       :  0.6528  0.5556  0.75
+mike_notrea_svm_f   :  0.5556  0.25  0.8611
+mike_notrea_svm_s   :  0.5833  0.4444  0.7222
+mike_notrea_logi_f  :  0.5694  0.5556  0.5833
+mike_notrea_logi_s  :  0.5  0.3333  0.6667
+mike_pam50_svm_f    :  0.5972  0.5  0.6944
+mike_pam50_svm_s    :  0.5833  0.4167  0.75
+mike_pam50_logi_f   :  0.5556  0.5556  0.5556
+mike_pam50_logi_s   :  0.5694  0.5556  0.5833
+
+split:  2 train:  count_01=86/143   test: count_01=21/36
+mike_notrea_f       :  0.5694  0.25  0.8889
+mike_notrea_s       :  0.5139  0.3056  0.7222
+mike_notrea_svm_f   :  0.6111  0.3333  0.8889
+mike_notrea_svm_s   :  0.6806  0.5  0.8611
+mike_notrea_logi_f  :  0.5417  0.3889  0.6944
+mike_notrea_logi_s  :  0.7083  0.5278  0.8889
+mike_pam50_svm_f    :  0.6944  0.5833  0.8056
+mike_pam50_svm_s    :  0.6944  0.6111  0.7778
+mike_pam50_logi_f   :  0.6528  0.5833  0.7222
+mike_pam50_logi_s   :  0.6389  0.5833  0.6944
+
+split:  3 train:  count_01=86/143   test: count_01=21/36
+mike_notrea_f       :  0.6389  0.4167  0.8611
+mike_notrea_s       :  0.5833  0.3056  0.8611
+mike_notrea_svm_f   :  0.6944  0.5556  0.8333
+mike_notrea_svm_s   :  0.5972  0.3611  0.8333
+mike_notrea_logi_f  :  0.6111  0.4722  0.75
+mike_notrea_logi_s  :  0.6944  0.5833  0.8056
+mike_pam50_svm_f    :  0.4722  0.3333  0.6111
+mike_pam50_svm_s    :  0.5694  0.5  0.6389
+mike_pam50_logi_f   :  0.6944  0.75  0.6389
+mike_pam50_logi_s   :  0.625  0.5833  0.6667
+
+split:  4 train:  count_01=85/144   test: count_01=22/35
+mike_notrea_f       :  0.5714  0.2286  0.9143
+mike_notrea_s       :  0.5857  0.3143  0.8571
+mike_notrea_svm_f   :  0.6571  0.4  0.9143
+mike_notrea_svm_s   :  0.5429  0.2857  0.8
+mike_notrea_logi_f  :  0.5571  0.4286  0.6857
+mike_notrea_logi_s  :  0.6714  0.5429  0.8
+mike_pam50_svm_f    :  0.5286  0.2571  0.8
+mike_pam50_svm_s    :  0.5429  0.3429  0.7429
+mike_pam50_logi_f   :  0.5286  0.4  0.6571
+mike_pam50_logi_s   :  0.5714  0.4286  0.7143
+
+==>  mike_notrea_f       :  0.6171  0.3457  0.8884
+==>  mike_notrea_s       :  0.5727  0.3684  0.777
+==>  mike_notrea_svm_f   :  0.6425  0.4133  0.8717
+==>  mike_notrea_svm_s   :  0.5975  0.396  0.7989
+==>  mike_notrea_logi_f  :  0.6003  0.4913  0.7094
+==>  mike_notrea_logi_s  :  0.6426  0.5086  0.7767
+==>  mike_pam50_svm_f    :  0.5696  0.4181  0.7211
+==>  mike_pam50_svm_s    :  0.5863  0.4741  0.6986
+==>  mike_pam50_logi_f   :  0.6085  0.5911  0.6259
+==>  mike_pam50_logi_s   :  0.6032  0.5579  0.6484
+
+
+==> study_22226_GPL1708_all-bmc15 count_01=34/94
+split:  0 train:  count_01=27/75   test: count_01=7/19
+mike_notrea_f       :  0.6579  0.8421  0.4737
+mike_notrea_s       :  0.5  0.2632  0.7368
+mike_notrea_svm_f   :  0.6053  0.6842  0.5263
+mike_notrea_svm_s   :  0.3684  0  0.7368
+mike_notrea_logi_f  :  0.4474  0.7368  0.1579
+mike_notrea_logi_s  :  0.4737  0.3684  0.5789
+mike_pam50_svm_f    :  0.5789  0.3684  0.7895
+mike_pam50_svm_s    :  0.4474  0.1579  0.7368
+mike_pam50_logi_f   :  0.3947  0.2105  0.5789
+mike_pam50_logi_s   :  0.4737  0.1579  0.7895
+
+split:  1 train:  count_01=27/75   test: count_01=7/19
+mike_notrea_f       :  0.4211  0.6842  0.1579
+mike_notrea_s       :  0.6053  0.4211  0.7895
+mike_notrea_svm_f   :  0.2368  0.2632  0.2105
+mike_notrea_svm_s   :  0.6316  0.2632  1
+mike_notrea_logi_f  :  0.5263  0.7895  0.2632
+mike_notrea_logi_s  :  0.4737  0.3158  0.6316
+mike_pam50_svm_f    :  0.5  0.3684  0.6316
+mike_pam50_svm_s    :  0.5526  0.3158  0.7895
+mike_pam50_logi_f   :  0.4474  0.5263  0.3684
+mike_pam50_logi_s   :  0.4737  0.3684  0.5789
+
+split:  2 train:  count_01=27/75   test: count_01=7/19
+mike_notrea_f       :  0.3421  0.3158  0.3684
+mike_notrea_s       :  0.6053  0.3684  0.8421
+mike_notrea_svm_f   :  0.8421  0.8421  0.8421
+mike_notrea_svm_s   :  0.5789  0.1579  1
+mike_notrea_logi_f  :  0.5526  0.8947  0.2105
+mike_notrea_logi_s  :  0.7368  0.5789  0.8947
+mike_pam50_svm_f    :  0.5526  0.2632  0.8421
+mike_pam50_svm_s    :  0.5263  0.5263  0.5263
+mike_pam50_logi_f   :  0.7368  0.7368  0.7368
+mike_pam50_logi_s   :  0.5789  0.4737  0.6842
+
+split:  3 train:  count_01=27/76   test: count_01=7/18
+mike_notrea_f       :  0.4167  0.1111  0.7222
+mike_notrea_s       :  0.5833  0.1667  1
+mike_notrea_svm_f   :  0.5  0.1667  0.8333
+mike_notrea_svm_s   :  0.6389  0.2778  1
+mike_notrea_logi_f  :  0.6389  0.9444  0.3333
+mike_notrea_logi_s  :  0.5556  0.1111  1
+mike_pam50_svm_f    :  0.3333  0  0.6667
+mike_pam50_svm_s    :  0.4444  0  0.8889
+mike_pam50_logi_f   :  0.5278  0.3889  0.6667
+mike_pam50_logi_s   :  0.6667  0.6111  0.7222
+
+split:  4 train:  count_01=28/75   test: count_01=6/19
+mike_notrea_f       :  0.6053  0.6316  0.5789
+mike_notrea_s       :  0.5  0.2105  0.7895
+mike_notrea_svm_f   :  0.4211  0.1053  0.7368
+mike_notrea_svm_s   :  0.4737  0  0.9474
+mike_notrea_logi_f  :  0.5263  0.6842  0.3684
+mike_notrea_logi_s  :  0.7632  0.5789  0.9474
+mike_pam50_svm_f    :  0.6842  0.4211  0.9474
+mike_pam50_svm_s    :  0.6053  0.4737  0.7368
+mike_pam50_logi_f   :  0.6842  0.6842  0.6842
+mike_pam50_logi_s   :  0.6316  0.6316  0.6316
+
+==>  mike_notrea_f       :  0.4886  0.517  0.4602
+==>  mike_notrea_s       :  0.5588  0.286  0.8316
+==>  mike_notrea_svm_f   :  0.5211  0.4123  0.6298
+==>  mike_notrea_svm_s   :  0.5383  0.1398  0.9368
+==>  mike_notrea_logi_f  :  0.5383  0.8099  0.2667
+==>  mike_notrea_logi_s  :  0.6006  0.3906  0.8105
+==>  mike_pam50_svm_f    :  0.5298  0.2842  0.7754
+==>  mike_pam50_svm_s    :  0.5152  0.2947  0.7357
+==>  mike_pam50_logi_f   :  0.5582  0.5094  0.607
+==>  mike_pam50_logi_s   :  0.5649  0.4485  0.6813
+
+
+==> study_22358_GPL5325_all-bmc15 count_01=102/20
+split:  0 train:  count_01=81/16   test: count_01=21/4
+mike_notrea_f       :  0.4048  0.8095  0
+mike_notrea_s       :  0.4286  0.8571  0
+mike_notrea_svm_f   :  0.4286  0.2857  0.5714
+mike_notrea_svm_s   :  0.4762  0.9524  0
+mike_notrea_logi_f  :  0.5  0  1
+mike_notrea_logi_s  :  0.5238  0.9048  0.1429
+mike_pam50_svm_f    :  0.4286  0.8571  0
+mike_pam50_svm_s    :  0.4762  0.9524  0
+mike_pam50_logi_f   :  0.7619  0.7143  0.8095
+mike_pam50_logi_s   :  0.6667  0.9048  0.4286
+
+split:  1 train:  count_01=81/16   test: count_01=21/4
+mike_notrea_f       :  0.8095  0.8095  0.8095
+mike_notrea_s       :  0.881  1  0.7619
+mike_notrea_svm_f   :  0.7381  0.7143  0.7619
+mike_notrea_svm_s   :  0.5  1  0
+mike_notrea_logi_f  :  0.5  0  1
+mike_notrea_logi_s  :  0.7143  0.9524  0.4762
+mike_pam50_svm_f    :  0.6667  0.8571  0.4762
+mike_pam50_svm_s    :  0.8333  0.9048  0.7619
+mike_pam50_logi_f   :  0.881  0.7619  1
+mike_pam50_logi_s   :  0.6667  0.9048  0.4286
+
+split:  2 train:  count_01=82/16   test: count_01=20/4
+mike_notrea_f       :  0.6  0.8  0.4
+mike_notrea_s       :  0.725  1  0.45
+mike_notrea_svm_f   :  0.75  0.5  1
+mike_notrea_svm_s   :  0.5  1  0
+mike_notrea_logi_f  :  0.5  0  1
+mike_notrea_logi_s  :  0.725  1  0.45
+mike_pam50_svm_f    :  0.625  0.95  0.3
+mike_pam50_svm_s    :  0.45  0.9  0
+mike_pam50_logi_f   :  0.775  0.8  0.75
+mike_pam50_logi_s   :  0.6  0.85  0.35
+
+split:  3 train:  count_01=82/16   test: count_01=20/4
+mike_notrea_f       :  0.45  0.75  0.15
+mike_notrea_s       :  0.725  0.75  0.7
+mike_notrea_svm_f   :  0.475  0.45  0.5
+mike_notrea_svm_s   :  0.675  1  0.35
+mike_notrea_logi_f  :  0.5  0  1
+mike_notrea_logi_s  :  0.575  0.9  0.25
+mike_pam50_svm_f    :  0.975  0.95  1
+mike_pam50_svm_s    :  0.725  1  0.45
+mike_pam50_logi_f   :  0.85  0.9  0.8
+mike_pam50_logi_s   :  0.775  1  0.55
+
+split:  4 train:  count_01=82/16   test: count_01=20/4
+mike_notrea_f       :  0.625  0.8  0.45
+mike_notrea_s       :  0.475  0.95  0
+mike_notrea_svm_f   :  0.8  0.75  0.85
+mike_notrea_svm_s   :  0.475  0.95  0
+mike_notrea_logi_f  :  0.5  0  1
+mike_notrea_logi_s  :  0.75  0.95  0.55
+mike_pam50_svm_f    :  0.8  0.75  0.85
+mike_pam50_svm_s    :  0.6  0.85  0.35
+mike_pam50_logi_f   :  0.525  0.65  0.4
+mike_pam50_logi_s   :  0.5  0.75  0.25
+
+==>  mike_notrea_f       :  0.5779  0.7938  0.3619
+==>  mike_notrea_s       :  0.6469  0.9114  0.3824
+==>  mike_notrea_svm_f   :  0.6383  0.54  0.7367
+==>  mike_notrea_svm_s   :  0.5252  0.9805  0.07
+==>  mike_notrea_logi_f  :  0.5  0  1
+==>  mike_notrea_logi_s  :  0.6576  0.9414  0.3738
+==>  mike_pam50_svm_f    :  0.699  0.8729  0.5252
+==>  mike_pam50_svm_s    :  0.6169  0.9214  0.3124
+==>  mike_pam50_logi_f   :  0.7586  0.7652  0.7519
+==>  mike_pam50_logi_s   :  0.6417  0.8819  0.4014
+
+
+==> study_25055_GPL96_MDACC_M-bmc15 count_01=43/178
+split:  0 train:  count_01=34/142   test: count_01=9/36
+mike_notrea_f       :  0.5417  0.1944  0.8889
+mike_notrea_s       :  0.5  0.1111  0.8889
+mike_notrea_svm_f   :  0.5556  0.6111  0.5
+mike_notrea_svm_s   :  0.6111  0.2778  0.9444
+mike_notrea_logi_f  :  0.5278  0.6111  0.4444
+mike_notrea_logi_s  :  0.5972  0.3611  0.8333
+mike_pam50_svm_f    :  0.5278  0.3889  0.6667
+mike_pam50_svm_s    :  0.5139  0.3333  0.6944
+mike_pam50_logi_f   :  0.4583  0.4722  0.4444
+mike_pam50_logi_s   :  0.5556  0.3889  0.7222
+
+split:  1 train:  count_01=35/142   test: count_01=8/36
+mike_notrea_f       :  0.4722  0  0.9444
+mike_notrea_s       :  0.5  0.1111  0.8889
+mike_notrea_svm_f   :  0.6667  0.5833  0.75
+mike_notrea_svm_s   :  0.4861  0  0.9722
+mike_notrea_logi_f  :  0.5972  0.6389  0.5556
+mike_notrea_logi_s  :  0.5972  0.2778  0.9167
+mike_pam50_svm_f    :  0.5278  0.3611  0.6944
+mike_pam50_svm_s    :  0.625  0.4167  0.8333
+mike_pam50_logi_f   :  0.4167  0.3333  0.5
+mike_pam50_logi_s   :  0.7639  0.8889  0.6389
+
+split:  2 train:  count_01=35/142   test: count_01=8/36
+mike_notrea_f       :  0.5556  0.1111  1
+mike_notrea_s       :  0.4861  0.08333  0.8889
+mike_notrea_svm_f   :  0.6528  0.6389  0.6667
+mike_notrea_svm_s   :  0.5694  0.25  0.8889
+mike_notrea_logi_f  :  0.6944  0.8333  0.5556
+mike_notrea_logi_s  :  0.5278  0.1944  0.8611
+mike_pam50_svm_f    :  0.5833  0.4722  0.6944
+mike_pam50_svm_s    :  0.4722  0.3333  0.6111
+mike_pam50_logi_f   :  0.4028  0.3611  0.4444
+mike_pam50_logi_s   :  0.4167  0.2222  0.6111
+
+split:  3 train:  count_01=34/143   test: count_01=9/35
+mike_notrea_f       :  0.4857  0  0.9714
+mike_notrea_s       :  0.4857  0  0.9714
+mike_notrea_svm_f   :  0.6714  0.8857  0.4571
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.5143  0.6571  0.3714
+mike_notrea_logi_s  :  0.5429  0.08571  1
+mike_pam50_svm_f    :  0.5571  0.2571  0.8571
+mike_pam50_svm_s    :  0.5857  0.2571  0.9143
+mike_pam50_logi_f   :  0.4571  0.2286  0.6857
+mike_pam50_logi_s   :  0.5429  0.2857  0.8
+
+split:  4 train:  count_01=34/143   test: count_01=9/35
+mike_notrea_f       :  0.5429  0.1143  0.9714
+mike_notrea_s       :  0.4714  0  0.9429
+mike_notrea_svm_f   :  0.7571  1  0.5143
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.7857  0.9429  0.6286
+mike_notrea_logi_s  :  0.6429  0.3143  0.9714
+mike_pam50_svm_f    :  0.5857  0.2571  0.9143
+mike_pam50_svm_s    :  0.4286  0  0.8571
+mike_pam50_logi_f   :  0.4571  0.2857  0.6286
+mike_pam50_logi_s   :  0.3571  0.05714  0.6571
+
+==>  mike_notrea_f       :  0.5196  0.08397  0.9552
+==>  mike_notrea_s       :  0.4887  0.06111  0.9162
+==>  mike_notrea_svm_f   :  0.6607  0.7438  0.5776
+==>  mike_notrea_svm_s   :  0.5333  0.1056  0.9611
+==>  mike_notrea_logi_f  :  0.6239  0.7367  0.5111
+==>  mike_notrea_logi_s  :  0.5816  0.2467  0.9165
+==>  mike_pam50_svm_f    :  0.5563  0.3473  0.7654
+==>  mike_pam50_svm_s    :  0.5251  0.2681  0.7821
+==>  mike_pam50_logi_f   :  0.4384  0.3362  0.5406
+==>  mike_pam50_logi_s   :  0.5272  0.3686  0.6859
+
+
+==> study_25065_GPL96_MDACC-bmc15 count_01=12/59
+split:  0 train:  count_01=9/47   test: count_01=3/12
+mike_notrea_f       :  0.5  0  1
+mike_notrea_s       :  0.5  0  1
+mike_notrea_svm_f   :  0.4167  0  0.8333
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.4167  0.75  0.08333
+mike_notrea_logi_s  :  0.5  0  1
+mike_pam50_svm_f    :  0.4167  0  0.8333
+mike_pam50_svm_s    :  0.4167  0  0.8333
+mike_pam50_logi_f   :  0.625  0.4167  0.8333
+mike_pam50_logi_s   :  0.4583  0  0.9167
+
+split:  1 train:  count_01=10/47   test: count_01=2/12
+mike_notrea_f       :  0.5  0  1
+mike_notrea_s       :  0.5  0  1
+mike_notrea_svm_f   :  0.6667  0.4167  0.9167
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.5833  1  0.1667
+mike_notrea_logi_s  :  0.7083  0.5833  0.8333
+mike_pam50_svm_f    :  0.4167  0  0.8333
+mike_pam50_svm_s    :  0.4167  0  0.8333
+mike_pam50_logi_f   :  0.4583  0.25  0.6667
+mike_pam50_logi_s   :  0.8333  0.75  0.9167
+
+split:  2 train:  count_01=10/47   test: count_01=2/12
+mike_notrea_f       :  0.6667  0.3333  1
+mike_notrea_s       :  0.75  0.5  1
+mike_notrea_svm_f   :  0.6667  0.5  0.8333
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.5417  1  0.08333
+mike_notrea_logi_s  :  0.8333  0.75  0.9167
+mike_pam50_svm_f    :  0.6667  0.4167  0.9167
+mike_pam50_svm_s    :  0.4167  0  0.8333
+mike_pam50_logi_f   :  0.4583  0  0.9167
+mike_pam50_logi_s   :  0.4583  0  0.9167
+
+split:  3 train:  count_01=10/47   test: count_01=2/12
+mike_notrea_f       :  0.5  0  1
+mike_notrea_s       :  0.3333  0  0.6667
+mike_notrea_svm_f   :  0.4167  0  0.8333
+mike_notrea_svm_s   :  0.4583  0  0.9167
+mike_notrea_logi_f  :  0.5417  1  0.08333
+mike_notrea_logi_s  :  0.5  0  1
+mike_pam50_svm_f    :  0.375  0  0.75
+mike_pam50_svm_s    :  0.4583  0  0.9167
+mike_pam50_logi_f   :  0.375  0.3333  0.4167
+mike_pam50_logi_s   :  0.375  0  0.75
+
+split:  4 train:  count_01=9/48   test: count_01=3/11
+mike_notrea_f       :  0.5  0  1
+mike_notrea_s       :  0.6364  0.3636  0.9091
+mike_notrea_svm_f   :  0.4545  0  0.9091
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.5909  1  0.1818
+mike_notrea_logi_s  :  0.4545  0  0.9091
+mike_pam50_svm_f    :  0.7727  0.6364  0.9091
+mike_pam50_svm_s    :  0.6364  0.3636  0.9091
+mike_pam50_logi_f   :  0.3182  0  0.6364
+mike_pam50_logi_s   :  0.5455  0.3636  0.7273
+
+==>  mike_notrea_f       :  0.5333  0.06667  1
+==>  mike_notrea_s       :  0.5439  0.1727  0.9152
+==>  mike_notrea_svm_f   :  0.5242  0.1833  0.8652
+==>  mike_notrea_svm_s   :  0.4917  0  0.9833
+==>  mike_notrea_logi_f  :  0.5348  0.95  0.1197
+==>  mike_notrea_logi_s  :  0.5992  0.2667  0.9318
+==>  mike_pam50_svm_f    :  0.5295  0.2106  0.8485
+==>  mike_pam50_svm_s    :  0.4689  0.07273  0.8652
+==>  mike_pam50_logi_f   :  0.447  0.2  0.6939
+==>  mike_pam50_logi_s   :  0.5341  0.2227  0.8455
+
+
+==> study_25065_GPL96_USO-bmc15 count_01=10/44
+split:  0 train:  count_01=8/35   test: count_01=2/9
+mike_notrea_f       :  0.5  0  1
+mike_notrea_s       :  0.5556  0.2222  0.8889
+mike_notrea_svm_f   :  0.4444  0  0.8889
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.6111  1  0.2222
+mike_notrea_logi_s  :  0.4444  0  0.8889
+mike_pam50_svm_f    :  0.3333  0  0.6667
+mike_pam50_svm_s    :  0.5  0  1
+mike_pam50_logi_f   :  0.7222  1  0.4444
+mike_pam50_logi_s   :  0.6111  0.3333  0.8889
+
+split:  1 train:  count_01=8/35   test: count_01=2/9
+mike_notrea_f       :  0.5  0  1
+mike_notrea_s       :  0.5556  0.2222  0.8889
+mike_notrea_svm_f   :  0.3889  0  0.7778
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.3889  0.4444  0.3333
+mike_notrea_logi_s  :  0.4444  0  0.8889
+mike_pam50_svm_f    :  0.8889  1  0.7778
+mike_pam50_svm_s    :  0.4444  0  0.8889
+mike_pam50_logi_f   :  0.5556  0.6667  0.4444
+mike_pam50_logi_s   :  0.5  0.3333  0.6667
+
+split:  2 train:  count_01=8/35   test: count_01=2/9
+mike_notrea_f       :  0.5  0  1
+mike_notrea_s       :  0.6667  0.3333  1
+mike_notrea_svm_f   :  0.5  0  1
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.5556  1  0.1111
+mike_notrea_logi_s  :  0.5  0  1
+mike_pam50_svm_f    :  0.4444  0  0.8889
+mike_pam50_svm_s    :  0.8333  0.6667  1
+mike_pam50_logi_f   :  0.3889  0  0.7778
+mike_pam50_logi_s   :  0.3333  0  0.6667
+
+split:  3 train:  count_01=8/35   test: count_01=2/9
+mike_notrea_f       :  0.5  0  1
+mike_notrea_s       :  0.6667  0.4444  0.8889
+mike_notrea_svm_f   :  0.5  0  1
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.6667  1  0.3333
+mike_notrea_logi_s  :  0.5  0  1
+mike_pam50_svm_f    :  0.1667  0  0.3333
+mike_pam50_svm_s    :  0.4444  0  0.8889
+mike_pam50_logi_f   :  0.2222  0  0.4444
+mike_pam50_logi_s   :  0.3889  0  0.7778
+
+split:  4 train:  count_01=8/36   test: count_01=2/8
+mike_notrea_f       :  0.5  0  1
+mike_notrea_s       :  0.5  0  1
+mike_notrea_svm_f   :  0.4375  0  0.875
+mike_notrea_svm_s   :  0.5  0  1
+mike_notrea_logi_f  :  0.5  1  0
+mike_notrea_logi_s  :  0.5  0  1
+mike_pam50_svm_f    :  0.625  0.625  0.625
+mike_pam50_svm_s    :  0.5  0  1
+mike_pam50_logi_f   :  0.4375  0.5  0.375
+mike_pam50_logi_s   :  0.3125  0  0.625
+
+==>  mike_notrea_f       :  0.5  0  1
+==>  mike_notrea_s       :  0.5889  0.2444  0.9333
+==>  mike_notrea_svm_f   :  0.4542  0  0.9083
+==>  mike_notrea_svm_s   :  0.5  0  1
+==>  mike_notrea_logi_f  :  0.5444  0.8889  0.2
+==>  mike_notrea_logi_s  :  0.4778  0  0.9556
+==>  mike_pam50_svm_f    :  0.4917  0.325  0.6583
+==>  mike_pam50_svm_s    :  0.5444  0.1333  0.9556
+==>  mike_pam50_logi_f   :  0.4653  0.4333  0.4972
+==>  mike_pam50_logi_s   :  0.4292  0.1333  0.725
+
+
+==> study_32646_GPL570_all-bmc15 count_01=89/26
+split:  0 train:  count_01=71/21   test: count_01=18/5
+mike_notrea_f       :  0.75  0.8889  0.6111
+mike_notrea_s       :  0.5556  0.8333  0.2778
+mike_notrea_svm_f   :  0.8056  0.8333  0.7778
+mike_notrea_svm_s   :  0.5  1  0
+mike_notrea_logi_f  :  0.5  0  1
+mike_notrea_logi_s  :  0.7778  1  0.5556
+mike_pam50_svm_f    :  0.6667  0.7778  0.5556
+mike_pam50_svm_s    :  0.4444  0.8889  0
+mike_pam50_logi_f   :  0.7778  0.7222  0.8333
+mike_pam50_logi_s   :  0.6667  0.7778  0.5556
+
+split:  1 train:  count_01=71/21   test: count_01=18/5
+mike_notrea_f       :  0.6944  0.8333  0.5556
+mike_notrea_s       :  0.5833  0.8889  0.2778
+mike_notrea_svm_f   :  0.7222  0.8333  0.6111
+mike_notrea_svm_s   :  0.5  1  0
+mike_notrea_logi_f  :  0.5278  0.05556  1
+mike_notrea_logi_s  :  0.5556  0.9444  0.1667
+mike_pam50_svm_f    :  0.6667  0.7778  0.5556
+mike_pam50_svm_s    :  0.6389  0.8889  0.3889
+mike_pam50_logi_f   :  0.75  0.6667  0.8333
+mike_pam50_logi_s   :  0.5833  0.7778  0.3889
+
+split:  2 train:  count_01=71/21   test: count_01=18/5
+mike_notrea_f       :  0.6111  0.8333  0.3889
+mike_notrea_s       :  0.8056  0.9444  0.6667
+mike_notrea_svm_f   :  0.6944  0.8333  0.5556
+mike_notrea_svm_s   :  0.7778  1  0.5556
+mike_notrea_logi_f  :  0.4444  0.1111  0.7778
+mike_notrea_logi_s  :  0.7222  0.8889  0.5556
+mike_pam50_svm_f    :  0.5833  0.7222  0.4444
+mike_pam50_svm_s    :  0.6667  0.7778  0.5556
+mike_pam50_logi_f   :  0.75  0.5556  0.9444
+mike_pam50_logi_s   :  0.8611  0.7778  0.9444
+
+split:  3 train:  count_01=71/21   test: count_01=18/5
+mike_notrea_f       :  0.5556  0.7222  0.3889
+mike_notrea_s       :  0.5833  0.7778  0.3889
+mike_notrea_svm_f   :  0.9444  0.9444  0.9444
+mike_notrea_svm_s   :  0.5  1  0
+mike_notrea_logi_f  :  0.3889  0  0.7778
+mike_notrea_logi_s  :  0.5  0.8333  0.1667
+mike_pam50_svm_f    :  0.5  0.5556  0.4444
+mike_pam50_svm_s    :  0.6944  0.8333  0.5556
+mike_pam50_logi_f   :  0.6944  0.5  0.8889
+mike_pam50_logi_s   :  0.7222  0.4444  1
+
+split:  4 train:  count_01=72/20   test: count_01=17/6
+mike_notrea_f       :  0.6471  0.9412  0.3529
+mike_notrea_s       :  0.6471  0.9412  0.3529
+mike_notrea_svm_f   :  0.6765  0.9412  0.4118
+mike_notrea_svm_s   :  0.5  1  0
+mike_notrea_logi_f  :  0.5  0  1
+mike_notrea_logi_s  :  0.4706  0.9412  0
+mike_pam50_svm_f    :  0.4706  0.7059  0.2353
+mike_pam50_svm_s    :  0.6471  0.9412  0.3529
+mike_pam50_logi_f   :  0.5882  0.8824  0.2941
+mike_pam50_logi_s   :  0.4118  0.8235  0
+
+==>  mike_notrea_f       :  0.6516  0.8438  0.4595
+==>  mike_notrea_s       :  0.635  0.8771  0.3928
+==>  mike_notrea_svm_f   :  0.7686  0.8771  0.6601
+==>  mike_notrea_svm_s   :  0.5556  1  0.1111
+==>  mike_notrea_logi_f  :  0.4722  0.03333  0.9111
+==>  mike_notrea_logi_s  :  0.6052  0.9216  0.2889
+==>  mike_pam50_svm_f    :  0.5775  0.7078  0.4471
+==>  mike_pam50_svm_s    :  0.6183  0.866  0.3706
+==>  mike_pam50_logi_f   :  0.7121  0.6654  0.7588
+==>  mike_pam50_logi_s   :  0.649  0.7203  0.5778
+
+
+==> study_9893_GPL5049_all-bmc15 count_01=52/96
+split:  0 train:  count_01=41/77   test: count_01=11/19
+mike_notrea_f       :  0.7632  1  0.5263
+mike_notrea_s       :  0.7632  1  0.5263
+mike_notrea_svm_f   :  0.7368  1  0.4737
+mike_notrea_svm_s   :  0.7368  1  0.4737
+mike_notrea_logi_f  :  0.7368  0.8947  0.5789
+mike_notrea_logi_s  :  0.7632  1  0.5263
+mike_pam50_svm_f    :  0.7895  1  0.5789
+mike_pam50_svm_s    :  0.7632  1  0.5263
+mike_pam50_logi_f   :  0.8158  1  0.6316
+mike_pam50_logi_s   :  0.7895  1  0.5789
+
+split:  1 train:  count_01=41/77   test: count_01=11/19
+mike_notrea_f       :  0.7632  0.5789  0.9474
+mike_notrea_s       :  0.8421  0.8421  0.8421
+mike_notrea_svm_f   :  0.7105  0.7368  0.6842
+mike_notrea_svm_s   :  0.8158  0.6316  1
+mike_notrea_logi_f  :  0.6842  0.7895  0.5789
+mike_notrea_logi_s  :  0.7895  0.8421  0.7368
+mike_pam50_svm_f    :  0.7368  0.6316  0.8421
+mike_pam50_svm_s    :  0.6842  0.5263  0.8421
+mike_pam50_logi_f   :  0.6316  0.6316  0.6316
+mike_pam50_logi_s   :  0.5526  0.5263  0.5789
+
+split:  2 train:  count_01=42/76   test: count_01=10/20
+mike_notrea_f       :  0.825  0.75  0.9
+mike_notrea_s       :  0.625  0.3  0.95
+mike_notrea_svm_f   :  0.825  0.8  0.85
+mike_notrea_svm_s   :  0.775  0.55  1
+mike_notrea_logi_f  :  0.9  1  0.8
+mike_notrea_logi_s  :  0.875  0.8  0.95
+mike_pam50_svm_f    :  0.85  0.75  0.95
+mike_pam50_svm_s    :  0.825  0.7  0.95
+mike_pam50_logi_f   :  0.7  0.6  0.8
+mike_pam50_logi_s   :  0.825  0.8  0.85
+
+split:  3 train:  count_01=42/77   test: count_01=10/19
+mike_notrea_f       :  0.6579  0.3158  1
+mike_notrea_s       :  0.6842  0.4211  0.9474
+mike_notrea_svm_f   :  0.5263  0.2105  0.8421
+mike_notrea_svm_s   :  0.5526  0.1579  0.9474
+mike_notrea_logi_f  :  0.6842  0.6316  0.7368
+mike_notrea_logi_s  :  0.5789  0.2105  0.9474
+mike_pam50_svm_f    :  0.5789  0.2632  0.8947
+mike_pam50_svm_s    :  0.5  0.1579  0.8421
+mike_pam50_logi_f   :  0.4474  0.1579  0.7368
+mike_pam50_logi_s   :  0.6053  0.4737  0.7368
+
+split:  4 train:  count_01=42/77   test: count_01=10/19
+mike_notrea_f       :  0.5263  0.2105  0.8421
+mike_notrea_s       :  0.4737  0.1579  0.7895
+mike_notrea_svm_f   :  0.4211  0  0.8421
+mike_notrea_svm_s   :  0.5263  0.1053  0.9474
+mike_notrea_logi_f  :  0.5263  0.3158  0.7368
+mike_notrea_logi_s  :  0.5526  0.3158  0.7895
+mike_pam50_svm_f    :  0.5  0.2105  0.7895
+mike_pam50_svm_s    :  0.6053  0.2632  0.9474
+mike_pam50_logi_f   :  0.7105  0.5263  0.8947
+mike_pam50_logi_s   :  0.7632  0.5789  0.9474
+
+==>  mike_notrea_f       :  0.7071  0.5711  0.8432
+==>  mike_notrea_s       :  0.6776  0.5442  0.8111
+==>  mike_notrea_svm_f   :  0.6439  0.5495  0.7384
+==>  mike_notrea_svm_s   :  0.6813  0.4889  0.8737
+==>  mike_notrea_logi_f  :  0.7063  0.7263  0.6863
+==>  mike_notrea_logi_s  :  0.7118  0.6337  0.79
+==>  mike_pam50_svm_f    :  0.6911  0.5711  0.8111
+==>  mike_pam50_svm_s    :  0.6755  0.5295  0.8216
+==>  mike_pam50_logi_f   :  0.6611  0.5832  0.7389
+==>  mike_pam50_logi_s   :  0.7071  0.6758  0.7384
+
+

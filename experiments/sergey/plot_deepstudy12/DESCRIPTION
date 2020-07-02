@@ -1,0 +1,10 @@
+cat ../rez_experement17_deepstudy12_pam50_cat_pcr_rfs_dfs.txt |grep == > selected_rez_experement17_deepstudy12_pam50_cat_pcr_rfs_dfs.txt
+cat ../rez_experement18_deepstudy12_mike_pcr_rfs_dfs.txt      |grep == > selected_rez_experement18_deepstudy12_mike_pcr_rfs_dfs.txt
+python count_rez_auc_xgboost.py selected_rez_experement17_deepstudy12_pam50_cat_pcr_rfs_dfs.txt > count_rez_auc_xgboost_17.txt
+python count_rez_auc_xgboost.py selected_rez_experement18_deepstudy12_mike_pcr_rfs_dfs.txt > count_rez_auc_xgboost_18.txt
+
+cat ../rez_experement18.1_deepstudy12_combat_pcr_rfs_dfs.txt | grep == > selected_rez_experement18.1_deepstudy12_combat_pcr_rfs_dfs.py
+cat ../rez_experement18.2_deepstudy12_pam50_cat_with_combat_pcr_rfs_dfs.txt | grep == > selected_rez_experement18.2_deepstudy12_pam50_cat_with_combat_pcr_rfs_dfs.txt
+
+python count_rez_auc_xgboost.py selected_rez_experement18.1_deepstudy12_combat_pcr_rfs_dfs.py > count_rez_auc_xgboost_18.1.txt
+python count_rez_auc_xgboost.py selected_rez_experement18.2_deepstudy12_pam50_cat_with_combat_pcr_rfs_dfs.txt > count_rez_auc_xgboost_18.2.txt
