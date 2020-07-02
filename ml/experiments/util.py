@@ -464,3 +464,43 @@ treatment_columns = ['tumor_size_cm_preTrt_preSurgery',
                      'trastuzumab', 'letrozole', 'chemotherapy',
                      'no_treatment', 'methotrexate', 'other', 'taxaneGeneral']
 
+
+def load_merged_dataset(cancer_data_dir):
+    dump_dir = os.path.join(cancer_data_dir, 'bcDump/example15bmc')
+    clinical_table_path = os.path.join(cancer_data_dir, 'bcClinicalTable.csv')
+    merged_path = os.path.join(dump_dir, 'ex15bmcMerged.csv.xz')
+    bmc_all_path = os.path.join(dump_dir, 'bmc15mldata1.csv')
+
+    dtype = {'DFS': pandas.Int64Dtype(),
+             'pCR': pandas.Int64Dtype(),
+             'RFS': pandas.Int64Dtype(),
+             'DFS': pandas.Int64Dtype(),
+             'posOutcome': pandas.Int64Dtype()}
+
+
+    # load averaged treatment table
+    bmc = pandas.read_csv(bmc_all_path, dtype=dtype, converters=converters)
+    bmc = bmc.sort_values(by='patient_ID')
+
+    # load detailed treatment
+    treatment = pandas.read_csv(clinical_table_path, converters=converters).sort_values(by='patient_ID')
+    treatment = treatment[treatment.patient_ID.isin(bmc.patient_ID)]
+
+
+    # load genes expression data
+    gene_expression = pandas.read_csv(lzma.open(merged_path))
+
+    genes_features = gene_expression[gene_expression.patient_ID.isin(bmc.patient_ID)]
+    genes_features = genes_features.sort_values(by='patient_ID')
+
+    genes_columns = genes_features.columns.to_list()[1:]
+
+    ## merge genes expression + averaged treatment + detailed treatment
+    merged = pandas.merge(genes_features, bmc, left_on='patient_ID', right_on='patient_ID')
+    merged = pandas.merge(merged, treatment, left_on='patient_ID', right_on='patient_ID')
+    merged.insert(0, 'row_num', range(0,len(merged)))
+
+    result = dict(bmc=bmc, genes_features=genes_features,
+            genes_columns=genes_columns, merged=merged,
+            treatment=treatment)
+    return result
