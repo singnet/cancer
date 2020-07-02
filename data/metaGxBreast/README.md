@@ -1,4 +1,5 @@
 # metaGx breast cancer data sets
+the [BioConductor package](https://www.bioconductor.org/packages/release/data/experiment/html/MetaGxBreast.html) is written up [here](https://pubmed.ncbi.nlm.nih.gov/31217513/).
 - **microarray data:** links to expression sets from the metaGx breast cancer studies with alternate normalizations
 - **metaGXcovarTable.csv.xz:** table of all sample covariates, including patient information, disease state, treatments, outcome, and microarray platform
 - **MetaGxData.xlsx:** supplamentary data from the metaGx paper
