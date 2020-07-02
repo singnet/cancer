@@ -8,6 +8,7 @@ import torch.optim as optim
 from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
 
+from util import init_weights
 
 class Net(nn.Module):
     def __init__(self,
@@ -25,6 +26,7 @@ class Net(nn.Module):
         self.disc1 = nn.Linear(embed_size, 1000)
         self.disc2 = nn.Linear(1000, 1000)
         self.disc3 = nn.Linear(1000, 1)
+        init_weights(self)
 
     def _get_params_by_layers(self, *args):
         res = []
@@ -124,18 +126,18 @@ def compute_loss_adversarial_enc(model, data, target, optimizer=dict()):
     desc_fake = model.descriminate(generated_code)
     delta = 0.00000000001
     # expecting 0 for real and 1 for fake
-    loss_desc = torch.mean(- 0.5 * torch.log(1 - desc_real + delta) - 0.5 * torch.log(desc_fake + delta))
+    loss_desc = 0.5 * torch.mean(- torch.log(1 - desc_real + delta)) + 0.5 * torch.mean(- torch.log(desc_fake + delta))
     # 2) update the encoder using generator
-    loss_gen = - torch.log(desc_real).mean()
+    loss_gen = (- torch.log(desc_real)).mean()
     result = dict()
     result.update(dict(reconstruction_loss=loss_reconst))
     result.update(dict(discrimination_loss=loss_desc))
+    result.update(dict(encoder_loss=loss_gen))
     if optimizer:
         for k, loss in result.items():
             opt = optimizer[k[:3]]
             loss.backward(retain_graph=True)
             opt.step()
-    result.update(dict(encoder_loss=loss_gen))
     result.update(dict(desc_real=desc_real.mean(),
                   desc_fake=desc_fake.mean()))
     return result
@@ -180,8 +182,8 @@ def test(model, compute_loss, device, test_loader):
 def main():
     train_adversarial = 1
     use_cuda = True
-    epochs = 100
-    lr = 0.0005
+    epochs = 200
+    lr = 0.005
 
     batch_size = 100
     test_batch_size = 100
@@ -192,14 +194,14 @@ def main():
 
     kwargs = {'num_workers': 1, 'pin_memory': True} if use_cuda else {}
     train_loader = torch.utils.data.DataLoader(
-        datasets.MNIST('../data', train=True, download=True,
+        datasets.MNIST('../data', train=False, download=True,
                        transform=transforms.Compose([
                            transforms.ToTensor(),
                        ])),
         batch_size=batch_size, shuffle=True, **kwargs)
 
     test_loader = torch.utils.data.DataLoader(
-        datasets.MNIST('../data', train=False, transform=transforms.Compose([
+        datasets.MNIST('../data', train=True, transform=transforms.Compose([
                            transforms.ToTensor(),
                        ])),
         batch_size=test_batch_size, shuffle=True, **kwargs)
@@ -209,8 +211,8 @@ def main():
     # model.load_state_dict(torch.load(PATH, map_location=device), strict=False)
 
     reconstruction_optimizer = optim.AdamW(model.autoenc_params(), lr=lr)
-    discriminative_optimizer = optim.AdamW(model.disc_params(), lr=lr)
-    encoder_optimizer = optim.AdamW(model.enc_params(), lr=lr)
+    discriminative_optimizer = optim.AdamW(model.disc_params(), lr=lr * 0.1)
+    encoder_optimizer = optim.AdamW(model.enc_params(), lr=lr * 0.1)
 
     if train_adversarial:
         compute_loss = compute_loss_adversarial_enc
@@ -228,7 +230,8 @@ def main():
         schedulers = [StepLR(reconstruction_optimizer, step_size=5, gamma=0.9)]
 
     for epoch in range(1, epochs + 1):
-        test(model, compute_loss, device, test_loader)
+        if epoch % 5 == 0:
+            test(model, compute_loss, device, test_loader)
         train(model, compute_loss, device, train_loader, optimizer, epoch)
         for scheduler in schedulers:
             scheduler.step()

@@ -19,7 +19,7 @@ def main():
                        transforms.ToTensor(),
                    ])),
     batch_size=test_batch_size, shuffle=True, **kwargs)
-    PATH = 'mnist_cnn100.pt.bak'
+    PATH = 'mnist_cnn200_enc.pt'
     model.load_state_dict(torch.load(PATH, map_location=device))
     model = model.eval().to(device)
     with torch.no_grad():
