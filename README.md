@@ -17,7 +17,7 @@ The author's github includes useful but outdated R code for processing and mergi
 [Link](https://www.ncbi.nlm.nih.gov/pubmed?linkname=pubmed_pubmed_citedin&from_uid=26961683) to papers citing CoINcIDE in pubmed for current related research in precision medicine.
   
 ### A Three-Gene Model to Robustly Identify Breast Cancer Molecular Subtypes
-[**MetaGxBreast:**]() in progress  
+[**MetaGxBreast:**](https://www.bioconductor.org/packages/release/data/experiment/html/MetaGxBreast.html) in progress  
 **MetaGxOvarian** in progress  
 **MetaGxPancreas** in progress  
   
