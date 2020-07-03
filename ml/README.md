@@ -8,4 +8,4 @@ Directory structure:
 [**misc**](misc) - miscellaneous unsorted files, like bash scripts for asmoses.
 
 
-[**sergey**](sergey) - Experiments Described in [Experimens_part2](https://docs.google.com/document/d/1uOnOmsmUpE0Y6Mj66c0m9HGORdOy973aj3EqW7KPiuI)
+[**sergey**](sergey) - Experiments Described in [Experiments_part2](https://docs.google.com/document/d/1uOnOmsmUpE0Y6Mj66c0m9HGORdOy973aj3EqW7KPiuI)
