@@ -8,10 +8,10 @@ import torch.optim as optim
 from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
 from network import Net, compute_loss_adversarial_enc, compute_loss_autoenc
-from util import train, test
+from training import train, test
 from dataset import GeneDataset
 from transform import DataLabelCompose, ToTensor
-from experiments.util import load_merged_dataset, random_split
+from data_util.util import load_merged_dataset, random_split
 
 
 def main():
@@ -34,7 +34,7 @@ def main():
     train_adversarial = 1
     use_cuda = True
     epochs = 200
-    lr = 0.005
+    lr = 0.0005
 
     batch_size = 100
     test_batch_size = 100
