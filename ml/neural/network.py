@@ -1,6 +1,8 @@
 import torch
+from collections import defaultdict
 import numpy
 from torch import nn
+from metrics import compute_metrics
 
 
 def init_weights(self):
@@ -15,18 +17,24 @@ def init_weights(self):
 class Net(nn.Module):
     def __init__(self, num_features,
             activation=lambda x: x,
+            decoder_output_activation=lambda x: x,
             embed_size=2):
         super(Net, self).__init__()
         self.activation = activation
+        self.dec_out_activation = decoder_output_activation
+        # encoder
         self.enc1 = nn.Linear(num_features, 1000)
         self.enc2 = nn.Linear(1000, 1000)
         self.enc3 = nn.Linear(1000, embed_size)
+        # decoder
         self.dec1 = nn.Linear(embed_size, 1000)
         self.dec2 = nn.Linear(1000, 1000)
         self.dec3 = nn.Linear(1000, num_features)
+        # discriminator
         self.disc1 = nn.Linear(embed_size, 1000)
         self.disc2 = nn.Linear(1000, 1000)
         self.disc3 = nn.Linear(1000, 1)
+
         init_weights(self)
 
     def _get_params_by_layers(self, *args):
@@ -72,7 +80,7 @@ class Net(nn.Module):
     def decode(self, x):
         x = self.activation(self.dec1(x))
         x = self.activation(self.dec2(x))
-        x = torch.sigmoid(self.dec3(x))
+        x = self.dec_out_activation(self.dec3(x))
         return x
 
     def descriminate(self, code):
@@ -91,7 +99,25 @@ def compute_loss_autoenc(model, data, target, optimizer=dict()):
     for opt in optimizer.values():
         loss.backward()
         opt.step()
-    return {'loss_reconst': loss}
+    return {'loss_reconst': [loss]}
+
+
+def compute_classifier_loss(model, data, target, optimizer=dict()):
+    shape = data.shape
+    x = data.reshape(shape[0], numpy.prod(shape[1:]))
+    out = model(x)
+    output = out['output']
+    # cross entropy
+    loss = - (target * torch.log(output) + (1 - target) * torch.log(1 - output)).mean()
+    if optimizer:
+        loss.backward()
+    for opt in optimizer.values():
+        opt.step()
+    result = defaultdict(list)
+    out_bin = output.detach().cpu().numpy() > 0.5
+    compute_metrics(result, target.detach().cpu().numpy(), out_bin)
+    result['loss'].append(loss.cpu().detach().numpy())
+    return result
 
 
 def generate_code(code):
@@ -135,18 +161,37 @@ def compute_loss_adversarial_enc(model, data, target, optimizer=dict()):
     result.update(dict(reconstruction_loss=loss_reconst))
     result.update(dict(discrimination_loss=loss_desc))
     result.update(dict(encoder_loss=loss_gen))
-    if optimizer:
-        for k, loss in result.items():
-            opt = optimizer[k[:3]]
+    for k, loss in result.items():
+        if k[:3] in optimizer:
             loss.backward(retain_graph=True)
-            opt.step()
+    for opt in optimizer.values():
+        opt.step()
     result.update(dict(desc_real=desc_real.mean(),
                   desc_fake=desc_fake.mean()))
-    return result
+    return {k: [v.detach().cpu().numpy()] for (k, v) in result.items()}
 
 
 class MnistNet(Net):
     def __init__(self, activation):
         super(MnistNet, self).__init__(num_features=28*28,
                 activation=activation,
+                decoder_output_activation=torch.sigmoid,
                 embed_size=2)
+
+
+class ClassifierNet(nn.Module):
+    def __init__(self, num_features, activation):
+        super().__init__()
+        self.activation = activation
+        self.l1 = nn.Linear(num_features, 1000)
+        self.l2 = nn.Linear(1000, 1000)
+        self.l3 = nn.Linear(1000, 1)
+
+    def forward(self, x):
+        x = x.to(next(self.parameters()))
+        x = self.activation(self.l1(x))
+        x = self.activation(self.l2(x))
+        x = torch.sigmoid(self.l3(x))
+        result = dict(output=x)
+        return result
+
