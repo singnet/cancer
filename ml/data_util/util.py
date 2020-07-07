@@ -45,7 +45,7 @@ def split_by_study(merged, bmc, study_name=None):
             break
 
 
-def select_balanced_idx(study, num):
+def select_balanced_idx(study, num, balance_train=False):
     if not num % 2 == 0:
         num = num + 1
     validation = []
@@ -60,8 +60,23 @@ def select_balanced_idx(study, num):
         validation.append(pos_outcome.iloc[pos_idx[i]])
         validation.append(neg_outcome.iloc[neg_idx[i]])
         i += 1
-    train = study[~study.patient_ID.isin(validation)]
+    train_pos = pos_idx[i:]
+    train_neg = neg_idx[i:]
+    len_diff = len(train_pos) - len(train_neg)
+    if balance_train:
+        if len_diff > 0: # train_pos is longer, sample train_neg
+            mul = len_diff // len(train_neg) + 1
+            train_neg = numpy.hstack([train_neg, ([x for x in train_neg] * mul)[:len_diff]])
+        if len_diff < 0:
+            len_diff *= -1
+            mul = len_diff // len(train_pos) + 1
+            train_pos = numpy.hstack([train_pos, ([x for x in train_pos] * mul)[:len_diff]])
+    train_idx = pos_outcome.iloc[train_pos].index.to_list() \
+            + neg_outcome.iloc[train_neg].index.to_list()
+    train = study.loc[train_idx]
+    # train = study[~study.patient_ID.isin(validation)]
     validation = study[study.patient_ID.isin(validation)]
+    assert not set(train.patient_ID.to_list()).intersection(set(validation.patient_ID.to_list()))
     return train, validation
 
 
@@ -80,9 +95,13 @@ def get_loc(patient_ID, frame):
     return frame[frame.patient_ID == patient_ID].row_num.to_list()[0]
 
 
-def random_split(merged, bmc, feature_columns, label_columns, ratio=0.1, study_name=None, rand=False, to_numpy=True, balance_by_study=False):
+def random_split(merged, bmc, feature_columns, label_columns, ratio=0.1, study_name=None, rand=False, to_numpy=True, balance_by_study=False, balance_train=False):
     """
     Split dataset into train and validation sets:
+
+    Parameters
+    balance_train: bool
+        balance train set by posOutcome
     --------------
     Returns: train_data, train_labels, val_data, val_labels, expected
         expected - confusion matrix expected from classification by ratio of positive/negative for each study
@@ -95,6 +114,7 @@ def random_split(merged, bmc, feature_columns, label_columns, ratio=0.1, study_n
     expected['FP'] = 0
     expected['TP'] = 0
 
+    bmc = merged
     for eval_study in set(bmc.study):
         if study_name is not None:
             if study_name != eval_study:
@@ -102,7 +122,7 @@ def random_split(merged, bmc, feature_columns, label_columns, ratio=0.1, study_n
         study = bmc[bmc.study == eval_study]
         num_select = math.ceil(len(study) * ratio)
         study_patients = bmc[bmc.study == eval_study]
-        bmc_train, bmc_val = select_balanced_idx(study_patients, num_select)
+        bmc_train, bmc_val = select_balanced_idx(study_patients, num_select, balance_train)
         pos_prob_train = bmc_train.posOutcome.sum() / len(bmc_train)
         neg_prob_train = 1 - pos_prob_train
         P = bmc_val.posOutcome.sum()
@@ -115,8 +135,14 @@ def random_split(merged, bmc, feature_columns, label_columns, ratio=0.1, study_n
         expected['TP'] += TP
         expected['FP'] += FP
         expected['FN'] += FN
-        val_dict[eval_study] = bmc_val.patient_ID.to_list()
-        train_dict[eval_study] = bmc_train.patient_ID.to_list()
+        val_dict[eval_study] = bmc_val.index.to_list()
+        train_dict[eval_study] = bmc_train.index.to_list()
+        train_patients = []
+        for patient_lst in train_dict.values():
+            train_patients += patient_lst
+        balance = merged.loc[train_patients].posOutcome.sum() / len(merged.loc[train_patients])
+        print("study {0}, balance {1}".format(eval_study, balance))
+
     if balance_by_study:
         train_dict = resample_patients_by_study(train_dict)
         iloc = []
@@ -127,11 +153,11 @@ def random_split(merged, bmc, feature_columns, label_columns, ratio=0.1, study_n
         train_patients = []
         for patient_lst in train_dict.values():
             train_patients += patient_lst
-        train_split = merged[merged.patient_ID.isin(train_patients)]
+        train_split = merged.loc[train_patients]
     val_patients = []
     for patient_lst in val_dict.values():
         val_patients += patient_lst
-    val_split = merged[merged.patient_ID.isin(val_patients)]
+    val_split = merged.loc[val_patients]
     train_data = train_split[feature_columns]
     train_labels = train_split[label_columns]
     val_data = val_split[feature_columns]
