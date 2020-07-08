@@ -2,6 +2,7 @@
 the [BioConductor package](https://www.bioconductor.org/packages/release/data/experiment/html/MetaGxBreast.html) is written up [here](https://pubmed.ncbi.nlm.nih.gov/31217513/).
 - **microarray data:** links to expression sets from the metaGx breast cancer studies with alternate normalizations
 - **metaGXcovarTable.csv.xz:** table of all sample covariates, including patient information, disease state, treatments, outcome, and microarray platform
+- **controlModel.csv.xz:** subset of the above table containing all samples from untreated patients with outcome status (death and recurrence).  Covariates are age at diagnosis (`age_dx`), tumor profile [`grade`, node metastesis (`N`), immuno histo chemistry receptor status (`er`, `her2`, `pgr`)], `batch`, and microarray `Platform`.
 - **MetaGxData.xlsx:** combined supplamentary data tables from the [metaGx paper](https://static-content.springer.com/esm/art%3A10.1038%2Fs41598-019-45165-4/MediaObjects/41598_2019_45165_MOESM2_ESM.xlsx) and the [_Three Genes_ paper](https://files.codeocean.com/files/verified/e0dd54f3-2274-4dd3-9280-ade92f8edfc8_v1.1/data/TABLE_1.xlsx?download) code dump.
 
 ## variables

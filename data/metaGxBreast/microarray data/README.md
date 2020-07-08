@@ -1,10 +1,10 @@
 ## large compressed expression matrices are available at the following links:
 These transcriptome expression level matrices are from the 39 studies contained in the metaGxBreast Bioconductor data package.  Samples are in rows and genes are in columns. Additional processing includes:
-- starting with the probes selected by Haibe-Kains, et al as described in the [methods section](https://academic.oup.com/jnci/article/104/4/311/979947#86094846) and marked in the Bioconductor [package]()
-- updating to HGNC gene symbols current on June 20, 2020 (which eliminates some of the originally included probes in each data set) and choosing the probe with the highest variance among probes mapped to the same gene.
+- starting with the probes selected by Haibe-Kains, et al as described in the [methods section](https://academic.oup.com/jnci/article/104/4/311/979947#86094846) and marked in the Bioconductor [package](https://www.bioconductor.org/packages/release/data/experiment/html/MetaGxBreast.html)
+- updating to current [HGNC]() gene symbols (which eliminates some of the originally included probes in each data set) and choosing the probe with the highest variance among probes mapped to the same gene.
 - making alternate versions of study expression matrices split by a batch variable included in sample covariate data. 
 ### matrices with no between-study normalization
-
+Expression levels are log 2 transformed original study data as published in GEO or other public source.
 **Combine the first archive with one of two following archives to form a complete set**
 - [mGXnoNorm.tar.xz](https://snet-bio-data.s3.us-west-2.amazonaws.com/example15bmc/mGXnoNorm.tar.xz): 31 transcriptome expression level matrices from metaGxBreast package with no additional normalization
 - [mGXnoNormNoBatch.tar.xz](https://snet-bio-data.s3.us-west-2.amazonaws.com/example15bmc/mGXnoNormNoBatch.tar.xz): 8 expression matrices containing unseparated sample batches with no additional normalization

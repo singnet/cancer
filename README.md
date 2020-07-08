@@ -4,24 +4,22 @@
 - what patterns of patient biomarkers characterize adverse events?
 - what combination of biomarkers and treatment parameters characterize best patient outcomes?
 
-## Breast, ovarian, and pancreatic cancer tumor transcriptomes and clinical data sets
-Each cancer set has data from multiple studies with different gene sets and clincal variables that can be analyzed as an ensemble/meta-analysis or merged into one large matrix.  Meta-analysis is more powerful with standard statistical methods due to data loss when variables from different studies are aligned and merged.
+## Breast cancer tumor transcriptomes and clinical data sets
+Each data set combines multiple studies with different gene sets and clincal variables that can be analyzed as an ensemble/meta-analysis or merged into one large matrix.  Meta-analysis is more powerful with standard statistical methods due to data loss when variables from different studies are aligned and merged.
 
 ## Data sources
 ### Clustering Intra and Inter DatasEts
-[**curatedBreastData:**](https://bioconductor.org/packages/release/data/experiment/html/curatedBreastData.html)  4,923 breast tumor microarray expression sets from 2,613 patients in 20 studies published as a Bioconductor R package [[paper](https://www.ncbi.nlm.nih.gov/pubmed/24303324)] [[github](https://github.com/kplaney/curatedBreastCancer)].  Related files have **bc** prefix  
-
 CoINcIDE is an unsupervised meta-graph clustering algorithm used to sub-type tumors from gene expression profiles from multiple patient study cohorts: [paper](https://www.ncbi.nlm.nih.gov/pubmed/26961683), author's  [github](https://github.com/kplaney/CoINcIDE).  
 The author's github includes useful but outdated R code for processing and merging microarray data sets from [GEO](https://www.ncbi.nlm.nih.gov/geo/). Updating the code for current use is ongoing, see _cancer_ branch of fork of author's github repository in [_CoINcIDE_](https://github.com/mjsduncan/CoINcIDE/tree/cancer).  
 
-[Link](https://www.ncbi.nlm.nih.gov/pubmed?linkname=pubmed_pubmed_citedin&from_uid=26961683) to papers citing CoINcIDE in pubmed for current related research in precision medicine.
+**curatedBreastData:**  4,923 breast tumor microarray expression sets from 2,613 patients in 20 studies published as a Bioconductor R [package](https://bioconductor.org/packages/release/data/experiment/html/curatedBreastData.html) [[paper](https://www.ncbi.nlm.nih.gov/pubmed/24303324)].  
+
+
   
 ### A Three-Gene Model to Robustly Identify Breast Cancer Molecular Subtypes
-[Haibe-Kains et. al (2012)](https://academic.oup.com/jnci/article/104/4/311/979947) develop a gaussian mixture subtype classification model (SCM) using microarray expression levels of three key genes (ER, HER2, and AURKA) from breast cancer tumor samples and compare it favorably to two other published SCMs and two published hierarchical clustering based single sample predictor (SSP) model classifiers with commercially available clinical molecular subtyping implementations using dozens to hundreds of genes.  An associated Bioconductor package [GeneFu](https://www.bioconductor.org/packages/release/bioc/html/genefu.html) and the [code](https://codeocean.com/capsule/6438633/tree/v1) to reproduce their findings are available.
+[Haibe-Kains et. al (2012)](https://academic.oup.com/jnci/article/104/4/311/979947) develop a gaussian mixture subtype classification model (SCM) using microarray expression levels of three key genes (ER, HER2, and AURKA) from breast cancer tumor samples and compare it favorably to two other published SCMs and three published hierarchical clustering based single sample predictor (SSP) model classifiers, including the commercially available [PAM50](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4546262/) molecular subtyping system, using dozens to hundreds of genes.  An associated Bioconductor package [GeneFu](https://www.bioconductor.org/packages/release/bioc/html/genefu.html) and the [code](https://codeocean.com/capsule/6438633/tree/v1) to reproduce their findings are available.
 
-[**MetaGxBreast:**](https://www.bioconductor.org/packages/release/data/experiment/html/MetaGxBreast.html) in progress  
-  
-[MetaGxData: Clinically Annotated Breast, Ovarian and Pancreatic Cancer Datasets and Their Use in Generating a Multi-Cancer Gene Signature](https://pubmed.ncbi.nlm.nih.gov/31217513/)  
+[**MetaGxBreast:**](https://www.bioconductor.org/packages/release/data/experiment/html/MetaGxBreast.html) 39 breast cancer microarray expression datasets spanning 10,004 samples. Survival information is available for 6,847 patients, including overall survival (n = 4,425), metastasis free survival (n = 2,695), and relapse free survival (n = 1,858) [[package]](https://bioconductor.riken.jp/packages/3.10/data/experiment/html/MetaGxBreast.html)[[paper]](https://pubmed.ncbi.nlm.nih.gov/31217513/).  
 
 **pdf copies of papers are in the [lit](./lit) dircetory**  
 
