@@ -1,7 +1,7 @@
 ## check out bc data
 # getspreadsheet info
 library(tidyverse)
-metaGX <- readxl::read_excel("metaGxData/data/TABLE_1.xlsx", sheet = 1, n_max = 39) %>%
+metaGX <- readxl::read_excel("data/metaGxBreast/metaGxData.xlsx", sheet = 1, n_max = 39) %>%
   select(2:7)
 
 library(MetaGxBreast)
@@ -38,7 +38,7 @@ micro <- mcmapply(left_join, fdata, micro, mc.cores = 8, mc.preschedule = FALSE)
 
 # remap symbols with current hgnc data
 # https://www.genenames.org/cgi-bin/download/custom?col=gd_hgnc_id&col=gd_app_sym&col=gd_status&col=gd_pub_eg_id&col=gd_pub_ensembl_id&status=Approved&hgnc_dbtag=on&order_by=gd_app_sym_sort&format=text&submit=submit
-hgncMap <- read_tsv("data/hgncMap17jun20.tsv", col_types = "ccccc") %>%
+hgncMap <- read_tsv("data/metaGxBreast/hgncMap17jun20.tsv", col_types = "ccccc") %>%
   select(2, 4, 5)
 
 # are there symbols with no entrez? no
@@ -109,20 +109,6 @@ print(bind_cols(bind_rows(lapply(micro,
 # 38 GSE58644          NA    19656    546        NA    20864    598
 # 39 GSE48091       11343     1451    123     20543     2503    200
 
-# HGNChelper not used
-# # use HGNChelper to avoid symbol mayhem
-# library(HGNChelper)
-# current  <- getCurrentHumanMap()
-# write_csv(current, "data/currentHGNCsymbols_2020_6_11.csv")
-# current <- read_csv("data/currentHGNCsymbols_2020_6_11.csv")
-
-# # function to pull one symbol from HGNChelper suggested symbols string
-# getSym <- Vectorize(
-#   function(x) na_if(
-#     paste(grep("^NA$", unlist(str_split(x, " /// ")), inv = TRUE, val = TRUE), collapse = "_"),
-#     "NA"),
-#                     USE.NAMES = FALSE)
-
 # check for duplicate features
 sapply(micro, function(x) sum(duplicated(x$hgnc)))
 #      CAL      DFHCC     DFHCC2     DFHCC3       DUKE      DUKE2       EMC2 EORTC10994       EXPO 
@@ -148,8 +134,10 @@ sapply(micro, function(x) sum(duplicated(x$hgnc[x$best_probe])))
 # GSE32646   GSE58644   GSE48091 
 #     1449        545        122 
 
+rm(esets, fdata, hgncMap)
+
 # make metaGX study comparable data set
-# use annotation filter, update symbols, select duplicate with > variation
+# use annotation filter, update symbols, select duplicate with greatest variation
 mgxSet <- mclapply(micro, function(x) 
   filter(x, best_probe) %>%
     select(- probeset, - gene, - entrez, - best_probe) %>%
@@ -159,9 +147,12 @@ mgxSet <- mclapply(micro, function(x)
     filter(sd == max(sd) & !is.na(hgnc)) %>%
     select(- sd),
   mc.cores = 10, mc.preschedule = FALSE)
-names(mgxSet$TRANSBIG) <- str_remove(names(mgxSet$TRANSBIG), "TRANSBIG_")
 
-saveRDS(mgxSet, "data/mgxSet/mgxSet.rds")
+# clean up names
+names(mgxSet$TRANSBIG) <- str_remove(names(mgxSet$TRANSBIG), "TRANSBIG_")
+# names(mgxSet$STNO2) <- str_remove(names(mgxSet$STNO2), "STNO2_")
+
+saveRDS(mgxSet, "data/metaGxBreast/mgxSet.rds")
 
 # make aggregate pheno df
 study <- names(esets)
@@ -268,6 +259,65 @@ grep(paste0(str_remove(overlap, "GSE"), collapse = "|"), list.files("../cancer.o
 metaGX$Dataset[metaGX$Dataset_accession %in% c("GSE32646", "GSE25055", "GSE25065")]
 
 write_csv(pheno, "data/metaGXcovarTable.csv.xz")
+
+# add inokenty's platform data
+uniquePlatfroms <- lapply(list(MAQC2 = "MAQC2", STK = "STK", STNO2 = "STNO2", UNC4 = "UNC4"),
+       function(x) read_tsv(paste0("data/metaGxBreast/Studies/", x, ".txt"), 
+                            col_names = c("gsm", "sample_name", "Platform")))
+
+lapply(uniquePlatfroms, function(x) table(x$Platform))
+# $MAQC2
+# GPL96 
+# 278 
+# 
+# $STK
+# GPL96 GPL97 
+#   159   159 
+# 
+# $STNO2
+# GPL180 GPL2776 GPL2777 GPL2778 GPL3045 GPL3047 GPL3147 GPL3507 
+#     66      43       1       8       3      24      21       1 
+# 
+# $UNC4
+## GPL1390 GPL1708 GPL5325 GPL6607 GPL7504  GPL885  GPL887 
+#      200      11      19       2      28      20      92 
+
+sapply(uniquePlatfroms, dim)
+#      MAQC2 STK STNO2 UNC4
+# [1,]   278 318   167  372
+# [2,]     3   3     3    3
+sapply(mgxSet[names(uniquePlatfroms)], dim)
+#      MAQC2   STK STNO2 UNC4
+# [1,] 12536 17446  3197 4966
+# [2,]    45   160   119  306
+
+# none of names match!
+intersect(pheno$sample_name, purrr::reduce(map(uniquePlatfroms, pull, sample_name), c))
+# character(0)
+
+intersect(pheno$sample_name, reduce(map(uniquePlatfroms, pull, gsm), c))
+# character(0)
+
+# how to fix?
+# MAQC2 alternate_sample_name is 3 digit number, match with digits in inokenty's sample names
+# TODO: follow up probable replicate samples, ie BR_FNA_M264 & BR_FNA_M264R1
+# TODO: confirm which one is retained by MetaGxBreast::loadBreastEsets
+uniquePlatfroms$MAQC2 <- mutate(uniquePlatfroms$MAQC2,
+                                sample_name = str_replace(sample_name, "BR_FNA_M", "MAQC2_"))
+
+# STK alternate_sample_name is 1-3 digit number, match with digits in inokenty's sample names
+#TODO: 94 are still missing, can we match GSMs ?
+uniquePlatfroms$STK <- mutate(uniquePlatfroms$STK,
+                    sample_name = paste0("STK_", str_remove(substr(sample_name, 2, 4), "^00|^0")))
+
+# STNO2 sample_name has prefix "STNO2_", add it to inokenty's sample names
+# TODO: 34 are still missing
+uniquePlatfroms$STNO2 <- mutate(uniquePlatfroms$STNO2, sample_name = paste0("STNO2_", sample_name))
+
+# UNC4 gsm ids & sample names have no apparent relationship to inokenty's gsm ids or sample names
+
+setdiff(filter(pheno, study %in% names(uniquePlatfroms)[-4]) %>% pull(sample_name),
+        purrr::reduce(map(uniquePlatfroms, pull, sample_name), c))
 
 # make metaGX comparable expression matrices without batch separation for ml analysis
 # function to transpose the tibble

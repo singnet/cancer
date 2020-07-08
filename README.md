@@ -17,9 +17,9 @@ The author's github includes useful but outdated R code for processing and mergi
 [Link](https://www.ncbi.nlm.nih.gov/pubmed?linkname=pubmed_pubmed_citedin&from_uid=26961683) to papers citing CoINcIDE in pubmed for current related research in precision medicine.
   
 ### A Three-Gene Model to Robustly Identify Breast Cancer Molecular Subtypes
+[Haibe-Kains et. al (2012)](https://academic.oup.com/jnci/article/104/4/311/979947) develop a gaussian mixture subtype classification model (SCM) using microarray expression levels of three key genes (ER, HER2, and AURKA) from breast cancer tumor samples and compare it favorably to two other published SCMs and two published hierarchical clustering based single sample predictor (SSP) model classifiers with commercially available clinical molecular subtyping implementations using dozens to hundreds of genes.  An associated Bioconductor package [GeneFu](https://www.bioconductor.org/packages/release/bioc/html/genefu.html) and the [code](https://codeocean.com/capsule/6438633/tree/v1) to reproduce their findings are available.
+
 [**MetaGxBreast:**](https://www.bioconductor.org/packages/release/data/experiment/html/MetaGxBreast.html) in progress  
-**MetaGxOvarian** in progress  
-**MetaGxPancreas** in progress  
   
 [MetaGxData: Clinically Annotated Breast, Ovarian and Pancreatic Cancer Datasets and Their Use in Generating a Multi-Cancer Gene Signature](https://pubmed.ncbi.nlm.nih.gov/31217513/)  
 
