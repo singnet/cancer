@@ -27,10 +27,11 @@ def get_datasets(label_columns=['study'], transform=None, balance_train=True):
        to_tensor = ToTensor()
        transform = DataLabelCompose(to_tensor, to_tensor)
 
-    train_data, train_labels, val_data, val_labels, _ = random_split(merged, bmc,
-            feature_columns, label_columns, balance_train=balance_train)
+    train_data, train_labels, val_data, val_labels = random_split(merged,
+            feature_columns, label_columns, balance_train=balance_train, balance_by_study=False)
+    assert val_labels.mean() == 0.5
     train_set = GeneDataset(train_data, train_labels, transform)
-    test_set = GeneDataset(train_data, train_labels, transform)
+    test_set = GeneDataset(val_data, val_labels, transform)
     return train_set, test_set
 
 
@@ -41,7 +42,7 @@ def main():
     epochs = 2000
     lr = 0.0005
 
-    train_set, test_set = get_datasets(balance_train=False)
+    train_set, test_set = get_datasets(balance_train=True)
 
     num_features = train_set[0][0].shape[0]
     batch_size = 400
