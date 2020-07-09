@@ -1,0 +1,790 @@
+['patient_ID', 'study', 'pCR', 'RFS', 'DFS', 'radio', 'surgery', 'chemo', 'hormone', 'posOutcome', 'Basal', 'Her2', 'LumA', 'LumB', 'Normal']
+study_12093_GPL96_all-bmc15 136
+protocol 1 136
+pCR=-  RFS=-  DFS=116=85.3%  posOutcome=116=85.3%
+Basal=0=0.0%  Her2=1=0.7%  LumA=103=75.7%  LumB=31=22.8%  Normal=1=0.7%
+estrogen_receptor_blocker 1.0
+tamoxifen 1.0
+hormone 1
+anti_estrogen 1.0
+neoadjuvant_or_adjuvant adj
+treatment_protocol_number 1
+
+
+study_1379_GPL1223_all-bmc15 60
+protocol 1 60
+pCR=-  RFS=-  DFS=32=53.3%  posOutcome=32=53.3%
+Basal=0=0.0%  Her2=1=1.7%  LumA=58=96.7%  LumB=0=0.0%  Normal=1=1.7%
+estrogen_receptor_blocker 1.0
+tamoxifen 1.0
+hormone 1
+anti_estrogen 1.0
+neoadjuvant_or_adjuvant adj
+treatment_protocol_number 1
+
+
+study_16391_GPL570_all-bmc15 48
+protocol 1 2
+pCR=-  RFS=2=100.0%  DFS=-  posOutcome=2=100.0%
+Basal=0=0.0%  Her2=0=0.0%  LumA=2=100.0%  LumB=0=0.0%  Normal=0=0.0%
+surgery 1
+hormone 1
+anti_estrogen 1.0
+letrozole 1.0
+aromatase_inhibitor 1.0
+neoadjuvant_or_adjuvant adj
+estrogen_receptor_blocker_and_stops_production 1.0
+treatment_protocol_number 1
+
+protocol 2 3
+pCR=-  RFS=2=66.7%  DFS=-  posOutcome=2=66.7%
+Basal=0=0.0%  Her2=0=0.0%  LumA=2=66.7%  LumB=1=33.3%  Normal=0=0.0%
+surgery 1
+estrogen_receptor_blocker 1.0
+tamoxifen 1.0
+hormone 1
+anti_estrogen 1.0
+neoadjuvant_or_adjuvant adj
+treatment_protocol_number 2
+
+protocol 3 16
+pCR=-  RFS=12=75.0%  DFS=-  posOutcome=12=75.0%
+Basal=0=0.0%  Her2=0=0.0%  LumA=10=62.5%  LumB=6=37.5%  Normal=0=0.0%
+surgery 2
+radio 1
+hormone 1
+anti_estrogen 1.0
+letrozole 1.0
+aromatase_inhibitor 1.0
+neoadjuvant_or_adjuvant adj
+estrogen_receptor_blocker_and_stops_production 1.0
+treatment_protocol_number 3
+
+protocol 4 9
+pCR=-  RFS=8=88.9%  DFS=-  posOutcome=8=88.9%
+Basal=0=0.0%  Her2=0=0.0%  LumA=6=66.7%  LumB=3=33.3%  Normal=0=0.0%
+surgery 2
+radio 1
+estrogen_receptor_blocker 1.0
+tamoxifen 1.0
+hormone 1
+anti_estrogen 1.0
+neoadjuvant_or_adjuvant adj
+treatment_protocol_number 4
+
+protocol 6 1
+pCR=-  RFS=1=100.0%  DFS=-  posOutcome=1=100.0%
+Basal=0=0.0%  Her2=0=0.0%  LumA=1=100.0%  LumB=0=0.0%  Normal=0=0.0%
+surgery 1
+estrogen_receptor_blocker 1.0
+tamoxifen 1.0
+hormone 1
+anti_estrogen 1.0
+neoadjuvant_or_adjuvant mixed
+treatment_protocol_number 6
+chemo 1
+
+protocol 7 17
+pCR=-  RFS=13=76.5%  DFS=-  posOutcome=13=76.5%
+Basal=0=0.0%  Her2=1=5.9%  LumA=10=58.8%  LumB=6=35.3%  Normal=0=0.0%
+surgery 1
+radio 1
+hormone 1
+anti_estrogen 1.0
+letrozole 1.0
+aromatase_inhibitor 1.0
+neoadjuvant_or_adjuvant mixed
+estrogen_receptor_blocker_and_stops_production 1.0
+treatment_protocol_number 7
+chemo 1
+
+
+study_16446_GPL570_all-bmc15 114
+protocol 1 114
+pCR=16=14.0%  RFS=-  DFS=89=78.1%  posOutcome=89=78.1%
+Basal=81=71.1%  Her2=19=16.7%  LumA=1=0.9%  LumB=7=6.1%  Normal=6=5.3%
+neoadjuvant_or_adjuvant mixed
+anthracycline 1.0
+treatment_protocol_number 1
+epirubicin 1.0
+chemo 1
+
+
+study_17705_GPL96_JBI_Tissue_BC_Tamoxifen-bmc15 103
+protocol 1 103
+pCR=-  RFS=85=82.5%  DFS=-  posOutcome=85=82.5%
+Basal=0=0.0%  Her2=3=2.9%  LumA=80=77.7%  LumB=17=16.5%  Normal=3=2.9%
+estrogen_receptor_blocker 1.0
+tamoxifen 1.0
+hormone 1
+anti_estrogen 1.0
+neoadjuvant_or_adjuvant adj
+treatment_protocol_number 1
+
+
+study_17705_GPL96_MDACC_Tissue_BC_Tamoxifen-bmc15 195
+protocol 1 195
+pCR=-  RFS=142=72.8%  DFS=-  posOutcome=142=72.8%
+Basal=4=2.1%  Her2=0=0.0%  LumA=156=80.0%  LumB=32=16.4%  Normal=3=1.5%
+estrogen_receptor_blocker 1.0
+tamoxifen 1.0
+hormone 1
+anti_estrogen 1.0
+neoadjuvant_or_adjuvant adj
+treatment_protocol_number 1
+
+
+study_19615_GPL570_all-bmc15 110
+protocol 1 23
+pCR=-  RFS=20=87.0%  DFS=-  posOutcome=20=87.0%
+Basal=15=65.2%  Her2=2=8.7%  LumA=2=8.7%  LumB=4=17.4%  Normal=0=0.0%
+doxorubicin 1.0
+neoadjuvant_or_adjuvant unspecified
+anthracycline 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 1
+chemo 1
+
+protocol 10 1
+pCR=-  RFS=1=100.0%  DFS=-  posOutcome=1=100.0%
+Basal=0=0.0%  Her2=1=100.0%  LumA=0=0.0%  LumB=0=0.0%  Normal=0=0.0%
+hormone 1
+doxorubicin 1.0
+anti_HER2 1.0
+paclitaxel 1.0
+neoadjuvant_or_adjuvant unspecified
+anthracycline 1.0
+taxane 1.0
+cyclophosphamide 1.0
+trastuzumab 1.0
+treatment_protocol_number 10
+chemo 1
+
+protocol 11 2
+pCR=-  RFS=2=100.0%  DFS=-  posOutcome=2=100.0%
+Basal=1=50.0%  Her2=0=0.0%  LumA=0=0.0%  LumB=1=50.0%  Normal=0=0.0%
+doxorubicin 1.0
+neoadjuvant_or_adjuvant unspecified
+anthracycline 1.0
+fluorouracil 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 11
+chemo 1
+
+protocol 12 16
+pCR=-  RFS=15=93.8%  DFS=-  posOutcome=15=93.8%
+Basal=0=0.0%  Her2=0=0.0%  LumA=11=68.8%  LumB=5=31.2%  Normal=0=0.0%
+estrogen_receptor_blocker 1.0
+tamoxifen 1.0
+hormone 1
+anti_estrogen 1.0
+doxorubicin 1.0
+neoadjuvant_or_adjuvant unspecified
+anthracycline 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 12
+chemo 1
+
+protocol 13 15
+pCR=-  RFS=15=100.0%  DFS=-  posOutcome=15=100.0%
+Basal=0=0.0%  Her2=0=0.0%  LumA=12=80.0%  LumB=3=20.0%  Normal=0=0.0%
+estrogen_receptor_blocker 1.0
+tamoxifen 1.0
+hormone 1
+anti_estrogen 1.0
+doxorubicin 1.0
+paclitaxel 1.0
+neoadjuvant_or_adjuvant unspecified
+anthracycline 1.0
+taxane 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 13
+chemo 1
+
+protocol 14 1
+pCR=-  RFS=1=100.0%  DFS=-  posOutcome=1=100.0%
+Basal=0=0.0%  Her2=0=0.0%  LumA=1=100.0%  LumB=0=0.0%  Normal=0=0.0%
+docetaxel 1.0
+estrogen_receptor_blocker 1.0
+tamoxifen 1.0
+hormone 1
+anti_estrogen 1.0
+doxorubicin 1.0
+neoadjuvant_or_adjuvant unspecified
+anthracycline 1.0
+taxane 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 14
+chemo 1
+
+protocol 15 20
+pCR=-  RFS=19=95.0%  DFS=-  posOutcome=19=95.0%
+Basal=0=0.0%  Her2=0=0.0%  LumA=19=95.0%  LumB=1=5.0%  Normal=0=0.0%
+estrogen_receptor_blocker 1.0
+tamoxifen 1.0
+hormone 1
+anti_estrogen 1.0
+neoadjuvant_or_adjuvant unspecified
+treatment_protocol_number 15
+
+protocol 16 1
+pCR=-  RFS=1=100.0%  DFS=-  posOutcome=1=100.0%
+Basal=0=0.0%  Her2=0=0.0%  LumA=0=0.0%  LumB=1=100.0%  Normal=0=0.0%
+docetaxel 1.0
+estrogen_receptor_blocker 1.0
+tamoxifen 1.0
+hormone 1
+anti_estrogen 1.0
+doxorubicin 1.0
+neoadjuvant_or_adjuvant unspecified
+anthracycline 1.0
+taxane 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 16
+chemo 1
+
+protocol 17 4
+pCR=-  RFS=3=75.0%  DFS=-  posOutcome=3=75.0%
+Basal=0=0.0%  Her2=0=0.0%  LumA=3=75.0%  LumB=1=25.0%  Normal=0=0.0%
+methotrexate 1.0
+estrogen_receptor_blocker 1.0
+tamoxifen 1.0
+hormone 1
+anti_estrogen 1.0
+doxorubicin 1.0
+neoadjuvant_or_adjuvant unspecified
+anthracycline 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 17
+chemo 1
+
+protocol 2 10
+pCR=-  RFS=7=70.0%  DFS=-  posOutcome=7=70.0%
+Basal=5=50.0%  Her2=4=40.0%  LumA=0=0.0%  LumB=0=0.0%  Normal=1=10.0%
+doxorubicin 1.0
+paclitaxel 1.0
+neoadjuvant_or_adjuvant unspecified
+anthracycline 1.0
+taxane 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 2
+chemo 1
+
+protocol 3 2
+pCR=-  RFS=2=100.0%  DFS=-  posOutcome=2=100.0%
+Basal=0=0.0%  Her2=1=50.0%  LumA=1=50.0%  LumB=0=0.0%  Normal=0=0.0%
+hormone 1
+doxorubicin 1.0
+anti_HER2 1.0
+paclitaxel 1.0
+neoadjuvant_or_adjuvant unspecified
+anthracycline 1.0
+taxane 1.0
+cyclophosphamide 1.0
+trastuzumab 1.0
+treatment_protocol_number 3
+chemo 1
+
+protocol 4 8
+pCR=-  RFS=5=62.5%  DFS=-  posOutcome=5=62.5%
+Basal=2=25.0%  Her2=0=0.0%  LumA=2=25.0%  LumB=2=25.0%  Normal=2=25.0%
+neoadjuvant_or_adjuvant unspecified
+treatment_protocol_number 4
+no_treatment 1.0
+
+protocol 5 2
+pCR=-  RFS=2=100.0%  DFS=-  posOutcome=2=100.0%
+Basal=1=50.0%  Her2=0=0.0%  LumA=1=50.0%  LumB=0=0.0%  Normal=0=0.0%
+docetaxel 1.0
+doxorubicin 1.0
+neoadjuvant_or_adjuvant unspecified
+anthracycline 1.0
+taxane 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 5
+chemo 1
+
+protocol 6 2
+pCR=-  RFS=2=100.0%  DFS=-  posOutcome=2=100.0%
+Basal=0=0.0%  Her2=0=0.0%  LumA=1=50.0%  LumB=1=50.0%  Normal=0=0.0%
+estrogen_receptor_blocker 1.0
+tamoxifen 1.0
+hormone 1
+anti_estrogen 1.0
+doxorubicin 1.0
+neoadjuvant_or_adjuvant unspecified
+anthracycline 1.0
+fluorouracil 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 6
+chemo 1
+
+protocol 7 1
+pCR=-  RFS=0=0.0%  DFS=-  posOutcome=0=0.0%
+Basal=0=0.0%  Her2=0=0.0%  LumA=0=0.0%  LumB=1=100.0%  Normal=0=0.0%
+doxorubicin 1.0
+paclitaxel 1.0
+neoadjuvant_or_adjuvant unspecified
+anthracycline 1.0
+taxane 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 7
+chemo 1
+
+protocol 8 1
+pCR=-  RFS=0=0.0%  DFS=-  posOutcome=0=0.0%
+Basal=0=0.0%  Her2=1=100.0%  LumA=0=0.0%  LumB=0=0.0%  Normal=0=0.0%
+doxorubicin 1.0
+paclitaxel 1.0
+neoadjuvant_or_adjuvant unspecified
+anthracycline 1.0
+taxane 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 8
+chemo 1
+
+protocol 9 1
+pCR=-  RFS=1=100.0%  DFS=-  posOutcome=1=100.0%
+Basal=0=0.0%  Her2=0=0.0%  LumA=1=100.0%  LumB=0=0.0%  Normal=0=0.0%
+neoadjuvant_or_adjuvant unspecified
+anthracycline 1.0
+cyclophosphamide 1.0
+capecitabine 1.0
+treatment_protocol_number 9
+epirubicin 1.0
+chemo 1
+
+
+study_20181_GPL96_all-bmc15 53
+protocol 1 53
+pCR=37=69.8%  RFS=-  DFS=-  posOutcome=37=69.8%
+Basal=0=0.0%  Her2=0=0.0%  LumA=39=73.6%  LumB=14=26.4%  Normal=0=0.0%
+hormone 1
+anti_estrogen 1.0
+letrozole 1.0
+aromatase_inhibitor 1.0
+neoadjuvant_or_adjuvant neo
+estrogen_receptor_blocker_and_stops_production 1.0
+treatment_protocol_number 1
+
+
+study_20194_GPL96_all-bmc15 261
+protocol 1 156
+pCR=43=27.6%  RFS=-  DFS=-  posOutcome=43=27.6%
+Basal=36=23.1%  Her2=9=5.8%  LumA=48=30.8%  LumB=50=32.1%  Normal=13=8.3%
+doxorubicin 1.0
+paclitaxel 1.0
+neoadjuvant_or_adjuvant neo
+anthracycline 1.0
+fluorouracil 1.0
+taxane 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 1
+chemo 1
+
+protocol 10 1
+pCR=0=0.0%  RFS=-  DFS=-  posOutcome=0=0.0%
+Basal=0=0.0%  Her2=0=0.0%  LumA=1=100.0%  LumB=0=0.0%  Normal=0=0.0%
+doxorubicin 1.0
+paclitaxel 1.0
+neoadjuvant_or_adjuvant neo
+anthracycline 1.0
+fluorouracil 1.0
+taxane 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 10
+chemo 1
+
+protocol 11 7
+pCR=0=0.0%  RFS=-  DFS=-  posOutcome=0=0.0%
+Basal=0=0.0%  Her2=1=14.3%  LumA=5=71.4%  LumB=1=14.3%  Normal=0=0.0%
+doxorubicin 1.0
+paclitaxel 1.0
+neoadjuvant_or_adjuvant neo
+anthracycline 1.0
+fluorouracil 1.0
+taxane 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 11
+chemo 1
+
+protocol 12 4
+pCR=1=25.0%  RFS=-  DFS=-  posOutcome=1=25.0%
+Basal=1=25.0%  Her2=1=25.0%  LumA=2=50.0%  LumB=0=0.0%  Normal=0=0.0%
+paclitaxel 1.0
+neoadjuvant_or_adjuvant neo
+taxane 1.0
+treatment_protocol_number 12
+chemo 1
+
+protocol 13 9
+pCR=2=22.2%  RFS=-  DFS=-  posOutcome=2=22.2%
+Basal=1=11.1%  Her2=2=22.2%  LumA=3=33.3%  LumB=3=33.3%  Normal=0=0.0%
+doxorubicin 1.0
+paclitaxel 1.0
+neoadjuvant_or_adjuvant neo
+anthracycline 1.0
+fluorouracil 1.0
+taxane 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 13
+chemo 1
+
+protocol 14 2
+pCR=0=0.0%  RFS=-  DFS=-  posOutcome=0=0.0%
+Basal=0=0.0%  Her2=0=0.0%  LumA=0=0.0%  LumB=2=100.0%  Normal=0=0.0%
+doxorubicin 1.0
+paclitaxel 1.0
+neoadjuvant_or_adjuvant neo
+anthracycline 1.0
+fluorouracil 1.0
+taxane 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 14
+chemo 1
+
+protocol 15 2
+pCR=0=0.0%  RFS=-  DFS=-  posOutcome=0=0.0%
+Basal=0=0.0%  Her2=0=0.0%  LumA=0=0.0%  LumB=2=100.0%  Normal=0=0.0%
+hormone 1
+doxorubicin 1.0
+anti_HER2 1.0
+paclitaxel 1.0
+neoadjuvant_or_adjuvant neo
+anthracycline 1.0
+fluorouracil 1.0
+taxane 1.0
+cyclophosphamide 1.0
+trastuzumab 1.0
+treatment_protocol_number 15
+chemo 1
+
+protocol 16 2
+pCR=0=0.0%  RFS=-  DFS=-  posOutcome=0=0.0%
+Basal=0=0.0%  Her2=0=0.0%  LumA=2=100.0%  LumB=0=0.0%  Normal=0=0.0%
+doxorubicin 1.0
+paclitaxel 1.0
+neoadjuvant_or_adjuvant neo
+anthracycline 1.0
+fluorouracil 1.0
+taxane 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 16
+chemo 1
+
+protocol 17 1
+pCR=0=0.0%  RFS=-  DFS=-  posOutcome=0=0.0%
+Basal=0=0.0%  Her2=0=0.0%  LumA=0=0.0%  LumB=1=100.0%  Normal=0=0.0%
+hormone 1
+anti_estrogen 1.0
+doxorubicin 1.0
+letrozole 1.0
+aromatase_inhibitor 1.0
+paclitaxel 1.0
+neoadjuvant_or_adjuvant neo
+anthracycline 1.0
+estrogen_receptor_blocker_and_stops_production 1.0
+fluorouracil 1.0
+taxane 1.0
+cyclophosphamide 1.0
+capecitabine 1.0
+treatment_protocol_number 17
+chemo 1
+
+protocol 2 1
+pCR=0=0.0%  RFS=-  DFS=-  posOutcome=0=0.0%
+Basal=1=100.0%  Her2=0=0.0%  LumA=0=0.0%  LumB=0=0.0%  Normal=0=0.0%
+paclitaxel 1.0
+neoadjuvant_or_adjuvant neo
+taxane 1.0
+treatment_protocol_number 2
+chemo 1
+
+protocol 3 4
+pCR=2=50.0%  RFS=-  DFS=-  posOutcome=2=50.0%
+Basal=0=0.0%  Her2=4=100.0%  LumA=0=0.0%  LumB=0=0.0%  Normal=0=0.0%
+hormone 1
+doxorubicin 1.0
+anti_HER2 1.0
+paclitaxel 1.0
+neoadjuvant_or_adjuvant neo
+anthracycline 1.0
+fluorouracil 1.0
+taxane 1.0
+cyclophosphamide 1.0
+trastuzumab 1.0
+treatment_protocol_number 3
+chemo 1
+
+protocol 4 1
+pCR=0=0.0%  RFS=-  DFS=-  posOutcome=0=0.0%
+Basal=0=0.0%  Her2=0=0.0%  LumA=0=0.0%  LumB=0=0.0%  Normal=1=100.0%
+doxorubicin 1.0
+neoadjuvant_or_adjuvant neo
+anthracycline 1.0
+fluorouracil 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 4
+chemo 1
+
+protocol 5 64
+pCR=4=6.2%  RFS=-  DFS=-  posOutcome=4=6.2%
+Basal=6=9.4%  Her2=7=10.9%  LumA=31=48.4%  LumB=18=28.1%  Normal=2=3.1%
+paclitaxel 1.0
+neoadjuvant_or_adjuvant neo
+anthracycline 1.0
+fluorouracil 1.0
+taxane 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 5
+epirubicin 1.0
+chemo 1
+
+protocol 6 1
+pCR=0=0.0%  RFS=-  DFS=-  posOutcome=0=0.0%
+Basal=1=100.0%  Her2=0=0.0%  LumA=0=0.0%  LumB=0=0.0%  Normal=0=0.0%
+doxorubicin 1.0
+paclitaxel 1.0
+neoadjuvant_or_adjuvant neo
+anthracycline 1.0
+fluorouracil 1.0
+taxane 1.0
+cyclophosphamide 1.0
+capecitabine 1.0
+treatment_protocol_number 6
+chemo 1
+
+protocol 7 3
+pCR=1=33.3%  RFS=-  DFS=-  posOutcome=1=33.3%
+Basal=0=0.0%  Her2=0=0.0%  LumA=2=66.7%  LumB=0=0.0%  Normal=1=33.3%
+doxorubicin 1.0
+paclitaxel 1.0
+neoadjuvant_or_adjuvant neo
+anthracycline 1.0
+fluorouracil 1.0
+taxane 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 7
+chemo 1
+
+protocol 8 1
+pCR=0=0.0%  RFS=-  DFS=-  posOutcome=0=0.0%
+Basal=0=0.0%  Her2=0=0.0%  LumA=1=100.0%  LumB=0=0.0%  Normal=0=0.0%
+hormone 1
+anti_estrogen 1.0
+doxorubicin 1.0
+aromatase_inhibitor 1.0
+paclitaxel 1.0
+neoadjuvant_or_adjuvant neo
+anthracycline 1.0
+estrogen_receptor_blocker_and_stops_production 1.0
+fluorouracil 1.0
+anastrozole 1.0
+taxane 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 8
+chemo 1
+
+protocol 9 2
+pCR=2=100.0%  RFS=-  DFS=-  posOutcome=2=100.0%
+Basal=0=0.0%  Her2=2=100.0%  LumA=0=0.0%  LumB=0=0.0%  Normal=0=0.0%
+hormone 1
+anti_HER2 1.0
+paclitaxel 1.0
+neoadjuvant_or_adjuvant neo
+anthracycline 1.0
+fluorouracil 1.0
+taxane 1.0
+cyclophosphamide 1.0
+trastuzumab 1.0
+treatment_protocol_number 9
+epirubicin 1.0
+chemo 1
+
+
+study_2034_GPL96_all-bmc15 286
+protocol 1 286
+pCR=-  RFS=179=62.6%  DFS=-  posOutcome=179=62.6%
+Basal=50=17.5%  Her2=19=6.6%  LumA=136=47.6%  LumB=74=25.9%  Normal=7=2.4%
+radio 1
+neoadjuvant_or_adjuvant adj
+treatment_protocol_number 1
+
+
+study_22226_GPL1708_all-bmc15 128
+protocol 1 4
+pCR=0=0.0%  RFS=2=50.0%  DFS=-  posOutcome=2=50.0%
+Basal=1=25.0%  Her2=1=25.0%  LumA=1=25.0%  LumB=0=0.0%  Normal=1=25.0%
+doxorubicin 1.0
+neoadjuvant_or_adjuvant neo
+anthracycline 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 1
+chemo 1
+
+protocol 2 111
+pCR=27=25.5%  RFS=77=69.4%  DFS=-  posOutcome=82=73.9%
+Basal=24=21.6%  Her2=23=20.7%  LumA=55=49.5%  LumB=0=0.0%  Normal=9=8.1%
+doxorubicin 1.0
+taxaneGeneral 1.0
+neoadjuvant_or_adjuvant neo
+anthracycline 1.0
+taxane 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 2
+chemo 1
+
+protocol 3 11
+pCR=5=45.5%  RFS=8=72.7%  DFS=-  posOutcome=9=81.8%
+Basal=0=0.0%  Her2=5=45.5%  LumA=5=45.5%  LumB=0=0.0%  Normal=1=9.1%
+hormone 1
+doxorubicin 1.0
+taxaneGeneral 1.0
+anti_HER2 1.0
+neoadjuvant_or_adjuvant neo
+anthracycline 1.0
+taxane 1.0
+cyclophosphamide 1.0
+trastuzumab 1.0
+treatment_protocol_number 3
+chemo 1
+
+protocol 4 2
+pCR=0=0.0%  RFS=1=50.0%  DFS=-  posOutcome=1=50.0%
+Basal=1=50.0%  Her2=0=0.0%  LumA=1=50.0%  LumB=0=0.0%  Normal=0=0.0%
+hormone 1
+doxorubicin 1.0
+taxaneGeneral 1.0
+anti_HER2 1.0
+neoadjuvant_or_adjuvant neo
+anthracycline 1.0
+taxane 1.0
+cyclophosphamide 1.0
+trastuzumab 1.0
+treatment_protocol_number 4
+chemo 1
+
+
+study_22358_GPL5325_all-bmc15 122
+protocol 1 95
+pCR=10=10.5%  RFS=-  DFS=-  posOutcome=10=10.5%
+Basal=20=21.1%  Her2=4=4.2%  LumA=59=62.1%  LumB=2=2.1%  Normal=10=10.5%
+docetaxel 1.0
+neoadjuvant_or_adjuvant neo
+taxane 1.0
+capecitabine 1.0
+treatment_protocol_number 1
+chemo 1
+
+protocol 2 27
+pCR=10=37.0%  RFS=-  DFS=-  posOutcome=10=37.0%
+Basal=3=11.1%  Her2=11=40.7%  LumA=13=48.1%  LumB=0=0.0%  Normal=0=0.0%
+docetaxel 1.0
+hormone 1
+anti_HER2 1.0
+neoadjuvant_or_adjuvant neo
+taxane 1.0
+capecitabine 1.0
+trastuzumab 1.0
+treatment_protocol_number 2
+chemo 1
+
+
+study_25055_GPL96_MDACC_M-bmc15 221
+protocol 1 221
+pCR=43=19.5%  RFS=-  DFS=175=79.2%  posOutcome=178=80.5%
+Basal=69=31.2%  Her2=3=1.4%  LumA=76=34.4%  LumB=63=28.5%  Normal=10=4.5%
+doxorubicin 1.0
+paclitaxel 1.0
+neoadjuvant_or_adjuvant neo
+anthracycline 1.0
+fluorouracil 1.0
+taxane 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 1
+chemo 1
+
+
+study_25065_GPL96_MDACC-bmc15 71
+protocol 1 37
+pCR=8=21.6%  RFS=-  DFS=31=83.8%  posOutcome=31=83.8%
+Basal=10=27.0%  Her2=0=0.0%  LumA=16=43.2%  LumB=10=27.0%  Normal=1=2.7%
+doxorubicin 1.0
+paclitaxel 1.0
+neoadjuvant_or_adjuvant neo
+anthracycline 1.0
+fluorouracil 1.0
+taxane 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 1
+chemo 1
+
+protocol 2 34
+pCR=4=11.8%  RFS=-  DFS=28=82.4%  posOutcome=28=82.4%
+Basal=8=23.5%  Her2=0=0.0%  LumA=16=47.1%  LumB=7=20.6%  Normal=3=8.8%
+docetaxel 1.0
+neoadjuvant_or_adjuvant neo
+anthracycline 1.0
+fluorouracil 1.0
+taxane 1.0
+cyclophosphamide 1.0
+capecitabine 1.0
+treatment_protocol_number 2
+epirubicin 1.0
+chemo 1
+
+
+study_25065_GPL96_USO-bmc15 54
+protocol 2 54
+pCR=19=35.2%  RFS=-  DFS=41=75.9%  posOutcome=44=81.5%
+Basal=24=44.4%  Her2=0=0.0%  LumA=14=25.9%  LumB=14=25.9%  Normal=2=3.7%
+docetaxel 1.0
+neoadjuvant_or_adjuvant neo
+anthracycline 1.0
+fluorouracil 1.0
+taxane 1.0
+cyclophosphamide 1.0
+capecitabine 1.0
+treatment_protocol_number 2
+epirubicin 1.0
+chemo 1
+
+
+study_32646_GPL570_all-bmc15 115
+protocol 1 115
+pCR=26=22.6%  RFS=-  DFS=-  posOutcome=26=22.6%
+Basal=12=10.4%  Her2=24=20.9%  LumA=0=0.0%  LumB=79=68.7%  Normal=0=0.0%
+paclitaxel 1.0
+neoadjuvant_or_adjuvant neo
+anthracycline 1.0
+fluorouracil 1.0
+taxane 1.0
+cyclophosphamide 1.0
+treatment_protocol_number 1
+epirubicin 1.0
+chemo 1
+
+
+study_9893_GPL5049_all-bmc15 148
+protocol 1 114
+pCR=-  RFS=76=66.7%  DFS=-  posOutcome=76=66.7%
+Basal=1=0.9%  Her2=62=54.4%  LumA=20=17.5%  LumB=30=26.3%  Normal=1=0.9%
+radio 1
+estrogen_receptor_blocker 1.0
+tamoxifen 1.0
+hormone 1
+anti_estrogen 1.0
+neoadjuvant_or_adjuvant adj
+treatment_protocol_number 1
+
+protocol 2 34
+pCR=-  RFS=20=58.8%  DFS=-  posOutcome=20=58.8%
+Basal=0=0.0%  Her2=21=61.8%  LumA=5=14.7%  LumB=8=23.5%  Normal=0=0.0%
+estrogen_receptor_blocker 1.0
+tamoxifen 1.0
+hormone 1
+anti_estrogen 1.0
+neoadjuvant_or_adjuvant adj
+treatment_protocol_number 2
+
+

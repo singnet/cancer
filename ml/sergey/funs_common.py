@@ -29,6 +29,23 @@ def convert_posOutcome(x):
 def read_treat_dataset(path="./"):
     return pd.read_csv(os.path.join(path, 'bmc15mldata1.csv'), converters=dict(surgery = convert_surgery, posOutcome = convert_posOutcome))
 
+
+def read_coincide_types_dataset(path="./"):
+    dataset = pd.read_csv(os.path.join(path, 'coincideTypes.csv'))
+    treat_dataset = read_treat_dataset()
+    return pd.merge(treat_dataset, dataset)
+
+def read_alltreat_dataset(path="./"):
+    atreat_dataset = pd.read_csv(os.path.join(path, 'bcClinicalTable.csv'))
+    treat_dataset  = read_treat_dataset()
+    return pd.merge(treat_dataset, atreat_dataset)
+    
+
+def read_pam_types_cat_dataset():
+    coincide_types_dataset = read_coincide_types_dataset()
+    keep = coincide_types_dataset[["patient_ID", "study", 'pCR', 'RFS', 'DFS','radio','surgery','chemo','hormone', 'posOutcome']]
+    return pd.concat([keep, pd.get_dummies(coincide_types_dataset["pam_name"])], axis=1)
+        
 def read_full_dataset(path = "example15bmc"):
     datasets_fn = ["study_12093_GPL96_all-bmc15.csv.xz",
     "study_1379_GPL1223_all-bmc15.csv.xz",
