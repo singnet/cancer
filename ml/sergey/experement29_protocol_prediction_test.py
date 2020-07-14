@@ -10,7 +10,7 @@ from collections import Counter,defaultdict
 from funs_balance import random_upsample_balance
 from sklearn import svm
 from sklearn.linear_model import LogisticRegression
-from funs_common import read_alltreat_dataset, read_combat_dataset, prepare_full_dataset, list2d_to_4g_str_pm
+from funs_common import read_alltreat_dataset, read_combat_dataset, prepare_full_dataset, list2d_to_4g_str_pm, drop_trea
 import sys
 import itertools    
 
@@ -54,14 +54,14 @@ def print_results(dataset, set1, set2):
 atreat_dataset = read_alltreat_dataset()
 
 combat_dataset = read_combat_dataset()
-
+notrea_dataset = drop_trea(combat_dataset)
 #Variant 1  study_20194_GPL96_all-bmc15 protocol 1 vs protocol 5
 
 set1 = atreat_dataset.loc[(atreat_dataset['study'] == "study_20194_GPL96_all-bmc15") & (atreat_dataset['treatment_protocol_number'] == '1')]['patient_ID']
 set2 = atreat_dataset.loc[(atreat_dataset['study'] == "study_20194_GPL96_all-bmc15") & (atreat_dataset['treatment_protocol_number'] == '5')]['patient_ID']
 
 print("study_20194_GPL96_all-bmc15 protocol 1  vs protocol 5")
-print_results(combat_dataset, set1, set2)
+print_results(notrea_dataset, set1, set2)
 print("")
 #Variant 2  study_9893_GPL5049_all-bmc15 protocol 1 vs protocol 2
 
@@ -69,7 +69,7 @@ set1 = atreat_dataset.loc[(atreat_dataset['study'] == "study_9893_GPL5049_all-bm
 set2 = atreat_dataset.loc[(atreat_dataset['study'] == "study_9893_GPL5049_all-bmc15") & (atreat_dataset['treatment_protocol_number'] == '2')]['patient_ID']
 
 print("study_9893_GPL5049_all-bmc15 protocol 1 vs protocol 2")
-print_results(combat_dataset, set1, set2)
+print_results(notrea_dataset, set1, set2)
 print("")
 
 
@@ -79,6 +79,6 @@ set1 = atreat_dataset.loc[(atreat_dataset['study'] == "study_25065_GPL96_MDACC-b
 set2 = atreat_dataset.loc[(atreat_dataset['study'] == "study_25065_GPL96_MDACC-bmc15") & (atreat_dataset['treatment_protocol_number'] == '2')]['patient_ID']
 
 print("study_25065_GPL96_MDACC-bmc15 protocol 1 vs protocol 2")
-print_results(combat_dataset, set1, set2)
+print_results(notrea_dataset, set1, set2)
 
 
