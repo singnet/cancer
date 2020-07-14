@@ -1,7 +1,8 @@
 # OpenCog/SNet precision medicine for clinical trials poc project
 ## Questions to answer:
+- what patterns of patient biomarkers characterize disease prognosis?
 - what patterns of patient biomarkers characterize treatment success?
-- what patterns of patient biomarkers characterize adverse events?
+- what patterns of patient biomarkers characterize treatment adverse events?
 - what combination of biomarkers and treatment parameters characterize best patient outcomes?
 
 ## Breast cancer tumor transcriptomes and clinical data sets
@@ -14,12 +15,10 @@ The author's github includes useful but outdated R code for processing and mergi
 
 **curatedBreastData:**  4,923 breast tumor microarray expression sets from 2,613 patients in 20 studies published as a Bioconductor R [package](https://bioconductor.org/packages/release/data/experiment/html/curatedBreastData.html) [[paper](https://www.ncbi.nlm.nih.gov/pubmed/24303324)].  
 
-
-  
 ### A Three-Gene Model to Robustly Identify Breast Cancer Molecular Subtypes
-[Haibe-Kains et. al (2012)](https://academic.oup.com/jnci/article/104/4/311/979947) develop a gaussian mixture subtype classification model (SCM) using microarray expression levels of three key genes (ER, HER2, and AURKA) from breast cancer tumor samples and compare it favorably to two other published SCMs and three published hierarchical clustering based single sample predictor (SSP) model classifiers, including the commercially available [PAM50](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4546262/) molecular subtyping system, using dozens to hundreds of genes.  An associated Bioconductor package [GeneFu](https://www.bioconductor.org/packages/release/bioc/html/genefu.html) and the [code](https://codeocean.com/capsule/6438633/tree/v1) to reproduce their findings are available.
+[Haibe-Kains et. al (2012)](https://pubmed.ncbi.nlm.nih.gov/22262870/) develop a gaussian mixture subtype classification model (SCM) using microarray expression levels of three key genes (ER, HER2, and AURKA) from breast cancer tumor samples and compare it favorably to two other published SCMs and three published hierarchical clustering based single sample predictor (SSP) model classifiers, including the commercially available [PAM50](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4546262/) molecular subtyping system, using dozens to hundreds of genes.  An associated Bioconductor package [genefu](https://www.bioconductor.org/packages/release/bioc/html/genefu.html) and the [code](https://codeocean.com/capsule/6438633/tree/v1) to reproduce their findings are available.
 
-[**MetaGxBreast:**](https://www.bioconductor.org/packages/release/data/experiment/html/MetaGxBreast.html) 39 breast cancer microarray expression datasets spanning 10,004 samples. Survival information is available for 6,847 patients, including overall survival (n = 4,425), metastasis free survival (n = 2,695), and relapse free survival (n = 1,858) [[package]](https://bioconductor.riken.jp/packages/3.10/data/experiment/html/MetaGxBreast.html)[[paper]](https://pubmed.ncbi.nlm.nih.gov/31217513/).  
+[**MetaGxBreast:**](https://www.bioconductor.org/packages/release/data/experiment/html/MetaGxBreast.html) 39 breast cancer microarray expression datasets spanning 10,004 samples. Survival information is available for 6,847 patients, including overall survival (n = 4,425), metastasis free survival (n = 2,695), and relapse free survival (n = 1,858) [[package]](https://www.bioconductor.org/packages/release/data/experiment/html/MetaGxBreast.html)[[paper]](https://pubmed.ncbi.nlm.nih.gov/31217513/).  
 
 **pdf copies of papers are in the [lit](./lit) dircetory**  
 

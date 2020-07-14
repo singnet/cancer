@@ -1,7 +1,7 @@
 ## check out bc data
 # getspreadsheet info
 library(tidyverse)
-metaGX <- readxl::read_excel("data/metaGxBreast/metaGxData.xlsx", sheet = 1, n_max = 39) %>%
+metaGX <- readxl::read_excel("data/metaGxBreast/MetaGxData.xlsx", sheet = 1, n_max = 39) %>%
   select(2:7)
 
 library(MetaGxBreast)
@@ -306,7 +306,8 @@ uniquePlatfroms$MAQC2 <- mutate(uniquePlatfroms$MAQC2,
                                 sample_name = str_replace(sample_name, "BR_FNA_M", "MAQC2_"))
 
 # STK alternate_sample_name is 1-3 digit number, match with digits in inokenty's sample names
-#TODO: 94 are still missing, can we match GSMs ?
+# 94 are still missing, can we match GSMs ?
+# no, it appears gpl96 & 97 were merged into one eset for each patient
 uniquePlatfroms$STK <- mutate(uniquePlatfroms$STK,
                     sample_name = paste0("STK_", str_remove(substr(sample_name, 2, 4), "^00|^0")))
 
@@ -360,6 +361,8 @@ rm(expMat)
 # https://portal.gdc.cancer.gov/projects/TCGA-BRCA
 library(sva)
 bpparam <- MulticoreParam(6)
+batches <- group_by(pheno, study, batch) %>%
+  summarise(batch_count = n())
 
 # make variant versions of data sets with eb normalized batches
 batchSets <- unique(batches$study[duplicated(batches$study)])
@@ -391,6 +394,11 @@ mapply(geneDiff, lapply(mgxSet[c(3, 14, 34, 24, 28, 31, 32, 33)], function(x) as
 # 3rd Qu.  1.942649e-03  0.0092540656
 # Max.     2.717275e-02  0.2256328476
 
+sapply(mgxBset, dim)
+#      DFHCC2 LUND METABRIC  NKI TRANSBIG   UNT   UPP   VDX
+# [1,]  18832 3732    19866 8521    12536 17285 17446 12476
+# [2,]     83  143     2114  337      198   133   251   344
+
 # add subfolder with eb batched normalized replacements
 
 # make coincide style merged data set
@@ -403,6 +411,8 @@ sapply(list(none = mgxSetMerge$mergedExprMatrix, combat = mgxSetMergeCombat$merg
 #      none combat
 # [1,] 5808   3004
 # [2,] 8095   8095
+
+# TODO: other versions of merged set
 
 # make metaGX comparable expression matrices for ml analysis separated by batch
 # make function to split dfs with names because dplyr maintainers are dicks
@@ -435,6 +445,7 @@ mgxSetBatched <- mgxSet[batchSets]
 mgxSetBatched <-   mapply(function(x, y) dfSplit(x, y, "hgnc"), mgxSetBatched[], batSam) %>%
   flatten() %>%
   append(mgxSet[!(names(mgxSet) %in% batchSets)])
+saveRDS(mgxSetBatched, "data/metaGxBreast/mgxSetBatched.rds")
 
 dir.create("data/mgxSet/noNormBatched", recursive = TRUE)
 for(n in names(mgxSetBatched)) {

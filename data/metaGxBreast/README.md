@@ -12,7 +12,7 @@ description table coming soon
 ## studies
 |study|batch|count|PMID|Dataset accession|Notes|
 |:----------|:----------------|-----------:|:----------------------------------------------------------------------------|:-------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------|
-|CAL        |  |         118|[17157792](https://www.ncbi.nlm.nih.gov/pubmed/17157792)                     |E-TABM-158                                                                            |Dataset of breast cancer patients from the University of California, San Francisco and the California Pacific Medical Center |
+|CAL        |  |         118|[17157792](https://www.ncbi.nlm.nih.gov/pubmed/17157792)                     |[E-TABM-158](https://www.ebi.ac.uk/arrayexpress/experiments/E-TABM-158) |Dataset of breast cancer patients from the University of California, San Francisco and the California Pacific Medical Center |
 |DFHCC      |  |         115|[20098429](https://www.ncbi.nlm.nih.gov/pubmed/20098429)                     |[GSE19615](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE19615)               |Dana-Farber Harvard Cancer Center                                                                                            |
 |DFHCC2     |DFHCC2_CISPLATIN |          24|[20100965](https://www.ncbi.nlm.nih.gov/pubmed/20100965)                     |[GSE18864](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE18864)               |Dana-Farber Harvard Cancer Center  |
 |           |DFHCC2_REFERENCE |          59|  | | |
