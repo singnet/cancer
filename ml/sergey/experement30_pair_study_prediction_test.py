@@ -10,7 +10,7 @@ from collections import Counter,defaultdict
 from funs_balance import random_upsample_balance
 from sklearn import svm
 from sklearn.linear_model import LogisticRegression
-from funs_common import read_alltreat_dataset, read_combat_dataset, prepare_full_dataset, list2d_to_4g_str_pm
+from funs_common import read_alltreat_dataset, read_combat_dataset, prepare_full_dataset, list2d_to_4g_str_pm, drop_trea
 import sys
 import itertools    
 
@@ -57,6 +57,8 @@ def print_results_get_mean_acc(ds1, ds2):
                 
 
 dataset = read_combat_dataset()
+dataset = drop_trea(dataset)
+
 
 all_studies = list(set(dataset['study']))
 
