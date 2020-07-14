@@ -95,7 +95,7 @@ def get_loc(patient_ID, frame):
     return frame[frame.patient_ID == patient_ID].row_num.to_list()[0]
 
 
-def random_split(merged, bmc, feature_columns, label_columns, ratio=0.1, study_name=None, rand=False, to_numpy=True, balance_by_study=False, balance_train=False):
+def random_split(merged, feature_columns, label_columns, ratio=0.1, study_name=None, rand=False, to_numpy=True, balance_by_study=False, balance_train=False):
     """
     Split dataset into train and validation sets:
 
@@ -108,11 +108,6 @@ def random_split(merged, bmc, feature_columns, label_columns, ratio=0.1, study_n
     """
     val_dict = defaultdict(list)
     train_dict = defaultdict(list)
-    expected = dict()
-    expected['TN'] = 0
-    expected['FN'] = 0
-    expected['FP'] = 0
-    expected['TP'] = 0
 
     bmc = merged
     for eval_study in set(bmc.study):
@@ -122,33 +117,16 @@ def random_split(merged, bmc, feature_columns, label_columns, ratio=0.1, study_n
         study = bmc[bmc.study == eval_study]
         num_select = math.ceil(len(study) * ratio)
         study_patients = bmc[bmc.study == eval_study]
+        # balance validation set and possibly train set
         bmc_train, bmc_val = select_balanced_idx(study_patients, num_select, balance_train)
-        pos_prob_train = bmc_train.posOutcome.sum() / len(bmc_train)
-        neg_prob_train = 1 - pos_prob_train
-        P = bmc_val.posOutcome.sum()
-        N = len(bmc_val) - P
-        TN = N * neg_prob_train
-        TP= P * pos_prob_train
-        FP = N - TN
-        FN = P - TP
-        expected['TN'] += TN
-        expected['TP'] += TP
-        expected['FP'] += FP
-        expected['FN'] += FN
         val_dict[eval_study] = bmc_val.index.to_list()
         train_dict[eval_study] = bmc_train.index.to_list()
-        train_patients = []
-        for patient_lst in train_dict.values():
-            train_patients += patient_lst
-        balance = merged.loc[train_patients].posOutcome.sum() / len(merged.loc[train_patients])
-        print("study {0}, balance {1}".format(eval_study, balance))
-
     if balance_by_study:
         train_dict = resample_patients_by_study(train_dict)
-        iloc = []
+        loc = []
         for patient_lst in train_dict.values():
-            iloc += [get_loc(p, merged) for p in patient_lst]
-        train_split = merged.iloc[iloc]
+            loc += patient_lst
+        train_split = merged.loc[loc]
     else:
         train_patients = []
         for patient_lst in train_dict.values():
@@ -170,7 +148,7 @@ def random_split(merged, bmc, feature_columns, label_columns, ratio=0.1, study_n
         train_labels = train_labels.to_numpy().astype(int).ravel()
         val_data = val_data.to_numpy()
         val_labels = val_labels.to_numpy().astype(int).ravel()
-    return train_data, train_labels, val_data, val_labels, expected
+    return train_data, train_labels, val_data, val_labels
 
 
 def digitize_genes(col, bins=15):
