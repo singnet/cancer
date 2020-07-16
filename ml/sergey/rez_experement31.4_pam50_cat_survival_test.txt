@@ -1,0 +1,14 @@
+==> study_20194_GPL96_all-bmc15 protocol 1  vs protocol 5
+==>  genes          y, y_maxi, y_prob, y_prob_maxi :  0.1509  0.1832  0.2129  0.3036
+==>  genes_set      y, y_maxi, y_prob, y_prob_maxi :  0.1964  0.2491  0.2127  0.2622
+==>  genes_biased   y, y_maxi, y_prob, y_prob_maxi :  0.1991  0.2573  0.2131  0.2577
+==>  genes_double   y, y_maxi, y_prob, y_prob_maxi :  0.2405  0.2405  0.2123  0.2622
+==>  study          y, y_maxi, y_prob, y_prob_maxi :  0  0  0.2139  0.2757
+==>
+==> study_9893_GPL5049_all-bmc15 protocol 1 vs protocol 2
+==>  genes          y, y_maxi, y_prob, y_prob_maxi :  0.8312  0.8312  0.6483  0.6483
+==>  genes_set      y, y_maxi, y_prob, y_prob_maxi :  0.7974  0.8312  0.6482  0.6842
+==>  genes_biased   y, y_maxi, y_prob, y_prob_maxi :  0.8312  0.8312  0.648  0.6648
+==>  genes_double   y, y_maxi, y_prob, y_prob_maxi :  0.8312  0.8312  0.6484  0.6848
+==>  study          y, y_maxi, y_prob, y_prob_maxi :  1  1  0.6484  0.6674
+==> 
