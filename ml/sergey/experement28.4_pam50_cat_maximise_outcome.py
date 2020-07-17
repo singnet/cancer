@@ -105,7 +105,7 @@ def print_results_for_field(dataset, field):
         y_prob_sum = np.sum(clf.predict_proba(X_test)[:,1])        
         y_maxi_sum, y_prob_maxi_sum = calc_results_max_treatments(clf, X_test, y_test, possible_treat)
         N = len(y_test)
-        rez.append([y_sum / N, y_maxi_sum / N, y_prob_sum / N, y_prob_maxi_sum / N])
+        rez.append([sum(y_test) / N, y_sum / N, y_maxi_sum / N, y_prob_sum / N, y_prob_maxi_sum / N])
         print("fold ", i, list_to_4g_str(rez[-1]))
     print("==> ", list_to_4g_str(np.mean(rez,axis=0)))
                 

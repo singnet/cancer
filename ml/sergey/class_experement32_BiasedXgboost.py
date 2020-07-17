@@ -38,7 +38,7 @@ class BiasedXgboost:
             p1 = probai[1] * self.Pset1[int(s)] / (probai[1] * self.Pset1[int(s)] + probai[0] * self.Pset0[int(s)])
             p0 = probai[0] * self.Pset0[int(s)] / (probai[0] * self.Pset0[int(s)] + probai[1] * self.Pset1[int(s)])
             
-            print(p1, p0, p1 + p0)
+#            print(p1, p0, p1 + p0)
 #            exit(0)
             rez.append((p0,p1))
 #            print((probai[1] * self.Pset[int(s)] + (1 - probai[1]) * (1 - self.Pset[int(s)])))
