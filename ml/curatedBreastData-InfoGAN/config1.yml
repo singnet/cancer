@@ -1,0 +1,12 @@
+n_epochs: 1200 # number of epochs of training
+batch_size: 64 # size of the batches
+lr: 0.0002 # adam: learning rate
+b1: 0.5 # adam: decay of first order momentum of gradient
+b2: 0.999 # adam: decay of first order momentum of gradient
+n_cpu: 8 # number of cpu threads to use during batch generation
+latent_dim: 62 # dimensionality of the latent space
+code_dim: 2 # latent code
+n_classes: 17 # number of classes for dataset
+img_size: 32 # size of each image dimension
+channels: 1 # number of image channels
+sample_interval: 800 # interval between image sampling
