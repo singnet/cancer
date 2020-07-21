@@ -97,14 +97,27 @@ def get_loc(patient_ID, frame):
 
 def random_split(merged, feature_columns, label_columns, ratio=0.1, study_name=None, rand=False, to_numpy=True, balance_by_study=False, balance_train=False):
     """
-    Split dataset into train and validation sets:
+    Split dataset into train and validation sets, that is
+        two pairs of (features, labels)
 
-    Parameters
+    Parameters:
+    merged: pandas.DataFrame
+        frame #patients by #features
+    feature_columns: List[str]
+        list of column names to extract from merged dataframe for use as input features
+        in train and validation sets
+    label_columns: List[str]
+        list of column names to extract from merged dataframe for use as labels
+        in train and validation sets
     balance_train: bool
         balance train set by posOutcome
+    balance_by_study: bool
+        resample smaller studies for train data. As the result
+        train data will contain equal number of rows for each study.
+    to_numpy: bool
+        convert to numpy.array if true
     --------------
-    Returns: train_data, train_labels, val_data, val_labels, expected
-        expected - confusion matrix expected from classification by ratio of positive/negative for each study
+    Returns: train_data, train_labels, val_data, val_labels
     """
     val_dict = defaultdict(list)
     train_dict = defaultdict(list)
