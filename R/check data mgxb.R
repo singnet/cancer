@@ -364,14 +364,22 @@ bpparam <- MulticoreParam(6)
 batches <- group_by(pheno, study, batch) %>%
   summarise(batch_count = n())
 
-# make variant versions of data sets with eb normalized batches
-batchSets <- unique(batches$study[duplicated(batches$study)])
+# # fix batch names
+# batches <- mutate(batches, batch = str_replace(batch, "(^[1-6])", "METABRIC\\1")) %>%
+#   mutate(batch = str_replace(batch, "NKI$", "NKI1")) %>%
+#   mutate(batch = str_replace(batch, "VDX$", "VDX1"))
+
+# make eb normalized batches with tcga as reference batch 
+# and 
 mgxBset <- parallel::mcmapply(
   function(x, n)
-    ComBat(as.matrix(column_to_rownames(x, "hgnc")),
-           filter(pheno, study == n) %>% pull(batch), BPPAR = bpparam),
-  mgxSet[batchSets],
-  names(mgxSet[batchSets]),
+    ComBat(dat = as.matrix(column_to_rownames(x, "hgnc")),
+           batch = filter(pheno, study == n) %>% pull(batch),
+           mod = model.matrix(as.factor(Platform), data = pheno),
+           ref.batch = "TCGA",
+           BPPAR = bpparam),
+  mgxSet,
+  names(mgxSet),
   mc.cores = 2, mc.preschedule = FALSE)
 
 # function to compare before & after batch normalization
@@ -415,7 +423,7 @@ sapply(list(none = mgxSetMerge$mergedExprMatrix, combat = mgxSetMergeCombat$merg
 # TODO: other versions of merged set
 
 # make metaGX comparable expression matrices for ml analysis separated by batch
-# make function to split dfs with names because dplyr maintainers are dicks
+# make function to split dfs with names
 named_group_split <- function(.tbl, ...) {
   grouped <- group_by(.tbl, ...)
   names <- group_keys(grouped) %>% pull(1)
@@ -424,15 +432,10 @@ named_group_split <- function(.tbl, ...) {
     rlang::set_names(names)
 }
 
-# make list of batched data sets sets
+# make list of batched data sets
 batSam <- map(batchSets, function(x) filter(pheno, study == x) %>% select(sample_name, batch)) %>%
   map(function(x) named_group_split(x, batch, .keep = FALSE)) %>%
   map(function(x) map(x, function(y) pull(y, sample_name)))
-
-# fix batch names
-names(batSam[[3]]) <- paste0("METABRIC", names(batSam[[3]]))
-names(batSam[[4]])[1] <- "NIK1"
-names(batSam[[8]])[1] <- "VDX1"
 
 # function to split df by column list and keep reference column
 dfSplit <- function(df, batchList, ref) {
