@@ -23,7 +23,7 @@
  [**merged-combat15.csv.xz**](https://snet-bio-data.s3-us-west-2.amazonaws.com/example15bmc/merged-combat15.csv.xz) - the 15 studies above combined using empirical bayes normalization as implemented by the `ComBat` function of the `sva` Bioconductor package of expression values leaving 8,832 overlapping genes (studies range from 12,722 to 18,260 genes).  
 
 ### Initial ML data set
-For initial supervised ML pipeline experiments, a set of composite binary treatment and outcome variables [[bmc15mlData1.csv]](./bcDump/example15bmc/bmc15mlData1.csv) has been constructed to combine with the subset of expression data sets or the merged expression dataset described in the previous section.  
+For initial supervised ML pipeline experiments, a set of composite binary treatment and outcome variables [[bmc15mlData1.csv]](./bmc15mlData1.csv) has been constructed to combine with the subset of expression data sets or the merged expression dataset described in the previous section.  
 ### `bmc15mldata`
 `study` - csv file name containing sample expression data  
 `patient_ID` - key to match clinical, expression and outcome data  
