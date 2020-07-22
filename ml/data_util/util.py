@@ -46,6 +46,18 @@ def split_by_study(merged, bmc, study_name=None):
 
 
 def select_balanced_idx(study, num, balance_train=False):
+    """
+    Split study to train and validation sets.
+    For validation set sample unique rows balanced by posOutcome.
+
+    Parameters:
+    study: pandas.DataFrame
+        study data
+    num: int
+        number of samples to draw
+    balance_train: bool
+        balance train set if true by upsampling
+    """
     if not num % 2 == 0:
         num = num + 1
     validation = []
@@ -97,14 +109,27 @@ def get_loc(patient_ID, frame):
 
 def random_split(merged, feature_columns, label_columns, ratio=0.1, study_name=None, rand=False, to_numpy=True, balance_by_study=False, balance_train=False):
     """
-    Split dataset into train and validation sets:
+    Split dataset into train and validation sets, that is
+        two pairs of (features, labels)
 
-    Parameters
+    Parameters:
+    merged: pandas.DataFrame
+        frame #patients by #features
+    feature_columns: List[str]
+        list of column names to extract from merged dataframe for use as input features
+        in train and validation sets
+    label_columns: List[str]
+        list of column names to extract from merged dataframe for use as labels
+        in train and validation sets
     balance_train: bool
         balance train set by posOutcome
+    balance_by_study: bool
+        resample smaller studies for train data. As the result
+        train data will contain equal number of rows for each study.
+    to_numpy: bool
+        convert to numpy.array if true
     --------------
-    Returns: train_data, train_labels, val_data, val_labels, expected
-        expected - confusion matrix expected from classification by ratio of positive/negative for each study
+    Returns: train_data, train_labels, val_data, val_labels
     """
     val_dict = defaultdict(list)
     train_dict = defaultdict(list)
@@ -167,7 +192,6 @@ for i in range(16):
     ar0 = bin(i).split('0b')[1]
     ar0 = '0' * (4 - len(ar0)) + ar0
     res_ar[i] = [int(x) for x in ar0]
-
 
 
 def binary_genes(merged, genes_columns, by_median=True):
