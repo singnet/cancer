@@ -31,11 +31,6 @@ def read_coincide_types_dataset(path="./"):
     dataset = pd.read_csv(os.path.join(path, 'coincideTypes.csv'))
     treat_dataset = read_treat_dataset()
     return pd.merge(treat_dataset, dataset)
-
-def read_alltreat_dataset(path="./"):
-    atreat_dataset = pd.read_csv(os.path.join(path, 'bcClinicalTable.csv'))
-    treat_dataset  = read_treat_dataset()
-    return pd.merge(treat_dataset, atreat_dataset)
     
 
 def read_pam_types_cat_dataset():
