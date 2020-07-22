@@ -317,8 +317,10 @@ def convert_race(x, mapping=dict()):
 def convert_menapause(x, mapping=dict()):
     return convert_node_status(x, mapping)
 
-def convert_study_id(x, mapping=dict()):
+study_mapping = dict()
+def convert_study_id(x, mapping=study_mapping):
     return convert_surgery(x, mapping)
+
 
 converters=dict(preTrt_lymph_node_status=convert_node_status,
                race=convert_race,

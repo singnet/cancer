@@ -29,7 +29,7 @@ def get_datasets(label_columns=['study'], transform=None, balance_train=True):
 
     train_data, train_labels, val_data, val_labels = random_split(merged,
             feature_columns, label_columns, balance_train=balance_train, balance_by_study=False)
-    assert val_labels.mean() == 0.5
+    # assert val_labels.mean() == 0.5
     train_set = GeneDataset(train_data, train_labels, transform)
     test_set = GeneDataset(val_data, val_labels, transform)
     return train_set, test_set
