@@ -5,10 +5,7 @@ import random
 import math 
 from xgboost import XGBClassifier
 from sklearn.metrics import recall_score
-from sklearn.model_selection import RepeatedStratifiedKFold
-from funs_balance import random_upsample_balance
 from collections import defaultdict
-from sklearn import svm
 from sklearn.linear_model import LogisticRegression
 
 
