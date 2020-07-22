@@ -23,7 +23,7 @@ print(datasets[0].shape)
 
 clf1 = XGBClassifier()
 clf2 = LogisticRegression()
-clf_map = {"xgboost": clf1, "logistic_regression": clf2}
+clf_map = {"xgboost": clf1}
 n_splits = 5
 kf = KFold(n_splits=n_splits, shuffle=True)
 results_folder = "without_treatment/"+str(num_of_combo_items)+"_genes/"
