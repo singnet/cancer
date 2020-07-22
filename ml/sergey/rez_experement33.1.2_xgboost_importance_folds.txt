@@ -1,0 +1,14 @@
+[('CCND1', 40), ('C21orf91', 28), ('PHF15', 19), ('RRM2', 16), ('BTG3', 16), ('SLC6A14', 15), ('SLC24A6', 15), ('PMPCA', 14), ('FXR2', 13), ('MDK', 11)]
+stack
+[('BTG3', 27), ('TTK', 24), ('DNAJC12', 17), ('ESR1', 15), ('IGFBP4', 14), ('MDK', 14), ('ODC1', 12), ('RARRES1', 11), ('KIF3A', 10), ('CERK', 9)]
+stack_with_set
+[('TTK', 23), ('BTG3', 22), ('IGFBP4', 16), ('ESR1', 16), ('CERK', 15), ('ODC1', 13), ('DNAJC12', 13), ('CCND1', 13), ('MDC1', 10), ('ADCY9', 9)]
+==>
+==> study_9893_GPL5049_all-bmc15 protocol 1 vs protocol 2
+set1
+[('SPN', 29), ('VBP1', 27), ('GCK', 21), ('NID2', 18), ('PPOX', 17), ('CADPS', 17), ('EPB42', 13), ('PFKFB3', 12), ('FANCE', 11), ('SGPL1', 11)]
+stack
+[('YRDC', 30), ('CADPS', 27), ('PFKFB3', 26), ('EEF1A2', 24), ('PPOX', 22), ('VBP1', 17), ('CLDN10', 11), ('PLA2G12A', 10), ('MMP10', 9), ('MYH7B', 8)]
+stack_with_set
+[('PPOX', 28), ('CADPS', 24), ('YRDC', 24), ('PFKFB3', 22), ('VBP1', 21), ('EEF1A2', 19), ('CCNB2', 14), ('PLA2G12A', 12), ('XPO1', 9), ('CLDN10', 9)]
+==> 
