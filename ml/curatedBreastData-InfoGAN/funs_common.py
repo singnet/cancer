@@ -107,6 +107,3 @@ def prepare_datasets(full_dataset, studies):
 def list_to_4g_str(l):
     return "  ".join("%.4g"%d for d in l)
     
-def list2d_to_4g_str_pm(l):
-    return " ".join("%.4g (±%.4g)  "%(mean,sigma) for mean,sigma in zip(np.mean(l, axis=0), np.std(l, axis=0)))
-    
