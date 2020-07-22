@@ -26,7 +26,7 @@ clf2 = LogisticRegression()
 clf_map = {"xgboost": clf1, "logistic_regression": clf2}
 n_splits = 5
 kf = KFold(n_splits=n_splits, shuffle=True)
-results_folder = "without_treatment/"+str(num_of_combo_items)+"_genes/"
+results_folder = "with_treatment/"+str(num_of_combo_items)+"_genes/"
 for k, v in clf_map.items():
     print("::::::::::::::::::::"+k+"::::::::::::::::::::")
     best_gene_combo = []
@@ -38,7 +38,8 @@ for k, v in clf_map.items():
             out.write('\n')
             auc_2_f_avg = 0.
             for i, (train_index, test_index) in enumerate(kf.split(X_full)):
-                acc_f, auc_1_f, auc_2_f = calc_results_for_fold(X_full, y_pos_out, train_index, test_index, v)
+                X_add = np.concatenate((X_full, X_lab), axis=1)
+                acc_f, auc_1_f, auc_2_f = calc_results_for_fold(X_add, y_pos_out, train_index, test_index, v)
                 print("full: ", acc_f, auc_1_f, auc_2_f)
                 out.write(str([acc_f, auc_1_f, auc_2_f]))
                 out.write('\n')

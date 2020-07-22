@@ -35,11 +35,12 @@ class CombinationsGenerator:
 
     def generate(self, num_of_items):
         num_of_genes = self.dataset.shape[1]
-        comb = [list(i) for i in combinations(range(num_of_genes), num_of_items)]
+        comb = [list(i) for i in combinations(range(1, num_of_genes), num_of_items)]
         col_names_lst = list(self.dataset)
         head = col_names_lst.pop(0)
         gene_names_comb = [list(i) for i in combinations(col_names_lst, num_of_items)]
-        subsets = [self.dataset.iloc[:, i].to_numpy() for i in comb]
+        # subsets = [self.dataset.iloc[:, i].to_numpy() for i in comb]
+        subsets = [self.dataset.loc[:, i].to_numpy() for i in gene_names_comb]
         return subsets, gene_names_comb
 
 # comb_gen = CombinationsGenerator("ex15bmcMerged70genes.csv")
