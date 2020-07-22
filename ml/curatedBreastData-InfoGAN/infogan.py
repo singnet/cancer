@@ -73,7 +73,7 @@ class Discriminator(nn.Module):
         )
 
         # Output layers
-        self.adv_layer = nn.Sequential(nn.Linear(512, 1))
+        self.adv_layer = nn.Linear(512, 1)
         self.aux_layer = nn.Sequential(nn.Linear(512, opt.n_classes), nn.Softmax())
         self.latent_layer = nn.Sequential(nn.Linear(512, opt.code_dim))
 
