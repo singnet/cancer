@@ -13,35 +13,49 @@ import pandas
 from sklearn.metrics import recall_score, precision_score, f1_score, confusion_matrix
 
 
-def split_by_study(merged, bmc, study_name=None):
+def split_by_study(merged, feature_columns, label_columns, study=None,
+                   to_numpy=True):
     """
     Split one study out for cross-validation
 
     merged: pandas.DataFrame
         Genes + treatments table
-    bmc: pandas.DataFrame
-        averaged treatment table
-    study_name: str
+    feature_columns: List[str]
+        list of column names to extract from merged dataframe for use as input features
+        in train and validation sets
+    label_columns: List[str]
+        list of column names to extract from merged dataframe for use as labels
+        in train and validation sets
+    study: str
         Optional param - process only singe study
+    to_numpy: bool
+        convert to numpy if True
 
     """
-    for eval_study in set(bmc.study):
-        if study_name:
-            eval_study = study_name
-        print(eval_study)
-        bmc_train = bmc[bmc.study != eval_study]
-        bmc_val = bmc[bmc.study == eval_study]
-        assert (not set(bmc_train.patient_ID).intersection(set(bmc_val.patient_ID)))
+    for eval_study in set(merged.study):
+        if study:
+            eval_study = study
+        merged_train = merged[merged.study != eval_study]
+        merged_val = merged[merged.study == eval_study]
+        assert (not set(merged_train.patient_ID).intersection(set(merged_val.patient_ID)))
 
-        train_split = merged[merged.patient_ID.isin(bmc_train.patient_ID)]
-        val_split = merged[merged.patient_ID.isin(bmc_val.patient_ID)]
-        assert val_split.patient_ID.to_list() == bmc_val.patient_ID.to_list()
-        train_data = train_split[feature_columns].to_numpy()
-        train_labels = train_split[label_columns].to_numpy().astype(int)
-        val_data = val_split[feature_columns].to_numpy()
-        val_labels = val_split[label_columns].to_numpy().astype(int)
-        yield train_data, train_labels, val_data, val_labels
-        if study_name:
+        train_split = merged[merged.patient_ID.isin(merged_train.patient_ID)]
+        val_split = merged[merged.patient_ID.isin(merged_val.patient_ID)]
+        assert val_split.patient_ID.to_list() == merged_val.patient_ID.to_list()
+        if to_numpy:
+            train_data = train_split[feature_columns].to_numpy()
+            train_labels = train_split[label_columns].to_numpy().astype(int)
+            val_data = val_split[feature_columns].to_numpy()
+            val_labels = val_split[label_columns].to_numpy().astype(int)
+            yield train_data, train_labels, val_data, val_labels
+        else:
+            train_data = train_split[feature_columns]
+            train_labels = train_split[label_columns]
+            val_data = val_split[feature_columns]
+            val_labels = val_split[label_columns]
+            yield train_data, train_labels, val_data, val_labels
+
+        if study:
             break
 
 
@@ -183,8 +197,7 @@ def digitize_genes(col, bins=15):
 
 
 def digitize_genes_by_median(col):
-    median = col.median()
-    return col > median
+    return col > numpy.median(col)
 
 
 res_ar = numpy.zeros((16, 4), dtype=numpy.bool_)
@@ -194,7 +207,14 @@ for i in range(16):
     res_ar[i] = [int(x) for x in ar0]
 
 
-def binary_genes(merged, genes_columns, by_median=True):
+def binary_genes(merged, genes_columns):
+    # raw improves the performance
+    # multiplication by one convertes bool to int
+    merged[genes_columns] = merged[genes_columns].apply(digitize_genes_by_median, raw=True) * 1
+    return merged
+
+
+def binary_genes_old(merged, genes_columns, by_median=True):
     n_patients, n_genes = merged[genes_columns].shape
     result = dict()
     for gene_col in range(len(genes_columns)):
@@ -261,7 +281,50 @@ def binary_non_genes(to_category=True):
             non_genes_data[col_name] = ar1[:, i]
     return non_genes_data
 
+
+def categorical_features(frame, feature_columns, dtype=numpy.float16, to_letters=False):
+    """
+    Replace features in frame by historgram bin id
+
+    Parameters
+    ---------------
+    frame: pandas.DataFrame
+    feature_columns: List[str]
+    dtype: object
+        type to use for categorical data
+    to_letters: bool
+        use ascii latters if true for categorical data
+    """
+    for col_name in feature_columns:
+        dig = digitize_non_genes_data(frame[col_name])
+        if to_letters:
+            dtype=object
+        ar1 = numpy.zeros(len(dig), dtype=dtype)
+        for i, d in enumerate(dig):
+            if to_letters:
+                ar1[i] = string.ascii_letters[d]
+            else:
+                ar1[i] = dtype(d)
+        frame[col_name] = ar1
+
+
 def binarize_dataset(merged, genes_columns, feature_colum, to_letters):
+    """
+    merged: pandas.DataFrame
+    genes_columns: List[str]
+    feature_colum: List[str]
+    to_letters: bool
+        convert categorical variables to ascii letters
+        if false numpy.float16 is used
+    """
+    copy = merged.copy()
+    to_bin_columns = [x for x in feature_colum if x not in genes_columns]
+    categorical_features(copy, to_bin_columns, to_letters=False)
+    binary_genes(copy, genes_columns)
+    return copy
+
+
+def binarize_dataset_old(merged, genes_columns, feature_colum, to_letters):
     """
     merged: pandas.DataFrame
     genes_columns: List[str]
