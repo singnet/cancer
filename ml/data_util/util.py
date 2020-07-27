@@ -13,35 +13,49 @@ import pandas
 from sklearn.metrics import recall_score, precision_score, f1_score, confusion_matrix
 
 
-def split_by_study(merged, bmc, study_name=None):
+def split_by_study(merged, feature_columns, label_columns, study=None,
+                   to_numpy=True):
     """
     Split one study out for cross-validation
 
     merged: pandas.DataFrame
         Genes + treatments table
-    bmc: pandas.DataFrame
-        averaged treatment table
-    study_name: str
+    feature_columns: List[str]
+        list of column names to extract from merged dataframe for use as input features
+        in train and validation sets
+    label_columns: List[str]
+        list of column names to extract from merged dataframe for use as labels
+        in train and validation sets
+    study: str
         Optional param - process only singe study
+    to_numpy: bool
+        convert to numpy if True
 
     """
-    for eval_study in set(bmc.study):
-        if study_name:
-            eval_study = study_name
-        print(eval_study)
-        bmc_train = bmc[bmc.study != eval_study]
-        bmc_val = bmc[bmc.study == eval_study]
-        assert (not set(bmc_train.patient_ID).intersection(set(bmc_val.patient_ID)))
+    for eval_study in set(merged.study):
+        if study:
+            eval_study = study
+        merged_train = merged[merged.study != eval_study]
+        merged_val = merged[merged.study == eval_study]
+        assert (not set(merged_train.patient_ID).intersection(set(merged_val.patient_ID)))
 
-        train_split = merged[merged.patient_ID.isin(bmc_train.patient_ID)]
-        val_split = merged[merged.patient_ID.isin(bmc_val.patient_ID)]
-        assert val_split.patient_ID.to_list() == bmc_val.patient_ID.to_list()
-        train_data = train_split[feature_columns].to_numpy()
-        train_labels = train_split[label_columns].to_numpy().astype(int)
-        val_data = val_split[feature_columns].to_numpy()
-        val_labels = val_split[label_columns].to_numpy().astype(int)
-        yield train_data, train_labels, val_data, val_labels
-        if study_name:
+        train_split = merged[merged.patient_ID.isin(merged_train.patient_ID)]
+        val_split = merged[merged.patient_ID.isin(merged_val.patient_ID)]
+        assert val_split.patient_ID.to_list() == merged_val.patient_ID.to_list()
+        if to_numpy:
+            train_data = train_split[feature_columns].to_numpy()
+            train_labels = train_split[label_columns].to_numpy().astype(int)
+            val_data = val_split[feature_columns].to_numpy()
+            val_labels = val_split[label_columns].to_numpy().astype(int)
+            yield train_data, train_labels, val_data, val_labels
+        else:
+            train_data = train_split[feature_columns]
+            train_labels = train_split[label_columns]
+            val_data = val_split[feature_columns]
+            val_labels = val_split[label_columns]
+            yield train_data, train_labels, val_data, val_labels
+
+        if study:
             break
 
 
@@ -183,8 +197,7 @@ def digitize_genes(col, bins=15):
 
 
 def digitize_genes_by_median(col):
-    median = col.median()
-    return col > median
+    return col > numpy.median(col)
 
 
 res_ar = numpy.zeros((16, 4), dtype=numpy.bool_)
@@ -194,24 +207,11 @@ for i in range(16):
     res_ar[i] = [int(x) for x in ar0]
 
 
-def binary_genes(merged, genes_columns, by_median=True):
-    n_patients, n_genes = merged[genes_columns].shape
-    result = dict()
-    for gene_col in range(len(genes_columns)):
-    # for gene_col in range(1000):
-        if by_median:
-            digitized = digitize_genes_by_median(merged[genes_columns[gene_col]])
-            result[genes_columns[gene_col]] = digitized
-        else:
-            binary_genes = numpy.zeros((n_patients, 4), dtype=numpy.bool_)
-            digitized = digitize_genes(merged[genes_columns[gene_col]])
-            for i, digit in enumerate(digitized):
-                binary_genes[i] = res_ar[digit]
-            column_names = [genes_columns[gene_col] + '_{0}'.format(x) for x in range(4)]
-            for i, col in enumerate(column_names):
-                result[col] = binary_genes[:, i]
-    return result
-
+def binary_genes(merged, genes_columns):
+    # raw improves the performance
+    # multiplication by one convertes bool to int
+    merged[genes_columns] = merged[genes_columns].apply(digitize_genes_by_median, raw=True) * 1
+    return merged
 
 
 def digitize_non_genes_data(col):
@@ -225,41 +225,35 @@ def digitize_non_genes_data(col):
     return digits
 
 
-def categorical_non_genes(merged, genes_columns, feature_columns, to_letters=True, dtype=numpy.float16):
-    other_columns = [x for x in merged.columns[~merged.columns.isin(genes_columns)] if x in feature_columns]
-    non_genes_data = dict()
-    for oth in other_columns:
-        dig = digitize_non_genes_data(merged[oth])
+def categorical_features(frame, feature_columns, dtype=numpy.float16, to_letters=False):
+    """
+    Replace features in frame by historgram bin id
+
+    Parameters
+    ---------------
+    frame: pandas.DataFrame
+    feature_columns: List[str]
+    dtype: object
+        type to use for categorical data
+    to_letters: bool
+        use ascii latters if true for categorical data
+    """
+    for col_name in feature_columns:
+        tmp_dtype = dtype
+        dig = digitize_non_genes_data(frame[col_name])
         if to_letters:
-            dtype=object
-        ar1 = numpy.zeros(len(merged[oth]), dtype=dtype)
+            tmp_dtype=object
+        if len(set(dig)) <= 2:
+            # it can be represented by bool
+            tmp_dtype = numpy.uint8
+        ar1 = numpy.zeros(len(dig), dtype=tmp_dtype)
         for i, d in enumerate(dig):
-            if to_letters:
+            if to_letters and tmp_dtype == object:
                 ar1[i] = string.ascii_letters[d]
             else:
-                ar1[i] = dtype(d)
-        non_genes_data[oth] = ar1
-    return non_genes_data
+                ar1[i] = tmp_dtype(d)
+        frame[col_name] = ar1
 
-
-def binary_non_genes(to_category=True):
-    non_genes_data = dict()
-    for oth in other_columns:
-        dig = digitize_non_genes_data(merged[oth])
-        set_size = len(set(dig))
-        new_col = -1
-        for x in range(1, 5):
-            if set_size <= 2 ** x:
-                new_col = x
-                break
-        assert new_col != -1
-        ar1 = numpy.zeros((len(merged[oth]), new_col), dtype=numpy.bool_)
-        for i, d in enumerate(dig):
-            ar1[i] = res_ar[d][-new_col:]
-        column_names = [oth + '_{0}'.format(x) for x in range(new_col)]
-        for i, col_name in enumerate(column_names):
-            non_genes_data[col_name] = ar1[:, i]
-    return non_genes_data
 
 def binarize_dataset(merged, genes_columns, feature_colum, to_letters):
     """
@@ -270,16 +264,11 @@ def binarize_dataset(merged, genes_columns, feature_colum, to_letters):
         convert categorical variables to ascii letters
         if false numpy.float16 is used
     """
-    patients_id = merged.patient_ID.to_list()
-    binary_genes_dict = binary_genes(merged, genes_columns)
-    binary_non_genes_dict = categorical_non_genes(merged, genes_columns, feature_colum, to_letters=to_letters)
-    binary_non_genes_dict['patient_ID'] = patients_id
-    binary_genes_dict['patient_ID'] = patients_id
-    binary_non_genes_dict['posOutcome'] = merged.posOutcome.to_list()
-    binary_genes_df = pandas.DataFrame(data=binary_genes_dict).sort_values(by='patient_ID') * 1
-    binary_non_genes_df = pandas.DataFrame(data=binary_non_genes_dict).sort_values(by='patient_ID')
-    result = pandas.merge(binary_genes_df, binary_non_genes_df, left_on='patient_ID', right_on='patient_ID').sort_values(by='patient_ID')
-    return result
+    copy = merged.copy()
+    to_bin_columns = [x for x in feature_colum if x not in genes_columns]
+    categorical_features(copy, to_bin_columns, to_letters=False)
+    binary_genes(copy, genes_columns)
+    return copy
 
 
 def compute_metrics(result, y_true, y_pred, x_true, x_pred):
@@ -317,8 +306,10 @@ def convert_race(x, mapping=dict()):
 def convert_menapause(x, mapping=dict()):
     return convert_node_status(x, mapping)
 
-def convert_study_id(x, mapping=dict()):
+study_mapping = dict()
+def convert_study_id(x, mapping=study_mapping):
     return convert_surgery(x, mapping)
+
 
 converters=dict(preTrt_lymph_node_status=convert_node_status,
                race=convert_race,
