@@ -49,4 +49,3 @@ for study_name, study_id in study_mapping.items():
                       header=True, index=False)
     val_data.to_csv('/tmp/cancer_bin_100_val_leave_{0}.csv'.format(study_name),
                     header=True, index=False)
-

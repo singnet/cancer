@@ -214,26 +214,6 @@ def binary_genes(merged, genes_columns):
     return merged
 
 
-def binary_genes_old(merged, genes_columns, by_median=True):
-    n_patients, n_genes = merged[genes_columns].shape
-    result = dict()
-    for gene_col in range(len(genes_columns)):
-    # for gene_col in range(1000):
-        if by_median:
-            digitized = digitize_genes_by_median(merged[genes_columns[gene_col]])
-            result[genes_columns[gene_col]] = digitized
-        else:
-            binary_genes = numpy.zeros((n_patients, 4), dtype=numpy.bool_)
-            digitized = digitize_genes(merged[genes_columns[gene_col]])
-            for i, digit in enumerate(digitized):
-                binary_genes[i] = res_ar[digit]
-            column_names = [genes_columns[gene_col] + '_{0}'.format(x) for x in range(4)]
-            for i, col in enumerate(column_names):
-                result[col] = binary_genes[:, i]
-    return result
-
-
-
 def digitize_non_genes_data(col):
     not_nan = numpy.nan_to_num(col, nan=-1)
     n_unique = len(set(not_nan))
@@ -243,43 +223,6 @@ def digitize_non_genes_data(col):
     digits = numpy.digitize(not_nan, edge)
     digits = digits - digits.min()
     return digits
-
-
-def categorical_non_genes(merged, genes_columns, feature_columns, to_letters=True, dtype=numpy.float16):
-    other_columns = [x for x in merged.columns[~merged.columns.isin(genes_columns)] if x in feature_columns]
-    non_genes_data = dict()
-    for oth in other_columns:
-        dig = digitize_non_genes_data(merged[oth])
-        if to_letters:
-            dtype=object
-        ar1 = numpy.zeros(len(merged[oth]), dtype=dtype)
-        for i, d in enumerate(dig):
-            if to_letters:
-                ar1[i] = string.ascii_letters[d]
-            else:
-                ar1[i] = dtype(d)
-        non_genes_data[oth] = ar1
-    return non_genes_data
-
-
-def binary_non_genes(to_category=True):
-    non_genes_data = dict()
-    for oth in other_columns:
-        dig = digitize_non_genes_data(merged[oth])
-        set_size = len(set(dig))
-        new_col = -1
-        for x in range(1, 5):
-            if set_size <= 2 ** x:
-                new_col = x
-                break
-        assert new_col != -1
-        ar1 = numpy.zeros((len(merged[oth]), new_col), dtype=numpy.bool_)
-        for i, d in enumerate(dig):
-            ar1[i] = res_ar[d][-new_col:]
-        column_names = [oth + '_{0}'.format(x) for x in range(new_col)]
-        for i, col_name in enumerate(column_names):
-            non_genes_data[col_name] = ar1[:, i]
-    return non_genes_data
 
 
 def categorical_features(frame, feature_columns, dtype=numpy.float16, to_letters=False):
@@ -296,15 +239,19 @@ def categorical_features(frame, feature_columns, dtype=numpy.float16, to_letters
         use ascii latters if true for categorical data
     """
     for col_name in feature_columns:
+        tmp_dtype = dtype
         dig = digitize_non_genes_data(frame[col_name])
         if to_letters:
-            dtype=object
-        ar1 = numpy.zeros(len(dig), dtype=dtype)
+            tmp_dtype=object
+        if len(set(dig)) <= 2:
+            # it can be represented by bool
+            tmp_dtype = numpy.uint8
+        ar1 = numpy.zeros(len(dig), dtype=tmp_dtype)
         for i, d in enumerate(dig):
-            if to_letters:
+            if to_letters and tmp_dtype == object:
                 ar1[i] = string.ascii_letters[d]
             else:
-                ar1[i] = dtype(d)
+                ar1[i] = tmp_dtype(d)
         frame[col_name] = ar1
 
 
@@ -322,27 +269,6 @@ def binarize_dataset(merged, genes_columns, feature_colum, to_letters):
     categorical_features(copy, to_bin_columns, to_letters=False)
     binary_genes(copy, genes_columns)
     return copy
-
-
-def binarize_dataset_old(merged, genes_columns, feature_colum, to_letters):
-    """
-    merged: pandas.DataFrame
-    genes_columns: List[str]
-    feature_colum: List[str]
-    to_letters: bool
-        convert categorical variables to ascii letters
-        if false numpy.float16 is used
-    """
-    patients_id = merged.patient_ID.to_list()
-    binary_genes_dict = binary_genes(merged, genes_columns)
-    binary_non_genes_dict = categorical_non_genes(merged, genes_columns, feature_colum, to_letters=to_letters)
-    binary_non_genes_dict['patient_ID'] = patients_id
-    binary_genes_dict['patient_ID'] = patients_id
-    binary_non_genes_dict['posOutcome'] = merged.posOutcome.to_list()
-    binary_genes_df = pandas.DataFrame(data=binary_genes_dict).sort_values(by='patient_ID') * 1
-    binary_non_genes_df = pandas.DataFrame(data=binary_non_genes_dict).sort_values(by='patient_ID')
-    result = pandas.merge(binary_genes_df, binary_non_genes_df, left_on='patient_ID', right_on='patient_ID').sort_values(by='patient_ID')
-    return result
 
 
 def compute_metrics(result, y_true, y_pred, x_true, x_pred):
