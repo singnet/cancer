@@ -1,0 +1,13 @@
+n_epochs: 600 # number of epochs of training
+batch_size: 170 #70 #64 # size of the batches
+lr: 0.0003 #0.0002 #0.0002 # adam: learning rate
+b1: 0.5 # adam: decay of first order momentum of gradient
+b2: 0.999 # adam: decay of first order momentum of gradient
+n_cpu: 8 # number of cpu threads to use during batch generation
+input_dim: 8832
+
+z_dim: 1024 #128
+
+test_split: 0.20 #0.10 #0.20
+dataset_root: ../curatedBreastData
+batch_per_epoch: 900
