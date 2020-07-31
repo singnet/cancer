@@ -6,8 +6,41 @@ the [BioConductor package](https://www.bioconductor.org/packages/release/data/ex
 - **MetaGxData.xlsx:** combined supplamentary data tables from the [metaGx paper](https://static-content.springer.com/esm/art%3A10.1038%2Fs41598-019-45165-4/MediaObjects/41598_2019_45165_MOESM2_ESM.xlsx) and the [_Three Genes_ paper](https://files.codeocean.com/files/verified/e0dd54f3-2274-4dd3-9280-ade92f8edfc8_v1.1/data/TABLE_1.xlsx?download) code dump.
 
 ## variables
-description table coming soon
 ![sample variables](./metaGXavailablePhenoHeatMap.png)
+
+|variable                            |description                                                                                              |    n|
+|:-----------------------------------|:--------------------------------------------------------------------------------------------------------|----:|
+|study                               |id for source study                                                                                      | 9717|
+|batch                               |id for study batch (studies without batches use study id)                                                | 9717|
+|sample_name                         |id of source sample (key to match data tables)                                                           | 9717|
+|sample_type                         |tumor or healthy tissue sample                                                                           | 9717|
+|age_at_initial_pathologic_diagnosis |age of patient at diagnosis, confounder of mortality outcome and tumor severity                          | 7622|
+|grade                               |aggregate indicator of tumor severity (1-4)                                                              | 5918|
+|N                                   |node metastasis presence                                                                                 | 6377|
+|treatment                           |aggregate indicator of chemo and/or hormone therapy or no treatment                                      | 5519|
+|recurrence_status                   |aggregate indicator of disease recurrence                                                                | 1856|
+|vital_status                        |aggregate indicator of patient death                                                                     | 4410|
+|er                                  |estrogen receptor presence                                                                               | 7855|
+|pgr                                 |progesterone receptor presence                                                                           | 3730|
+|her2                                |human epidermal growth factor receptor 2 presence (aka ERBB2)                                            | 3709|
+|pam50                               |pam50 label calculated by `genefu::molecular.subtyping` on robust linear/quantile normalized sample data | 9682|
+|pam50_batch                         |pam50 label caluclated by batch rather than study (differs in 311 samples, 0% - 30% of 8 batched studies | 9682|
+|PAM50_prediction                    |pam50 label from metaGx source data (differs from pam50 in ~ 1/5 of GSE25066 samples)                    |  508|
+|chemo                               |NA                                                                                                       |  225|
+|chemosensitivity_prediction         |NA                                                                                                       |  508|
+|days_to_death                       |NA                                                                                                       | 4406|
+|days_to_tumor_recurrence            |NA                                                                                                       | 1811|
+|dlda30_prediction                   |NA                                                                                                       |  508|
+|dmfs_days                           |NA                                                                                                       | 2669|
+|dmfs_status                         |NA                                                                                                       | 2683|
+|GGI_prediction                      |NA                                                                                                       |  508|
+|herceptin                           |NA                                                                                                       |  199|
+|Platform                            |NA                                                                                                       | 9717|
+|RCB_prediction                      |NA                                                                                                       |  508|
+|replicate                           |NA                                                                                                       | 9717|
+|T                                   |NA                                                                                                       |  738|
+|tamoxifen                           |NA                                                                                                       |  193|
+|tumor_size                          |NA                                                                                                       | 5300|
 
 ## studies
 |study|batch|count|PMID|Dataset accession|Notes|
