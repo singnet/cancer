@@ -577,21 +577,22 @@ bind_cols(model = models, map(syms(models), function(x) glance(eval(x))) %>% bin
 # get microarray data for control group
 controlSet <- readRDS("data/metaGxBreast/mgxSet.rds")[unique(control$study)]
 
-# fix platform variable in control
-stkPlatform <- read_delim("data/metaGxBreast/stkPlatform.tsv", delim = " 	") %>%
-  separate(2, into = c("patient", "platform"), sep = "-") %>%
-  arrange(patient) %>%
-  mutate(patient = paste0("STK_", str_remove(substr(patient, 3, 5), "^00|^0")))
-
-left_join(select(pheno, study, sample_name) %>% filter(study == "STK"),
-  stkPlatform, by = c("sample_name" = "patient")) %>%
-  summarize(missing = is.na(gsm)) %>%
-  janitor::tabyl(missing)
-# missing   n   percent
-#   FALSE 132 0.5866667
-#    TRUE  93 0.4133333
-
-annSets <- MetaGxBreast::loadBreastEsets(unique(control$study))
-# snapshotDate(): 2020-04-27
-# Ids with missing data: CAL, NCI, NKI, UCSF, METABRIC
-skt <- pData(annSets$esets$STK)
+# not possible because of platform merge in original data?
+# # fix platform variable in control
+# stkPlatform <- read_delim("data/metaGxBreast/stkPlatform.tsv", delim = " 	") %>%
+#   separate(2, into = c("patient", "platform"), sep = "-") %>%
+#   arrange(patient) %>%
+#   mutate(patient = paste0("STK_", str_remove(substr(patient, 3, 5), "^00|^0")))
+# 
+# left_join(select(pheno, study, sample_name) %>% filter(study == "STK"),
+#   stkPlatform, by = c("sample_name" = "patient")) %>%
+#   summarize(missing = is.na(gsm)) %>%
+#   janitor::tabyl(missing)
+# # missing   n   percent
+# #   FALSE 132 0.5866667
+# #    TRUE  93 0.4133333
+# 
+# annSets <- MetaGxBreast::loadBreastEsets(unique(control$study))
+# # snapshotDate(): 2020-04-27
+# # Ids with missing data: CAL, NCI, NKI, UCSF, METABRIC
+# skt <- pData(annSets$esets$STK)

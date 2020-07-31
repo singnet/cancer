@@ -193,6 +193,9 @@ table(batches$study)
 # label missing batch labels in METABRIC as "6"
 pheno <- replace_na(pheno, list(batch = "6"))
 
+# re-lable first NKI batch from "NKI" to "NKI1"
+pheno <- mutate(pheno, batch = str_replace(batch, "NKI$", "NKI1"))
+
 # how many replicates are there?
 table(group_by(pheno, study, unique_patient_ID) %>%
         summarize(uniqueIDcount = n()) %>% 
@@ -258,6 +261,7 @@ grep(paste0(str_remove(overlap, "GSE"), collapse = "|"), list.files("../cancer.o
 # coresponding to metaGx data sets:
 metaGX$Dataset[metaGX$Dataset_accession %in% c("GSE32646", "GSE25055", "GSE25065")]
 
+# note: table updated with pam50 labels in `label clusters.R`
 write_csv(pheno, "data/metaGXcovarTable.csv.xz")
 
 # add inokenty's platform data
@@ -471,7 +475,7 @@ rm(expMat)
 
 # median normalization for moses
 
-
+# combat normalization
 
 ## plots
 # batch csv - tibble is saved as csv then changed for markdown rendering.
@@ -567,3 +571,15 @@ levelplot(nbamat,col.regions=gradient_colors,
                                                "60%", "70%", "80%","90%", "100%"),
                                             cex=0.2,font=1,col="brown",height=1,
                                             width=1.4), col=(gradient_colors)))
+
+# make variable description table
+# descriptions added by hand in spreadsheet
+varTab <- read_csv("data/metaGxBreast/coVarsDescription.csv")
+varCount <- summarize(pheno)
+varTab <- mutate(varTab, present = !is.na(pheno[[variable]]))
+present <- enframe(apply(!is.na(pheno), 2, sum), name = "variable", value = "n")
+varTab <- left_join(varTab, present)
+write_csv(varTab, "data/metaGxBreast/coVarsDescription.csv")
+
+# convert to markdown for pasting in to readme
+knitr::kable(varTab, "pipe")
