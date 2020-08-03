@@ -11,6 +11,7 @@ import numpy
 import pandas
 
 from sklearn.metrics import recall_score, precision_score, f1_score, confusion_matrix
+from sklearn.metrics import accuracy_score
 
 
 def split_by_study(merged, feature_columns, label_columns, study=None,
@@ -59,6 +60,17 @@ def split_by_study(merged, feature_columns, label_columns, study=None,
             break
 
 
+def select_random_idx(study, num):
+    if not num % 2 == 0:
+        num = num + 1
+    validation = []
+    idx = numpy.arange(len(study))
+    random.shuffle(idx)
+    validation = study.iloc[idx[:num]]
+    train = study.iloc[idx[num:]]
+    return train, validation
+
+
 def select_balanced_idx(study, num, balance_train=False):
     """
     Split study to train and validation sets.
@@ -75,8 +87,14 @@ def select_balanced_idx(study, num, balance_train=False):
     if not num % 2 == 0:
         num = num + 1
     validation = []
-    pos_outcome = study[study.posOutcome == 1].patient_ID
-    neg_outcome = study[study.posOutcome == 0].patient_ID
+    outcomes = study.posOutcome.unique()
+    if len(outcomes) == 1:
+        print("can't balance by posOutcome: theres only one outcome for study {0}".format(study.study.iloc[0]))
+        return study, study.iloc[0:0]
+    pos = max(outcomes)
+    neg = min(outcomes)
+    pos_outcome = study[study.posOutcome == pos].patient_ID
+    neg_outcome = study[study.posOutcome == neg].patient_ID
     pos_idx = numpy.arange(len(pos_outcome))
     neg_idx = numpy.arange(len(neg_outcome))
     random.shuffle(pos_idx)
@@ -100,6 +118,9 @@ def select_balanced_idx(study, num, balance_train=False):
     train_idx = pos_outcome.iloc[train_pos].index.to_list() \
             + neg_outcome.iloc[train_neg].index.to_list()
     train = study.loc[train_idx]
+    other = study[(~study.patient_ID.isin(validation)) & (~study.patient_ID.isin(train.patient_ID))]
+    train = study.loc[train_idx + other.index.to_list()]
+
     # train = study[~study.patient_ID.isin(validation)]
     validation = study[study.patient_ID.isin(validation)]
     assert not set(train.patient_ID.to_list()).intersection(set(validation.patient_ID.to_list()))
@@ -121,7 +142,7 @@ def get_loc(patient_ID, frame):
     return frame[frame.patient_ID == patient_ID].row_num.to_list()[0]
 
 
-def random_split(merged, feature_columns, label_columns, ratio=0.1, study_name=None, rand=False, to_numpy=True, balance_by_study=False, balance_train=False):
+def random_split(merged, feature_columns, label_columns, ratio=0.1, study_name=None, rand=False, to_numpy=True, balance_by_study=False, balance_train=False, balance_validation=True):
     """
     Split dataset into train and validation sets, that is
         two pairs of (features, labels)
@@ -157,7 +178,10 @@ def random_split(merged, feature_columns, label_columns, ratio=0.1, study_name=N
         num_select = math.ceil(len(study) * ratio)
         study_patients = bmc[bmc.study == eval_study]
         # balance validation set and possibly train set
-        bmc_train, bmc_val = select_balanced_idx(study_patients, num_select, balance_train)
+        if balance_validation:
+            bmc_train, bmc_val = select_balanced_idx(study_patients, num_select, balance_train)
+        else:
+            bmc_train, bmc_val = select_random_idx(study_patients, num_select)
         val_dict[eval_study] = bmc_val.index.to_list()
         train_dict[eval_study] = bmc_train.index.to_list()
     if balance_by_study:
@@ -271,7 +295,11 @@ def binarize_dataset(merged, genes_columns, feature_colum, to_letters):
     return copy
 
 
-def compute_metrics(result, y_true, y_pred, x_true, x_pred):
+def compute_metrics(result, y_true, y_pred, x_true, x_pred, multilabel=False):
+    if multilabel:
+        result['train_accuracy'].append(accuracy_score(x_true, x_pred))
+        result['accuracy'].append(accuracy_score(y_true, y_pred))
+        return
     result['recall'].append(recall_score(y_true, y_pred))
     result['precision'].append( precision_score(y_true, y_pred))
     result['f1'].append(f1_score(y_true, y_pred))
@@ -527,3 +555,4 @@ def load_merged_dataset(cancer_data_dir):
             genes_columns=genes_columns, merged=merged,
             treatment=treatment)
     return result
+
