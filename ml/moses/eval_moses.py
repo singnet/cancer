@@ -5,7 +5,7 @@ import argparse
 import tempfile
 import shlex
 import pandas
-from data_util.util import compute_metrics
+from data_util.util import compute_metrics, dtype
 from collections import defaultdict
 
 
@@ -49,8 +49,6 @@ def parse_args():
                         help="path to train csv file")
     parser.add_argument('--validation-path',
                         help="path to validation csv file")
-    parser.add_argument('--program-file', default='',
-                        help="path to a file with combo program")
     parser.add_argument('--out-file', default='',
                         help="path to moses a file with moses output")
     args = parser.parse_args()
@@ -58,27 +56,32 @@ def parse_args():
 
 
 def main():
-    dtype = {'posOutcome': pandas.Int64Dtype()}
     args = parse_args()
     val_path = args.validation_path
     train_path = args.train_path
-    program_path = args.program_file
     moses_out_path = args.out_file
-
-    # load averaged treatment table
-    val_data = pandas.read_csv(val_path, dtype=dtype)
-    train_data = pandas.read_csv(train_path, dtype=dtype)
-    val_est_list = estimate(program_path, moses_out_path, val_path)
-    train_est_list = estimate(program_path, moses_out_path, train_path)
-
-    i = 0
-    for val_est, train_est in zip(val_est_list, train_est_list):
-        i += 1
+    results = evaluate_moses(train_path, val_path, moses_out_path)
+    for i, result in results.items():
         print('program #{0}'.format(i))
-        result = defaultdict(list)
-        compute_metrics(result, val_data.posOutcome.to_list(), val_est,
-                train_data.posOutcome.to_list(), train_est)
         for k, v in result.items():
             print(k, v)
 
-main()
+def evaluate_moses(train_path, val_path, moses_out_path, target='posOutcome'):
+    # load averaged treatment table
+    val_data = pandas.read_csv(val_path, dtype=dtype)
+    train_data = pandas.read_csv(train_path, dtype=dtype)
+    val_est_list = estimate('', moses_out_path, val_path, target_field=target)
+    train_est_list = estimate('', moses_out_path, train_path, target_field=target)
+
+    results = dict()
+    i = 0
+    for val_est, train_est in zip(val_est_list, train_est_list):
+        i += 1
+        result = defaultdict(list)
+        compute_metrics(result, val_data.posOutcome.to_list(), val_est,
+                train_data.posOutcome.to_list(), train_est)
+        results[i] = result
+    return results
+
+if __name__ == '__main__':
+    main()

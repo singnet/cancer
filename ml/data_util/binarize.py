@@ -25,15 +25,19 @@ genes_features = genes_features.sort_values(by='patient_ID')
 
 aggregated_treatment_columns = ['radio', 'surgery', 'chemo', 'hormone']
 label_columns = ['pCR', 'RFS', 'DFS', 'posOutcome']
-label_columns = ['posOutcome']
+label_column = 'posOutcome'
+label_column = 'RFS'
+label_columns = [label_column]
 genes_columns = genes_features.columns.to_list()[1:]
 feature_columns = [x for x in xgboost_top_100 if x not in treatment_columns] + treatment_columns #xgboost_top_100 #genes_columns + treatment_columns # label_columns +  # pam50col #  +   + aggregated_treatment_columns
 merged = dataset_dict['merged']
-
+# filter rows with nans in label_column
+merged = merged[~merged[label_column].isnull()]
 
 bin_data = binarize_dataset(merged, genes_columns, feature_columns, to_letters=False)
 
-subset_moses_features = ['posOutcome'] + feature_columns
+subset_moses_features = label_columns + feature_columns
+subset_moses_features = [x for x in subset_moses_features if x in bin_data.columns]
 
 from util import study_mapping,split_by_study
 res = defaultdict(list)
@@ -45,7 +49,10 @@ for study_name, study_id in study_mapping.items():
                                                               to_numpy=False))
     print(study_name)
     print(val_data.shape)
-    train_data.to_csv('/tmp/cancer_bin_100_train_leave_{0}.csv'.format(study_name),
+    if not val_data.shape[0]:
+        print('skipping {0}'.format(study_name))
+        continue
+    train_data.to_csv('/tmp/bin/cancer_bin_100_train_leave_{0}.csv'.format(study_name),
                       header=True, index=False)
-    val_data.to_csv('/tmp/cancer_bin_100_val_leave_{0}.csv'.format(study_name),
+    val_data.to_csv('/tmp/bin/cancer_bin_100_val_leave_{0}.csv'.format(study_name),
                     header=True, index=False)
