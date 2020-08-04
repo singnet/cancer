@@ -264,6 +264,10 @@ def categorical_features(frame, feature_columns, dtype=numpy.float16, to_letters
     """
     for col_name in feature_columns:
         tmp_dtype = dtype
+        if len(frame[col_name].unique()) == 1:
+            print('dropping column {0}: it has only one value'.format(col_name))
+            frame = frame.drop(columns=[col_name])
+            continue
         dig = digitize_non_genes_data(frame[col_name])
         if to_letters:
             tmp_dtype=object
@@ -277,6 +281,7 @@ def categorical_features(frame, feature_columns, dtype=numpy.float16, to_letters
             else:
                 ar1[i] = tmp_dtype(d)
         frame[col_name] = ar1
+    return frame
 
 
 def binarize_dataset(merged, genes_columns, feature_colum, to_letters):
@@ -290,7 +295,7 @@ def binarize_dataset(merged, genes_columns, feature_colum, to_letters):
     """
     copy = merged.copy()
     to_bin_columns = [x for x in feature_colum if x not in genes_columns]
-    categorical_features(copy, to_bin_columns, to_letters=False)
+    copy = categorical_features(copy, to_bin_columns, to_letters=False)
     binary_genes(copy, genes_columns)
     return copy
 
@@ -516,18 +521,18 @@ treatment_columns = ['tumor_size_cm_preTrt_preSurgery',
                      'no_treatment', 'methotrexate', 'other', 'taxaneGeneral']
 
 
+dtype = {'DFS': pandas.Int64Dtype(),
+         'pCR': pandas.Int64Dtype(),
+         'RFS': pandas.Int64Dtype(),
+         'DFS': pandas.Int64Dtype(),
+         'posOutcome': pandas.Int64Dtype()}
+
+
 def load_merged_dataset(cancer_data_dir):
     dump_dir = os.path.join(cancer_data_dir, 'bcDump/example15bmc')
     clinical_table_path = os.path.join(cancer_data_dir, 'bcClinicalTable.csv')
     merged_path = os.path.join(dump_dir, 'ex15bmcMerged.csv.xz')
     bmc_all_path = os.path.join(dump_dir, 'bmc15mldata1.csv')
-
-    dtype = {'DFS': pandas.Int64Dtype(),
-             'pCR': pandas.Int64Dtype(),
-             'RFS': pandas.Int64Dtype(),
-             'DFS': pandas.Int64Dtype(),
-             'posOutcome': pandas.Int64Dtype()}
-
 
     # load averaged treatment table
     bmc = pandas.read_csv(bmc_all_path, dtype=dtype, converters=converters)
@@ -548,6 +553,13 @@ def load_merged_dataset(cancer_data_dir):
 
     ## merge genes expression + averaged treatment + detailed treatment
     merged = pandas.merge(genes_features, bmc, left_on='patient_ID', right_on='patient_ID')
+    to_drop = []
+    for col in bmc.columns:
+        if col in treatment.columns:
+            if col == 'patient_ID':
+                continue
+            to_drop.append(col)
+    treatment = treatment.drop(columns=to_drop)
     merged = pandas.merge(merged, treatment, left_on='patient_ID', right_on='patient_ID')
     merged.insert(0, 'row_num', range(0,len(merged)))
 
