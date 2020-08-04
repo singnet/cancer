@@ -129,6 +129,7 @@ def load_metagx_dataset(base_path, min_genes=10000):
         table.insert(1, 'study', [i for _ in range(len(table))])
         i += 1
 
+    # filter studies by size
     result = None
     filtered_studies = []
     i = 0
