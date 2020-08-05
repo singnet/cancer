@@ -34,7 +34,7 @@ def split_by_study(merged, feature_columns, label_columns, study=None,
 
     """
     for eval_study in set(merged.study):
-        if study:
+        if study is not None:
             eval_study = study
         merged_train = merged[merged.study != eval_study]
         merged_val = merged[merged.study == eval_study]
@@ -56,7 +56,7 @@ def split_by_study(merged, feature_columns, label_columns, study=None,
             val_labels = val_split[label_columns]
             yield train_data, train_labels, val_data, val_labels
 
-        if study:
+        if study is not None:
             break
 
 

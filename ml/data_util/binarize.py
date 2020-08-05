@@ -26,7 +26,7 @@ genes_features = genes_features.sort_values(by='patient_ID')
 aggregated_treatment_columns = ['radio', 'surgery', 'chemo', 'hormone']
 label_columns = ['pCR', 'RFS', 'DFS', 'posOutcome']
 label_column = 'posOutcome'
-label_column = 'RFS'
+label_column = 'DFS'
 label_columns = [label_column]
 genes_columns = genes_features.columns.to_list()[1:]
 feature_columns = [x for x in xgboost_top_100 if x not in treatment_columns] + treatment_columns #xgboost_top_100 #genes_columns + treatment_columns # label_columns +  # pam50col #  +   + aggregated_treatment_columns
@@ -38,6 +38,7 @@ bin_data = binarize_dataset(merged, genes_columns, feature_columns, to_letters=F
 
 subset_moses_features = label_columns + feature_columns
 subset_moses_features = [x for x in subset_moses_features if x in bin_data.columns]
+print('target labels: {0}'.format(label_columns))
 
 from util import study_mapping,split_by_study
 res = defaultdict(list)
