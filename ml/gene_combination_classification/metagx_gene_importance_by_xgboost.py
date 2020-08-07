@@ -33,7 +33,7 @@ X_ = metagx_result_data.drop(columns=cols_to_drop).to_numpy()
 gene_names = metagx_result_data.drop(columns=cols_to_drop).columns.values.tolist()
 print(metagx_result_data.drop(columns=cols_to_drop).shape)
 print(metagx_result_data.drop(columns=cols_to_drop).iloc[:, 0])
-print(gene_names)
+print(len(gene_names))
 
 
 def calc_results_for_fold(X, y, train_index, test_index, clf):
@@ -72,9 +72,10 @@ print(sorted_gene_imp[:20])
 
 features = metagx_result_data.drop(columns=cols_to_drop)
 important_genes = [x[0] for x in sorted_gene_imp]
-features_to_drop = features.loc[:, important_genes[:2000]]
+features_to_drop = features.loc[:, important_genes[:5000]]
 less_imp_features = features.drop(columns=features_to_drop).to_numpy()
 X_ = less_imp_features
+print(features.drop(columns=features_to_drop).shape)
 
 print("________________________________________")
 
