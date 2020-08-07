@@ -10,6 +10,7 @@ import pandas as pd
 from utils import *
 import json
 
+
 def convert_study(val):
     d = json.loads(open('metagx_study_labels.json').read())
     return d[val]
@@ -34,6 +35,7 @@ print(metagx_result_data.drop(columns=cols_to_drop).shape)
 print(metagx_result_data.drop(columns=cols_to_drop).iloc[:, 0])
 print(gene_names)
 
+
 def calc_results_for_fold(X, y, train_index, test_index, clf):
     X_train, X_test = X[train_index], X[test_index]
     y_train, y_test = y[train_index], y[test_index]
@@ -51,7 +53,7 @@ def calc_results_for_fold(X, y, train_index, test_index, clf):
     return acc
 
 
-clf1 = XGBClassifier()
+clf1 = XGBClassifier(tree_method='gpu_hist')
 n_splits = 7
 kf = KFold(n_splits=n_splits, shuffle=True)
 gene_importance_dict = {}
@@ -60,7 +62,7 @@ for i, (train_index, test_index) in enumerate(kf.split(X_)):
     acc_f = calc_results_for_fold(X_, y_, train_index, test_index, clf1)
     print("full: ", acc_f)
     print(clf1.feature_importances_)
-    plot_importance(model)
+    plot_importance(clf1)
     pyplot.show()
 
 
