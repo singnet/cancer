@@ -67,7 +67,7 @@ for i, (train_index, test_index) in enumerate(kf.split(X_)):
     # plot_importance(clf1)
     # pyplot.show()
 
-sorted_gene_imp = sorted(res_gene_imp[0], key=lambda x: x[1])
+sorted_gene_imp = sorted(res_gene_imp[0], key=lambda x: x[1], reverse=True)
 print(sorted_gene_imp[:20])
 
 features = metagx_result_data.drop(columns=cols_to_drop)
