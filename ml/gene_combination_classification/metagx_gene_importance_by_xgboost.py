@@ -68,10 +68,11 @@ for i, (train_index, test_index) in enumerate(kf.split(X_)):
     # pyplot.show()
 
 sorted_gene_imp = sorted(res_gene_imp[0], key=lambda x: x[1])
+print(sorted_gene_imp[:20])
 
 features = metagx_result_data.drop(columns=cols_to_drop)
 important_genes = [x[0] for x in sorted_gene_imp]
-features_to_drop = features.loc[:, important_genes[:10]]
+features_to_drop = features.loc[:, important_genes[:200]]
 less_imp_features = features.drop(columns=features_to_drop).to_numpy()
 X_ = less_imp_features
 
