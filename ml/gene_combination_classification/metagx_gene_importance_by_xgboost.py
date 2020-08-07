@@ -54,17 +54,37 @@ def calc_results_for_fold(X, y, train_index, test_index, clf):
 
 
 clf1 = XGBClassifier(tree_method='gpu_hist')
-n_splits = 7
+n_splits = 1
 kf = KFold(n_splits=n_splits, shuffle=True)
 gene_importance_dict = {}
 
+res_gene_imp = []
 for i, (train_index, test_index) in enumerate(kf.split(X_)):
     acc_f = calc_results_for_fold(X_, y_, train_index, test_index, clf1)
     print("full: ", acc_f)
     print(clf1.feature_importances_)
-    plot_importance(clf1)
-    pyplot.show()
+    res_gene_imp = list(zip(gene_names, clf1.feature_importances_))
+    # plot_importance(clf1)
+    # pyplot.show()
 
+sorted_gene_imp = sorted(res_gene_imp, key=lambda x: x[1])
 
+features = metagx_result_data.drop(columns=cols_to_drop)
+important_genes = [x[0] for x in sorted_gene_imp]
+features_to_drop = features.loc[:, important_genes[:10]]
+less_imp_features = features.drop(columns=features_to_drop).to_numpy()
+X_ = less_imp_features
+
+print("________________________________________")
+
+clf2 = XGBClassifier(tree_method='gpu_hist')
+n_splits = 1
+kf = KFold(n_splits=n_splits, shuffle=True)
+gene_importance_dict = {}
+
+res_gene_imp = []
+for i, (train_index, test_index) in enumerate(kf.split(X_)):
+    acc_f = calc_results_for_fold(X_, y_, train_index, test_index, clf2)
+    print("full: ", acc_f)
 # with open("gene_importance_4_study_prediction.json", "w") as fp:
 #     json.dump(sorted_genes_dict, fp)
