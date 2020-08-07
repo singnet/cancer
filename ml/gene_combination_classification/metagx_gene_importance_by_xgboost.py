@@ -54,20 +54,20 @@ def calc_results_for_fold(X, y, train_index, test_index, clf):
 
 
 clf1 = XGBClassifier(tree_method='gpu_hist')
-n_splits = 1
+n_splits = 2
 kf = KFold(n_splits=n_splits, shuffle=True)
 gene_importance_dict = {}
 
-res_gene_imp = []
+res_gene_imp = [[], []]
 for i, (train_index, test_index) in enumerate(kf.split(X_)):
     acc_f = calc_results_for_fold(X_, y_, train_index, test_index, clf1)
     print("full: ", acc_f)
     print(clf1.feature_importances_)
-    res_gene_imp = list(zip(gene_names, clf1.feature_importances_))
+    res_gene_imp[i] = list(zip(gene_names, clf1.feature_importances_))
     # plot_importance(clf1)
     # pyplot.show()
 
-sorted_gene_imp = sorted(res_gene_imp, key=lambda x: x[1])
+sorted_gene_imp = sorted(res_gene_imp[0], key=lambda x: x[1])
 
 features = metagx_result_data.drop(columns=cols_to_drop)
 important_genes = [x[0] for x in sorted_gene_imp]
@@ -78,7 +78,7 @@ X_ = less_imp_features
 print("________________________________________")
 
 clf2 = XGBClassifier(tree_method='gpu_hist')
-n_splits = 1
+n_splits = 2
 kf = KFold(n_splits=n_splits, shuffle=True)
 gene_importance_dict = {}
 
