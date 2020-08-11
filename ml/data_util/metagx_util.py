@@ -10,12 +10,12 @@ import random
 from collections import defaultdict
 import math
 
-import util
+from data_util import util
 
-from util import *
+from data_util.util import *
 
 
-treatment_columns_metagx = 'tumor_size', 'chemo', 'hormono', 'grade', 'N', 'age'
+treatment_columns_metagx = 'tumor_size', 'chemo', 'hormone', 'grade', 'N', 'age'
 
 
 def ternary(column, nan):
@@ -65,11 +65,11 @@ def convert_covars(merged):
     # need to update nan, based on chemo
     nan = (dummies.t_nan - chemo) > 0
     merged.chemo = ternary(chemo, nan)
-    merged.insert(3, 'hormono', ternary(hormo, nan))
+    merged.insert(3, 'hormone', ternary(hormo, nan))
     # verify that chemo + hormo hasn't changed
     shape_chemo_hormono = merged[merged.treatment == 'chemo.plus.hormono'].shape
     tmp = merged[merged.chemo == 1]
-    assert shape_chemo_hormono == tmp[tmp.hormono == 1].shape
+    assert shape_chemo_hormono == tmp[tmp.hormone == 1].shape
     # create posOutcome from vital_status
     posOutcome = (merged.vital_status == 'living') * 1
     posOutcome += (merged.vital_status == 'deceased') * -1
@@ -84,7 +84,8 @@ def convert_covars(merged):
 
 
 
-def load_metagx_dataset(base_path, min_genes=10000):
+metagx_study_mapping = dict()
+def load_metagx_dataset(base_path, min_genes=10000, study_mapping=metagx_study_mapping):
     """
     load and merge metagx dataset
 
@@ -122,7 +123,6 @@ def load_metagx_dataset(base_path, min_genes=10000):
     for key, value in study_tables.items():
         sets_dict[key] = set(value.columns[1:].to_list())
 
-    study_mapping = dict()
     i = 0
     for study, table in study_tables.items():
         study_mapping[study.split('_')[0]] = i
@@ -164,14 +164,24 @@ def load_metagx_dataset(base_path, min_genes=10000):
 
 
 if __name__ == '__main__':
+    cancer_data_dir = '/home/noskill/projects/cancer.old/data'
+    dataset_dict = util.load_merged_dataset(cancer_data_dir)
+    mergedCurated = dataset_dict['merged']
+
     data = load_metagx_dataset('/home/noskill/projects/cancer/data/metaGxBreast/', min_genes=5000)
     merged = data['merged']
     genes_list = data['genes_features']
 
+    merged_common = util.merge_metagx_curated(merged, mergedCurated)
+
+    merged_treatments = list(treatment_columns_metagx) + treatment_columns_bmc
+    merged_treatments = [x for x in merged_treatments if x in merged_common]
+    common_genes_list = [x for x in genes_list if x in merged_common]
+    print(merged_treatments)
     train_data, train_labels, val_data, val_labels = util.random_split(merged,
-                                                              treatment_columns_metagx + genes_list,
+                                                              merged_treatments + common_genes_list,
                                                               ['posOutcome'],
-                                                              balance_validation=True,
+                                                              balance_validation=False,
                                                               balance_by_study=False)
 
     train_data, train_labels, val_data, val_labels = util.random_split(merged,
