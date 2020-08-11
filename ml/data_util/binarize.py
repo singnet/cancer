@@ -25,8 +25,8 @@ genes_features = genes_features.sort_values(by='patient_ID')
 
 aggregated_treatment_columns = ['radio', 'surgery', 'chemo', 'hormone']
 label_columns = ['pCR', 'RFS', 'DFS', 'posOutcome']
+label_column = 'pCR'
 label_column = 'posOutcome'
-label_column = 'DFS'
 label_columns = [label_column]
 genes_columns = genes_features.columns.to_list()[1:]
 feature_columns = [x for x in xgboost_top_100 if x not in treatment_columns] + treatment_columns #xgboost_top_100 #genes_columns + treatment_columns # label_columns +  # pam50col #  +   + aggregated_treatment_columns

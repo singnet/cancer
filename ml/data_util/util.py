@@ -317,7 +317,7 @@ def compute_metrics(result, y_true, y_pred, x_true, x_pred, multilabel=False):
 
 
 # Convertors for mapping string data to numbers
-def convert_surgery(x, surgery_mapping=dict()):
+def convert_surgery(x, surgery_mapping=dict(NA=0, NaN=0)):
     if x not in surgery_mapping:
         surgery_mapping[x] = len(surgery_mapping)# + 1
     return surgery_mapping[x]
@@ -504,6 +504,8 @@ TYMS
 UBE2C
 UBE2T""".split()]
 
+treatment_columns_bmc = ['radio', 'surgery', 'chemo', 'hormone']
+
 treatment_columns = ['tumor_size_cm_preTrt_preSurgery',
                      'preTrt_lymph_node_status',
                      'preTrt_totalLymphNodes',
@@ -568,3 +570,38 @@ def load_merged_dataset(cancer_data_dir):
             treatment=treatment)
     return result
 
+
+def zero_to_minus_one(frame, colname):
+    """
+    Replace zero with minus one in the given DataFrame and column name
+    """
+    assert len(frame[colname].unique()) == 2
+    frame.loc[frame[colname] == 0, colname] = -1
+
+
+def merge_metagx_curated(metagx_merged, mergedCurated):
+    """
+    Merge curatedBreastCancer and metagx dataframes
+    resulting dataset has -1 for false 1 for true and 0 for 'unknown'
+    """
+    # there two surgery types, merge them
+    mergedCurated.surgery = (mergedCurated.surgery > 0) * 1
+    mergedCurated.loc[mergedCurated.posOutcome == 0, 'posOutcome'] = -1
+    zero_to_minus_one(mergedCurated, 'surgery')
+    zero_to_minus_one(mergedCurated, 'chemo')
+    zero_to_minus_one(mergedCurated, 'hormone')
+    zero_to_minus_one(mergedCurated, 'radio')
+    mergedCurated.study += 40
+
+    # 0 is undefined in metagx
+    mergedCurated.age += 1
+    mergedCurated.insert(2, 'tumor_size', mergedCurated.tumor_size_cm_preTrt_preSurgery.fillna(-1) + 1)
+    metagx_merged.insert(2, 'radio', numpy.zeros(len(metagx_merged)))
+    metagx_merged.insert(2, 'surgery', numpy.zeros(len(metagx_merged)))
+    metagx_merged = metagx_merged.drop(columns=['row_num'])
+    mergedCurated = mergedCurated.drop(columns=['row_num'])
+    columns_common = mergedCurated.columns[mergedCurated.columns.isin(metagx_merged.columns)]
+    merged_common = pandas.concat([mergedCurated[columns_common], metagx_merged[columns_common]])
+    merged_common.insert(0, 'row_num', numpy.arange(len(merged_common)))
+    merged_common.reset_index(inplace=True)
+    return merged_common
