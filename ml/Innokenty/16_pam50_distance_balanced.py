@@ -23,7 +23,7 @@ def read_pam50_distance_dataset(path, keep_cols):
     return keep
 
 def read_treat_dataset(path="./"):
-    return pd.read_csv(os.path.join(path, 'mldata_new.csv'))
+    return pd.read_csv(os.path.join(path, 'mldata.csv'))
 
 def prepare_datasets(full_dataset, studies):
     Xys = [prepare_dataset(full_dataset, study ) for study in studies] 

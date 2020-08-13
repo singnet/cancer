@@ -30,7 +30,7 @@ def read_treat_dataset(path="./"):
     return pd.read_csv(os.path.join(path, 'bmc15mldata1.csv'), converters=dict(surgery = convert_surgery, posOutcome = convert_posOutcome))
 
 def read_metagx_ml_data():
-    return pd.read_csv('/home/daddywesker/bc_data_processor/MetaGX/mldata_new.csv')
+    return pd.read_csv('/home/daddywesker/bc_data_processor/MetaGX/mldata.csv')
 
 def read_metagx_covar_data(path="./"):
     return pd.read_csv(os.path.join(path, '/mnt/fileserver/shared/datasets/biodata/MetaGX/metaGXcovarTable.csv'))

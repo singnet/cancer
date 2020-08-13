@@ -27,7 +27,7 @@ def read_pam50_distance_dataset(path, keep_cols):
 
 
 def read_treat_dataset(path="./"):
-    return pd.read_csv(os.path.join(path, 'mldata_new.csv'))
+    return pd.read_csv(os.path.join(path, 'mldata.csv'))
 
 
 def calc_results_simple(X_train, X_test, y_train, y_test, clf):

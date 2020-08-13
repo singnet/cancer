@@ -11,7 +11,7 @@ import sys
 
 
 def read_coincide_types_dataset(path="./"):
-    dataset = pd.read_csv(os.path.join(path, 'metaGXcovarTable_withpam50.csv'))[["pam50_batch", "pam50", "sample_name", "study", 'tumor_size', 'N', 'age_at_initial_pathologic_diagnosis', 'grade']]
+    dataset = pd.read_csv(os.path.join(path, 'metaGXcovarTable.csv'))[["pam50_batch", "pam50", "sample_name", "study", 'tumor_size', 'N', 'age_at_initial_pathologic_diagnosis', 'grade']]
     treat_dataset = read_treat_dataset(path)
     return pd.merge(treat_dataset, dataset, left_on="sample_name", right_on="sample_name")
 
@@ -28,7 +28,7 @@ def read_pam_types_cat_dataset(path, keep_cols, batched=False):
 
 
 def read_treat_dataset(path="./"):
-    return pd.read_csv(os.path.join(path, 'mldata_new.csv'))
+    return pd.read_csv(os.path.join(path, 'mldata.csv'))
 
 
 def calc_results_simple(X_train, X_test, y_train, y_test, clf):
