@@ -20,7 +20,8 @@ metagx_covar_data_converted = pd.read_csv('/mnt/fileserver/shared/datasets/bioda
 studies = metagx_covar_data_converted['study']
 print(studies[8000:9000])
 
-metagx_expr_data = pd.read_csv('/mnt/fileserver/shared/datasets/biodata/MetaGX/merged/noNormMergedAnd10k.csv')
+# metagx_expr_data = pd.read_csv('/mnt/fileserver/shared/datasets/biodata/MetaGX/merged/noNormMergedAnd10k.csv')
+metagx_expr_data = pd.read_csv('/mnt/fileserver/shared/datasets/biodata/MetaGX/merged/ygNormMergedAnd10k.csv')
 print(metagx_expr_data.shape)
 
 metagx_result_data = pd.merge(metagx_covar_data_converted, metagx_expr_data, on='sample_name')
