@@ -1,0 +1,223 @@
+==> pCR
+==> pCR study to test: study_16446_GPL570_all-bmc15
+pCR full_xgboost    :  0.4737  0.84  0.3708  0.5492
+pCR full_logi       :  0.5789  0.64  0.5618  0.5739
+pCR notrea_xgboost  :  0.4737  0.84  0.3708  0.5492
+pCR notrea_logi     :  0.5789  0.64  0.5618  0.5753
+==> pCR study to test: study_20181_GPL96_all-bmc15
+pCR full_xgboost    :  0.5094  0.125  0.6757  0.3514
+pCR full_logi       :  0.3962  0.25  0.4595  0.3818
+pCR notrea_xgboost  :  0.5094  0.125  0.6757  0.3514
+pCR notrea_logi     :  0.3962  0.25  0.4595  0.3818
+==> pCR study to test: study_20194_GPL96_all-bmc15
+pCR full_xgboost    :  0.3372  0.165  0.9818  0.4804
+pCR full_logi       :  0.364  0.2184  0.9091  0.6179
+pCR notrea_xgboost  :  0.3372  0.165  0.9818  0.4804
+pCR notrea_logi     :  0.364  0.2184  0.9091  0.6173
+==> pCR study to test: study_22226_GPL1708_all-bmc15
+pCR full_xgboost    :  0.2764  0.9677  0.04348  0.467
+pCR full_logi       :  0.5935  0.6774  0.5652  0.6339
+pCR notrea_xgboost  :  0.2764  0.9677  0.04348  0.467
+pCR notrea_logi     :  0.5935  0.6774  0.5652  0.6332
+==> pCR study to test: study_22358_GPL5325_all-bmc15
+pCR full_xgboost    :  0.3689  0.2843  0.8  0.5902
+pCR full_logi       :  0.4754  0.4118  0.8  0.6975
+pCR notrea_xgboost  :  0.3689  0.2843  0.8  0.5902
+pCR notrea_logi     :  0.4754  0.4118  0.8  0.6966
+==> pCR study to test: study_25055_GPL96_MDACC_M-bmc15
+pCR full_xgboost    :  0.362  0.9302  0.2247  0.5183
+pCR full_logi       :  0.3891  0.9535  0.2528  0.6889
+pCR notrea_xgboost  :  0.362  0.9302  0.2247  0.5183
+pCR notrea_logi     :  0.3891  0.9535  0.2528  0.6875
+==> pCR study to test: study_25065_GPL96_MDACC-bmc15
+pCR full_xgboost    :  0.338  0.5  0.3051  0.3799
+pCR full_logi       :  0.5211  0.5833  0.5085  0.5523
+pCR notrea_xgboost  :  0.338  0.5  0.3051  0.3799
+pCR notrea_logi     :  0.5211  0.5833  0.5085  0.5551
+==> pCR study to test: study_25065_GPL96_USO-bmc15
+pCR full_xgboost    :  0.6481  0.3  0.7273  0.6568
+pCR full_logi       :  0.5926  0.5  0.6136  0.5636
+pCR notrea_xgboost  :  0.6481  0.3  0.7273  0.6568
+pCR notrea_logi     :  0.5926  0.5  0.6136  0.5636
+==> pCR study to test: study_32646_GPL570_all-bmc15
+pCR full_xgboost    :  0.513  0.4382  0.7692  0.5778
+pCR full_logi       :  0.3913  0.382  0.4231  0.3838
+pCR notrea_xgboost  :  0.513  0.4382  0.7692  0.5778
+pCR notrea_logi     :  0.3913  0.382  0.4231  0.3838
+==> mean_auc full_xgboost 0.5079
+==> mean_auc full_logi 0.566
+==> mean_auc notrea_xgboost 0.5079
+==> mean_auc notrea_logi 0.566
+
+
+==> RFS
+==> RFS study to test: study_16391_GPL570_all-bmc15
+RFS full_xgboost    :  0.7292  0.1  0.8947  0.7
+RFS full_logi       :  0.7292  0.2  0.8684  0.5816
+RFS notrea_xgboost  :  0.7292  0.1  0.8947  0.7
+RFS notrea_logi     :  0.75  0.2  0.8947  0.5816
+==> RFS study to test: study_17705_GPL96_JBI_Tissue_BC_Tamoxifen-bmc15
+RFS full_xgboost    :  0.7767  0.2778  0.8824  0.7536
+RFS full_logi       :  0.7282  0.2222  0.8353  0.5693
+RFS notrea_xgboost  :  0.7767  0.2778  0.8824  0.7536
+RFS notrea_logi     :  0.7379  0.2778  0.8353  0.568
+==> RFS study to test: study_17705_GPL96_MDACC_Tissue_BC_Tamoxifen-bmc15
+RFS full_xgboost    :  0.7026  0.07547  0.9366  0.6339
+RFS full_logi       :  0.6974  0.3019  0.8451  0.6718
+RFS notrea_xgboost  :  0.7026  0.07547  0.9366  0.6339
+RFS notrea_logi     :  0.6974  0.3208  0.838  0.6698
+==> RFS study to test: study_19615_GPL570_all-bmc15
+RFS full_xgboost    :  0.8364  0.1429  0.9375  0.5737
+RFS full_logi       :  0.7545  0.4286  0.8021  0.6518
+RFS notrea_xgboost  :  0.8364  0.1429  0.9375  0.5737
+RFS notrea_logi     :  0.7545  0.4286  0.8021  0.6473
+==> RFS study to test: study_2034_GPL96_all-bmc15
+RFS full_xgboost    :  0.6224  0.01869  0.9832  0.5888
+RFS full_logi       :  0.6294  0.1776  0.8994  0.6329
+RFS notrea_xgboost  :  0.6224  0.01869  0.9832  0.5888
+RFS notrea_logi     :  0.6294  0.1776  0.8994  0.633
+==> RFS study to test: study_22226_GPL1708_all-bmc15
+RFS full_xgboost    :  0.7344  0.05882  0.9787  0.6834
+RFS full_logi       :  0.7031  0.3235  0.8404  0.6139
+RFS notrea_xgboost  :  0.7109  0.05882  0.9468  0.6561
+RFS notrea_logi     :  0.7031  0.3235  0.8404  0.6142
+==> RFS study to test: study_9893_GPL5049_all-bmc15
+RFS full_xgboost    :  0.6554  0.07692  0.9688  0.6454
+RFS full_logi       :  0.6284  0.07692  0.9271  0.5709
+RFS notrea_xgboost  :  0.6554  0.07692  0.9688  0.6454
+RFS notrea_logi     :  0.6284  0.05769  0.9375  0.5741
+==> mean_auc full_xgboost 0.6541
+==> mean_auc full_logi 0.6132
+==> mean_auc notrea_xgboost 0.6502
+==> mean_auc notrea_logi 0.6126
+
+
+==> DFS
+==> DFS study to test: study_12093_GPL96_all-bmc15
+DFS full_xgboost    :  0.8382  0  0.9828  0.556
+DFS full_logi       :  0.8015  0.05  0.931  0.5948
+DFS notrea_xgboost  :  0.8382  0  0.9828  0.556
+DFS notrea_logi     :  0.8015  0.05  0.931  0.5944
+==> DFS study to test: study_1379_GPL1223_all-bmc15
+DFS full_xgboost    :  0.6  0.1429  1  0.5781
+DFS full_logi       :  0.5333  0.07143  0.9375  0.4777
+DFS notrea_xgboost  :  0.6  0.1429  1  0.5781
+DFS notrea_logi     :  0.5333  0.07143  0.9375  0.4754
+==> DFS study to test: study_16446_GPL570_all-bmc15
+DFS full_xgboost    :  0.7632  0  0.9775  0.4773
+DFS full_logi       :  0.7368  0  0.9438  0.5182
+DFS notrea_xgboost  :  0.7632  0  0.9775  0.4773
+DFS notrea_logi     :  0.7368  0  0.9438  0.5178
+==> DFS study to test: study_25055_GPL96_MDACC_M-bmc15
+DFS full_xgboost    :  0.7873  0  0.9775  0.5891
+DFS full_logi       :  0.7873  0.2326  0.9213  0.6651
+DFS notrea_xgboost  :  0.7873  0  0.9775  0.5891
+DFS notrea_logi     :  0.7873  0.2326  0.9213  0.665
+==> DFS study to test: study_25065_GPL96_MDACC-bmc15
+DFS full_xgboost    :  0.8169  0  0.9831  0.5904
+DFS full_logi       :  0.7606  0.08333  0.8983  0.5071
+DFS notrea_xgboost  :  0.8169  0  0.9831  0.5904
+DFS notrea_logi     :  0.7606  0.08333  0.8983  0.5056
+==> DFS study to test: study_25065_GPL96_USO-bmc15
+DFS full_xgboost    :  0.8333  0.1  1  0.6773
+DFS full_logi       :  0.7037  0  0.8636  0.5364
+DFS notrea_xgboost  :  0.8333  0.1  1  0.6773
+DFS notrea_logi     :  0.7037  0  0.8636  0.5318
+==> mean_auc full_xgboost 0.578
+==> mean_auc full_logi 0.5499
+==> mean_auc notrea_xgboost 0.578
+==> mean_auc notrea_logi 0.5483
+
+
+==> posOutcome
+==> posOutcome study to test: study_12093_GPL96_all-bmc15
+posOutcome full_xgboost    :  0.8309  0.2  0.9397  0.6759
+posOutcome full_logi       :  0.7206  0.6  0.7414  0.6905
+posOutcome notrea_xgboost  :  0.8309  0.2  0.9397  0.6759
+posOutcome notrea_logi     :  0.6765  0.6  0.6897  0.6858
+==> posOutcome study to test: study_1379_GPL1223_all-bmc15
+posOutcome full_xgboost    :  0.6  0.6786  0.5312  0.5971
+posOutcome full_logi       :  0.4167  0.1786  0.625  0.4096
+posOutcome notrea_xgboost  :  0.6  0.6786  0.5312  0.5971
+posOutcome notrea_logi     :  0.3833  0.1786  0.5625  0.3873
+==> posOutcome study to test: study_16391_GPL570_all-bmc15
+posOutcome full_xgboost    :  0.8333  0.2  1  0.7658
+posOutcome full_logi       :  0.625  0.3  0.7105  0.5368
+posOutcome notrea_xgboost  :  0.8333  0.2  1  0.7658
+posOutcome notrea_logi     :  0.6042  0.3  0.6842  0.5316
+==> posOutcome study to test: study_16446_GPL570_all-bmc15
+posOutcome full_xgboost    :  0.7807  0.04  0.9888  0.6292
+posOutcome full_logi       :  0.5965  0.52  0.618  0.6072
+posOutcome notrea_xgboost  :  0.7807  0.04  0.9888  0.6292
+posOutcome notrea_logi     :  0.5965  0.4  0.6517  0.5946
+==> posOutcome study to test: study_17705_GPL96_JBI_Tissue_BC_Tamoxifen-bmc15
+posOutcome full_xgboost    :  0.8155  0.1111  0.9647  0.6209
+posOutcome full_logi       :  0.6893  0.4444  0.7412  0.5935
+posOutcome notrea_xgboost  :  0.8155  0.1111  0.9647  0.6209
+posOutcome notrea_logi     :  0.6214  0.4444  0.6588  0.5856
+==> posOutcome study to test: study_17705_GPL96_MDACC_Tissue_BC_Tamoxifen-bmc15
+posOutcome full_xgboost    :  0.7128  0.09434  0.9437  0.6575
+posOutcome full_logi       :  0.6615  0.283  0.8028  0.5792
+posOutcome notrea_xgboost  :  0.7128  0.09434  0.9437  0.6575
+posOutcome notrea_logi     :  0.6256  0.3962  0.7113  0.5927
+==> posOutcome study to test: study_19615_GPL570_all-bmc15
+posOutcome full_xgboost    :  0.8273  0.07143  0.9375  0.6369
+posOutcome full_logi       :  0.5727  0.3571  0.6042  0.4628
+posOutcome notrea_xgboost  :  0.8273  0.07143  0.9375  0.6369
+posOutcome notrea_logi     :  0.5545  0.2143  0.6042  0.4286
+==> posOutcome study to test: study_20181_GPL96_all-bmc15
+posOutcome full_xgboost    :  0.717  0.0625  1  0.4679
+posOutcome full_logi       :  0.5283  0.125  0.7027  0.4409
+posOutcome notrea_xgboost  :  0.717  0.0625  1  0.4679
+posOutcome notrea_logi     :  0.5094  0.125  0.6757  0.4527
+==> posOutcome study to test: study_20194_GPL96_all-bmc15
+posOutcome full_xgboost    :  0.3257  0.1456  1  0.5163
+posOutcome full_logi       :  0.3602  0.233  0.8364  0.5726
+posOutcome notrea_xgboost  :  0.3257  0.1456  1  0.5163
+posOutcome notrea_logi     :  0.364  0.233  0.8545  0.5705
+==> posOutcome study to test: study_2034_GPL96_all-bmc15
+posOutcome full_xgboost    :  0.6538  0.1776  0.9385  0.6682
+posOutcome full_logi       :  0.6154  0.4486  0.7151  0.6219
+posOutcome notrea_xgboost  :  0.6538  0.1776  0.9385  0.6682
+posOutcome notrea_logi     :  0.6329  0.5327  0.6927  0.6185
+==> posOutcome study to test: study_22226_GPL1708_all-bmc15
+posOutcome full_xgboost    :  0.3438  0.7647  0.1915  0.4953
+posOutcome full_logi       :  0.5938  0.5294  0.617  0.6305
+posOutcome notrea_xgboost  :  0.3516  0.7941  0.1915  0.5172
+posOutcome notrea_logi     :  0.5859  0.5  0.617  0.6205
+==> posOutcome study to test: study_22358_GPL5325_all-bmc15
+posOutcome full_xgboost    :  0.3525  0.2745  0.75  0.4902
+posOutcome full_logi       :  0.3689  0.3137  0.65  0.5652
+posOutcome notrea_xgboost  :  0.3525  0.2745  0.75  0.4902
+posOutcome notrea_logi     :  0.3607  0.3039  0.65  0.5672
+==> posOutcome study to test: study_25055_GPL96_MDACC_M-bmc15
+posOutcome full_xgboost    :  0.4615  0.7907  0.382  0.6074
+posOutcome full_logi       :  0.4072  0.9302  0.2809  0.6658
+posOutcome notrea_xgboost  :  0.4615  0.7907  0.382  0.6074
+posOutcome notrea_logi     :  0.4072  0.8605  0.2978  0.6438
+==> posOutcome study to test: study_25065_GPL96_MDACC-bmc15
+posOutcome full_xgboost    :  0.8169  0.08333  0.9661  0.548
+posOutcome full_logi       :  0.5775  0.4167  0.6102  0.4944
+posOutcome notrea_xgboost  :  0.8169  0.08333  0.9661  0.548
+posOutcome notrea_logi     :  0.6056  0.3333  0.661  0.4576
+==> posOutcome study to test: study_25065_GPL96_USO-bmc15
+posOutcome full_xgboost    :  0.7222  0  0.8864  0.5409
+posOutcome full_logi       :  0.5926  0.5  0.6136  0.4795
+posOutcome notrea_xgboost  :  0.7963  0.2  0.9318  0.5636
+posOutcome notrea_logi     :  0.5556  0.3  0.6136  0.4545
+==> posOutcome study to test: study_32646_GPL570_all-bmc15
+posOutcome full_xgboost    :  0.3565  0.2697  0.6538  0.4654
+posOutcome full_logi       :  0.3565  0.3146  0.5  0.4468
+posOutcome notrea_xgboost  :  0.3565  0.2697  0.6538  0.4654
+posOutcome notrea_logi     :  0.3391  0.2921  0.5  0.4615
+==> posOutcome study to test: study_9893_GPL5049_all-bmc15
+posOutcome full_xgboost    :  0.3581  0.6346  0.2083  0.4403
+posOutcome full_logi       :  0.6892  0.4038  0.8438  0.7222
+posOutcome notrea_xgboost  :  0.3581  0.6346  0.2083  0.4403
+posOutcome notrea_logi     :  0.6959  0.4808  0.8125  0.7312
+==> mean_auc full_xgboost 0.5778
+==> mean_auc full_logi 0.56
+==> mean_auc notrea_xgboost 0.5805
+==> mean_auc notrea_logi 0.552
+
+
