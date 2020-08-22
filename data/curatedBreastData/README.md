@@ -1,4 +1,5 @@
-## large compressed expression matrices are available at the following links:  
+## large compressed expression matrices are available at the following links: 
+- [bc_noNorm.tar.xz](https://snet-bio-data.s3.us-west-2.amazonaws.com/example15bmc/bc_noNorm.tar.xz): expression matrices for 24 studies with 3 studies split into batches for a total of 31 files.
 - [example15bmc.tar.xz](https://snet-bio-data.s3.us-west-2.amazonaws.com/example15bmc/example15bmc.tar.xz): 17 expression matrices with batch mean centered (bmc) normalization
 - [ex15bmcMerged.csv.xz](https://snet-bio-data.s3-us-west-2.amazonaws.com/example15bmc/ex15bmcMerged.csv.xz): intersection of 17 matrices with bmc normalization
 - [merged-combat15.csv.xz](https://snet-bio-data.s3-us-west-2.amazonaws.com/example15bmc/merged-combat15.csv.xz):  intersection of 17 matrices with empirical bayes normalization
@@ -19,7 +20,7 @@
 **bcClinicalTable** - dump of clinical variables for all patients in breast cancer data set  
 
 ### Gene Expression data
- [**example15bmc**](https://s3.console.aws.amazon.com/s3/buckets/snet-bio-data/example15bmc/example15bmc/?region=us-west-2&tab=overview) - subset of patients from 15 studies (2 studies are divided into 2 batches so 17 expression level files) with at least 3 years of post-treatment follow up  
+ [**example15bmc.tar.xz**](https://s3.console.aws.amazon.com/s3/buckets/snet-bio-data/example15bmc/example15bmc.tar.xz) - subset of patients from 15 studies (2 studies are divided into 2 batches so 17 expression level files) with at least 3 years of post-treatment follow up  
  [**merged-combat15.csv.xz**](https://snet-bio-data.s3-us-west-2.amazonaws.com/example15bmc/merged-combat15.csv.xz) - the 15 studies above combined using empirical bayes normalization as implemented by the `ComBat` function of the `sva` Bioconductor package of expression values leaving 8,832 overlapping genes (studies range from 12,722 to 18,260 genes).  
 
 ### Initial ML data set

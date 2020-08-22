@@ -12,17 +12,17 @@ cvd <- clinicalData$clinicalVarDef
 # columns added by hand to facilitate subsetting
 # varType:  study, patient, state, treatment
 # time:  preTx, postTx
-cvd <- read_csv("data/bcVarDesc.csv")
+cvd <- read_csv("data/curatedBreastData/bcVarDesc.csv")
 
 # save clinical data table
 ct <- clinicalData$clinicalTable
-write_csv(ct, "data/bcClinicalTable.csv")
+write_csv(ct, "data/curatedBreastData/bcClinicalTable.csv")
 
 # TODO: check, this should be wrong
 # how many patients have > 1 sample?
 summary(table(ct$original_study_patient_ID) > 1)
 #    Mode   FALSE    TRUE 
-# logical    2613      40 
+# logical    2613      40
 
 # which studies have patients with > 1 sample?
 table(ct$study_ID[table(ct$original_study_patient_ID) > 1])
@@ -42,8 +42,8 @@ txTab <- ct[, c(3, 112:ncol(clinicalData$clinicalTable))]
 txTab$patient_ID <- as.character(txTab$patient_ID)
 
 # summary table formatted for clarity
-txTsum <- as.data.frame.matrix(summary(txTab), "data/bcTreatmentTable.csv")
-write.csv(txTsum, "data/bcTreatmentTable.csv", na = "", row.names = FALSE, quote = FALSE)
+txTsum <- as.data.frame.matrix(summary(txTab), "data/curatedBreastData/bcTreatmentTable.csv")
+write.csv(txTsum, "data/curatedBreastData/bcTreatmentTable.csv", na = "", row.names = FALSE, quote = FALSE)
 
 # outcome table
 library(tidyverse)
@@ -54,7 +54,7 @@ outTab <- ct %>%
   select(pull(outcomeVars, variableName))
   
 outTsum <- as.data.frame.matrix(summary(outTab))
-write_csv(outTsum, "data/bcOutcomeTable.csv")
+write_csv(outTsum, "data/curatedBreastData/bcOutcomeTable.csv")
 
 # check if units error described in curatedBreastData gitub has been corrected (days not months)
 # looks like it was
@@ -94,18 +94,18 @@ coTab <- ct %>%
   select(pull(coVars, variableName))
 
 coTsum <- as.data.frame.matrix(summary(coTab))
-write_csv(coTsum, "data/bcCovariateTable.csv")
+write_csv(coTsum, "data/curatedBreastData/bcCovariateTable.csv")
 
-# determine subsets for training supervised models of outcome vased on treatment and patient strata
+# determine subsets for training supervised models of outcome based on treatment and patient strata
 data(curatedBreastDataExprSetList)
-write.csv(data(package = "curatedBreastData")$results[, 3:4], file = "data/bcEsetList.csv", row.names = FALSE)
+write.csv(data(package = "curatedBreastData")$results[, 3:4], file = "data/curatedBreastData/bcEsetList.csv", row.names = FALSE)
 
 # TODO: impute missing values
-cbc <- filterAndImputeSamples(curatedBreastDataExprSetList, outputFile = "data/cbcImputeOutput.txt", classIndex = "phenoData")
+cbc <- filterAndImputeSamples(curatedBreastDataExprSetList, outputFile = "data/curatedBreastData/cbcImputeOutput.txt", classIndex = "phenoData")
 # TODO: characterize processing of esets
 # are gene symbols aligned?  can they be updated to current?
-cbc <- processExpressionSetList(exprSetList=curatedBreastDataExprSetList, outputFileDirectory = "data/")
-saveRDS(cbc, "data/bcProcessedEsetList.rds")
+cbc <- processExpressionSetList(exprSetList=curatedBreastDataExprSetList, outputFileDirectory = "data/curatedBreastData/")
+saveRDS(cbc, "data/curatedBreastData/bcProcessedEsetList.rds")
 
 library(Coincide)
 cbcMat <- exprSetListToMatrixList(cbc)
@@ -145,11 +145,11 @@ sapply(cbcMat, dim)
 
 # TODO: interpolate missing values to increase gene list
 # dump alligned expression files
-dir.create("data/bcDump")
-# dir.create("./data/bcDump/maxSet")
+dir.create("data/curatedBreastData/bcDump")
+# dir.create("./data/curatedBreastData/bcDump/maxSet")
 # for(n in 1:length(cbcMat)) {
 #   write_csv(tibble::as_tibble(t(cbcMat[[n]]), rownames("patientID")),
-#             paste0("./data/bcDump/maxSet/", names(cbcMat)[n], ".csv.xz"))
+#             paste0("./data/curatedBreastData/bcDump/maxSet/", names(cbcMat)[n], ".csv.xz"))
 # }
 # 
 # # try for maximum sample merge
@@ -158,7 +158,7 @@ dir.create("data/bcDump")
 #                               minNumPatients = 0,
 #                               batchNormalize = "BMC",
 #                               NA_genesRemove = FALSE,
-#                               outputFile = "data/merged_datasets/bmc34")
+#                               outputFile = "data/curatedBreastData/merged_datasets/bmc34")
 # dim(cbcMerged$mergedExprMatrix)
 # # [1]  278 2718
 # summary(colMeans(cbcMerged$mergedExprMatrix))
@@ -196,11 +196,11 @@ sapply(bcd, dim)
 # [2,]                            71                          54                          115
 
 # save aligned expression sets
-dir.create("./data/bcDump/example15bmc")
+dir.create("./data/curatedBreastData/bcDump/example15bmc")
 for(n in 1:length(bcd)) {
   write_csv(data.frame(patient_ID = colnames(bcd[[n]]),
                        t(bcd[[n]])),
-            paste0("./data/bcDump/example15bmc/", names(bcd)[n], ".csv.xz"))
+            paste0("./data/curatedBreastData/bcDump/example15bmc/", names(bcd)[n], ".csv.xz"))
 }
 
 # pick treatment variables for ml datasets
@@ -274,9 +274,9 @@ patient2batch <- unique(data.frame(color.order = batch, study = as.factor(ct$stu
 
 # make combined treatment vector for initial ml study
 chemoVars <- colnames(bmc15txMat)[c(6:12, 14, 16, 18:20)]
-writeLines(chemoVars, "data/bcDump/example15bmc/bmc15chemoVars")
+writeLines(chemoVars, "data/curatedBreastData/bcDump/example15bmc/bmc15chemoVars")
 hormoneVars <- colnames(bmc15txMat)[c(1, 3:5, 13, 15)]
-writeLines(hormoneVars, "data/bcDump/example15bmc/bmc15hormoneVars")
+writeLines(hormoneVars, "data/curatedBreastData/bcDump/example15bmc/bmc15hormoneVars")
 
 bmc15data1 <- left_join(bmc15samples, tibble(patient_ID = rownames(bmc15txMat), as_tibble(bmc15txMat))) %>%
   mutate(chemo = rowSums(.[chemoVars])) %>%
@@ -317,9 +317,9 @@ length(intersect(RFSsamples, pCRsamples))
 length(union(pCRsamples, union(RFSsamples, DFSsamples)))
 # [1] 2225
 
-writeLines(as.character(pCRsamples), "./data/bcDump/example15bmc/pCRsamples")
-writeLines(as.character(RFSsamples), "./data/bcDump/example15bmc/RFSsamples")
-writeLines(as.character(DFSsamples), "./data/bcDump/example15bmc/DFSsamples")
+writeLines(as.character(pCRsamples), "./data/curatedBreastData/bcDump/example15bmc/pCRsamples")
+writeLines(as.character(RFSsamples), "./data/curatedBreastData/bcDump/example15bmc/RFSsamples")
+writeLines(as.character(DFSsamples), "./data/curatedBreastData/bcDump/example15bmc/DFSsamples")
 
 # make combined output vector for initial ml experiment
 bmc15data <- left_join(bmc15data1, bmc15outTab) %>%
@@ -377,10 +377,10 @@ table(bmc15data$radiotherapyClass)
 
 select(bmc15data, study, patient_ID, radio = radiotherapyClass, surgery = surgery_type, chemo, hormone, pCR, RFS, DFS, posOutcome) %>%
   filter(!is.na(chemo)) %>%
-write_csv("data/bcDump/example15bmc/bmc15mldata1.csv")
+write_csv("data/curatedBreastData/bcDump/example15bmc/bmc15mldata1.csv")
 
 # add hormone, chemo, sx and outcome variables to heatmap
-mldat <- read_csv("data/bcDump/example15bmc/bmc15mldata1.csv") %>%
+mldat <- read_csv("data/curatedBreastData/bcDump/example15bmc/bmc15mldata1.csv") %>%
   # select(patient_ID:hormone) %>%
   mutate(surgery = as.numeric(as.factor(surgery)))
 bmc15txMat3 <- cbind(bmc15txMat, as.matrix(mldat[match(mldat$patient_ID, rownames(bmc15txMat)), c(3:6, 10)]))
@@ -404,7 +404,7 @@ bmc15coTab <- bmc15coTab[, bmc15coTabMissing != 2225]
 ## make merged dataset
 cbd <-readRDS("~/R/CoINcIDE/breast_analysis/curatedBreastData_dataMatrixList_proc_minVar001_min10kGenes_min40Samples.rds")
 
-bcdMerged <- mergeDatasetList(cbd, batchNormalize = "BMC", outputFile = "data/merged_datasets/bmc15")
+bcdMerged <- mergeDatasetList(cbd, batchNormalize = "BMC", outputFile = "data/curatedBreastData/merged_datasets/bmc15")
 dim(bcdMerged$mergedExprMatrix)
 # [1] 8832 2237
 
@@ -429,7 +429,7 @@ summary(rowMeans(bcdCombat))
 # -4.843e-16 -5.594e-17 -1.175e-18 -5.240e-19  5.324e-17  4.712e-16 
 
 # try applying comBat directly on merged dataset with no normalization
-bcdMerged2 <- mergeDatasetList(cbd, batchNormalize = "none", outputFile = "data/merged_datasets/none15")
+bcdMerged2 <- mergeDatasetList(cbd, batchNormalize = "none", outputFile = "data/curatedBreastData/merged_datasets/none15")
 dim(bcdMerged2$mergedExprMatrix)
 # [1] 8832 2237
 
@@ -449,23 +449,135 @@ summary(colMeans(bcdCombat2))
 summary(rowMeans(bcdCombat2))
 #  Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 # 2.345   3.669   5.218   5.360   6.661  12.718 
-write_csv(as_tibble(t(bcdCombat2), rownames = "patient_ID"), "data/bcDump/merged-combat15.csv.xz")
+write_csv(as_tibble(t(bcdCombat2), rownames = "patient_ID"), "data/curatedBreastData/bcDump/merged-combat15.csv.xz")
 
 # try applying comBat directly
-bcdMerged3 <- mergeDatasetList(cbd, batchNormalize = "combat", outputFile = "data/merged_datasets/combat15")
+bcdMerged3 <- mergeDatasetList(cbd, batchNormalize = "combat", outputFile = "data/curatedBreastData/merged_datasets/combat15")
 # no batch effect detected. Before p-value was  0.1308666  
-# Error in mergeDatasetList(cbd, batchNormalize = "combat", outputFile = "data/merged_datasets/combat15") : 
+# Error in mergeDatasetList(cbd, batchNormalize = "combat", outputFile = "data/curatedBreastData/merged_datasets/combat15") : 
 #   object 'sampleDataPostCombat' not found
 
 #overlap with pam50
 load("../CoINcIDE/Coincide_GenomeMedicine_dissertation_scripts/pam50Short_genes.RData")
 load("../CoINcIDE/Coincide_GenomeMedicine_dissertation_scripts/pam50_centroids_updatedSymbols.RData")
-writeLines(centroidMatrix$geneSymbol, "data/pam50symbols")
+writeLines(centroidMatrix$geneSymbol, "data/curatedBreastData/pam50symbols")
 length(intersect(centroidMatrix$geneSymbol, row.names(bcdMerged$mergedExprMatrix)))
 # [1] 35
 length(intersect(pam50Short, row.names(bcdMerged$mergedExprMatrix)))
 # [1] 35
 
 write_csv(data.frame(patient_ID = colnames(bcdMerged$mergedExprMatrix),
-                     t(bcdMerged$mergedExprMatrix)), "./data/bcDump/example15bmc/ex15bmcMerged.csv.xz")
+                     t(bcdMerged$mergedExprMatrix)), "./data/curatedBreastData/bcDump/example15bmc/ex15bmcMerged.csv.xz")
 
+# make dump of unormalized study expression matrices
+# simplify study names
+names(cbcMat) <- paste0("GSE", str_remove(names(cbcMat), "study_") %>%
+                          str_remove("_all") %>%
+                          str_remove("_GPL[0-9]+") %>%
+                          str_remove("_Tissue_BC_Tamoxifen"))
+
+# turn into tibbles
+cbcMat <- map(cbcMat, as_tibble, rownames = "hgnc")
+
+# function to transpose the tibble
+transpose_df <- function(df) {
+  t_df <- data.table::transpose(df)
+  colnames(t_df) <- rownames(df)
+  rownames(t_df) <- colnames(df)
+  t_df <- t_df %>%
+    tibble::rownames_to_column(.data = .) %>%
+    tibble::as_tibble(.)
+  return(t_df)
+}
+
+# remap symbols with current hgnc data
+# https://www.genenames.org/cgi-bin/download/custom?col=gd_app_sym&col=gd_prev_sym&col=gd_aliases&col=gd_pub_eg_id&col=gd_pub_ensembl_id&status=Approved&hgnc_dbtag=on&order_by=gd_app_sym_sort&format=text&submit=submit
+symbolMap <- read_tsv("data/curatedBreastData/hgncSymbolMap21aug20.tsv") %>%
+  mutate(`Previous symbols` = str_split(`Previous symbols`, ", "),
+         `Alias symbols` = str_split(`Alias symbols`, ", "))
+
+# combine previous and alias list columns, unnest, and add current/alt symbol identity row
+symbolMap <- mutate(symbolMap, alt = map2(`Previous symbols`, `Alias symbols`, c), .keep = "unused") %>%
+  mutate(alt = map(alt, ~ if(identical(., c(NA, NA))) NA_character_ else na.omit(.))) %>%
+  unnest(cols = alt)
+symbolMap <- bind_rows(symbolMap, mutate(symbolMap, alt = `Approved symbol`) %>% distinct()) %>%
+  arrange(`Approved symbol`)
+
+bcSymbols <- map(cbcMat, ~ pull(., hgnc))
+
+# % outdated symbols
+bcOld <- map(bcSymbols, ~ setdiff(., symbolMap$`Approved symbol`))
+map2_dbl(bcSymbols, bcOld, ~ round(length(.y) / length(.x), digits = 2))
+# GSE1379             GSE2034             GSE4913             GSE6577             GSE9893 
+#    0.17                0.17                0.16                0.16                0.16 
+# GSE12071            GSE12093            GSE16391            GSE16446        GSE17705_JBI 
+#     0.32                0.17                0.18                0.18                0.17 
+# GSE17705_MDACC            GSE18728            GSE19615            GSE19697            GSE20181 
+#           0.17                0.18                0.18                0.18                0.17 
+# GSE20194            GSE21974            GSE21997            GSE21997            GSE21997 
+#     0.17                0.18                0.17                0.18                0.18 
+# GSE22226            GSE22226            GSE22358            GSE23428    GSE25055_MDACC_M 
+#     0.37                0.31                0.18                0.17                0.17 
+# GSE25055_MDACC_PERU        GSE25065_LBJ      GSE25065_MDACC  GSE25065_MDACC_MDA       GSE25065_PERU 
+#                0.17                0.17                0.17                0.17                0.17 
+# GSE25065_Spain        GSE25065_USO            GSE32646            GSE33658 
+#           0.17                0.17                0.18                0.18 
+
+# % missing symbols after replacement
+bcCurrent <- map(bcSymbols, ~ symbolMap$`Approved symbol`[match(., symbolMap$alt)])
+map_dbl(bcCurrent, ~ round(sum(is.na(.)) / length(.), digits = 2))
+# GSE1379             GSE2034             GSE4913             GSE6577             GSE9893 
+#    0.10                0.10                0.09                0.09                0.09 
+# GSE12071            GSE12093            GSE16391            GSE16446        GSE17705_JBI 
+#     0.29                0.10                0.10                0.10                0.10 
+# GSE17705_MDACC            GSE18728            GSE19615            GSE19697            GSE20181 
+#           0.10                0.10                0.10                0.10                0.10 
+# GSE20194            GSE21974            GSE21997            GSE21997            GSE21997 
+#     0.10                0.10                0.10                0.10                0.11 
+# GSE22226            GSE22226            GSE22358            GSE23428    GSE25055_MDACC_M 
+#     0.16                0.17                0.10                0.10                0.10 
+# GSE25055_MDACC_PERU        GSE25065_LBJ      GSE25065_MDACC  GSE25065_MDACC_MDA       GSE25065_PERU 
+#                0.10                0.10                0.10                0.10                0.10 
+# GSE25065_Spain        GSE25065_USO            GSE32646            GSE33658 
+#           0.10                0.10                0.10                0.10 
+
+bcReplace <- map2(bcCurrent, bcSymbols, ~ if_else(is.na(.x), paste0(.y, "_obs"), .x))
+cbcMat <- map2(cbcMat, bcReplace, ~ mutate(.x, hgnc = .y))
+
+# 1% - 2% are duplicates, pick largest variance
+map_dbl(bcReplace, ~ round(sum(duplicated(.)) / length(.), digits = 2))
+# GSE1379             GSE2034             GSE4913             GSE6577             GSE9893 
+#     204                 164                  69                  16                 179 
+# GSE12071            GSE12093            GSE16391            GSE16446        GSE17705_JBI 
+#       11                 164                 259                 259                 164 
+# GSE17705_MDACC            GSE18728            GSE19615            GSE19697            GSE20181 
+#            164                 259                 259                 259                 164 
+# GSE20194            GSE21974            GSE21997            GSE21997            GSE21997 
+#      164                 249                 194                 243                 272 
+# GSE22226            GSE22226            GSE22358            GSE23428    GSE25055_MDACC_M 
+#      314                 283                 241                 232                 164 
+# GSE25055_MDACC_PERU        GSE25065_LBJ      GSE25065_MDACC  GSE25065_MDACC_MDA       GSE25065_PERU 
+#                 164                 164                 164                 164                 164 
+# GSE25065_Spain        GSE25065_USO            GSE32646            GSE33658 
+#            164                 164                 259                 259 
+
+# function to pick row with greatest variance
+maxSdGroup <- function(df) {
+  rowwise(df) %>%
+    mutate(sd = sd(c_across(- hgnc))) %>%
+    group_by(hgnc) %>%
+    slice(which.max(sd)) %>%
+    select(- sd)
+}
+
+cbcMat <- map(cbcMat, maxSdGroup)
+
+saveRDS(map(cbcMat, ungroup), "data/curatedBreastData/cbcMatCurrent.rds")
+
+dir.create("data/curatedBreastData/noNorm", recursive = TRUE)
+for(n in names(cbcMat)) {
+  expMat <- transpose_df(column_to_rownames(cbcMat[[n]], "hgnc"))
+  names(expMat)[1] <- "sample_name"
+  mutate(expMat, across(where(is.numeric), formatC, digits = 6, format = "f")) %>%
+    write_csv(paste0("data/curatedBreastData/noNorm/", n, "_noNorm.csv.xz"))
+}

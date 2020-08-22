@@ -264,66 +264,6 @@ metaGX$Dataset[metaGX$Dataset_accession %in% c("GSE32646", "GSE25055", "GSE25065
 # note: table updated with pam50 labels in `label clusters.R`
 write_csv(pheno, "data/metaGXcovarTable.csv.xz")
 
-# add inokenty's platform data
-uniquePlatfroms <- lapply(list(MAQC2 = "MAQC2", STK = "STK", STNO2 = "STNO2", UNC4 = "UNC4"),
-       function(x) read_tsv(paste0("data/metaGxBreast/Studies/", x, ".txt"), 
-                            col_names = c("gsm", "sample_name", "Platform")))
-
-lapply(uniquePlatfroms, function(x) table(x$Platform))
-# $MAQC2
-# GPL96 
-# 278 
-# 
-# $STK
-# GPL96 GPL97 
-#   159   159 
-# 
-# $STNO2
-# GPL180 GPL2776 GPL2777 GPL2778 GPL3045 GPL3047 GPL3147 GPL3507 
-#     66      43       1       8       3      24      21       1 
-# 
-# $UNC4
-## GPL1390 GPL1708 GPL5325 GPL6607 GPL7504  GPL885  GPL887 
-#      200      11      19       2      28      20      92 
-
-sapply(uniquePlatfroms, dim)
-#      MAQC2 STK STNO2 UNC4
-# [1,]   278 318   167  372
-# [2,]     3   3     3    3
-sapply(mgxSet[names(uniquePlatfroms)], dim)
-#      MAQC2   STK STNO2 UNC4
-# [1,] 12536 17446  3197 4966
-# [2,]    45   160   119  306
-
-# none of names match!
-intersect(pheno$sample_name, purrr::reduce(map(uniquePlatfroms, pull, sample_name), c))
-# character(0)
-
-intersect(pheno$sample_name, reduce(map(uniquePlatfroms, pull, gsm), c))
-# character(0)
-
-# how to fix?
-# MAQC2 alternate_sample_name is 3 digit number, match with digits in inokenty's sample names
-# TODO: follow up probable replicate samples, ie BR_FNA_M264 & BR_FNA_M264R1
-# TODO: confirm which one is retained by MetaGxBreast::loadBreastEsets
-uniquePlatfroms$MAQC2 <- mutate(uniquePlatfroms$MAQC2,
-                                sample_name = str_replace(sample_name, "BR_FNA_M", "MAQC2_"))
-
-# STK alternate_sample_name is 1-3 digit number, match with digits in inokenty's sample names
-# 94 are still missing, can we match GSMs ?
-# no, it appears gpl96 & 97 were merged into one eset for each patient
-uniquePlatfroms$STK <- mutate(uniquePlatfroms$STK,
-                    sample_name = paste0("STK_", str_remove(substr(sample_name, 2, 4), "^00|^0")))
-
-# STNO2 sample_name has prefix "STNO2_", add it to inokenty's sample names
-# TODO: 34 are still missing
-uniquePlatfroms$STNO2 <- mutate(uniquePlatfroms$STNO2, sample_name = paste0("STNO2_", sample_name))
-
-# UNC4 gsm ids & sample names have no apparent relationship to inokenty's gsm ids or sample names
-
-setdiff(filter(pheno, study %in% names(uniquePlatfroms)[-4]) %>% pull(sample_name),
-        purrr::reduce(map(uniquePlatfroms, pull, sample_name), c))
-
 # make metaGX comparable expression matrices without batch separation for ml analysis
 # function to transpose the tibble
 transpose_df <- function(df) {
@@ -454,22 +394,22 @@ mgxSetBatched <-   mapply(function(x, y) dfSplit(x, y, "hgnc"), mgxSetBatched[],
   append(mgxSet[!(names(mgxSet) %in% batchSets)])
 saveRDS(mgxSetBatched, "data/metaGxBreast/mgxSetBatched.rds")
 
-dir.create("data/mgxSet/noNormBatched", recursive = TRUE)
+dir.create("data/metaGxBreast/noNormBatched", recursive = TRUE)
 for(n in names(mgxSetBatched)) {
   expMat <- transpose_df(column_to_rownames(mgxSetBatched[[n]], "hgnc"))
   names(expMat)[1] <- "sample_name"
   mutate(expMat, across(where(is.numeric), formatC, digits = 6, format = "f")) %>%
-    write_csv(paste0("data/mgxSet/noNormBatched/", n, "_noNorm.csv.xz"))
+    write_csv(paste0("data/metaGxBreast/noNormBatched/", n, "_noNorm.csv.xz"))
 }
 rm(expMat)
 
-dir.create("data/mgxSet/rlNormBatched", recursive = TRUE)
+dir.create("data/metaGxBreast/rlNormBatched", recursive = TRUE)
 for(n in names(mgxSetBatched[1:25])) {
   expMat <- as_tibble(map_if(mgxSetBatched[[n]], is.numeric, rescale02))
   expMat <- transpose_df(column_to_rownames(expMat, "hgnc"))
   names(expMat)[1] <- "sample_name"
   mutate(expMat, across(where(is.numeric), formatC, digits = 6, format = "f")) %>%
-    write_csv(paste0("data/mgxSet/rlNormBatched/", n, "_rlNorm.csv.xz"))
+    write_csv(paste0("data/metaGxBreast/rlNormBatched/", n, "_rlNorm.csv.xz"))
 }
 rm(expMat)
 
