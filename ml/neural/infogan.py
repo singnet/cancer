@@ -64,6 +64,7 @@ class Generator(nn.Module):
         img = self.dense_block(gen_input)
         result = img
         if self.binary:
+            assert False
             s = torch.tanh(img[:, -self.binary:])
             result = torch.cat([img[:, :-self.binary], s], dim=1)
         return result
@@ -74,12 +75,9 @@ class StudyGen(nn.Module):
         super().__init__()
         assert not binary
         assert not continious
+        self.degree = opt.degree
         self.n_studies = opt.n_classes
-        self.study_param_a = torch.tensor(np.random.random((n_studies, size - binary - continious)),
-                requires_grad=True)
-        self.study_param_b = torch.tensor(np.random.random((n_studies, size - binary - continious)),
-                requires_grad=True)
-
+        self.poly_param = nn.Parameter(torch.tensor(np.random.random((self.degree + 1, self.n_studies, size - binary - continious)).astype(np.float32),  requires_grad=True))
         input_dim = opt.latent_dim + opt.code_dim
 
         self.dense_block = nn.Sequential(
@@ -98,7 +96,8 @@ class StudyGen(nn.Module):
     def forward(self, noise, labels, code):
         gen_input = torch.cat((noise, code), -1)
         img = self.dense_block(gen_input)
-        result = img * self.study_param_a[labels] + self.study_param_b[labels]
+        lab = labels.nonzero()[:,1]
+        result = sum([img ** i * self.poly_param[i][lab] for i in range(self.degree + 1)])
         return result
 
 
@@ -108,54 +107,39 @@ class Discriminator(nn.Module):
 
         assert not binary
         self.dense_blocks = nn.Sequential(
-            nn.utils.spectral_norm(nn.Linear(size - binary, 256)),
+            nn.utils.spectral_norm(nn.Linear(size - binary, 512)),
             nn.LeakyReLU(0.2, inplace=True),
-            nn.utils.spectral_norm(nn.Linear(256, 256)),
+            nn.utils.spectral_norm(nn.Linear(512, 512)),
             nn.LeakyReLU(0.2, inplace=True),
         )
 
         # Output layers
-        self.adv_layer = nn.Linear(opt.code_dim, 1)
-        self.category_layer = nn.Sequential(nn.Linear(256, opt.n_classes), nn.Softmax(dim=1))
-        self.latent_layer = nn.Sequential(nn.Linear(256, opt.code_dim))
+        self.adv_layer = nn.Sequential(nn.Linear(512, 1), nn.Sigmoid())
+        self.category_layer = nn.Sequential(nn.Linear(512, opt.n_classes))
+        self.latent_layer = nn.Sequential(nn.Linear(512, opt.code_dim), nn.Tanh())
+        self.predictor = nn.Sequential(nn.Linear(opt.code_dim, 256), nn.LeakyReLU(),
+                nn.Linear(256, 1), nn.Sigmoid())
+
         self.binary = binary
         if binary:
-            self.adv_layer = nn.Sequential(nn.Linear(opt.code_dim + binary, 128),
+            self.adv_layer = nn.Sequential(nn.Linear(opt.code_dim + binary, 256),
                                            nn.LeakyReLU(),
-                                           nn.Linear(128, 128),
+                                           nn.Linear(256, 256),
                                            nn.LeakyReLU(),
-                                           nn.Linear(128, 1),
+                                           nn.Linear(256, 1),
                                            nn.Sigmoid())
         init_weights(self)
 
     def forward(self, img):
-        genes = img[:, :-self.binary]
-        binary = img[:, -self.binary:]
+        if self.binary:
+            genes = img[:, :-self.binary]
+            binary = img[:, -self.binary:]
+        else:
+            genes = img
         out = self.dense_blocks(genes)
-        #out = out.view(out.shape[0], -1)
         categorical_code = self.category_layer(out)
         latent_code = self.latent_layer(out)
         if self.binary:
             assert False # handle binary and continious
         validity = self.adv_layer(out)
         return validity, categorical_code, latent_code
-
-    def hidden(self, img):
-        out = self.dense_blocks(img)
-        return out
-
-
-class StudyDisc(Descriminator):
-    def __init__(self, opt, size, continious=0, binary=0):
-        super().__init__(self, opt, size, continious=0, binary=0)
-
-    def forward(self, img):
-        genes = img[:, :-self.binary]
-        binary = img[:, -self.binary:]
-        out = self.dense_blocks(genes)
-        latent_code = self.latent_layer(out)
-        if self.binary:
-            assert False # handle binary and continious
-        validity = self.adv_layer(out)
-        return validity, None, latent_code
-
