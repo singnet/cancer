@@ -591,7 +591,7 @@ def merge_metagx_curated(metagx_merged, mergedCurated):
     zero_to_minus_one(mergedCurated, 'chemo')
     zero_to_minus_one(mergedCurated, 'hormone')
     zero_to_minus_one(mergedCurated, 'radio')
-    mergedCurated.study += 40
+    mergedCurated.study += (max(metagx_merged.study.unique()) + 1)
 
     # 0 is undefined in metagx
     mergedCurated.age += 1
