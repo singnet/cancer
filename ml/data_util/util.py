@@ -604,4 +604,5 @@ def merge_metagx_curated(metagx_merged, mergedCurated):
     merged_common = pandas.concat([mergedCurated[columns_common], metagx_merged[columns_common]])
     merged_common.insert(0, 'row_num', numpy.arange(len(merged_common)))
     merged_common.reset_index(inplace=True)
+    assert len(merged_common.study.unique()) == merged_common.study.unique().max() + 1
     return merged_common
