@@ -13,6 +13,11 @@ def cross_entropy(y, y_pred, eps=0.0000000001):
     return result
 
 
+def tanh_loss(y, y_pred, eps=0.0000000001):
+    result = torch.exp(torch.abs(y - y_pred)) - 1
+    return result
+
+
 def invert_half_outcomes(real_gexs, valid):
     orig_outcome = real_gexs[:, -1].clone()
     half = len(real_gexs) // 2
@@ -49,12 +54,13 @@ def predictor_loss(model: 'InfoGAN', batch_gexs, labels, optimizers, opt):
         optimizer_D = optimizers['D']
         optimizer_D.zero_grad()
 
+    assert opt.invert_outcome
     fake_gexs = model.generator(z, label_input, code_input)
-    fake_pred, fake_label, fake_code, new_valid = invert_discriminate(model.discriminator, fake_gexs)
+    fake_pred, fake_label, fake_code, new_valid = invert_discriminate(model.discriminator, fake_gexs, opt.invert_outcome)
 
     d_fake_loss = cross_entropy(new_valid, fake_pred).mean()
     real_gexs = batch_gexs.to(param)
-    real_pred, _, _, new_valid  = invert_discriminate(model.discriminator, real_gexs.clone())
+    real_pred, _, _, new_valid  = invert_discriminate(model.discriminator, real_gexs.clone(), opt.invert_outcome)
 
     d_real_loss = cross_entropy(new_valid, real_pred).mean()
     d_loss = (d_real_loss + d_fake_loss) * 0.5
@@ -71,7 +77,7 @@ def predictor_loss(model: 'InfoGAN', batch_gexs, labels, optimizers, opt):
 
 
     info_loss = opt.lambda_cat * categorical_loss(fake_label, random_category) + \
-            opt.lambda_con * continuous_loss(fake_code, code_input)
+            opt.lambda_con * continuous_loss(fake_code, code_input).mean()
 
     if optimizers:
        info_loss.backward()
@@ -101,12 +107,14 @@ def evaluate_real(result, discriminator, real_gexs):
     return result
 
 
-def invert_discriminate(discriminator, real_gexs):
+def invert_discriminate(discriminator, real_gexs, invert):
     size = len(real_gexs)
     # Adversarial ground truths
     valid = torch.ones((size, 1)).to(real_gexs) - torch.as_tensor(np.random.uniform(0.0, 0.05, (size, 1))).to(real_gexs)
-
-    real_gexs, new_valid, _ = invert_half_outcomes(real_gexs, valid)
+    if invert:
+        real_gexs, new_valid, _ = invert_half_outcomes(real_gexs, valid)
+    else:
+        new_valid = valid
     pred, label, code = discriminator(real_gexs)
     return pred, label, code, new_valid
 
@@ -115,7 +123,12 @@ def infogan_loss(model: 'InfoGAN', batch_gexs, labels, optimizers, opt):
 
     # Loss functions
     categorical_loss = torch.nn.CrossEntropyLoss()
-    continuous_loss = torch.nn.MSELoss()
+    if opt.continious_loss == 'mse':
+        continuous_loss = torch.nn.MSELoss()
+    elif opt.continious_loss == 'tanh':
+        continuous_loss = tanh_loss
+    else:
+        assert False
     param = next(model.parameters())
 
     batch_size = batch_gexs.shape[0]
@@ -158,10 +171,12 @@ def infogan_loss(model: 'InfoGAN', batch_gexs, labels, optimizers, opt):
 
     # Loss for real images
     # invert some outcomes
-    real_pred, _, _, new_valid = invert_discriminate(model.discriminator, real_gexs.clone())
-    d_real_loss = cross_entropy(new_valid, real_pred)
-#    weights = torch.ones_like(d_real_loss)
-#    weights[half:] = 4
+    real_category = labels[:, 0].long()
+    real_pred, cat_pred, real_code, new_valid = invert_discriminate(model.discriminator, real_gexs.clone(), opt.invert_outcome)
+    real_cat_loss = opt.lambda_cat * categorical_loss(cat_pred, real_category)
+    d_real_loss = cross_entropy(new_valid, real_pred) + real_cat_loss
+
+
     d_real_loss = (d_real_loss).mean()
 
     # Loss for fake images
@@ -180,21 +195,42 @@ def infogan_loss(model: 'InfoGAN', batch_gexs, labels, optimizers, opt):
         optimizer_info = optimizers['info']
         optimizer_info.zero_grad()
 
-    info_loss = opt.lambda_con * continuous_loss(out_fake['S'], code_input)
+    result = defaultdict(list)
+    real_labels = labels[:, 0].long()
+    info_loss = (opt.lambda_con * continuous_loss(out_fake['S'], code_input)).mean()
+    result['info_cont_loss'] = [detach_numpy(info_loss)]
+    result['real_cat_loss'] = [detach_numpy(real_cat_loss)]
     if out_fake['categorical'] is not None:
-        info_loss = info_loss + opt.lambda_cat * categorical_loss(out_fake['categorical'], random_category)
+        cat_loss = opt.lambda_cat * categorical_loss(out_fake['categorical'], random_category)
+        result['info_cat_loss'] = [detach_numpy(cat_loss)]
+        info_loss = info_loss + cat_loss
 
     if optimizers:
         info_loss.backward()
         optimizer_info.step()
-    result = defaultdict(list)
-    evaluate_real(result, model.discriminator, batch_gexs)
+
+    if opt.invert_outcome:
+        evaluate_real(result, model.discriminator, batch_gexs)
+
     result['desc_acc_fake'].append(acc)
     losses = dict(info_loss=[detach_numpy(info_loss)],
                 d_loss=[detach_numpy(d_loss)],
                 g_loss=[detach_numpy(g_loss)])
     result.update(losses)
     return result
+
+
+def evaluate_predictor(model, code, labels):
+    nonzero = labels.nonzero().flatten()
+    labels = labels[nonzero]
+    batch_gexs = code[nonzero]
+    p_pos = model(code[nonzero])
+    if not len(labels):
+        return None, None
+    loss = cross_entropy(labels, p_pos).mean()
+    result = defaultdict(list)
+    auc = compute_auc(result, detach_numpy(labels > 0), detach_numpy(p_pos))
+    return loss, result['auc']
 
 
 def detach_numpy(tensor):
