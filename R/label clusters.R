@@ -71,6 +71,38 @@ pheno <- read_csv("data/metaGxBreast/metaGXcovarTable.csv.xz", guess_max = 10000
 pheno <- left_join(pheno, pam50labels)
 write_csv(pheno, "data/metaGxBreast/metaGXcovarTable.csv.xz")
 
+# version with class probabilities
+molSub <- function(x, y) partial(molecular.subtyping, sbt.model = x, data = y)
+expMat2subtype_2 <- function(mod, exp_m, annot_m, ...) molSub(mod, exp_m)(annot_m, ...)[[2]]
+                                                           
+# apply pam50 clustering
+pam50_2 <- vector("list", length = length(c(rl, rlNoBatch))) %>%
+  set_names(names(c(rl, rlNoBatch)))
+for(m in names(c(rl, rlNoBatch))) {
+  pam50_2[[m]] <- try(expMat2subtype_2("pam50", c(rl, rlNoBatch)[[m]], fmap))
+}
+
+pam50_2$KOO
+#... "no probe in common -> annot or mapping parameters are necessary for the mapping process!"
+# pam50_2_ <- discard
+
+pam50_2 <- purrr::map(pam50_2[- 16], as_tibble, rownames = "sample_name") %>% 
+  bind_rows(.id = "study") 
+
+pam50_2_batch <- vector("list", length = length(c(rl, rlBatched))) %>%
+  set_names(names(c(rl, rlBatched)))
+for(m in names(c(rl, rlBatched))) {
+  pam50_2_batch[[m]] <- try(expMat2subtype_2("pam50", c(rl, rlBatched)[[m]], fmap))
+}
+pam50_2_batch <- purrr::map(pam50_2_batch[- 16], as_tibble, rownames = "sample_name") %>% 
+  bind_rows(.id = "batch") 
+
+pam50_2_labels <- left_join(pam50_2,
+                            rename_with(pam50_2_batch, ~ paste0(., "_batched"),
+                                   all_of(c("Basal", "Her2", "LumA", "LumB", "Normal")))) %>%
+  filter(!duplicated(sample_name))
+write_csv(pam50_2_labels, "data/metaGxBreast/pam50labelProbabilities.csv.xz")
+
 # apply scmgene model
 scmgene <- vector("list", length = length(c(rl, rlNoBatch))) %>%
   set_names(names(c(rl, rlNoBatch)))
@@ -96,6 +128,7 @@ rl2NoBatch <- lapply(rlNoBatch, `+`, 1)
 rl2Batched <- lapply(rlBatched, `+`, 1)
 
 # apply pam50 clustering without0 centering
+# as expected this has no effect
 pam50Pos <- vector("list", length = length(c(rl2, rl2NoBatch))) %>%
   set_names(names(c(rl2, rl2NoBatch)))
 for(m in names(c(rl2, rl2NoBatch))) {
@@ -123,24 +156,58 @@ filter(pam50labels2, pam50.x:pam50_batch.x != pam50.y:pam50_batch.y)
 # … with 5 variables: sample <chr>, pam50.x <fct>, pam50_batch.x <fct>, pam50.y <fct>,
 #   pam50_batch.y <fct>
 
-# try all models
-clusterLabels <- vector("list", length = length(clusterModels) %>%
-  set_names(clusterModels)
-  
-for(n in names(clusterLabels)) {
-  clusterLabels[[n]] <- vector("list", length(rl2)) %>%
-    set_names(names(rl2))
-  for(m in names(clusterLabels[[n]])) {
-    clusterLabels[[m]] <- try(expMat2subtype(n, rl2[[m]], fmap))
-  }
-}
-
 # intrinsic gene lists ssp2003, ssp2006, pam50 ("Basal", "Her2", "LumA", "LumB" or "Normal")
 
 # 
 
 # genious, ggi, 
+dim(sig.ggi)
+# [1] 128   9
+ggi.current <- unique(
+  hgncMap$`Approved symbol`[match(as.character(sig.ggi$EntrezGene.ID), hgncMap$`NCBI Gene ID`)]
+  )
+length(ggi.current)
+# [1] 105
+setdiff(sig.ggi$HUGO.gene.symbol, ggi.current)
+# [1] "MARS"     "DDX39"    "CDC2"     "DLG7"     "ZWINT"    "KNTC2"    "TUBA6"    "H2AFZ"    "C20orf24"
+# [10] "C16orf61" "MLF1IP"   "C12orf48" "FAM64A"   "C11orf60" "C11orf63"
+write_lines(na.omit(ggi.current), "data/metaGxBreast/ggiGeneList.txt")
 
 # prognistic score ihc4, gene70, gene76, endoPredict, oncotype dx, npi, pi3ca, tamr13
+dim(sig.gene70)
+# [1] 70  9
+gene70.current <- unique(
+  hgncMap$`Approved symbol`[match(as.character(sig.gene70$EntrezGene.ID), hgncMap$`NCBI Gene ID`)]
+)
+length(gene70.current)
+# [1] 53
+setdiff(sig.gene70$HUGO.gene.symbol, gene70.current)
+# [1] NA         "WISP1"    "ZNF533"   "PECI"     "C20orf46" "HRASLS"   "C9orf30"  "ORC6L"    "GPR126"  
+# [10] "AYTL2"    "KNTC2"    "C16orf61" "QSCN6L1" 
+write_lines(na.omit(gene70.current), "data/metaGxBreast/gene70List.txt")
+
+
+dim(sig.gene76)
+# [1] 76 10
 
 # gene modules: mod1, mod2 for scmod1, scmod2, scmgene
+# also has mamaPrint and oncotype lists
+attach("~/R/metaGx/metaGxData/data/breastSigs.RData")
+sapply(breastSigs, dim)
+#      ESR1 ERBB2 AURKA PLAU VEGF STAT1 CASP3 mammaPrint oncotype
+# [1,]  469    28   229   68   14    95    10         62       16
+# [2,]    3     3     3    3    3     3     3          3        3
+
+# try all models
+clusterLabels <- vector("list", length = length(clusterModels) %>%
+                          set_names(clusterModels)
+                        
+                        for(n in names(clusterLabels)) {
+                          clusterLabels[[n]] <- vector("list", length(rl2)) %>%
+                            set_names(names(rl2))
+                          for(m in names(clusterLabels[[n]])) {
+                            clusterLabels[[m]] <- try(expMat2subtype(n, rl2[[m]], fmap))
+                          }
+                        }
+                        
+                        

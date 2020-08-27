@@ -262,6 +262,7 @@ grep(paste0(str_remove(overlap, "GSE"), collapse = "|"), list.files("../cancer.o
 metaGX$Dataset[metaGX$Dataset_accession %in% c("GSE32646", "GSE25055", "GSE25065")]
 
 # note: table updated with pam50 labels in `label clusters.R`
+# note: table updated with channel_count labels in 'get geo channel counts.R'
 write_csv(pheno, "data/metaGXcovarTable.csv.xz")
 
 # make metaGX comparable expression matrices without batch separation for ml analysis

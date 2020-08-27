@@ -15,6 +15,7 @@ cvd <- clinicalData$clinicalVarDef
 cvd <- read_csv("data/curatedBreastData/bcVarDesc.csv")
 
 # save clinical data table
+# note: table updated with channel_count labels in 'get geo channel counts.R'
 ct <- clinicalData$clinicalTable
 write_csv(ct, "data/curatedBreastData/bcClinicalTable.csv")
 
@@ -469,7 +470,7 @@ length(intersect(pam50Short, row.names(bcdMerged$mergedExprMatrix)))
 write_csv(data.frame(patient_ID = colnames(bcdMerged$mergedExprMatrix),
                      t(bcdMerged$mergedExprMatrix)), "./data/curatedBreastData/bcDump/example15bmc/ex15bmcMerged.csv.xz")
 
-# make dump of unormalized study expression matrices
+# make dump of un-normalized study expression matrices
 # simplify study names
 names(cbcMat) <- paste0("GSE", str_remove(names(cbcMat), "study_") %>%
                           str_remove("_all") %>%
