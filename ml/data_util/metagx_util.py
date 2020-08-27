@@ -85,7 +85,7 @@ def convert_covars(merged):
 
 
 metagx_study_mapping = dict()
-def load_metagx_dataset(base_path, min_genes=10000, study_mapping=metagx_study_mapping):
+def load_metagx_dataset(base_path, min_genes=10000, study_mapping=metagx_study_mapping, norm=False):
     """
     load and merge metagx dataset
 
@@ -99,7 +99,8 @@ def load_metagx_dataset(base_path, min_genes=10000, study_mapping=metagx_study_m
     microarray_path = os.path.join(base_path, 'microarray data')
     norm_path = os.path.join(microarray_path, 'mGXrlNorm.tar.xz')
     norm_path1 = os.path.join(microarray_path, 'mGXrlNormNoBatch.tar.xz')
-    not_norm_path = os.path.join(microarray_path, 'noNorm/DFHCC3_noNorm.csv.xz')
+    not_norm_path = os.path.join(microarray_path, 'mGXnoNorm.tar.xz')
+    not_norm_path1 = os.path.join(microarray_path, 'mGXnoNormNoBatch.tar.xz')
     covariates_path = os.path.join(base_path, 'metaGXcovarTable.csv.xz')
 
     dtype = {'hormonotherapy': pandas.Int64Dtype(),
@@ -109,8 +110,12 @@ def load_metagx_dataset(base_path, min_genes=10000, study_mapping=metagx_study_m
 
     covariates_table = pandas.read_csv(lzma.open(covariates_path), dtype=dtype)
     study_tables = dict()
-    tar1 = tarfile.open(norm_path, "r:xz")
-    tar2 = tarfile.open(norm_path1, 'r:xz')
+    if norm:
+        tar1 = tarfile.open(norm_path, "r:xz")
+        tar2 = tarfile.open(norm_path1, 'r:xz')
+    else:
+        tar1 = tarfile.open(not_norm_path, 'r:xz')
+        tar2 = tarfile.open(not_norm_path1, 'r:xz')
     for tar in (tar1, tar2):
         for member in tar.getmembers():
             f = tar.extractfile(member)
@@ -122,12 +127,6 @@ def load_metagx_dataset(base_path, min_genes=10000, study_mapping=metagx_study_m
     sets_dict = dict()
     for key, value in study_tables.items():
         sets_dict[key] = set(value.columns[1:].to_list())
-
-    i = 0
-    for study, table in study_tables.items():
-        study_mapping[study.split('_')[0]] = i
-        table.insert(1, 'study', [i for _ in range(len(table))])
-        i += 1
 
     # filter studies by size
     result = None
@@ -142,6 +141,12 @@ def load_metagx_dataset(base_path, min_genes=10000, study_mapping=metagx_study_m
             result = result.intersection(value)
         filtered_studies.append(k)
         i += 1
+    i = 0
+    for study, table in study_tables.items():
+        if study in filtered_studies:
+            study_mapping[study.split('_')[0]] = i
+            table.insert(1, 'study', [i for _ in range(len(table))])
+            i += 1
 
     genes_list = list(result)
     genes_features = pandas.concat([study_tables[k][['study', 'sample_name'] + genes_list]  for k in filtered_studies])
@@ -163,6 +168,7 @@ def load_metagx_dataset(base_path, min_genes=10000, study_mapping=metagx_study_m
     return result
 
 
+
 if __name__ == '__main__':
     cancer_data_dir = '/home/noskill/projects/cancer.old/data'
     dataset_dict = util.load_merged_dataset(cancer_data_dir)
@@ -178,7 +184,7 @@ if __name__ == '__main__':
     merged_treatments = [x for x in merged_treatments if x in merged_common]
     common_genes_list = [x for x in genes_list if x in merged_common]
     print(merged_treatments)
-    train_data, train_labels, val_data, val_labels = util.random_split(merged,
+    train_data, train_labels, val_data, val_labels = util.random_split(merged_common,
                                                               merged_treatments + common_genes_list,
                                                               ['posOutcome'],
                                                               balance_validation=False,

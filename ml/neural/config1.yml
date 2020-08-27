@@ -1,0 +1,29 @@
+n_epochs: 520 # number of epochs of training
+batch_size: 64 # size of the batches
+lr: 0.0002 # adam: learning rate
+b1: 0.5 # adam: decay of first order momentum of gradient
+b2: 0.999 # adam: decay of first order momentum of gradient
+n_cpu: 8 # number of cpu threads to use during batch generation
+latent_dim: 4 # dimensionality of the latent space
+code_dim: 56 # latent code
+n_classes: 48 # number of classes for dataset
+img_size: 32 # size of each image dimension
+channels: 1 # number of image channels
+sample_interval: 800 # interval between image sampling
+curated_breast_data_dir: "/home/noskill/projects/cancer.old/data/"
+metagx_data_dir: "/home/noskill/projects/cancer/data/metaGxBreast/"
+lambda_cat: 0.1 # weight for categorical loss
+lambda_con: 1.0 # weight for continous loss
+test_ratio: 0.0 #  test ratio
+min_genes: 5000 # keep studies with more than min_genes genes
+test_interval: 5 
+save_interval: 20
+skip_study: -1 # study index to skip, set to -1 to use all studies 
+# gen_path: "generator359.pth"
+# disc_path: "discriminator359.pth"
+use_covars: False # use covarates and outcome in infogan
+train_descriminator: False # train descriminator on pretrained generator
+train_polynomial_model: False # train study-specific polynomial model in infogan
+invert_outcome: False # invert outcomes randomly
+degree: 4 # polynomial degree
+continious_loss: "tanh"
