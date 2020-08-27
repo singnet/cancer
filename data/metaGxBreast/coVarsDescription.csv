@@ -22,7 +22,7 @@ days_to_tumor_recurrence,NA,1811
 dlda30_prediction,NA,508
 dmfs_days,NA,2669
 dmfs_status,NA,2683
-GGI_prediction,NA,508
+GGI_prediction,stratifies tumors into high and low recurrence risk from 97 gene expression profile PMID: 16478745(https://pubmed.ncbi.nlm.nih.gov/16478745/),508
 herceptin,NA,199
 Platform,NA,9717
 RCB_prediction,NA,508

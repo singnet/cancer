@@ -47,6 +47,7 @@ print(y_)
 cols_to_drop = metagx_result_data.iloc[:, 0:29]
 X_ = metagx_result_data.drop(columns=cols_to_drop).to_numpy()
 print(metagx_result_data.drop(columns=cols_to_drop).shape)
+print(metagx_result_data.drop(columns=cols_to_drop).iloc[:, 0])
 
 def calc_results_for_fold(X, y, train_index, test_index, clf):
     X_train, X_test = X[train_index], X[test_index]
@@ -65,11 +66,11 @@ def calc_results_for_fold(X, y, train_index, test_index, clf):
     return acc
 
 
-clf1 = XGBClassifier()
-n_splits = 5
-kf = KFold(n_splits=n_splits, shuffle=True)
-for i, (train_index, test_index) in enumerate(kf.split(X_)):
-    acc_f = calc_results_for_fold(X_, y_, train_index, test_index, clf1)
-    print("full: ", acc_f)
+# clf1 = XGBClassifier()
+# n_splits = 20
+# kf = KFold(n_splits=n_splits, shuffle=True)
+# for i, (train_index, test_index) in enumerate(kf.split(X_)):
+#     acc_f = calc_results_for_fold(X_, y_, train_index, test_index, clf1)
+#     print("full: ", acc_f)
 
 

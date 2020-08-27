@@ -1,598 +1,1023 @@
-## metaGx time to event models
+## logistic regression models
 library(tidyverse)
-library(broom)
-
-# load metaGx study functions
-
-pheno <- read_csv("data/metaGxBreast/metaGXcovarTable.csv.xz", guess_max = 10000)
+library(glmulti)
+pheno <- read_csv("data/metaGxBreast/metaGXcovarTable.csv.xz", guess_max = 4000)
 dim(pheno)
-# [1] 9717   29
+# [1] 9717   31
 
-summary(pheno$age_at_initial_pathologic_diagnosis)
-#  Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-# 21.00   46.00   56.00   56.78   66.39   96.29    2095 
+#samplename: Unique identifier for tumor samples
+#dataset: Acronym of the dataset
+#series: Batch or subcohorts of tumor samples
+#id: Identifier used in the original publication
+#age: Age at diagnosis (years)
+#er: Estrogen receptor status
+#pgr: Progesterone receptor status
+#her2: Human epidermal growth factor 2 status
+#grade: Histological grade
+#node: Nodal status
+#size: Tumor size (cm)
+#t.rfs: Time for relapse-free survival (days)
+#e.rfs: Event for relapse-free survival
+#t.dmfs: Time for distant metastasis-free survival (days)
+#e.dmfs: Event for distant metastasis-free survival
+#t.os: Time for overall survival (days)
+#e.os: Event for overall survival
+#treatment: Treatment (0=untreated; 1=treated)
+#MAMMAPRINT: Risk classification (Low/HighRisk) computed using the published algorithm of the prognostic gene signature published by van't Veer et al. (13)
+#ONCOTYPE: Risk classification (Low/Intermediate/HighRisk) computed using the published algorithm of the prognostic gene signature published by Paik et al. (15)
+#GGI: Risk classification (Low/HighRisk) computed using the published algorithm of the prognostic gene signature published by Sotiriou et al. (16)
+#SCMGENE: Subtype classification published in the present work.
+#SCMOD2: Subtype classification published by Wirapati et al. (8)
+#SCMOD1: Subtype classification published by Desmedt et al. (1)
+#PAM50: Subtype classification published by Parker et al. (3)
+#SSP2006: Subtype classification published by Hu et al. (2)
+#SSP2003: Subtype classification published by Sorlie et al. (6)
+clusters <- read_csv("data/metaGxBreast/jnci-JNCI-11-0924-s02.csv", comment = "#")
+dim(clusters)
+# [1] 5715   27
 
-summary(pheno$tumor_size)
-#  Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-# 0.000   1.550   2.100   2.458   3.000  18.200    4417 
+table(clusters$dataset)
 
-table(pheno$treatment, exclude = NULL)
-# chemo.plus.hormono       chemotherapy     hormonotherapy          untreated               <NA> 
-#                378               1313               1640               2188               4198 
+# note extra grade level in package data
+table(clusters$grade)
+#   1    2    3 
+# 544 1440 1695 
+table(pheno$grade)
+#   1    2    3    4 
+# 701 2299 2903   15 
 
-table(pheno$grade, exclude = NULL)
-#   1    2    3    4 <NA> 
-# 701 2299 2903   15 3799 
+covars <- left_join(pheno, clusters, by = c("sample_name" = "samplename"), suffix = c("_mgx", "_3g"))
+setdiff(covars$study, covars$dataset)
+# [1] "GSE25066" "GSE58644" "GSE32646" "GSE48091" "DUKE"     "EXPO"     "METABRIC" "TCGA"
 
-table(pheno$T)
-#  1   2   3   4  T0  T1  T2  T3  T4 
-# 48 145  31   6   3  30 255 145  75 
+# extra grade level is from new metagx data sets
+table(covars$grade_mgx)
+#   1    2    3 
+# 379  940 1292 
 
-table(pheno$N)
-#    0    1 
-# 3534 2843 
+# three gene data set removes some extra samples
+covars <- filter(covars, sample_name %in% clusters$samplename)
+dim(covars)
+# [1] 4158  57
 
-table(pheno$recurrence_status)
-# norecurrence   recurrence 
-#         1228          628 
+dim(clusters)[1] - dim(covars)[1]
+# 1557
 
-table(pheno$vital_status, exclude = NULL)
-# deceased   living     <NA> 
-#     1423     2987     5307 
+# three studies aren't included in metagx, the rest are from DUKE, EXPO, MAQC2, and STNO2
+table(clusters$dataset[!(clusters$samplename %in% covars$sample_name)])
+# DUKE      DUKE2 EORTC10994       EXPO        KOO      MAQC2       MDA4       MDA5        MSK 
+#  171          6          2        353         53        186          4        298          1 
+# PNC      STNO2        TAM       UCSF       VDX3 
+#   1        103        242          1        136 
 
-xtabs(~ treatment + vital_status, data = pheno, exclude = NULL)
-#                        vital_status
-# treatment            deceased living
-#   chemo.plus.hormono      103    143
-#   chemotherapy            195    211
-#   hormonotherapy          552    684
-#   untreated               350    600
+setdiff(clusters$dataset, pheno$study)
+# [1] "TAM"  "MDA5" "VDX3"
 
-xtabs(~ vital_status + recurrence_status, data = pheno, exclude = NULL)
-#                 recurrence_status
-# vital_status norecurrence recurrence
-#     deceased          122        264
-#     living            657        160
+setdiff(clusters$series, pheno$batch)
+# [1] "OXFT"  "KIT"   "IGRT"  "AUST"  "VDX3"  "GUYT"  "GUYT2"
 
-control <- filter(pheno, treatment == "untreated",
-                  !is.na(vital_status) | !is.na(recurrence_status)) %>%
-  select(study, batch, Platform, sample_name, age_dx = age_at_initial_pathologic_diagnosis,
-         grade, N, er, her2, pgr, vital_status, recurrence_status)
+table(clusters$dataset[clusters$series %in% setdiff(clusters$series, pheno$batch)])
+# MDA5  TAM VDX3 
+# 298  242  136 
 
-write_csv(control, "data/metaGxBreast/controlModel.csv.xz")
+dim(clusters)[1] - 298 + 242 + 136
+# [1] 5795
 
-# baseline model
-control <- mutate(control, status = as.factor(recurrence_status))
+dim(clusters)[1] - (298 + 242 + 136)
+# [1] 5039
 
+dim(clusters)[1] - dim(covars)[1] - (298 + 242 + 136)
+# [1] 881
+171 + 353 + 186 + 103
+# [1] 813
+
+# generate models on metagx samples
+library(glmulti)
+table(pheno$sample_type)
+# healthy   tumor 
+#     133    9584 
+
+table(pheno$replicate)
+# FALSE  TRUE 
+#  9708     9 
+
+table(pheno$treatment)
+# chemo.plus.hormono       chemotherapy     hormonotherapy          untreated 
+#                378               1313               1640               2188 
+
+table(pheno$treatment)
+pbasic <- filter(pheno, replicate != TRUE) %>%
+  select(study, batch, sample_name, age = age_at_initial_pathologic_diagnosis, grade, N, er, pgr, her2, Platform, vital_status, recurrence_status, treatment) %>%
+  mutate(chemo = treatment == "chemotherapy" | treatment == "chemo.plus.hormono",
+         hormone = treatment == "hormonotherapy" | treatment == "chemo.plus.hormono") %>%
+  select(- treatment) %>%
+  mutate(across(where( ~ !is.numeric(.)), as.factor))
+
+xtabs(~ chemo + hormone, data = pbasic)
+#        hormone
+# chemo   FALSE TRUE
+#   FALSE  2188 1640
+#   TRUE   1304  378
+
+table(pbasic$pgr)
+# negative positive 
+# 1629     2092 
+table(pbasic$her2
+# negative positive 
+# 2897      803 
+table(pbasic$er)
+# negative positive 
+# 2367     5479
+
+# death model
+deathPheno <- glmulti(vital_status ~ study + batch + Platform + age + grade + N + er + grade:N, family = binomial(link = logit), data = pbasic, crit = "bic")
+# After 250 models:
+# Best model: vital_status~1+study+batch+er+age+N:grade
+# Best model: vital_status~1+batch+Platform+er+age+N:grade
+# Best model: vital_status~1+batch+er+age+N:grade
+# Crit= 3726.42538386574
+# Mean crit= 3811.81503386729
+print(deathPheno)
+# ...
+# From 100 models:
+#   Best IC: 3726.42538386574
+# Best model:
+# [1] "vital_status ~ 1 + study + batch + Platform + er + age + N:grade"
+# [1] "vital_status ~ 1 + study + batch + er + age + N:grade"
+# [1] "vital_status ~ 1 + batch + Platform + er + age + N:grade"
+# [1] "vital_status ~ 1 + batch + er + age + N:grade"
+# Evidence weight: 0.130061042428855
+# Worst IC: 3865.81056565321
+# 8 models within 2 IC units.
+# 10 models to reach 95% of evidence weight.
+
+deathPhenoTx <- glmulti(vital_status ~ study + batch + Platform + age + grade + N + er + chemo + hormone + grade:N, family = binomial(link = logit), data = pbasic, crit = "bic")
+# After 1050 models:
+# Best model: vital_status~1+study+batch+Platform+er+chemo+age+N:grade
+# Best model: vital_status~1+batch+er+chemo+age+N:grade
+# Best model: vital_status~1+study+batch+er+chemo+age+N:grade
+# Best model: vital_status~1+batch+Platform+er+chemo+age+N:grade
+# Crit= 3420.29247363732
+# Mean crit= 3445.7886385185
+print(deathPhenoTx)
+# ...
+# From 100 models:
+# Best IC: 3420.29247363732
+# Best model:
+# [1] "vital_status ~ 1 + study + batch + Platform + er + chemo + age + N:grade"                         # [1] "vital_status ~ 1 + batch + er + chemo + age + N:grade"
+# [1] "vital_status ~ 1 + study + batch + er + chemo + age + N:grade"
+# [1] "vital_status ~ 1 + batch + Platform + er + chemo + age + N:grade"
+# Evidence weight: 0.0912790452963583
+# Worst IC: 3476.30706988082
+# 8 models within 2 IC units.
+# 23 models to reach 95% of evidence weight.
+>
+recurPheno <- glmulti(recurrence_status ~ study + batch + Platform + age + grade + N + er + grade:N, family = binomial(link = logit), data = pbasic, crit = "bic")
+# After 250 models:
+# Best model: recurrence_status~1+er+age+grade+N:grade
+# Crit= 2004.37782988452
+# Mean crit= 2033.4708502359
+print(recurPheno)
+# ...
+# From 100 models:
+# Best IC: 2004.37782988452
+# Best model:
+# [1] "recurrence_status ~ 1 + er + age + grade + N:grade"
+# Evidence weight: 0.685708296575585
+# Worst IC: 2049.10376655078
+# 1 models within 2 IC units.
+# 4 models to reach 95% of evidence weight.
+
+recurPhenoTx <- glmulti(recurrence_status ~ study + batch + Platform + age + grade + N + er + chemo + hormone + grade:N, family = binomial(link = logit), data = pbasic, crit = "bic")
+# After 1050 models:
+#   Best model: recurrence_status~1+er+chemo+age+grade+N:grade
+# Crit= 1622.95267387007
+# Mean crit= 1633.50245918406
+print(recurPhenoTx)
+# ...
+# From 100 models:
+# Best IC: 1622.95267387007
+# Best model:
+# [1] "recurrence_status ~ 1 + er + chemo + age + grade + N:grade"
+# Evidence weight: 0.19147047890309
+# Worst IC: 1638.88105348655
+# 2 models within 2 IC units.
+# 25 models to reach 95% of evidence weight.
+
+# turn into tibbles with top 8 models
+dir.create("data/metaGxBreast/mods")
+modList <- c("deathPheno", "recurPheno", "deathPhenoTx", "recurPhenoTx")
+walk(modList, ~ write(eval(sym(.)), paste0("data/metaGxBreast/mods/", ., ".csv"), sep = ","))
+modsPheno <- map(modList, ~ read_csv(paste0("data/metaGxBreast/mods/", ., ".csv"), col_names = c("rank", "K", "IC", "model"), skip = 1)) %>%
+  map(~ .[1:8,])
+names(modsPheno) <- modList
+modsPheno <- list(noTx = bind_rows(modsPheno[[1]], modsPheno[[2]], .id = "outcome"), tx = bind_rows(modsPheno[[3]], modsPheno[[4]], .id = "outcome"))
+modsPheno <- map(modsPheno, ~ mutate(., outcome = factor(outcome, labels = c("death", "recurrence")))) %>%
+  map(~ select(., - rank))
+
+# evaluate models and get confusion matrix & scores
+# weighted coefficients for consesus models
+# defaults: unconditional variance weighting "Buckland", ci method "Lukacs"
+coefPheno <- map(modList, ~ coef(eval(sym(.)), select = 8))
+names(coefPheno) <- modList
+
+# rerun for broom
 # not controling for study shows up in risidual vs leverage plot
-recur <- glm(status ~ age_dx + grade + N,
-             family = binomial(link = logit), data = control)
-summary(recur)
-# Deviance Residuals: 
-#   Min       1Q   Median       3Q      Max  
-# -1.3224  -0.9252  -0.7173   1.2310   2.1671  
-# 
-# Coefficients:
-#   Estimate Std. Error z value Pr(>|z|)    
-# (Intercept) -0.063798   0.500720  -0.127    0.899    
-# age_dx      -0.032956   0.007978  -4.131 3.61e-05 ***
-# grade        0.452494   0.113974   3.970 7.18e-05 ***
-# N            0.392096   0.309317   1.268    0.205    
-# ---
-#   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-# 
-# (Dispersion parameter for binomial family taken to be 1)
-# 
-# Null deviance: 874.03  on 682  degrees of freedom
-# Residual deviance: 829.45  on 679  degrees of freedom
-# (583 observations deleted due to missingness)
-# AIC: 837.45
-# 
-# Number of Fisher Scoring iterations: 4
-
-1 - pchisq(829.45, 682)
-# [1] 8.699928e-05
-
-caret::confusionMatrix(table(predict(recur, type = "response") >= 0.5,
-                             recur$model$status == "recurrence"),
-                       positive = "TRUE", mode = "everything")
-# FALSE TRUE
-# FALSE   416  192
-# TRUE     36   39
-# 
-# Accuracy : 0.6662          
-# 95% CI : (0.6294, 0.7015)
-# No Information Rate : 0.6618          
-# P-Value [Acc > NIR] : 0.4215          
-# 
-# Kappa : 0.1068          
-# 
-# Mcnemar's Test P-Value : <2e-16          
-#                                           
-#             Sensitivity : 0.1688          
-#             Specificity : 0.9204          
-#          Pos Pred Value : 0.5200          
-#          Neg Pred Value : 0.6842          
-#               Precision : 0.5200          
-#                  Recall : 0.1688          
-#                      F1 : 0.2549          
-#              Prevalence : 0.3382          
-#          Detection Rate : 0.0571          
-#    Detection Prevalence : 0.1098          
-#       Balanced Accuracy : 0.5446          
-#                                           
-#        'Positive' Class : TRUE
-
-tidy(recur)
-#   term        estimate std.error statistic   p.value
-# 1 (Intercept)  -0.0638   0.501      -0.127 0.899    
-# 2 age_dx       -0.0330   0.00798    -4.13  0.0000361
-# 3 grade         0.452    0.114       3.97  0.0000718
-# 4 N             0.392    0.309       1.27  0.205    
-
-recur.a <- augment(recur, data = recur$model)
-
-recurE <- glm(status ~ age_dx + grade + N + er,
-              family = binomial(link = logit), data = control)
-
-summary(recurE)
-# Deviance Residuals: 
-#   Min       1Q   Median       3Q      Max  
-# -1.2939  -0.9342  -0.7235   1.2456   2.1497  
-# 
-# Coefficients:
-#   Estimate Std. Error z value Pr(>|z|)    
-# (Intercept)  0.016838   0.546258   0.031 0.975409    
-# age_dx      -0.032241   0.007992  -4.034 5.48e-05 ***
-#   grade        0.428246   0.123691   3.462 0.000536 ***
-#   N            0.335451   0.313705   1.069 0.284925    
-# erpositive  -0.071949   0.198868  -0.362 0.717508    
-# ---
-#   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-# 
-# (Dispersion parameter for binomial family taken to be 1)
-# 
-# Null deviance: 866.89  on 675  degrees of freedom
-# Residual deviance: 824.19  on 671  degrees of freedom
-# (590 observations deleted due to missingness)
-# AIC: 834.19
-# 
-# Number of Fisher Scoring iterations: 4
-
-1 - pchisq(824.19, 671)
-# [1] 4.464349e-05
-
-caret::confusionMatrix(table(predict(recurE, type = "response") >= 0.5,
-                             recurE$model$status == "recurrence"),
-                       positive = "TRUE", mode = "everything")
-# FALSE TRUE
-# FALSE   406  194
-# TRUE     40   36
-# 
-# Accuracy : 0.6538          
-# 95% CI : (0.6166, 0.6897)
-# No Information Rate : 0.6598          
-# P-Value [Acc > NIR] : 0.6439          
-# 
-# Kappa : 0.0798          
-# 
-# Mcnemar's Test P-Value : <2e-16          
-#                                           
-#             Sensitivity : 0.15652         
-#             Specificity : 0.91031         
-#          Pos Pred Value : 0.47368         
-#          Neg Pred Value : 0.67667         
-#               Precision : 0.47368         
-#                  Recall : 0.15652         
-#                      F1 : 0.23529         
-#              Prevalence : 0.34024         
-#          Detection Rate : 0.05325         
-#    Detection Prevalence : 0.11243         
-#       Balanced Accuracy : 0.53342         
-#                                           
-#        'Positive' Class : TRUE            
-                                          
-tidy(recurE)
-#   term        estimate std.error statistic   p.value
-# 1 (Intercept)   0.0168   0.546      0.0308 0.975    
-# 2 age_dx       -0.0322   0.00799   -4.03   0.0000548
-# 3 grade         0.428    0.124      3.46   0.000536 
-# 4 N             0.335    0.314      1.07   0.285    
-# 5 erpositive   -0.0719   0.199     -0.362  0.718    
-
-recurE.a <- augment(recurE, recurE$model)
-
-recurS <- glm(status ~ study + age_dx + grade + N,
-             family = binomial(link = logit), data = control)
-summary(recurS)
+bestRecur <- glm(recurrence_status ~ 1 + er + age + grade + N:grade,
+             family = binomial(link = logit), data = pbasic)
+summary(bestRecur)
 # Deviance Residuals: 
 #     Min       1Q   Median       3Q      Max  
-# -1.4296  -0.9469  -0.6512   1.2395   2.3129  
+# -1.3614  -0.9447  -0.7421   1.2729   1.9240  
 # 
 # Coefficients:
 #                Estimate Std. Error z value Pr(>|z|)    
-# (Intercept)   -0.667811   0.862085  -0.775 0.438549    
-# studyNCI      -0.146340   0.916412  -0.160 0.873127    
-# studyNKI       0.062170   0.627117   0.099 0.921030    
-# studySTNO2    -0.603182   0.803381  -0.751 0.452771    
-# studyTRANSBIG  0.468679   0.633463   0.740 0.459380    
-# studyUCSF     -0.980669   0.822299  -1.193 0.233028    
-# studyUNT       0.518788   0.649714   0.798 0.424588    
-# studyUPP      -0.441049   0.670579  -0.658 0.510722    
-# age_dx        -0.024354   0.009401  -2.591 0.009581 ** 
-# grade          0.453939   0.118126   3.843 0.000122 ***
-# N              0.818022   0.368150   2.222 0.026285 *  
+#   (Intercept) -1.006482   0.319829  -3.147 0.001650 ** 
+#   erpositive  -0.219357   0.124480  -1.762 0.078036 .  
+#   age         -0.010374   0.004127  -2.514 0.011953 *  
+#   grade        0.396459   0.085315   4.647 3.37e-06 ***
+#   grade:N      0.166370   0.044629   3.728 0.000193 ***
 #   ---
 #   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 # 
 # (Dispersion parameter for binomial family taken to be 1)
 # 
-# Null deviance: 874.03  on 682  degrees of freedom
-# Residual deviance: 811.25  on 672  degrees of freedom
-# (583 observations deleted due to missingness)
-# AIC: 833.25
+# Null deviance: 2043.0  on 1580  degrees of freedom
+# Residual deviance: 1967.5  on 1576  degrees of freedom
+# (8127 observations deleted due to missingness)
+# AIC: 1977.5
 # 
 # Number of Fisher Scoring iterations: 4
 
-1 - pchisq(811.25, 672)
-# [1] 0.000170718
- 
-caret::confusionMatrix(table(predict(recurS, type = "response") >= 0.5,
-                             recurS$model$status == "recurrence"),
+caret::confusionMatrix(table(predict(bestRecur, type = "response") >= 0.5,
+                             bestRecur$model$recurrence_status == "recurrence"),
                        positive = "TRUE", mode = "everything")
 #       FALSE TRUE
-# FALSE   401  189
-# TRUE     51   42
+# FALSE   950  478
+# TRUE     81   72
 # 
-# Accuracy : 0.6486          
-# 95% CI : (0.6115, 0.6844)
-# No Information Rate : 0.6618          
-# P-Value [Acc > NIR] : 0.7794          
+# Accuracy : 0.6464        
+# 95% CI : (0.6223, 0.67)
+# No Information Rate : 0.6521        
+# P-Value [Acc > NIR] : 0.6927        
 # 
-# Kappa : 0.0808          
+# Kappa : 0.0629        
 # 
-# Mcnemar's Test P-Value : <2e-16          
-#                                           
-#             Sensitivity : 0.18182         
-#             Specificity : 0.88717         
-#          Pos Pred Value : 0.45161         
-#          Neg Pred Value : 0.67966         
-#               Precision : 0.45161         
-#                  Recall : 0.18182         
-#                      F1 : 0.25926         
-#              Prevalence : 0.33821         
-#          Detection Rate : 0.06149         
-#    Detection Prevalence : 0.13616         
-#       Balanced Accuracy : 0.53449         
-#                                           
-#        'Positive' Class : TRUE            
-
-tidy(recurS)
-#   term          estimate std.error statistic  p.value
-# 1 (Intercept)    -0.668    0.862     -0.775  0.439   
-# 2 studyNCI       -0.146    0.916     -0.160  0.873   
-# 3 studyNKI        0.0622   0.627      0.0991 0.921   
-# 4 studySTNO2     -0.603    0.803     -0.751  0.453   
-# 5 studyTRANSBIG   0.469    0.633      0.740  0.459   
-# 6 studyUCSF      -0.981    0.822     -1.19   0.233   
-# 7 studyUNT        0.519    0.650      0.798  0.425   
-# 8 studyUPP       -0.441    0.671     -0.658  0.511   
-# 9 age_dx         -0.0244   0.00940   -2.59   0.00958 
-# 10 grade           0.454    0.118      3.84   0.000122
-# 11 N               0.818    0.368      2.22   0.0263  
-
-recurS.a <- augment(recurS, recurS$model)
-
-recurSE <- glm(status ~ study + age_dx + grade + N + er,
-             family = binomial(link = logit), data = control)
-summary(recurSE)
-# Deviance Residuals: 
-#     Min       1Q   Median       3Q      Max  
-# -1.4038  -0.9491  -0.6496   1.2312   2.3012  
-# 
-# Coefficients:
-#                Estimate Std. Error z value Pr(>|z|)    
-# (Intercept)   -0.637859   0.886063  -0.720 0.471599    
-# studyNCI      -0.169438   0.915901  -0.185 0.853233    
-# studyNKI       0.058939   0.625833   0.094 0.924968    
-# studySTNO2    -0.813724   0.832597  -0.977 0.328404    
-# studyTRANSBIG  0.454631   0.631964   0.719 0.471898    
-# studyUCSF     -0.946221   0.822510  -1.150 0.249976    
-# studyUNT       0.555776   0.649010   0.856 0.391807    
-# studyUPP      -0.455479   0.669227  -0.681 0.496122    
-# age_dx        -0.023511   0.009479  -2.480 0.013128 *  
-# grade          0.442354   0.127919   3.458 0.000544 ***
-# N              0.776224   0.371111   2.092 0.036472 *  
-# erpositive    -0.042524   0.203216  -0.209 0.834248    
-# ---
-#   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-# 
-# (Dispersion parameter for binomial family taken to be 1)
-# 
-# Null deviance: 866.89  on 675  degrees of freedom
-# Residual deviance: 805.00  on 664  degrees of freedom
-# (590 observations deleted due to missingness)
-# AIC: 829
-# 
-# Number of Fisher Scoring iterations: 4
-
-1 - pchisq(805, 664)
-# [1] 0.0001347837
-
-caret::confusionMatrix(table(predict(recurSE, type = "response") >= 0.5,
-                             recurSE$model$status == "recurrence"),
-                       positive = "TRUE", mode = "everything")
-# FALSE TRUE
-# FALSE   393  187
-# TRUE     53   43
-# 
-# Accuracy : 0.645           
-# 95% CI : (0.6076, 0.6811)
-# No Information Rate : 0.6598          
-# P-Value [Acc > NIR] : 0.8033          
-# 
-# Kappa : 0.0793          
-# 
-# Mcnemar's Test P-Value : <2e-16          
-#                                           
-#             Sensitivity : 0.18696         
-#             Specificity : 0.88117         
-#          Pos Pred Value : 0.44792         
-#          Neg Pred Value : 0.67759         
-#               Precision : 0.44792         
-#                  Recall : 0.18696         
-#                      F1 : 0.26380         
-#              Prevalence : 0.34024         
-#          Detection Rate : 0.06361         
-#    Detection Prevalence : 0.14201         
-#       Balanced Accuracy : 0.53406         
-#                                           
-#        'Positive' Class : TRUE            
-
-tidy(recurSE)
-#    term          estimate std.error statistic  p.value
-#  1 (Intercept)    -0.638    0.886     -0.720  0.472   
-#  2 studyNCI       -0.169    0.916     -0.185  0.853   
-#  3 studyNKI        0.0589   0.626      0.0942 0.925   
-#  4 studySTNO2     -0.814    0.833     -0.977  0.328   
-#  5 studyTRANSBIG   0.455    0.632      0.719  0.472   
-#  6 studyUCSF      -0.946    0.823     -1.15   0.250   
-#  7 studyUNT        0.556    0.649      0.856  0.392   
-#  8 studyUPP       -0.455    0.669     -0.681  0.496   
-#  9 age_dx         -0.0235   0.00948   -2.48   0.0131  
-# 10 grade           0.442    0.128      3.46   0.000544
-# 11 N               0.776    0.371      2.09   0.0365  
-# 12 erpositive     -0.0425   0.203     -0.209  0.834   
-
-recurSE.a <- augment(recurSE, recurSE$model)
-
-# try with batch instead of study
-recurB <- glm(status ~ batch + age_dx + grade + N,
-              family = binomial(link = logit), data = control)
-
-summary(recurB)
-# Deviance Residuals: 
-#   Min       1Q   Median       3Q      Max  
-# -1.5960  -0.9333  -0.6066   1.1321   2.3128  
-# 
-# Coefficients:
-#   Estimate Std. Error z value Pr(>|z|)   
-# (Intercept)  -0.430191   0.877914  -0.490  0.62412   
-# batchKIU      0.357434   0.688485   0.519  0.60365   
-# batchNCI     -0.035787   0.922568  -0.039  0.96906   
-# batchNKI      0.510860   0.660442   0.774  0.43922   
-# batchNKI2    -0.351744   0.655161  -0.537  0.59135   
-# batchOXFU     0.922922   0.695695   1.327  0.18463   
-# batchSTNO2   -0.699792   0.815566  -0.858  0.39087   
-# batchUCSF    -1.035498   0.832153  -1.244  0.21337   
-# batchUPPU    -0.341547   0.680341  -0.502  0.61565   
-# batchVDXGUYU  1.096663   0.711348   1.542  0.12315   
-# batchVDXIGRU  0.599343   0.692722   0.865  0.38693   
-# batchVDXKIU  -0.070544   0.703688  -0.100  0.92015   
-# batchVDXOXFU  1.027782   0.752084   1.367  0.17176   
-# batchVDXRHU   0.433628   0.711762   0.609  0.54237   
-# age_dx       -0.027609   0.009564  -2.887  0.00389 **
-# grade         0.377431   0.122416   3.083  0.00205 **
-# N             1.140394   0.394989   2.887  0.00389 **
-#   ---
-#   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-# 
-# (Dispersion parameter for binomial family taken to be 1)
-# 
-# Null deviance: 874.03  on 682  degrees of freedom
-# Residual deviance: 794.96  on 666  degrees of freedom
-# (583 observations deleted due to missingness)
-# AIC: 828.96
-# 
-# Number of Fisher Scoring iterations: 4
-
-1 - pchisq(794.96, 682)
-# [1] 0.001738064
-
-caret::confusionMatrix(table(predict(recurB, type = "response") >= 0.5,
-                             recurB$model$status == "recurrence"),
-                       positive = "TRUE", mode = "everything")
-# FALSE TRUE
-# FALSE   399  148
-# TRUE     53   83
-# 
-# Accuracy : 0.7057        
-# 95% CI : (0.67, 0.7397)
-# No Information Rate : 0.6618        
-# P-Value [Acc > NIR] : 0.008009      
-# 
-# Kappa : 0.2691        
-# 
-# Mcnemar's Test P-Value : 3.351e-11     
+# Mcnemar's Test P-Value : <2e-16        
 #                                         
-#             Sensitivity : 0.3593        
-#             Specificity : 0.8827        
-#          Pos Pred Value : 0.6103        
-#          Neg Pred Value : 0.7294        
-#               Precision : 0.6103        
-#                  Recall : 0.3593        
-#                      F1 : 0.4523        
-#              Prevalence : 0.3382        
-#          Detection Rate : 0.1215        
-#    Detection Prevalence : 0.1991        
-#       Balanced Accuracy : 0.6210        
+#             Sensitivity : 0.13091       
+#             Specificity : 0.92144       
+#          Pos Pred Value : 0.47059       
+#          Neg Pred Value : 0.66527       
+#               Precision : 0.47059       
+#                  Recall : 0.13091       
+#                      F1 : 0.20484       
+#              Prevalence : 0.34788       
+#          Detection Rate : 0.04554       
+#    Detection Prevalence : 0.09677       
+#       Balanced Accuracy : 0.52617       
 #                                         
 #        'Positive' Class : TRUE          
-                                        
-tidy(recurB)
-#    term         estimate std.error statistic p.value
-#  1 (Intercept)   -0.430    0.878     -0.490  0.624  
-#  2 batchKIU       0.357    0.688      0.519  0.604  
-#  3 batchNCI      -0.0358   0.923     -0.0388 0.969  
-#  4 batchNKI       0.511    0.660      0.774  0.439  
-#  5 batchNKI2     -0.352    0.655     -0.537  0.591  
-#  6 batchOXFU      0.923    0.696      1.33   0.185  
-#  7 batchSTNO2    -0.700    0.816     -0.858  0.391  
-#  8 batchUCSF     -1.04     0.832     -1.24   0.213  
-#  9 batchUPPU     -0.342    0.680     -0.502  0.616  
-# 10 batchVDXGUYU   1.10     0.711      1.54   0.123  
-# 11 batchVDXIGRU   0.599    0.693      0.865  0.387  
-# 12 batchVDXKIU   -0.0705   0.704     -0.100  0.920  
-# 13 batchVDXOXFU   1.03     0.752      1.37   0.172  
-# 14 batchVDXRHU    0.434    0.712      0.609  0.542  
-# 15 age_dx        -0.0276   0.00956   -2.89   0.00389
-# 16 grade          0.377    0.122      3.08   0.00205
-# 17 N              1.14     0.395      2.89   0.00389
 
-recurB.a <- augment(recurB, recurB$model)
+broom::tidy(bestRecur)
+#   term        estimate std.error statistic   p.value
+# 1 (Intercept)  -1.01     0.320       -3.15 0.00165   
+# 2 erpositive   -0.219    0.124       -1.76 0.0780    
+# 3 age          -0.0104   0.00413     -2.51 0.0120    
+# 4 grade         0.396    0.0853       4.65 0.00000337
+# 5 grade:N       0.166    0.0446       3.73 0.000193  
 
-recurBE <- glm(status ~ batch + age_dx + grade + N + er,
-               family = binomial(link = logit), data = control)
-summary(recurBE)
+bestRecur2 <- glm(recurrence_status ~ 1 + study + er + age + grade + N:grade,
+                 family = binomial(link = logit), data = pbasic)
+summary(bestRecur2)
 # Deviance Residuals: 
-#   Min       1Q   Median       3Q      Max  
-# -1.5745  -0.9294  -0.6068   1.1298   2.3026  
+#     Min       1Q   Median       3Q      Max  
+# -1.6094  -0.9420  -0.6758   1.2155   2.1475  
 # 
 # Coefficients:
-#   Estimate Std. Error z value Pr(>|z|)   
-# (Intercept)  -0.406557   0.901767  -0.451  0.65210   
-# batchKIU      0.351171   0.687606   0.511  0.60955   
-# batchNCI     -0.054157   0.921539  -0.059  0.95314   
-# batchNKI      0.497109   0.660278   0.753  0.45152   
-# batchNKI2    -0.356017   0.653479  -0.545  0.58589   
-# batchOXFU     1.034975   0.699963   1.479  0.13924   
-# batchSTNO2   -0.899965   0.844542  -1.066  0.28659   
-# batchUCSF    -1.001651   0.832305  -1.203  0.22880   
-# batchUPPU    -0.359851   0.679169  -0.530  0.59622   
-# batchVDXGUYU  1.077683   0.709940   1.518  0.12902   
-# batchVDXIGRU  0.582160   0.691823   0.841  0.40008   
-# batchVDXKIU  -0.087752   0.702627  -0.125  0.90061   
-# batchVDXOXFU  1.006564   0.751489   1.339  0.18043   
-# batchVDXRHU   0.415955   0.710427   0.586  0.55821   
-# age_dx       -0.027091   0.009655  -2.806  0.00502 **
-#   grade         0.368164   0.132383   2.781  0.00542 **
-#   N             1.096522   0.398897   2.749  0.00598 **
-#   erpositive   -0.012231   0.210939  -0.058  0.95376   
-# ---
+#                  Estimate Std. Error z value Pr(>|z|)    
+#   (Intercept)   -1.621073   0.420251  -3.857 0.000115 ***
+#   studyNCI       0.747004   0.297524   2.511 0.012048 *  
+#   studyNKI       0.320918   0.250920   1.279 0.200909    
+#   studyPNC       0.460926   0.317150   1.453 0.146131    
+#   studySTNO2     1.000573   0.289633   3.455 0.000551 ***
+#   studyTRANSBIG  0.897614   0.272504   3.294 0.000988 ***
+#   studyUCSF     -0.377587   0.297422  -1.270 0.204251    
+#   studyUNC4     -0.154611   0.263597  -0.587 0.557511    
+#   studyUNT       0.913850   0.305512   2.991 0.002779 ** 
+#   studyUPP       0.094510   0.269771   0.350 0.726088    
+#   erpositive    -0.219303   0.128323  -1.709 0.087452 .  
+#   age           -0.007452   0.004797  -1.554 0.120300    
+#   grade          0.405094   0.088682   4.568 4.92e-06 ***
+#   grade:N        0.245961   0.050894   4.833 1.35e-06 ***
+#   ---
 #   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 # 
 # (Dispersion parameter for binomial family taken to be 1)
 # 
-# Null deviance: 866.89  on 675  degrees of freedom
-# Residual deviance: 788.18  on 658  degrees of freedom
-# (590 observations deleted due to missingness)
-# AIC: 824.18
+# Null deviance: 2043  on 1580  degrees of freedom
+# Residual deviance: 1907  on 1567  degrees of freedom
+# (8127 observations deleted due to missingness)
+# AIC: 1935
 # 
 # Number of Fisher Scoring iterations: 4
 
-1 - pchisq(788.18, 658)
-# [1] 0.0003443863
-
-caret::confusionMatrix(table(predict(recurBE, type = "response") >= 0.5,
-                             recurBE$model$status == "recurrence"),
+caret::confusionMatrix(table(predict(bestRecur2, type = "response") >= 0.5,
+                             bestRecur2$model$recurrence_status == "recurrence"),
                        positive = "TRUE", mode = "everything")
-
 #       FALSE TRUE
-# FALSE   390  148
-# TRUE     56   82
+# FALSE   917  425
+# TRUE    114  125
 # 
-# Accuracy : 0.6982          
-# 95% CI : (0.6621, 0.7326)
-# No Information Rate : 0.6598          
-# P-Value [Acc > NIR] : 0.01851         
+# Accuracy : 0.6591          
+# 95% CI : (0.6351, 0.6824)
+# No Information Rate : 0.6521          
+# P-Value [Acc > NIR] : 0.2903          
 # 
-# Kappa : 0.2557          
+# Kappa : 0.1344          
 # 
-# Mcnemar's Test P-Value : 1.875e-10       
+# Mcnemar's Test P-Value : <2e-16          
 #                                           
-#             Sensitivity : 0.3565          
-#             Specificity : 0.8744          
-#          Pos Pred Value : 0.5942          
-#          Neg Pred Value : 0.7249          
-#               Precision : 0.5942          
-#                  Recall : 0.3565          
-#                      F1 : 0.4457          
-#              Prevalence : 0.3402          
-#          Detection Rate : 0.1213          
-#    Detection Prevalence : 0.2041          
-#       Balanced Accuracy : 0.6155          
+#             Sensitivity : 0.22727         
+#             Specificity : 0.88943         
+#          Pos Pred Value : 0.52301         
+#          Neg Pred Value : 0.68331         
+#               Precision : 0.52301         
+#                  Recall : 0.22727         
+#                      F1 : 0.31686         
+#              Prevalence : 0.34788         
+#          Detection Rate : 0.07906         
+#    Detection Prevalence : 0.15117         
+#       Balanced Accuracy : 0.55835         
 #                                           
 #        'Positive' Class : TRUE            
+
+broom::tidy(bestRecur2)
+#   term        estimate std.error statistic   p.value
+#  1 (Intercept)   -1.62      0.420      -3.86  0.000115  
+#  2 studyNCI       0.747     0.298       2.51  0.0120    
+#  3 studyNKI       0.321     0.251       1.28  0.201     
+#  4 studyPNC       0.461     0.317       1.45  0.146     
+#  5 studySTNO2     1.00      0.290       3.45  0.000551  
+#  6 studyTRANSBIG  0.898     0.273       3.29  0.000988  
+#  7 studyUCSF     -0.378     0.297      -1.27  0.204     
+#  8 studyUNC4     -0.155     0.264      -0.587 0.558     
+#  9 studyUNT       0.914     0.306       2.99  0.00278   
+# 10 studyUPP       0.0945    0.270       0.350 0.726     
+# 11 erpositive    -0.219     0.128      -1.71  0.0875    
+# 12 age           -0.00745   0.00480    -1.55  0.120     
+# 13 grade          0.405     0.0887      4.57  0.00000492
+# 14 grade:N        0.246     0.0509      4.83  0.00000135
+
+bestRecur2.1 <- glm(recurrence_status ~ 1 + batch + er + age + grade + N:grade,
+                  family = binomial(link = logit), data = pbasic)
+summary(bestRecur2.1)
+# Deviance Residuals: 
+#     Min       1Q   Median       3Q      Max  
+# -1.6288  -0.9156  -0.6422   1.1683   2.1448  
+# 
+# Coefficients:
+#   Estimate Std. Error z value Pr(>|z|)    
+#   (Intercept)  -1.433989   0.427055  -3.358 0.000785 ***
+#   batchKIU      0.725317   0.359497   2.018 0.043634 *  
+#   batchNCI      0.755595   0.298798   2.529 0.011446 *  
+#   batchNKI      1.084272   0.312665   3.468 0.000525 ***
+#   batchNKI2    -0.059698   0.268868  -0.222 0.824287    
+#   batchOXFU     1.318252   0.391109   3.371 0.000750 ***
+#   batchPNC      0.507413   0.319183   1.590 0.111897    
+#   batchSTNO2    0.993873   0.290825   3.417 0.000632 ***
+#   batchUCSF    -0.376066   0.298704  -1.259 0.208033    
+#   batchUNC4    -0.140387   0.264894  -0.530 0.596131    
+#   batchUPPT     0.349660   0.339150   1.031 0.302546    
+#   batchUPPU    -0.041122   0.304614  -0.135 0.892615    
+#   batchVDXGUYU  1.470395   0.411095   3.577 0.000348 ***
+#   batchVDXIGRU  1.061463   0.372736   2.848 0.004403 ** 
+#   batchVDXKIU   0.359897   0.395839   0.909 0.363245    
+#   batchVDXOXFU  1.397699   0.476078   2.936 0.003326 ** 
+#   batchVDXRHU   0.848753   0.411451   2.063 0.039129 *  
+#   erpositive   -0.216640   0.130545  -1.660 0.097015 .  
+#   age          -0.008774   0.004896  -1.792 0.073132 .  
+#   grade         0.315891   0.091880   3.438 0.000586 ***
+#   grade:N       0.310567   0.055556   5.590 2.27e-08 ***
+#   ---
+#   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# 
+# (Dispersion parameter for binomial family taken to be 1)
+# 
+# Null deviance: 2043.0  on 1580  degrees of freedom
+# Residual deviance: 1878.5  on 1560  degrees of freedom
+# (8127 observations deleted due to missingness)
+# AIC: 1920.5
+# 
+# Number of Fisher Scoring iterations: 4
+
+caret::confusionMatrix(table(predict(bestRecur2.1, type = "response") >= 0.5,
+                             bestRecur2.1$model$recurrence_status == "recurrence"),
+                       positive = "TRUE", mode = "everything")
+#       FALSE TRUE
+# FALSE   913  387
+# TRUE    118  163
+# 
+# Accuracy : 0.6806         
+# 95% CI : (0.657, 0.7035)
+# No Information Rate : 0.6521         
+# P-Value [Acc > NIR] : 0.009073       
+# 
+# Kappa : 0.2053         
+# 
+# Mcnemar's Test P-Value : < 2.2e-16      
+#                                          
+#             Sensitivity : 0.2964         
+#             Specificity : 0.8855         
+#          Pos Pred Value : 0.5801         
+#          Neg Pred Value : 0.7023         
+#               Precision : 0.5801         
+#                  Recall : 0.2964         
+#                      F1 : 0.3923         
+#              Prevalence : 0.3479         
+#          Detection Rate : 0.1031         
+#    Detection Prevalence : 0.1777         
+#       Balanced Accuracy : 0.5910         
+#                                          
+#        'Positive' Class : TRUE           
+
+bestRecur2.2 <- glm(recurrence_status ~ 1 + batch + age + grade + N:grade,
+                    family = binomial(link = logit), data = pbasic)
+summary(bestRecur2.2)
+# Deviance Residuals: 
+#     Min       1Q   Median       3Q      Max  
+# -1.6357  -0.9152  -0.6423   1.1740   2.1543  
+# 
+# Coefficients:
+#                 Estimate Std. Error z value Pr(>|z|)    
+#   (Intercept)  -1.623811   0.409875  -3.962 7.44e-05 ***
+#   batchKIU      0.696846   0.358769   1.942 0.052098 .  
+#   batchNCI      0.768252   0.299135   2.568 0.010221 *  
+#   batchNKI      1.058143   0.311641   3.395 0.000685 ***
+#   batchNKI2    -0.080565   0.269009  -0.299 0.764567    
+#   batchOXFU     1.233241   0.381717   3.231 0.001235 ** 
+#   batchPNC      0.542526   0.316567   1.714 0.086569 .  
+#   batchSTNO2    0.987880   0.289951   3.407 0.000657 ***
+#   batchUCSF    -0.404146   0.296024  -1.365 0.172175    
+#   batchUNC4    -0.134603   0.265122  -0.508 0.611662    
+#   batchUPPT     0.306133   0.337930   0.906 0.364985    
+#   batchUPPU    -0.061009   0.304740  -0.200 0.841323    
+#   batchVDXGUYU  1.472029   0.410762   3.584 0.000339 ***
+#   batchVDXIGRU  1.043644   0.372098   2.805 0.005035 ** 
+#   batchVDXKIU   0.348791   0.395235   0.882 0.377512    
+#   batchVDXOXFU  1.442471   0.475115   3.036 0.002397 ** 
+#   batchVDXRHU   0.849707   0.410866   2.068 0.038632 *  
+#   age          -0.009999   0.004829  -2.071 0.038387 *  
+#   grade         0.361237   0.086809   4.161 3.16e-05 ***
+#   grade:N       0.311878   0.054954   5.675 1.39e-08 ***
+#   ---
+#   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# 
+# (Dispersion parameter for binomial family taken to be 1)
+# 
+# Null deviance: 2063.0  on 1599  degrees of freedom
+# Residual deviance: 1897.1  on 1580  degrees of freedom
+# (8108 observations deleted due to missingness)
+# AIC: 1937.1
+# 
+# Number of Fisher Scoring iterations: 4
+
+caret::confusionMatrix(table(predict(bestRecur2.2, type = "response") >= 0.5,
+                             bestRecur2.2$model$recurrence_status == "recurrence"),
+                       positive = "TRUE", mode = "everything")
+#      FALSE TRUE
+# FALSE   930  392
+# TRUE    117  161
+# 
+# Accuracy : 0.6819          
+# 95% CI : (0.6584, 0.7047)
+# No Information Rate : 0.6544          
+# P-Value [Acc > NIR] : 0.01076         
+# 
+# Kappa : 0.2032          
+# 
+# Mcnemar's Test P-Value : < 2e-16         
+#                                           
+#             Sensitivity : 0.2911          
+#             Specificity : 0.8883          
+#          Pos Pred Value : 0.5791          
+#          Neg Pred Value : 0.7035          
+#               Precision : 0.5791          
+#                  Recall : 0.2911          
+#                      F1 : 0.3875          
+#              Prevalence : 0.3456          
+#          Detection Rate : 0.1006          
+#    Detection Prevalence : 0.1737          
+#       Balanced Accuracy : 0.5897          
+#                                           
+#        'Positive' Class : TRUE            
+
+bestRecurTx <- glm(recurrence_status ~ 1 + er + chemo + age + grade + N:grade,
+                 family = binomial(link = logit), data = pbasic)
+summary(bestRecurTx)
+# Deviance Residuals: 
+#     Min       1Q   Median       3Q      Max  
+# -1.4001  -0.9426  -0.7443   1.2780   1.9134  
+# 
+# Coefficients:
+#               Estimate Std. Error z value Pr(>|z|)    
+#   (Intercept) -0.732315   0.373864  -1.959  0.05014 .  
+#   erpositive  -0.255943   0.144144  -1.776  0.07580 .  
+#   chemoTRUE   -0.366302   0.177601  -2.062  0.03916 *  
+#   age         -0.013519   0.004904  -2.757  0.00584 ** 
+#   grade        0.413920   0.094267   4.391 1.13e-05 ***
+#   grade:N      0.180357   0.058968   3.059  0.00222 ** 
+#   ---
+#   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# 
+# (Dispersion parameter for binomial family taken to be 1)
+# 
+# Null deviance: 1641.2  on 1263  degrees of freedom
+# Residual deviance: 1580.1  on 1258  degrees of freedom
+# (8444 observations deleted due to missingness)
+# AIC: 1592.1
+# 
+# Number of Fisher Scoring iterations: 4
+
+caret::confusionMatrix(table(predict(bestRecurTx, type = "response") >= 0.5,
+                             bestRecurTx$model$recurrence_status == "recurrence"),
+                       positive = "TRUE", mode = "everything")
+#       FALSE TRUE
+# FALSE   762  383
+# TRUE     56   63
+# 
+# Accuracy : 0.6527         
+# 95% CI : (0.6257, 0.679)
+# No Information Rate : 0.6472         
+# P-Value [Acc > NIR] : 0.3519         
+# 
+# Kappa : 0.0874         
+# 
+# Mcnemar's Test P-Value : <2e-16         
+#                                          
+#             Sensitivity : 0.14126        
+#             Specificity : 0.93154        
+#          Pos Pred Value : 0.52941        
+#          Neg Pred Value : 0.66550        
+#               Precision : 0.52941        
+#                  Recall : 0.14126        
+#                      F1 : 0.22301        
+#              Prevalence : 0.35285        
+#          Detection Rate : 0.04984        
+#    Detection Prevalence : 0.09415        
+#       Balanced Accuracy : 0.53640        
+#                                          
+#        'Positive' Class : TRUE           
+
+bestRecurTx2 <- glm(recurrence_status ~ 1 + study + er + hormone + grade + N:grade,
+                  family = binomial(link = logit), data = pbasic)
+summary(bestRecurTx2)
+# Deviance Residuals: 
+#     Min       1Q   Median       3Q      Max  
+# -1.5077  -0.9533  -0.6791   1.2009   2.1212  
+# 
+# Coefficients:
+#                 Estimate Std. Error z value Pr(>|z|)    
+#   (Intercept)   -2.00119    0.35700  -5.606 2.07e-08 ***
+#   studyNCI       0.66321    0.29762   2.228  0.02586 *  
+#   studyNKI       0.37298    0.25691   1.452  0.14656    
+#   studySTNO2     0.93505    0.28675   3.261  0.00111 ** 
+#   studyTRANSBIG  0.87078    0.28535   3.052  0.00228 ** 
+#   studyUCSF     -0.43881    0.29738  -1.476  0.14006    
+#   studyUNT       0.85864    0.31974   2.685  0.00724 ** 
+#   studyUPP      -0.08329    0.28178  -0.296  0.76755    
+#   erpositive    -0.22391    0.14784  -1.515  0.12988    
+#   hormoneTRUE    0.09262    0.17447   0.531  0.59550    
+#   grade          0.43303    0.09640   4.492 7.05e-06 ***
+#   grade:N        0.17218    0.06183   2.785  0.00536 ** 
+#   ---
+#   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# 
+# (Dispersion parameter for binomial family taken to be 1)
+# 
+# Null deviance: 1641.2  on 1263  degrees of freedom
+# Residual deviance: 1539.6  on 1252  degrees of freedom
+# (8444 observations deleted due to missingness)
+# AIC: 1563.6
+# 
+# Number of Fisher Scoring iterations: 4
+
+caret::confusionMatrix(table(predict(bestRecurTx2, type = "response") >= 0.5,
+                             bestRecurTx2$model$recurrence_status == "recurrence"),
+                       positive = "TRUE", mode = "everything")
+#       FALSE TRUE
+# FALSE   725  338
+# TRUE     93  108
+# 
+# Accuracy : 0.659           
+# 95% CI : (0.6321, 0.6852)
+# No Information Rate : 0.6472          
+# P-Value [Acc > NIR] : 0.1969          
+# 
+# Kappa : 0.1468          
+# 
+# Mcnemar's Test P-Value : <2e-16          
+#                                           
+#             Sensitivity : 0.24215         
+#             Specificity : 0.88631         
+#          Pos Pred Value : 0.53731         
+#          Neg Pred Value : 0.68203         
+#               Precision : 0.53731         
+#                  Recall : 0.24215         
+#                      F1 : 0.33385         
+#              Prevalence : 0.35285         
+#          Detection Rate : 0.08544         
+#    Detection Prevalence : 0.15902         
+#       Balanced Accuracy : 0.56423         
+#                                           
+#        'Positive' Class : TRUE            
+
+broom::tidy(bestRecurTx2)
+#      term        estimate std.error statistic   p.value
+#  1 (Intercept)    -2.00      0.357     -5.61  0.0000000207
+#  2 studyNCI        0.663     0.298      2.23  0.0259      
+#  3 studyNKI        0.373     0.257      1.45  0.147       
+#  4 studySTNO2      0.935     0.287      3.26  0.00111     
+#  5 studyTRANSBIG   0.871     0.285      3.05  0.00228     
+#  6 studyUCSF      -0.439     0.297     -1.48  0.140       
+#  7 studyUNT        0.859     0.320      2.69  0.00724     
+#  8 studyUPP       -0.0833    0.282     -0.296 0.768       
+#  9 erpositive     -0.224     0.148     -1.51  0.130       
+# 10 hormoneTRUE     0.0926    0.174      0.531 0.596       
+# 11 grade           0.433     0.0964     4.49  0.00000705  
+# 12 grade:N         0.172     0.0618     2.78  0.00536     
+
+bestRecurTx2.1 <- glm(recurrence_status ~ 1 + batch + er + hormone + grade + N:grade,
+                    family = binomial(link = logit), data = pbasic)
+summary(bestRecurTx2.1)
+# Deviance Residuals: 
+#     Min       1Q   Median       3Q      Max  
+# -1.5570  -0.9117  -0.6500   1.1691   2.1310  
+# 
+# Coefficients:
+#                 Estimate Std. Error z value Pr(>|z|)    
+#   (Intercept)  -1.80969    0.36601  -4.944 7.64e-07 ***
+#   batchKIU      0.61187    0.38121   1.605 0.108479    
+#   batchNCI      0.69341    0.29925   2.317 0.020493 *  
+#   batchNKI      1.01297    0.33056   3.064 0.002181 ** 
+#   batchNKI2    -0.01957    0.27665  -0.071 0.943616    
+#   batchOXFU     1.18601    0.40812   2.906 0.003661 ** 
+#   batchSTNO2    0.92233    0.28786   3.204 0.001355 ** 
+#   batchUCSF    -0.44144    0.29855  -1.479 0.139235    
+#   batchUPPT     0.23757    0.34119   0.696 0.486243    
+#   batchUPPU    -0.36227    0.36490  -0.993 0.320809    
+#   batchVDXGUYU  1.36697    0.42784   3.195 0.001398 ** 
+#   batchVDXIGRU  0.99415    0.38995   2.549 0.010790 *  
+#   batchVDXKIU   0.27533    0.41257   0.667 0.504542    
+#   batchVDXOXFU  1.32008    0.48854   2.702 0.006891 ** 
+#   batchVDXRHU   0.76306    0.42743   1.785 0.074228 .  
+#   erpositive   -0.20002    0.15188  -1.317 0.187875    
+#   hormoneTRUE  -0.04429    0.19786  -0.224 0.822876    
+#   grade         0.33375    0.10070   3.314 0.000919 ***
+#   grade:N       0.24832    0.06938   3.579 0.000345 ***
+#   ---
+#   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# 
+# (Dispersion parameter for binomial family taken to be 1)
+# 
+# Null deviance: 1641.2  on 1263  degrees of freedom
+# Residual deviance: 1513.6  on 1245  degrees of freedom
+# (8444 observations deleted due to missingness)
+# AIC: 1551.6
+# 
+# Number of Fisher Scoring iterations: 4
+
+caret::confusionMatrix(table(predict(bestRecurTx2.1, type = "response") >= 0.5,
+                             bestRecurTx2.1$model$recurrence_status == "recurrence"),
+                       positive = "TRUE", mode = "everything")
+#       FALSE TRUE
+# FALSE   714  289
+# TRUE    104  157
+# 
+# Accuracy : 0.6891          
+# 95% CI : (0.6628, 0.7145)
+# No Information Rate : 0.6472          
+# P-Value [Acc > NIR] : 0.0009124       
+# 
+# Kappa : 0.2483          
+# 
+# Mcnemar's Test P-Value : < 2.2e-16       
+#                                           
+#             Sensitivity : 0.3520          
+#             Specificity : 0.8729          
+#          Pos Pred Value : 0.6015          
+#          Neg Pred Value : 0.7119          
+#               Precision : 0.6015          
+#                  Recall : 0.3520          
+#                      F1 : 0.4441          
+#              Prevalence : 0.3528          
+#          Detection Rate : 0.1242          
+#    Detection Prevalence : 0.2065          
+#       Balanced Accuracy : 0.6124          
+#                                           
+#        'Positive' Class : TRUE            
+
+bestRecurTx2.2 <- glm(recurrence_status ~ 1 + batch + chemo + hormone + grade + N:grade,
+                      family = binomial(link = logit), data = pbasic)
+summary(bestRecurTx2.2)
+# Deviance Residuals: 
+#     Min       1Q   Median       3Q      Max  
+# -1.5701  -0.9101  -0.6558   1.1477   2.1774  
+# 
+# Coefficients:
+#   Estimate Std. Error z value Pr(>|z|)    
+#   (Intercept)  -2.145205   0.370754  -5.786 7.21e-09 ***
+#   batchKIU      0.683484   0.403039   1.696  0.08992 .  
+#   batchNCI      0.789479   0.307499   2.567  0.01025 *  
+#   batchNKI      1.089780   0.351100   3.104  0.00191 ** 
+#   batchNKI2    -0.004696   0.282261  -0.017  0.98673    
+#   batchOXFU     1.194536   0.422325   2.828  0.00468 ** 
+#   batchSTNO2    0.983836   0.295479   3.330  0.00087 ***
+#   batchUCSF    -0.467527   0.296171  -1.579  0.11443    
+#   batchUPPT     0.292362   0.349241   0.837  0.40252    
+#   batchUPPU    -0.284016   0.387642  -0.733  0.46376    
+#   batchVDXGUYU  1.469644   0.447225   3.286  0.00102 ** 
+#   batchVDXIGRU  1.083582   0.410834   2.638  0.00835 ** 
+#   batchVDXKIU   0.368615   0.432337   0.853  0.39388    
+#   batchVDXOXFU  1.465629   0.506740   2.892  0.00382 ** 
+#   batchVDXRHU   0.867430   0.446812   1.941  0.05221 .  
+#   chemoTRUE     0.215528   0.215650   0.999  0.31758    
+#   hormoneTRUE  -0.037080   0.213091  -0.174  0.86186    
+#   grade         0.377347   0.095648   3.945 7.98e-05 ***
+#   grade:N       0.233927   0.072320   3.235  0.00122 ** 
+#   ---
+#   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# 
+# (Dispersion parameter for binomial family taken to be 1)
+# 
+# Null deviance: 1657.5  on 1279  degrees of freedom
+# Residual deviance: 1527.5  on 1261  degrees of freedom
+# (8428 observations deleted due to missingness)
+# AIC: 1565.5
+# 
+# Number of Fisher Scoring iterations: 4
+
+caret::confusionMatrix(table(predict(bestRecurTx2.2, type = "response") >= 0.5,
+                             bestRecurTx2.2$model$recurrence_status == "recurrence"),
+                       positive = "TRUE", mode = "everything")
+#       FALSE TRUE
+# FALSE   725  300
+# TRUE    107  148
+# 
+# Accuracy : 0.682           
+# 95% CI : (0.6557, 0.7075)
+# No Information Rate : 0.65            
+# P-Value [Acc > NIR] : 0.008472        
+# 
+# Kappa : 0.224           
+# 
+# Mcnemar's Test P-Value : < 2.2e-16       
+#                                           
+#             Sensitivity : 0.3304          
+#             Specificity : 0.8714          
+#          Pos Pred Value : 0.5804          
+#          Neg Pred Value : 0.7073          
+#               Precision : 0.5804          
+#                  Recall : 0.3304          
+#                      F1 : 0.4211          
+#              Prevalence : 0.3500          
+#          Detection Rate : 0.1156          
+#    Detection Prevalence : 0.1992          
+#       Balanced Accuracy : 0.6009          
+#                                           
+#        'Positive' Class : TRUE            
+
+
+# add pam50.  TODO:  pam50_batch, PAM50_prediction, GGI_prediction
+
+pb50 <- left_join(pbasic, select(pheno, sample_name, pam50, pam50_batch)) %>%
+  mutate(pam50 = as.factor(pam50), pam50_batch = as.factor(pam50_batch))
+
+
+
+bestRecurP50_2.2 <- glm(recurrence_status ~ 1 + batch + age + grade + N:grade + pam50,
+                    family = binomial(link = logit), data = pb50)
+summary(bestRecurP50_2.2)
+# Deviance Residuals: 
+#     Min       1Q   Median       3Q      Max  
+# -1.7931  -0.9093  -0.6243   1.1258   2.2118  
+# 
+# Coefficients:
+#   Estimate Std. Error z value Pr(>|z|)    
+#   (Intercept)  -1.687250   0.443138  -3.808 0.000140 ***
+#   batchKIU      0.654207   0.363400   1.800 0.071823 .  
+#   batchNCI      0.766571   0.306235   2.503 0.012307 *  
+#   batchNKI      1.076245   0.316541   3.400 0.000674 ***
+#   batchNKI2    -0.092945   0.272979  -0.340 0.733492    
+#   batchOXFU     1.213789   0.386859   3.138 0.001704 ** 
+#   batchPNC      0.532607   0.322280   1.653 0.098408 .  
+#   batchSTNO2    1.058873   0.296245   3.574 0.000351 ***
+#   batchUCSF    -0.298133   0.309458  -0.963 0.335344    
+#   batchUNC4    -0.067815   0.273352  -0.248 0.804067    
+#   batchUPPT     0.235944   0.343329   0.687 0.491942    
+#   batchUPPU    -0.036281   0.308826  -0.117 0.906480    
+#   batchVDXGUYU  1.481570   0.416499   3.557 0.000375 ***
+#   batchVDXIGRU  1.171006   0.378552   3.093 0.001979 ** 
+#   batchVDXKIU   0.440780   0.401035   1.099 0.271721    
+#   batchVDXOXFU  1.548313   0.480372   3.223 0.001268 ** 
+#   batchVDXRHU   0.844204   0.418024   2.020 0.043434 *  
+#   age          -0.010386   0.004883  -2.127 0.033432 *  
+#   grade         0.286161   0.094982   3.013 0.002588 ** 
+#   pam50Her2     0.518091   0.186070   2.784 0.005363 ** 
+#   pam50LumA    -0.087156   0.184510  -0.472 0.636667    
+#   pam50LumB     0.631777   0.164085   3.850 0.000118 ***
+#   pam50Normal   0.166290   0.237541   0.700 0.483898    
+#   grade:N       0.295207   0.055679   5.302 1.15e-07 ***
+#   ---
+#   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# 
+# (Dispersion parameter for binomial family taken to be 1)
+# 
+# Null deviance: 2063.0  on 1599  degrees of freedom
+# Residual deviance: 1868.1  on 1576  degrees of freedom
+# (8108 observations deleted due to missingness)
+# AIC: 1916.1
+# 
+# Number of Fisher Scoring iterations: 4
+
+caret::confusionMatrix(table(predict(bestRecurP50_2.2, type = "response") >= 0.5,
+                             bestRecurP50_2.2$model$recurrence_status == "recurrence"),
+                       positive = "TRUE", mode = "everything")
+#       FALSE TRUE
+# FALSE   916  361
+# TRUE    131  192
+# 
+# Accuracy : 0.6925          
+# 95% CI : (0.6692, 0.7151)
+# No Information Rate : 0.6544          
+# P-Value [Acc > NIR] : 0.0006701       
+# 
+# Kappa : 0.2462          
+# 
+# Mcnemar's Test P-Value : < 2.2e-16       
+#                                           
+#             Sensitivity : 0.3472          
+#             Specificity : 0.8749          
+#          Pos Pred Value : 0.5944          
+#          Neg Pred Value : 0.7173          
+#               Precision : 0.5944          
+#                  Recall : 0.3472          
+#                      F1 : 0.4384          
+#              Prevalence : 0.3456          
+#          Detection Rate : 0.1200          
+#    Detection Prevalence : 0.2019          
+#       Balanced Accuracy : 0.6110          
+#                                           
+#        'Positive' Class : TRUE            
+
+bestRecurP50b_2.2 <- glm(recurrence_status ~ 1 + batch + age + grade + N:grade + pam50_batch,
+                        family = binomial(link = logit), data = pb50)
+summary(bestRecurP50b_2.2)
+# Deviance Residuals: 
+#     Min       1Q   Median       3Q      Max  
+# -1.7931  -0.9093  -0.6243   1.1258   2.2118  
+# 
+# Coefficients:
+#   Estimate Std. Error z value Pr(>|z|)    
+#   (Intercept)  -1.687250   0.443138  -3.808 0.000140 ***
+#   batchKIU      0.654207   0.363400   1.800 0.071823 .  
+#   batchNCI      0.766571   0.306235   2.503 0.012307 *  
+#   batchNKI      1.076245   0.316541   3.400 0.000674 ***
+#   batchNKI2    -0.092945   0.272979  -0.340 0.733492    
+#   batchOXFU     1.213789   0.386859   3.138 0.001704 ** 
+#   batchPNC      0.532607   0.322280   1.653 0.098408 .  
+#   batchSTNO2    1.058873   0.296245   3.574 0.000351 ***
+#   batchUCSF    -0.298133   0.309458  -0.963 0.335344    
+#   batchUNC4    -0.067815   0.273352  -0.248 0.804067    
+#   batchUPPT     0.235944   0.343329   0.687 0.491942    
+#   batchUPPU    -0.036281   0.308826  -0.117 0.906480    
+#   batchVDXGUYU  1.481570   0.416499   3.557 0.000375 ***
+#   batchVDXIGRU  1.171006   0.378552   3.093 0.001979 ** 
+#   batchVDXKIU   0.440780   0.401035   1.099 0.271721    
+#   batchVDXOXFU  1.548313   0.480372   3.223 0.001268 ** 
+#   batchVDXRHU   0.844204   0.418024   2.020 0.043434 *  
+#   age          -0.010386   0.004883  -2.127 0.033432 *  
+#   grade         0.286161   0.094982   3.013 0.002588 ** 
+#   pam50Her2     0.518091   0.186070   2.784 0.005363 ** 
+#   pam50LumA    -0.087156   0.184510  -0.472 0.636667    
+#   pam50LumB     0.631777   0.164085   3.850 0.000118 ***
+#   pam50Normal   0.166290   0.237541   0.700 0.483898    
+#   grade:N       0.295207   0.055679   5.302 1.15e-07 ***
+#   ---
+#   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# 
+# (Dispersion parameter for binomial family taken to be 1)
+# 
+# Null deviance: 2063.0  on 1599  degrees of freedom
+# Residual deviance: 1868.1  on 1576  degrees of freedom
+# (8108 observations deleted due to missingness)
+# AIC: 1916.1
+# 
+# Number of Fisher Scoring iterations: 4
+
+caret::confusionMatrix(table(predict(bestRecurP50b_2.2, type = "response") >= 0.5,
+                             bestRecurP50b_2.2$model$recurrence_status == "recurrence"),
+                       positive = "TRUE", mode = "everything")
+#       FALSE TRUE
+# FALSE   907  364
+# TRUE    140  189
+# 
+# Accuracy : 0.685           
+# 95% CI : (0.6616, 0.7077)
+# No Information Rate : 0.6544          
+# P-Value [Acc > NIR] : 0.005151        
+# 
+# Kappa : 0.23            
+# 
+# Mcnemar's Test P-Value : < 2.2e-16       
+#                                           
+#             Sensitivity : 0.3418          
+#             Specificity : 0.8663          
+#          Pos Pred Value : 0.5745          
+#          Neg Pred Value : 0.7136          
+#               Precision : 0.5745          
+#                  Recall : 0.3418          
+#                      F1 : 0.4286          
+#              Prevalence : 0.3456          
+#          Detection Rate : 0.1181          
+#    Detection Prevalence : 0.2056          
+#       Balanced Accuracy : 0.6040          
+#                                           
+#        'Positive' Class : TRUE            
+
+bestRecurTxP50_2.2 <- glm(recurrence_status ~ 1 + batch + chemo + hormone + grade + N:grade + pam50,
+                      family = binomial(link = logit), data = pb50)
+summary(bestRecurTxP50_2.2)
+Deviance Residuals: 
+  Min       1Q   Median       3Q      Max  
+-1.6444  -0.9192  -0.6149   1.1227   2.1849  
+
+Coefficients:
+  Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  -2.05868    0.43235  -4.762 1.92e-06 ***
+  batchKIU      0.57877    0.40855   1.417 0.156587    
+batchNCI      0.76213    0.31639   2.409 0.016006 *  
+  batchNKI      1.06866    0.35631   2.999 0.002707 ** 
+  batchNKI2    -0.05007    0.28636  -0.175 0.861201    
+batchOXFU     1.11631    0.42860   2.605 0.009199 ** 
+  batchSTNO2    1.03049    0.30212   3.411 0.000647 ***
+  batchUCSF    -0.38850    0.31257  -1.243 0.213906    
+batchUPPT     0.21125    0.35499   0.595 0.551787    
+batchUPPU    -0.32140    0.39210  -0.820 0.412397    
+batchVDXGUYU  1.42998    0.45339   3.154 0.001611 ** 
+  batchVDXIGRU  1.16948    0.41706   2.804 0.005046 ** 
+  batchVDXKIU   0.41790    0.43831   0.953 0.340372    
+batchVDXOXFU  1.51947    0.51310   2.961 0.003063 ** 
+  batchVDXRHU   0.81216    0.45415   1.788 0.073727 .  
+chemoTRUE     0.19491    0.21752   0.896 0.370209    
+hormoneTRUE  -0.08615    0.21505  -0.401 0.688697    
+grade         0.26726    0.10753   2.486 0.012936 *  
+  pam50Her2     0.54062    0.21300   2.538 0.011144 *  
+  pam50LumA    -0.17766    0.20792  -0.854 0.392831    
+pam50LumB     0.59708    0.18553   3.218 0.001290 ** 
+  pam50Normal   0.12280    0.28742   0.427 0.669200    
+grade:N       0.21460    0.07328   2.928 0.003407 ** 
+  ---
+  Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+Null deviance: 1657.5  on 1279  degrees of freedom
+Residual deviance: 1501.2  on 1257  degrees of freedom
+(8428 observations deleted due to missingness)
+AIC: 1547.2
+
+Number of Fisher Scoring iterations: 4
+
+caret::confusionMatrix(table(predict(bestRecurTxP50_2.2, type = "response") >= 0.5,
+                             bestRecurTxP50_2.2$model$recurrence_status == "recurrence"),
+                       positive = "TRUE", mode = "everything")
+Confusion Matrix and Statistics
+
+
+FALSE TRUE
+FALSE   721  288
+TRUE    111  160
+
+Accuracy : 0.6883          
+95% CI : (0.6621, 0.7136)
+No Information Rate : 0.65            
+P-Value [Acc > NIR] : 0.002087        
+
+Kappa : 0.2462          
+
+Mcnemar's Test P-Value : < 2.2e-16       
                                           
-tidy(recurBE)
-#    term         estimate std.error statistic p.value
-#  1 (Intercept)   -0.407    0.902     -0.451  0.652  
-#  2 batchKIU       0.351    0.688      0.511  0.610  
-#  3 batchNCI      -0.0542   0.922     -0.0588 0.953  
-#  4 batchNKI       0.497    0.660      0.753  0.452  
-#  5 batchNKI2     -0.356    0.653     -0.545  0.586  
-#  6 batchOXFU      1.03     0.700      1.48   0.139  
-#  7 batchSTNO2    -0.900    0.845     -1.07   0.287  
-#  8 batchUCSF     -1.00     0.832     -1.20   0.229  
-#  9 batchUPPU     -0.360    0.679     -0.530  0.596  
-# 10 batchVDXGUYU   1.08     0.710      1.52   0.129  
-# 11 batchVDXIGRU   0.582    0.692      0.841  0.400  
-# 12 batchVDXKIU   -0.0878   0.703     -0.125  0.901  
-# 13 batchVDXOXFU   1.01     0.751      1.34   0.180  
-# 14 batchVDXRHU    0.416    0.710      0.586  0.558  
-# 15 age_dx        -0.0271   0.00965   -2.81   0.00502
-# 16 grade          0.368    0.132      2.78   0.00542
-# 17 N              1.10     0.399      2.75   0.00598
-# 18 erpositive    -0.0122   0.211     -0.0580 0.954  
-
-recurBE.a <- augment(recurBE, recurBE$model)
-
-# compare with glance
-library(rlang)
-
-models <- c("recur", "recurE", "recurS", "recurSE", "recurB", "recurBE")
-
-# recur = age_dx + grade + N, E = er, S = study, B = batch
-bind_cols(model = models, map(syms(models), function(x) glance(eval(x))) %>% bind_rows())
-#   model   null.deviance df.null logLik   AIC   BIC deviance df.residual  nobs
-# 1 recur            874.     682  -415.  837.  856.     829.         679   683
-# 2 recurE           867.     675  -412.  834.  857.     824.         671   676
-# 3 recurS           874.     682  -406.  833.  883.     811.         672   683
-# 4 recurSE          867.     675  -403.  829.  883.     805.         664   676
-# 5 recurB           874.     682  -397.  829.  906.     795.         666   683 *
-# 6 recurBE          867.     675  -394.  824.  905.     788.         658   676
-
-# TODO:  outlier analysis
-
-# get microarray data for control group
-controlSet <- readRDS("data/metaGxBreast/mgxSet.rds")[unique(control$study)]
-
-# not possible because of platform merge in original data?
-# # fix platform variable in control
-# stkPlatform <- read_delim("data/metaGxBreast/stkPlatform.tsv", delim = " 	") %>%
-#   separate(2, into = c("patient", "platform"), sep = "-") %>%
-#   arrange(patient) %>%
-#   mutate(patient = paste0("STK_", str_remove(substr(patient, 3, 5), "^00|^0")))
-# 
-# left_join(select(pheno, study, sample_name) %>% filter(study == "STK"),
-#   stkPlatform, by = c("sample_name" = "patient")) %>%
-#   summarize(missing = is.na(gsm)) %>%
-#   janitor::tabyl(missing)
-# # missing   n   percent
-# #   FALSE 132 0.5866667
-# #    TRUE  93 0.4133333
-# 
-# annSets <- MetaGxBreast::loadBreastEsets(unique(control$study))
-# # snapshotDate(): 2020-04-27
-# # Ids with missing data: CAL, NCI, NKI, UCSF, METABRIC
-# skt <- pData(annSets$esets$STK)
+            Sensitivity : 0.3571          
+            Specificity : 0.8666          
+         Pos Pred Value : 0.5904          
+         Neg Pred Value : 0.7146          
+              Precision : 0.5904          
+                 Recall : 0.3571          
+                     F1 : 0.4451          
+             Prevalence : 0.3500          
+         Detection Rate : 0.1250          
+   Detection Prevalence : 0.2117          
+      Balanced Accuracy : 0.6119          
+                                          
+       'Positive' Class : TRUE            
