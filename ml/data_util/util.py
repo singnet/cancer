@@ -234,7 +234,8 @@ for i in range(16):
 def binary_genes(merged, genes_columns):
     # raw improves the performance
     # multiplication by one convertes bool to int
-    merged[genes_columns] = merged[genes_columns].apply(digitize_genes_by_median, raw=True) * 1
+    for study in merged.study.unique():
+        merged.loc[merged.study == study, genes_columns] = merged.loc[merged.study == study, genes_columns].apply(digitize_genes_by_median, raw=True) * 1
     return merged
 
 
@@ -530,14 +531,24 @@ dtype = {'DFS': pandas.Int64Dtype(),
          'posOutcome': pandas.Int64Dtype()}
 
 
-def load_merged_dataset(cancer_data_dir):
-    dump_dir = os.path.join(cancer_data_dir, 'bcDump/example15bmc')
+def load_curated(cancer_data_dir, version='bmc'):
+    bmc_norm_path = os.path.join(cancer_data_dir, 'ex15bmcMerged.csv.xz')
+    empirical_bayes_path = os.path.join(cancer_data_dir, 'merged-combat15.csv.xz')
+    no_norm_path = os.path.join(cancer_data_dir, 'bc_noNorm.tar.xz')
     clinical_table_path = os.path.join(cancer_data_dir, 'bcClinicalTable.csv')
-    merged_path = os.path.join(dump_dir, 'ex15bmcMerged.csv.xz')
-    bmc_all_path = os.path.join(dump_dir, 'bmc15mldata1.csv')
+    treatment_file = os.path.join(cancer_data_dir, 'bmc15mldata1.csv')
+    if version == 'noNorm':
+        merged_path = no_norm_path
+    elif version == 'bmc':
+        merged_path = bmc_norm_path
+    elif version == 'empirical_bayes':
+        merged_path = empirical_bayes_path
+    else:
+        raise RuntimeError("only noNorm bmc and empirical_bayes are valid versions")
 
+    print('loading {0}'.format(merged_path))
     # load averaged treatment table
-    bmc = pandas.read_csv(bmc_all_path, dtype=dtype, converters=converters)
+    bmc = pandas.read_csv(treatment_file, dtype=dtype, converters=converters)
     bmc = bmc.sort_values(by='patient_ID')
 
     # load detailed treatment
