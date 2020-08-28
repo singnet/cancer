@@ -1,2 +1,2 @@
-- **curatedBreastData:** code and data for work exploring the Coincide paper results
+- **curatedBreastData:** code and data for work exploring the curatedBreastData data the Coincide paper results
 - **metaGxBreast:** code and data for work exploring the metaGxBreast data and _Three Gene_ paper results
