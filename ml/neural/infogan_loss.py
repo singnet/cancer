@@ -30,6 +30,19 @@ def invert_half_outcomes(real_gexs, valid):
     return real_gexs, new_valid, orig_outcome
 
 
+def sample_random_variables(batch_size, opt, param):
+    z = torch.as_tensor(np.random.normal(0, 1, (batch_size, opt.latent_dim))).to(param)
+    random_category = torch.randint(0, opt.n_classes, (batch_size, )).to(param.device)
+    label_input = to_categorical(random_category, num_columns=opt.n_classes)
+    if opt.distribution == 'uniform':
+        code_tmp = np.random.uniform(-1, 1, (batch_size, opt.code_dim))
+    elif opt.distribution == 'normal':
+        code_tmp = torch.normal(torch.zeros(batch_size, opt.code_dim),
+                torch.ones(batch_size, opt.code_dim))
+    code_input = torch.as_tensor(code_tmp).to(param)
+    return z, label_input, code_input, random_category
+
+
 def predictor_loss(model: 'InfoGAN', batch_gexs, labels, optimizers, opt):
     """
     Train discriminator on mix of real and generated data for outcome prediction
@@ -40,10 +53,7 @@ def predictor_loss(model: 'InfoGAN', batch_gexs, labels, optimizers, opt):
 
     batch_size = len(batch_gexs)
     # Sample noise and labels as generator input
-    z = torch.as_tensor(np.random.normal(0, 1, (batch_size, opt.latent_dim))).to(param)
-    random_category = torch.randint(0, opt.n_classes, (batch_size, )).to(param.device)
-    label_input = to_categorical(random_category, num_columns=opt.n_classes)
-    code_input = torch.as_tensor(np.random.uniform(-1, 1, (batch_size, opt.code_dim))).to(param)
+    z, label_input, code_input, _ = sample_random_variables(batch_size, opt, param)
 
 
     # ---------------------
@@ -141,11 +151,7 @@ def infogan_loss(model: 'InfoGAN', batch_gexs, labels, optimizers, opt):
     real_gexs = batch_gexs.to(param)
 
     # Sample noise and labels as generator input
-    z = torch.as_tensor(np.random.normal(0, 1, (batch_size, opt.latent_dim))).to(param)
-    random_category = torch.randint(0, opt.n_classes, (batch_size, )).to(param.device)
-    label_input = to_categorical(random_category, num_columns=opt.n_classes)
-    code_input = torch.as_tensor(np.random.uniform(-1, 1, (batch_size, opt.code_dim))).to(param)
-
+    z, label_input, code_input, random_category = sample_random_variables(batch_size, opt, param)
     # -----------------
     #  Train Generator
     # -----------------
