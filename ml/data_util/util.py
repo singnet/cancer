@@ -236,6 +236,8 @@ def binary_genes(merged, genes_columns):
     # multiplication by one convertes bool to int
     for study in merged.study.unique():
         merged.loc[merged.study == study, genes_columns] = merged.loc[merged.study == study, genes_columns].apply(digitize_genes_by_median, raw=True) * 1
+    # but not in case if only subset of rows are modified
+    merged[genes_columns] = merged[genes_columns].astype('int16')
     return merged
 
 

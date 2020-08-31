@@ -53,6 +53,7 @@ def main():
     merged = merged[~merged[label_column].isnull()]
     if dataset_type == 'metagx':
        merged = merged[merged.posOutcome.isin([-1, 1])]
+       merged.posOutcome += merged.posOutcome < 0
 
     bin_data = binarize_dataset(merged, genes_columns, feature_columns, to_letters=False)
 
