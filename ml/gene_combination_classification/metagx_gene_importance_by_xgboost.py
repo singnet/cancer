@@ -74,7 +74,7 @@ print(sorted_gene_imp[:20])
 
 features = metagx_result_data.drop(columns=cols_to_drop)
 important_genes = [x[0] for x in sorted_gene_imp]
-features_to_drop = features.loc[:, important_genes[:5000]]
+features_to_drop = features.loc[:, important_genes[:4000]]
 less_imp_features = features.drop(columns=features_to_drop).to_numpy()
 X_ = less_imp_features
 print(features.drop(columns=features_to_drop).shape)
