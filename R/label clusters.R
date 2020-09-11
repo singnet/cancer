@@ -156,6 +156,93 @@ filter(pam50labels2, pam50.x:pam50_batch.x != pam50.y:pam50_batch.y)
 # … with 5 variables: sample <chr>, pam50.x <fct>, pam50_batch.x <fct>, pam50.y <fct>,
 #   pam50_batch.y <fct>
 
+# check out three gene cluster data
+clusters <- read_csv("data/metaGxBreast/jnci-JNCI-11-0924-s02.csv", comment = "#")
+#samplename: Unique identifier for tumor samples
+#dataset: Acronym of the dataset
+#series: Batch or subcohorts of tumor samples
+#id: Identifier used in the original publication
+#age: Age at diagnosis (years)
+#er: Estrogen receptor status
+#pgr: Progesterone receptor status
+#her2: Human epidermal growth factor 2 status
+#grade: Histological grade
+#node: Nodal status
+#size: Tumor size (cm)
+#t.rfs: Time for relapse-free survival (days)
+#e.rfs: Event for relapse-free survival
+#t.dmfs: Time for distant metastasis-free survival (days)
+#e.dmfs: Event for distant metastasis-free survival
+#t.os: Time for overall survival (days)
+#e.os: Event for overall survival
+#treatment: Treatment (0=untreated; 1=treated)
+#MAMMAPRINT: Risk classification (Low/HighRisk) computed using the published algorithm of the prognostic gene signature published by van't Veer et al. (13)
+#ONCOTYPE: Risk classification (Low/Intermediate/HighRisk) computed using the published algorithm of the prognostic gene signature published by Paik et al. (15)
+#GGI: Risk classification (Low/HighRisk) computed using the published algorithm of the prognostic gene signature published by Sotiriou et al. (16)
+#SCMGENE: Subtype classification published in the present work.
+#SCMOD2: Subtype classification published by Wirapati et al. (8)
+#SCMOD1: Subtype classification published by Desmedt et al. (1)
+#PAM50: Subtype classification published by Parker et al. (3)
+#SSP2006: Subtype classification published by Hu et al. (2)
+#SSP2003: Subtype classification published by Sorlie et al. (6)
+dim(clusters)
+# [1] 5715   27
+
+table(clusters$dataset)
+
+# note extra grade level in package data
+table(clusters$grade)
+#   1    2    3 
+# 544 1440 1695 
+table(pheno$grade)
+#   1    2    3    4 
+# 701 2299 2903   15 
+
+covars <- left_join(pheno, clusters, by = c("sample_name" = "samplename"), suffix = c("_mgx", "_3g"))
+setdiff(covars$study, covars$dataset)
+# [1] "GSE25066" "GSE58644" "GSE32646" "GSE48091" "DUKE"     "EXPO"     "METABRIC" "TCGA"
+
+# extra grade level is from new metagx data sets
+table(covars$grade_mgx)
+#   1    2    3 
+# 379  940 1292 
+
+# three gene data set removes some extra samples
+covars <- filter(covars, sample_name %in% clusters$samplename)
+dim(covars)
+# [1] 4158  57
+
+dim(clusters)[1] - dim(covars)[1]
+# 1557
+
+# three studies aren't included in metagx, the rest are from DUKE, EXPO, MAQC2, and STNO2
+table(clusters$dataset[!(clusters$samplename %in% covars$sample_name)])
+# DUKE      DUKE2 EORTC10994       EXPO        KOO      MAQC2       MDA4       MDA5        MSK 
+#  171          6          2        353         53        186          4        298          1 
+# PNC      STNO2        TAM       UCSF       VDX3 
+#   1        103        242          1        136 
+
+setdiff(clusters$dataset, pheno$study)
+# [1] "TAM"  "MDA5" "VDX3"
+
+setdiff(clusters$series, pheno$batch)
+# [1] "OXFT"  "KIT"   "IGRT"  "AUST"  "VDX3"  "GUYT"  "GUYT2"
+
+table(clusters$dataset[clusters$series %in% setdiff(clusters$series, pheno$batch)])
+# MDA5  TAM VDX3 
+# 298  242  136 
+
+dim(clusters)[1] - 298 + 242 + 136
+# [1] 5795
+
+dim(clusters)[1] - (298 + 242 + 136)
+# [1] 5039
+
+dim(clusters)[1] - dim(covars)[1] - (298 + 242 + 136)
+# [1] 881
+171 + 353 + 186 + 103
+# [1] 813
+
 # intrinsic gene lists ssp2003, ssp2006, pam50 ("Basal", "Her2", "LumA", "LumB" or "Normal")
 
 # 

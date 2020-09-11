@@ -22,7 +22,7 @@ print(studies[8000:9000])
 
 # metagx_expr_data = pd.read_csv('/mnt/fileserver/shared/datasets/biodata/MetaGX/merged/noNormMergedAnd10k.csv')
 # metagx_expr_data = pd.read_csv('/mnt/fileserver/shared/datasets/biodata/MetaGX/merged/ygNormMergedAnd10k.csv')
-metagx_expr_data = pd.read_csv('/mnt/fileserver/shared/datasets/biodata/MetaGX/merged/rlNormMergedAnd10k.csv')
+metagx_expr_data = pd.read_csv('/mnt/fileserver/shared/datasets/biodata/MetaGX/merged/sqdeathNormBatchedAnd5k.csv')
 print(metagx_expr_data.shape)
 
 metagx_result_data = pd.merge(metagx_covar_data_converted, metagx_expr_data, on='sample_name')
@@ -74,7 +74,7 @@ print(sorted_gene_imp[:20])
 
 features = metagx_result_data.drop(columns=cols_to_drop)
 important_genes = [x[0] for x in sorted_gene_imp]
-features_to_drop = features.loc[:, important_genes[:5000]]
+features_to_drop = features.loc[:, important_genes[:4000]]
 less_imp_features = features.drop(columns=features_to_drop).to_numpy()
 X_ = less_imp_features
 print(features.drop(columns=features_to_drop).shape)
