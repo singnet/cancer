@@ -2,7 +2,7 @@ import pandas as pd
 import os
 import numpy as np
 import random
-import math 
+import math
 from xgboost import XGBClassifier
 from sklearn.metrics import roc_auc_score,f1_score,recall_score
 from sklearn.model_selection import KFold, RepeatedKFold, RepeatedStratifiedKFold, StratifiedKFold
@@ -10,9 +10,9 @@ from collections import Counter,defaultdict
 from funs_balance import random_upsample_balance
 from sklearn import svm
 from sklearn.linear_model import LogisticRegression
-from funs_common import read_alltreat_dataset, read_combat_dataset, prepare_full_dataset, list2d_to_4g_str_pm, drop_trea, list_to_4g_str, read_coincide_types_dataset
+from funs_common import read_alltreat_dataset, read_combat_dataset, prepare_full_dataset, list2d_to_4g_str_pm, drop_trea, list_to_4g_str, read_coincide_types_dataset, mutual_information
 import sys
-import itertools    
+import itertools
 from class_experement32_BiasedXgboost import BiasedXgboost
 from class_experement32_DoubleXgboost import DoubleXgboost
 
@@ -23,6 +23,14 @@ def read_pam_types_num_dataset():
 
 def print_counter(pam_type, y):
     c = Counter(zip(pam_type,y))
+    # x = pam50
+    # y = outcome
+    p_x_y = dict()
+    p_x = dict()
+    p_y = dict()
+    print('bias {}'.format(y.mean()))
+    p_y[1] = y.mean()
+    p_y[0] = 1 - p_y[1]
     for t in range(1,6):
         n0 = c[(t,0)]
         n1 = c[(t,1)]
@@ -30,21 +38,27 @@ def print_counter(pam_type, y):
         surv_frac = 0
         if n01 > 0:
             surv_frac = n1 / n01
-        
+
         n_frac = n01 / len(y)
-        
+        p_x_y[(t, 0)] = n0 / len(y)
+        p_x_y[(t, 1)] = n1 / len(y)
+        p_x[t] = n_frac
+
         print(f"pam_type, n01, n_frac, surv_frac: {t}  {n01:3}  {n_frac*100:5.0f}%  {surv_frac*100:5.0f}%")
+    mutual_info = mutual_information(p_x_y, p_x, p_y)
+    print("mutual information {0}".format(mutual_info))
+
 
 def print_results(dataset, set1, set2):
     X_set1, y_set1 = prepare_full_dataset(dataset.loc[dataset['patient_ID'].isin(set1)])
     X_set2, y_set2 = prepare_full_dataset(dataset.loc[dataset['patient_ID'].isin(set2)])
-    
+
     print("set1")
     print_counter(X_set1[:,0], y_set1)
     print("set2")
     print_counter(X_set2[:,0], y_set2)
-    
-                
+
+
 atreat_dataset = read_alltreat_dataset()
 dataset = read_pam_types_num_dataset()
 notrea_dataset = drop_trea(dataset)
