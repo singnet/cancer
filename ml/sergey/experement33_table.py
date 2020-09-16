@@ -49,14 +49,16 @@ def print_counter(pam_type, y):
     print("mutual information {0}".format(mutual_info))
 
 
-def print_results(dataset, set1, set2):
-    X_set1, y_set1 = prepare_full_dataset(dataset.loc[dataset['patient_ID'].isin(set1)])
-    X_set2, y_set2 = prepare_full_dataset(dataset.loc[dataset['patient_ID'].isin(set2)])
-
-    print("set1")
+def print_set(dataset, set1, y_field):
+    X_set1, y_set1 = prepare_full_dataset(dataset.loc[dataset['patient_ID'].isin(set1)],
+            y_field)
     print_counter(X_set1[:,0], y_set1)
+
+def print_results(dataset, set1, set2, y_field='posOutcome'):
+    print("set1")
+    print_set(dataset, set1, y_field)
     print("set2")
-    print_counter(X_set2[:,0], y_set2)
+    print_set(dataset, set2, y_field)
 
 
 atreat_dataset = read_alltreat_dataset()
@@ -82,5 +84,20 @@ set2 = atreat_dataset.loc[(atreat_dataset['study'] == "study_9893_GPL5049_all-bm
 print("==> study_9893_GPL5049_all-bmc15 protocol 1 vs protocol 2")
 print_results(notrea_dataset, set1, set2)
 print("==> ")
-
-
+print()
+print('posOutcome')
+print(notrea_dataset.shape)
+posOut = atreat_dataset.patient_ID
+print_set(notrea_dataset, posOut, 'posOutcome')
+print()
+print('pCR')
+pcr = atreat_dataset[~atreat_dataset.pCR.isnull()].patient_ID
+print_set(notrea_dataset, pcr, 'pCR')
+print()
+print('DFS')
+dfs = atreat_dataset[~atreat_dataset.DFS.isnull()].patient_ID
+print_set(notrea_dataset, dfs, 'DFS')
+print()
+print('RFS')
+rfs = atreat_dataset[~atreat_dataset.RFS.isnull()].patient_ID
+print_set(notrea_dataset, rfs, 'RFS')
