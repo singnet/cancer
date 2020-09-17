@@ -165,9 +165,16 @@ mgxChan <- group_by(mgxChan, Dataset) %>%
   distinct() %>%
   ungroup() %>%
   select(- Dataset)
-mgx <- left_join(pheno, mgxChan)
+pheno <- left_join(pheno, mgxChan)
 
-write_csv(mgx, "data/metaGxBreast/metaGXcovarTable.csv.xz")
+# cleanu up
+# correction of original platform with geometadb data, replaces "Affymetrix HGU"
+pheno$Platform[pheno$study == "VDX"] <- "GPL96"
+
+# replaces processing error "GPL96,GPL96"
+pheno$gpl[pheno$study == "VDX"] <- "GPL96"
+
+write_csv(pheno, "data/metaGxBreast/metaGXcovarTable.csv.xz")
 
 ## code to integrate inokenty's platform data originally in "check data mgxb.R"
 # add inokenty's platform data

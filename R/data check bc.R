@@ -378,10 +378,10 @@ table(bmc15data$radiotherapyClass)
 
 select(bmc15data, study, patient_ID, radio = radiotherapyClass, surgery = surgery_type, chemo, hormone, pCR, RFS, DFS, posOutcome) %>%
   filter(!is.na(chemo)) %>%
-write_csv("data/curatedBreastData/bcDump/example15bmc/bmc15mldata1.csv")
+write_csv("data/curatedBreastData/bmc15mldata1.csv")
 
 # add hormone, chemo, sx and outcome variables to heatmap
-mldat <- read_csv("data/curatedBreastData/bcDump/example15bmc/bmc15mldata1.csv") %>%
+mldat <- read_csv("data/curatedBreastData/bmc15mldata1.csv") %>%
   # select(patient_ID:hormone) %>%
   mutate(surgery = as.numeric(as.factor(surgery)))
 bmc15txMat3 <- cbind(bmc15txMat, as.matrix(mldat[match(mldat$patient_ID, rownames(bmc15txMat)), c(3:6, 10)]))
