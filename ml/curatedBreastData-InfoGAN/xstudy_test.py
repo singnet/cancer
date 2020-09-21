@@ -60,8 +60,10 @@ def apply_logistic_regression(train_x, train_y, test_x, test_y):
     test_predictions = logreg.predict(test_x)
     all_train_logits = logreg.predict_proba(train_x)
     all_test_logits = logreg.predict_proba(test_x)
-    train_logits = all_train_logits[range(train_y.size), train_y.astype(np.int)]
-    test_logits = all_test_logits[range(test_y.size), test_y.astype(np.int)]
+    #train_logits = all_train_logits[range(train_y.size), train_y.astype(np.int)]
+    #test_logits = all_test_logits[range(test_y.size), test_y.astype(np.int)]
+    train_logits = all_train_logits[:, 1]
+    test_logits = all_test_logits[:, 1]
     # compute accuracies
     train_accuracy = accuracy_score(train_y, train_predictions)
     test_accuracy = accuracy_score(test_y, test_predictions)
@@ -81,7 +83,8 @@ def apply_logistic_regression(train_x, train_y, test_x, test_y):
     #test_auc = roc_auc_score(test_predictions, test_logits)
     test_auc = None
     if np.unique(test_predictions).size == 2:
-        test_auc = roc_auc_score(test_predictions, test_logits)
+        #test_auc = roc_auc_score(test_predictions, test_logits)
+        test_auc = roc_auc_score(test_y, test_logits)
     return train_accuracy, test_accuracy, train_auc, recall_0, recall_1, test_auc
 
 
@@ -94,6 +97,8 @@ def apply_xgb(train_x, train_y, test_x, test_y):
     all_test_logits = xgb.predict_proba(test_x)
     train_logits = all_train_logits[range(train_y.size), train_y.astype(np.int)]
     test_logits = all_test_logits[range(test_y.size), test_y.astype(np.int)]
+    #train_logits = all_train_logits[:, 1]
+    #test_logits = all_test_logits[:, 1]
     train_accuracy = accuracy_score(train_y, train_predictions)
     test_accuracy = accuracy_score(test_y, test_predictions)
     train_auc = roc_auc_score(train_y, train_logits)
@@ -110,7 +115,8 @@ def apply_xgb(train_x, train_y, test_x, test_y):
     #test_auc = roc_auc_score(test_predictions, test_logits)
     test_auc = None
     if np.unique(test_predictions).size == 2:
-        test_auc = roc_auc_score(test_predictions, test_logits)
+        #test_auc = roc_auc_score(test_predictions, test_logits)
+        test_auc = roc_auc_score(test_y, test_logits)
     return train_accuracy, test_accuracy, train_auc, recall_0, recall_1, test_auc
 
 
