@@ -71,7 +71,7 @@ def main():
                       info=optimizer_info)
 
 
-    for epoch in range(opt.n_epochs):
+    for epoch in range(opt.start_epoch, opt.start_epoch + opt.n_epochs):
     #   start = time.monotonic()
         if (epoch + 1) % opt.test_interval == 0 and opt.test_ratio:
             loss_test = lambda *args, **kwargs: loss(*args, **kwargs, optimizers=None, opt=opt)
@@ -90,12 +90,14 @@ def main():
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", help="config file name", required=True)
+    parser.add_argument('--start-epoch', type=int, default=0, required=False,
+            help="epoch to start the count of epochs")
     args = parser.parse_args()
     print(args)
     # load config
     with open(args.config, 'r') as f:
         y = yaml.load(f, Loader=yaml.SafeLoader)
-    opt = argparse.Namespace(**y)
+    opt = argparse.Namespace(start_epoch=args.start_epoch, **y)
     return opt
 
 
