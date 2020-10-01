@@ -1,0 +1,4 @@
+
+ original num samples was  8095  after removing batches with number of samples fewer than  4  it's  8095 
+
+ batch effect detected. p-value on PCA test before was  0.002149085  after combat correction it's  0.9840818  

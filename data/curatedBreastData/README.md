@@ -1,9 +1,6 @@
-## large compressed expression matrices are available at the following links: 
-- [bc_noNorm.tar.xz](https://snet-bio-data.s3.us-west-2.amazonaws.com/example15bmc/bc_noNorm.tar.xz): expression matrices for 24 studies with 3 studies split into batches for a total of 31 files.  The gene symbols in this set are current as of August, 2020, unlike the expression sets linked below.  These have the original gene assignments from the curatedBreastData R package.  The ~10% of symbols without a current match based on this [HGNC file](https://www.genenames.org/cgi-bin/download/custom?col=gd_app_sym&col=gd_prev_sym&col=gd_aliases&col=gd_pub_eg_id&col=gd_pub_ensembl_id&status=Approved&hgnc_dbtag=on&order_by=gd_app_sym_sort&format=text&submit=submit) are retained with "_obs" added to the original symbol.
-- [example15bmc.tar.xz](https://snet-bio-data.s3.us-west-2.amazonaws.com/example15bmc/example15bmc.tar.xz): 17 expression matrices with batch mean centered (bmc) normalization
-- [ex15bmcMerged.csv.xz](https://snet-bio-data.s3-us-west-2.amazonaws.com/example15bmc/ex15bmcMerged.csv.xz): intersection of 17 matrices with bmc normalization
-- [merged-combat15.csv.xz](https://snet-bio-data.s3-us-west-2.amazonaws.com/example15bmc/merged-combat15.csv.xz):  intersection of 17 matrices with empirical bayes normalization
-## curatedBreastData files
+# curatedBreastCancer data sets
+the [BioConductor package](https://bioconductor.org/packages/release/data/experiment/html/curatedBreastData.html) is available [here](https://pubmed.ncbi.nlm.nih.gov/31217513/).
+- **microarray data:** links to expression sets from the curatedBreastCancer studies with alternate normalizations## curatedBreastData files
 - **pam50** PAM50 centroid data for reproducing the Coincide paper results
 - **bcTabs.ods** data dictionary and clinical data from the curatedBreastData R package used in Coincide paper
 
@@ -19,11 +16,11 @@
 **bcOutcomeVars** - treatment outcome variables including including time to event data  
 **bcClinicalTable** - dump of clinical variables for all patients in breast cancer data set  
 
-### Gene Expression data
- [**example15bmc.tar.xz**](https://s3.console.aws.amazon.com/s3/buckets/snet-bio-data/example15bmc/example15bmc.tar.xz) - subset of patients from 15 studies (2 studies are divided into 2 batches so 17 expression level files) with at least 3 years of post-treatment follow up  
- [**merged-combat15.csv.xz**](https://snet-bio-data.s3-us-west-2.amazonaws.com/example15bmc/merged-combat15.csv.xz) - the 15 studies above combined using empirical bayes normalization as implemented by the `ComBat` function of the `sva` Bioconductor package of expression values leaving 8,832 overlapping genes (studies range from 12,722 to 18,260 genes).  
-
 ### Initial ML data set
+### Gene Expression data
+ **[example15bmc.tar.xz](https://s3.console.aws.amazon.com/s3/buckets/snet-bio-data/example15bmc/example15bmc.tar.xz)** - subset of patients from 15 studies (2 studies are divided into 2 batches so 17 expression level files) with at least 3 years of post-treatment follow up  
+ **[merged-combat15.csv.xz](https://snet-bio-data.s3-us-west-2.amazonaws.com/example15bmc/merged-combat15.csv.xz)** - the 15 studies above combined using empirical bayes normalization as implemented by the `ComBat` function of the `sva` Bioconductor package of expression values leaving 8,832 overlapping genes (studies range from 12,722 to 18,260 genes).  
+
 For initial supervised ML pipeline experiments, a set of composite binary treatment and outcome variables [[bmc15mlData1.csv]](https://github.com/singnet/cancer/blob/master/data/curatedBreastData/bmc15mldata1.csv) has been constructed to combine with the subset of expression data sets or the merged expression dataset described in the previous section.  
 ### `bmc15mldata`
 `study` - csv file name containing sample expression data  
