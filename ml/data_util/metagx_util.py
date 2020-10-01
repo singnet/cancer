@@ -117,6 +117,7 @@ def load_metagx_dataset(base_path, min_genes=10000, study_mapping=metagx_study_m
         tar1 = tarfile.open(not_norm_path, 'r:xz')
         tar2 = tarfile.open(not_norm_path1, 'r:xz')
     for tar in (tar1, tar2):
+        print('reading {0}'.format(tar.name))
         for member in tar.getmembers():
             f = tar.extractfile(member)
             if f is not None:
@@ -161,12 +162,12 @@ def load_metagx_dataset(base_path, min_genes=10000, study_mapping=metagx_study_m
     merged = merged.reset_index()
     merged = merged[merged.sample_type == 'tumor']
 
-    result = dict(covariates=covariates_table, genes_features=genes_list,
+    result = dict(covariates=covariates_table, genes_features=genes_features,
+            genes_columns=genes_list,
             merged=merged)
 
     convert_covars(merged)
     return result
-
 
 
 if __name__ == '__main__':

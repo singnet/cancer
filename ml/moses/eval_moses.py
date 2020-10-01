@@ -78,8 +78,8 @@ def evaluate_moses(train_path, val_path, moses_out_path, target='posOutcome'):
     for val_est, train_est in zip(val_est_list, train_est_list):
         i += 1
         result = defaultdict(list)
-        compute_metrics(result, val_data.posOutcome.to_list(), val_est,
-                train_data.posOutcome.to_list(), train_est)
+        compute_metrics(result, val_data[target].to_list(), val_est,
+                train_data[target].to_list(), train_est)
         results[i] = result
     return results
 

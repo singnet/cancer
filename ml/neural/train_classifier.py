@@ -10,16 +10,7 @@ from network import Net
 from network import compute_classifier_loss
 from data_util.util import compute_metrics
 from train_genes import get_datasets
-
-
-def loss_callback(model, data, target, optimizer=dict(), extractor=None):
-    with torch.no_grad():
-        shape = data.shape
-        x = data.reshape(shape[0], numpy.prod(shape[1:]))
-        out = extractor(x)
-    # data = out['output'] - features
-    data = out['code'] # encoder
-    return compute_classifier_loss(model, data, target, optimizer)
+from training import loss_callback_with_extractor as loss_callback
 
 
 def main():

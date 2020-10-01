@@ -11,7 +11,7 @@ import concurrent.futures
 from eval_moses import evaluate_moses
 
 
-s = "asmoses -i {train_path} --log-file {log_path} --hc-fraction-of-nn 0.01 -j10 --balance 1 --result-count 100 --reduct-knob-building-effort=1 --hc-crossover-min-neighbors=500 --fs-focus=all --fs-seed=init -m 60000 --hc-max-nn-evals=100000 -l debug -q 0.05 -u {target} --output-with-labels=1 --logical-perm-ratio=-0.95 --complexity-ratio=1 --max-time={max_time}"
+s = "asmoses -i {train_path} --log-file {log_path} --hc-fraction-of-nn 0.01 -j10 --balance 1 --result-count 100 --reduct-knob-building-effort=1 --hc-crossover-min-neighbors=500 --fs-focus=all --fs-seed=init -m {max_eval} --hc-max-nn-evals=100000 -l debug -q 0.05 -u {target} --output-with-labels=1 --logical-perm-ratio=-0.95 --complexity-ratio=1 --max-time={max_time}"
 
 
 def get_train_val_path(data_dir, study):
@@ -27,9 +27,12 @@ def get_train_val_path(data_dir, study):
 
 def get_results(logs_dir, data_dir, target):
     accuracy = []
+    i = 0
     for f in os.listdir(logs_dir):
         m = re.match('log_(.+?).out', f)
         if m:
+            i += 1
+            print('{0} study'.format(i))
             out_path = os.path.join(logs_dir, f)
             study = m.group(1)
             train_path, val_path = get_train_val_path(data_dir, study)
@@ -69,6 +72,8 @@ def parse_args():
                         help='path to store logs')
     parser.add_argument('--target', default='',
                         help='target variable name')
+    parser.add_argument('--max-evaluations', default=60000, type=int,
+                        help="max evaluations")
     parser.add_argument('--max-time', default=56800, type=int,
                         help="max running time in seconds")
     args = parser.parse_args()
@@ -80,6 +85,7 @@ def main():
     data_dir = os.path.expanduser(args.data_dir)
     logs_dir = os.path.expanduser(args.logs_dir)
     max_time = args.max_time
+    max_eval = args.max_evaluations
     target = args.target
     if not target:
         print('target must be provided')
@@ -101,8 +107,10 @@ def main():
         if len(futures) <= 5:
             study, train_path, val_path = train_val_path.pop()
             log_path = os.path.join(logs_dir, 'log_{0}.txt.log'.format(study))
+            if os.path.exists(log_path):
+                print('not running study {0} - log exists'.format(study))
             s_tmp = s.format(train_path=train_path, log_path=log_path, target=target,
-                    max_time=str(max_time))
+                    max_time=str(max_time), max_eval=str(max_eval))
             future = executor.submit(subprocess.run, shlex.split(s_tmp),
                     stdout=subprocess.PIPE,
                     stderr=subprocess.STDOUT,
@@ -122,4 +130,5 @@ def main():
     get_results(logs_dir, data_dir, target)
 
 if __name__ == '__main__':
+    #get_results('./logs.dfs', '/home/noskill/projects/cancer.old/bin/leave_one.DFS', 'DFS')
     main()

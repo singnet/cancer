@@ -11,11 +11,11 @@ from network import Net, compute_loss_adversarial_enc, compute_loss_autoenc
 from training import train, test
 from dataset import GeneDataset
 from transform import DataLabelCompose, ToTensor
-from data_util.util import load_merged_dataset, random_split
+from data_util.util import load_curated, random_split
 
 
 
-def get_datasets(label_columns=['study'], transform=None, balance_train=True):
+def get_datasets(label_columns=['study'], transform=None, balance_train=True, ratio=0.1):
     cancer_data_dir = '/home/noskill/projects/cancer.old/data'
     dataset_dict = load_merged_dataset(cancer_data_dir)
     merged = dataset_dict['merged']
@@ -28,7 +28,8 @@ def get_datasets(label_columns=['study'], transform=None, balance_train=True):
        transform = DataLabelCompose(to_tensor, to_tensor)
 
     train_data, train_labels, val_data, val_labels = random_split(merged,
-            feature_columns, label_columns, balance_train=balance_train, balance_by_study=False)
+            feature_columns, label_columns, balance_train=balance_train, balance_by_study=False,
+            ratio=ratio)
     # assert val_labels.mean() == 0.5
     train_set = GeneDataset(train_data, train_labels, transform)
     test_set = GeneDataset(val_data, val_labels, transform)

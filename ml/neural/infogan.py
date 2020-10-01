@@ -47,12 +47,12 @@ class Generator(nn.Module):
         input_dim = opt.latent_dim + opt.n_classes + opt.code_dim
 
         self.dense_block = nn.Sequential(
-            nn.Linear(input_dim, 256),
-            nn.BatchNorm1d(256),
-            nn.LeakyReLU(0.2, inplace=True),
-            nn.Linear(256, 512),
+            nn.Linear(input_dim, 512),
             nn.BatchNorm1d(512),
-            nn.LeakyReLU(0.2, inplace=True),
+            nn.LeakyReLU(inplace=True),
+            nn.Linear(512, 512),
+            nn.BatchNorm1d(512),
+            nn.LeakyReLU(inplace=True),
             nn.Linear(512, size),
         )
         self.binary = binary
@@ -75,29 +75,30 @@ class StudyGen(nn.Module):
         super().__init__()
         assert not binary
         assert not continious
-        self.degree = opt.degree
-        self.n_studies = opt.n_classes
-        self.poly_param = nn.Parameter(torch.tensor(np.random.random((self.degree + 1, self.n_studies, size - binary - continious)).astype(np.float32),  requires_grad=True))
         input_dim = opt.latent_dim + opt.code_dim
-
         self.dense_block = nn.Sequential(
-            nn.Linear(input_dim, 256),
-            nn.BatchNorm1d(256),
-            nn.LeakyReLU(0.2, inplace=True),
-            nn.Linear(256, 512),
+            nn.Linear(input_dim, 512),
             nn.BatchNorm1d(512),
-            nn.LeakyReLU(0.2, inplace=True),
+            nn.LeakyReLU(inplace=True),
+            nn.Linear(512, 512),
+            nn.BatchNorm1d(512),
+            nn.LeakyReLU(inplace=True),
             nn.Linear(512, size),
         )
         self.binary = binary
         self.continious = continious
+
+        self.degree = opt.degree
+        self.n_studies = opt.n_classes
+        self.poly_param = nn.Parameter(torch.tensor(np.random.random((self.degree + 1, self.n_studies, size - binary - continious)).astype(np.float32),  requires_grad=True))
         init_weights(self)
 
     def forward(self, noise, labels, code):
         gen_input = torch.cat((noise, code), -1)
-        img = self.dense_block(gen_input)
+        img = torch.abs(self.dense_block(gen_input))
         lab = labels.nonzero()[:,1]
-        result = sum([img ** i * self.poly_param[i][lab] for i in range(self.degree + 1)])
+        result = sum([img ** i * torch.abs(self.poly_param[i][lab]) for i in range(1, self.degree + 1)])
+        result = result + self.poly_param[0][lab]
         return result
 
 
@@ -108,18 +109,20 @@ class Discriminator(nn.Module):
         assert not binary
         self.dense_blocks = nn.Sequential(
             nn.utils.spectral_norm(nn.Linear(size - binary, 512)),
-            nn.LeakyReLU(0.2, inplace=True),
+            nn.LeakyReLU(inplace=True),
             nn.utils.spectral_norm(nn.Linear(512, 512)),
-            nn.LeakyReLU(0.2, inplace=True),
+            nn.LeakyReLU(inplace=True),
+            nn.utils.spectral_norm(nn.Linear(512, 512)),
+            nn.LeakyReLU(inplace=True),
         )
 
         # Output layers
         self.adv_layer = nn.Sequential(nn.Linear(512, 1), nn.Sigmoid())
         self.category_layer = nn.Sequential(nn.Linear(512, opt.n_classes))
-        self.latent_layer = nn.Sequential(nn.Linear(512, opt.code_dim), nn.Tanh())
-        self.predictor = nn.Sequential(nn.Linear(opt.code_dim, 256), nn.LeakyReLU(),
-                nn.Linear(256, 1), nn.Sigmoid())
-
+        tmp = (nn.Linear(512, 512), nn.LeakyReLU(), nn.Linear(512, opt.code_dim))
+        if opt.distribution == 'uniform':
+            tmp = tmp + (nn.Tanh(), )
+        self.latent_layer = nn.Sequential(*tmp)
         self.binary = binary
         if binary:
             self.adv_layer = nn.Sequential(nn.Linear(opt.code_dim + binary, 256),
@@ -143,3 +146,8 @@ class Discriminator(nn.Module):
             assert False # handle binary and continious
         validity = self.adv_layer(out)
         return validity, categorical_code, latent_code
+
+    def extract_features(self, gexs):
+        valid, categorical, latent_code = self(torch.as_tensor(gexs).to(next(self.parameters())))
+        return latent_code
+

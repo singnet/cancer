@@ -22,16 +22,25 @@ class GeneDataset(torch.utils.data.Dataset):
         return len(self.features)
 
 
-def get_merged_common_dataset(opt, skip_study=None):
+def get_merged_common_dataset(opt, skip_study=None, dataset_dict_cache=[], data_cache=[]):
     cancer_data_dir = opt.curated_breast_data_dir
-    dataset_dict = util.load_merged_dataset(cancer_data_dir)
-    mergedCurated = dataset_dict['merged']
+    if dataset_dict_cache:
+        dataset_dict = dataset_dict_cache[0]
+    else:
+        dataset_dict = util.load_curated(cancer_data_dir)
+        dataset_dict_cache.append(dataset_dict)
+    mergedCurated = dataset_dict['merged'].copy()
 
-    data = metagx_util.load_metagx_dataset(opt.metagx_data_dir, min_genes=opt.min_genes)
-    merged = data['merged']
-    genes_list = data['genes_features']
+    if data_cache:
+        data = data_cache[0]
+    else:
+        data = metagx_util.load_metagx_dataset(opt.metagx_data_dir, min_genes=opt.min_genes)
+        data_cache.append(data)
+    merged = data['merged'].copy()
+    genes_list = data['genes_features'].copy()
 
     metagx_pos_outcome = merged[merged.posOutcome.isin([-1, 1])]
+    print('num pos outcome studies {0}'.format(len(metagx_pos_outcome.study.unique())))
     if skip_study is not None:
         study_to_skip = metagx_pos_outcome.study.unique()[skip_study]
     else:
