@@ -146,7 +146,7 @@ sapply(cbcMat, dim)
 
 # TODO: interpolate missing values to increase gene list
 # dump alligned expression files
-dir.create("data/curatedBreastData/bcDump")
+dir.create("data/curatedBreastData/microarray data/")
 # dir.create("./data/curatedBreastData/bcDump/maxSet")
 # for(n in 1:length(cbcMat)) {
 #   write_csv(tibble::as_tibble(t(cbcMat[[n]]), rownames("patientID")),
@@ -197,11 +197,11 @@ sapply(bcd, dim)
 # [2,]                            71                          54                          115
 
 # save aligned expression sets
-dir.create("./data/curatedBreastData/bcDump/example15bmc")
+dir.create("./data/curatedBreastData/microarray data/example15bmc")
 for(n in 1:length(bcd)) {
   write_csv(data.frame(patient_ID = colnames(bcd[[n]]),
                        t(bcd[[n]])),
-            paste0("./data/curatedBreastData/bcDump/example15bmc/", names(bcd)[n], ".csv.xz"))
+            paste0("./data/curatedBreastData/microarray data/example15bmc/", names(bcd)[n], ".csv.xz"))
 }
 
 # pick treatment variables for ml datasets
@@ -275,9 +275,9 @@ patient2batch <- unique(data.frame(color.order = batch, study = as.factor(ct$stu
 
 # make combined treatment vector for initial ml study
 chemoVars <- colnames(bmc15txMat)[c(6:12, 14, 16, 18:20)]
-writeLines(chemoVars, "data/curatedBreastData/bcDump/example15bmc/bmc15chemoVars")
+writeLines(chemoVars, "data/curatedBreastData/microarray data/example15bmc/bmc15chemoVars")
 hormoneVars <- colnames(bmc15txMat)[c(1, 3:5, 13, 15)]
-writeLines(hormoneVars, "data/curatedBreastData/bcDump/example15bmc/bmc15hormoneVars")
+writeLines(hormoneVars, "data/curatedBreastData/microarray data/example15bmc/bmc15hormoneVars")
 
 bmc15data1 <- left_join(bmc15samples, tibble(patient_ID = rownames(bmc15txMat), as_tibble(bmc15txMat))) %>%
   mutate(chemo = rowSums(.[chemoVars])) %>%
@@ -318,9 +318,9 @@ length(intersect(RFSsamples, pCRsamples))
 length(union(pCRsamples, union(RFSsamples, DFSsamples)))
 # [1] 2225
 
-writeLines(as.character(pCRsamples), "./data/curatedBreastData/bcDump/example15bmc/pCRsamples")
-writeLines(as.character(RFSsamples), "./data/curatedBreastData/bcDump/example15bmc/RFSsamples")
-writeLines(as.character(DFSsamples), "./data/curatedBreastData/bcDump/example15bmc/DFSsamples")
+writeLines(as.character(pCRsamples), "./data/curatedBreastData/microarray data/example15bmc/pCRsamples")
+writeLines(as.character(RFSsamples), "./data/curatedBreastData/microarray data/example15bmc/RFSsamples")
+writeLines(as.character(DFSsamples), "./data/curatedBreastData/microarray data/example15bmc/DFSsamples")
 
 # make combined output vector for initial ml experiment
 bmc15data <- left_join(bmc15data1, bmc15outTab) %>%
@@ -405,7 +405,7 @@ bmc15coTab <- bmc15coTab[, bmc15coTabMissing != 2225]
 ## make merged dataset
 cbd <-readRDS("~/R/CoINcIDE/breast_analysis/curatedBreastData_dataMatrixList_proc_minVar001_min10kGenes_min40Samples.rds")
 
-bcdMerged <- mergeDatasetList(cbd, batchNormalize = "BMC", outputFile = "data/curatedBreastData/merged_datasets/bmc15")
+bcdMerged <- mergeDatasetList(cbd, batchNormalize = "BMC", outputFile = "data/curatedBreastData/microarray data/bmc15")
 dim(bcdMerged$mergedExprMatrix)
 # [1] 8832 2237
 
@@ -430,7 +430,7 @@ summary(rowMeans(bcdCombat))
 # -4.843e-16 -5.594e-17 -1.175e-18 -5.240e-19  5.324e-17  4.712e-16 
 
 # try applying comBat directly on merged dataset with no normalization
-bcdMerged2 <- mergeDatasetList(cbd, batchNormalize = "none", outputFile = "data/curatedBreastData/merged_datasets/none15")
+bcdMerged2 <- mergeDatasetList(cbd, batchNormalize = "none", outputFile = "data/curatedBreastData/microarray data/none15")
 dim(bcdMerged2$mergedExprMatrix)
 # [1] 8832 2237
 
@@ -450,10 +450,10 @@ summary(colMeans(bcdCombat2))
 summary(rowMeans(bcdCombat2))
 #  Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 # 2.345   3.669   5.218   5.360   6.661  12.718 
-write_csv(as_tibble(t(bcdCombat2), rownames = "patient_ID"), "data/curatedBreastData/bcDump/merged-combat15.csv.xz")
+write_csv(as_tibble(t(bcdCombat2), rownames = "patient_ID"), "data/curatedBreastData/microarray data/merged-combat15.csv.xz")
 
 # try applying comBat directly
-bcdMerged3 <- mergeDatasetList(cbd, batchNormalize = "combat", outputFile = "data/curatedBreastData/merged_datasets/combat15")
+bcdMerged3 <- mergeDatasetList(cbd, batchNormalize = "combat", outputFile = "data/curatedBreastData/microarray data/combat15")
 # no batch effect detected. Before p-value was  0.1308666  
 # Error in mergeDatasetList(cbd, batchNormalize = "combat", outputFile = "data/curatedBreastData/merged_datasets/combat15") : 
 #   object 'sampleDataPostCombat' not found
@@ -468,7 +468,7 @@ length(intersect(pam50Short, row.names(bcdMerged$mergedExprMatrix)))
 # [1] 35
 
 write_csv(data.frame(patient_ID = colnames(bcdMerged$mergedExprMatrix),
-                     t(bcdMerged$mergedExprMatrix)), "./data/curatedBreastData/bcDump/example15bmc/ex15bmcMerged.csv.xz")
+                     t(bcdMerged$mergedExprMatrix)), "./data/curatedBreastData/microarray data/example15bmc/ex15bmcMerged.csv.xz")
 
 # make dump of un-normalized study expression matrices
 # simplify study names
@@ -575,10 +575,10 @@ cbcMat <- map(cbcMat, maxSdGroup)
 
 saveRDS(map(cbcMat, ungroup), "data/curatedBreastData/cbcMatCurrent.rds")
 
-dir.create("data/curatedBreastData/noNorm", recursive = TRUE)
+dir.create("data/curatedBreastData/microarray data/noNorm", recursive = TRUE)
 for(n in names(cbcMat)) {
   expMat <- transpose_df(column_to_rownames(cbcMat[[n]], "hgnc"))
   names(expMat)[1] <- "sample_name"
   mutate(expMat, across(where(is.numeric), formatC, digits = 6, format = "f")) %>%
-    write_csv(paste0("data/curatedBreastData/noNorm/", n, "_noNorm.csv.xz"))
+    write_csv(paste0("data/curatedBreastData/microarray data/noNorm/", n, "_noNorm.csv.xz"))
 }
