@@ -467,6 +467,7 @@ length(intersect(centroidMatrix$geneSymbol, row.names(bcdMerged$mergedExprMatrix
 length(intersect(pam50Short, row.names(bcdMerged$mergedExprMatrix)))
 # [1] 35
 
+# NOTE: this file is modified in "demo code prep.R" to fix replacement of "-" with "." in column names
 write_csv(data.frame(patient_ID = colnames(bcdMerged$mergedExprMatrix),
                      t(bcdMerged$mergedExprMatrix)), "./data/curatedBreastData/microarray data/example15bmc/ex15bmcMerged.csv.xz")
 
