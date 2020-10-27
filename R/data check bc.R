@@ -380,6 +380,53 @@ select(bmc15data, study, patient_ID, radio = radiotherapyClass, surgery = surger
   filter(!is.na(chemo)) %>%
 write_csv("data/curatedBreastData/bmc15mldata1.csv")
 
+## make table of info on 15 studies
+bcStudies <- names(cbc) %>%
+  str_split("_", n = 4) %>%
+  transpose() %>%
+  map(unlist) %>%
+  set_names(c("x", "gse", "gpl", "batch")) %>%
+  as_tibble() %>%
+  select(- x) %>%
+  mutate(gse = paste0("GSE", gse), batch = na_if(batch, "all"))
+
+# get sample & feature counts
+bcCounts <- map(cbcMat, dim) %>%
+  transpose() %>%
+  map(unlist) %>%
+  set_names(c("n genes", "n samples")) %>%
+  as_tibble()
+bcStudies <- bind_cols(bcStudies, bcCounts)
+
+# use geometadb to find additional info for studies table
+# GEOmetadb::getSQLiteFile("/mnt/biodata/GEO")
+con <- DBI::dbConnect(RSQLite::SQLite(), "/mnt/biodata/GEO/GEOmetadb.sqlite")
+gse <- tbl(con, "gse") %>%
+  filter(gse %in% !!bcStudies$gse) %>%
+  select(gse, title, pubmed_id, summary, web_link, overall_design, repeats, repeats_sample_list)
+bcStudies <- left_join(bcStudies, gse, copy = TRUE)
+DBI::dbDisconnect(con)
+
+# add channel counts
+bcChannelCounts <- read_csv("data/curatedBreastData/bcStudyChannelCount.csv") %>%
+  select(-2) %>%
+  transmute(gse = str_remove(study_ID, ",GSE25066|GSE16716,"), channel_count = channel_count) %>%
+  distinct()
+bcStudies <- left_join(bcStudies, bcChannelCounts)
+
+# save complete table (repeats are all NA)
+bcStudies <- select(bcStudies, - repeats, - repeats_sample_list)
+write_csv(bcStudies, "data/curatedBreastData/bcStudiesInfo.csv")
+
+# make markup table of 15 merged studies for README
+bc15studies <- filter(bcStudies, gse %in% (pull(pdata, series_id) %>% str_remove(",GSE25066|GSE16716,"))) %>%
+  filter(`n samples` >= 40) %>%
+  mutate(pubmed_id = paste0("[", pubmed_id, "](https://pubmed.ncbi.nlm.nih.gov/", pubmed_id, "/)"))
+bc15studies <- bc15studies[, c(1, 6:8, 10, 2:5, 11)]
+
+# convert to markdown for pasting in to readme
+#  merge batch lines (GSE17705 & GSE25065) by hand and add link to GSE20194 summary - http://edkb.fda.gov/MAQC/
+knitr::kable(bc15studies, "pipe")
 # add hormone, chemo, sx and outcome variables to heatmap
 mldat <- read_csv("data/curatedBreastData/bmc15mldata1.csv") %>%
   # select(patient_ID:hormone) %>%

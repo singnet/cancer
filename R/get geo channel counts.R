@@ -9,10 +9,10 @@ gsm <- tbl(con, "gsm") %>%
 
 # get bc data info
 ct <- read_csv("data/curatedBreastData/bcClinicalTable.csv", guess_max = 10000)
-bcFiles <- list.files("~/R/cancer.old/data/bcDump/example15bmc/", pattern = "^study", full.names = TRUE)
+bcFiles <- list.files("data/curatedBreastData/microarray data/example15bmc/", pattern = "^study", full.names = TRUE)
 bc15 <- map(bcFiles, read_csv)
 names(bc15) <- paste0("GSE",
-                str_remove(bcFiles, "^/home/mozi/R/cancer.old/data/bcDump/example15bmc//study_") %>%
+                str_remove(bcFiles, "^/home/mozi/R/cancer/data/curatedBreastData/example15bmc//study_") %>%
                 str_remove("_all-bmc15.csv.xz|-bmc15.csv.xz"))
 
 # geoquery check confirms only one of 15 studies in merged dataset bmc15 is two channel (GSE22226)

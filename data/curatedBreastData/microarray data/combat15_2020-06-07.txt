@@ -1,0 +1,8 @@
+
+ original num samples was  2237  after removing batches with number of samples fewer than  4  it's  2237 
+
+ no batch effect detected. Before p-value was  0.1308666  
+
+ original num samples was  2237  after removing batches with number of samples fewer than  4  it's  2237 
+
+ no batch effect detected. Before p-value was  0.1308666  

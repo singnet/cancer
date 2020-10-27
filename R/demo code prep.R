@@ -43,7 +43,7 @@ summary(colMeans(combat15[, -1]))
 # 2.345   3.669   5.218   5.360   6.661  12.718 
 
 # compare esetVis - ualizations
-# make esets
+# add subtyping data
 pdata <- filter(ct, patient_ID %in% noNorm15$patient_ID) %>%
   select(where(~ sum(is.na(.)) != 2237)) %>%
   select(-4, -5, -7:-10, -13, -14) %>%
@@ -52,7 +52,18 @@ pdata <- filter(ct, patient_ID %in% noNorm15$patient_ID) %>%
   left_join(select(pam50coincide, - pam_cat)) %>%
   rename(pam_coincide = pam_name)
 
-# add subtyping data
+# add combined outcome variable
+bmc15mldata1 <- read_csv("data/curatedBreastData/bmc15mldata1.csv") 
+
+# these samples (from GSE9893 and GSE19615) are missing from merged data set
+# TODO: were these removed as duplicages by coincide merge function?
+setdiff(pdata$patient_ID, bmc15mldata1$patient_ID)
+#[1] 249619 249623 249659 249670 249682 249683 250009 491205 491228 491285 491185 491188
+pdata <- left_join(pdata, bmc15mldata1) %>%
+  mutate(posOutcome2 = coalesce(RFS, DFS)) %>%
+  mutate(radio = as.factor(radio), surgery = as.factor(surgery),chemo = as.factor(chemo), hormone = as.factor(hormone), pCR = as.factor(pCR), RFS = as.factor(RFS), DFS, posOutcome = as.factor(posOutcome), posOutcome2 = as.factor(posOutcome2))
+
+# make esets
 pdata <- column_to_rownames(pdata, "patient_ID")
 
 noNorm15es <- t(noNorm15[, -1])
@@ -67,128 +78,224 @@ combat15es <- Biobase::ExpressionSet(combat15es, Biobase::AnnotatedDataFrame(pda
 
 ## plot
 # NOTE:  esetVis imports MASS which replaces dplyr "select"
-library(esetVis)
 
-print(esetSpectralMap(noNorm15es,
+# qc plots showing channel counts
+non12 <- esetVis::esetSpectralMap(noNorm15es,
                       title = "15 batch seperated breast cancer microarray data sets\n no normalization",
                       colorVar = "series_id", # color = colorPalette,
-                      shapeVar = "channel_count", shape = 15:16,
+                      shapeVar = "channel_count", shape = c(1, 4),
                       # shapeVar = "channel_count", shape = 15:16,
                       # sizeVar = "age", sizeRange = c(2, 6),
                       # symmetryAxes = "separate",
                       topGenes = 20, topGenesJust = c(1, 0), topGenesCex = 2, topGenesColor = "darkgrey",
                       topSamples = 15, topSamplesVar = "patient_ID", topSamplesColor = "black",
-                      topSamplesJust = c(1, 0), topSamplesCex = 3)
-)
+                      topSamplesJust = c(1, 0), topSamplesCex = 3,
+                      returnAnalysis = TRUE)
 
-print(esetSpectralMap(noNorm15es,
+
+non34 <- esetVis::esetSpectralMap(noNorm15es,
                       title = "15 batch seperated breast cancer microarray data sets\n no normalization",
                       colorVar = "series_id", # color = colorPalette,
-                      shapeVar = "channel_count", shape = 15:16,
+                      shapeVar = "channel_count", shape = c(1, 4),
                       # sizeVar = "age", sizeRange = c(2, 6),
                       # symmetryAxes = "separate",
                       topGenes = 20, topGenesJust = c(1, 0), topGenesCex = 2, topGenesColor = "darkgrey",
                       topSamples = 15, topSamplesVar = "patient_ID", topSamplesColor = "black",
                       topSamplesJust = c(1, 0), topSamplesCex = 3,
-                      dim = 3:4)
-      )
-
-print(esetSpectralMap(bmc15es,
+                      dim = 3:4, returnAnalysis = TRUE)
+      
+bmc12 <- esetVis::esetSpectralMap(bmc15es,
                       title = "15 batch seperated breast cancer microarray data sets\n BMC normalization",
                       colorVar = "series_id", # color = colorPalette,
-                      shapeVar = "channel_count", shape = 15:16,
+                      shapeVar = "channel_count", shape = c(1, 4),
                       # sizeVar = "age", sizeRange = c(2, 6),
                       # symmetryAxes = "separate",
                       topGenes = 20, topGenesJust = c(1, 0), topGenesCex = 2, topGenesColor = "darkgrey",
-                      topSamples = 15, topSamplesVar = "patient_ID", topSamplesColor = "black",
-                      topSamplesJust = c(1, 0), topSamplesCex = 3)
-)
-
-print(esetSpectralMap(bmc15es,
+                      topSamplesJust = c(1, 0), topSamplesCex = 3,
+                      returnAnalysis = TRUE)
+      
+bmc34 <- esetVis::esetSpectralMap(bmc15es,
                       title = "15 batch seperated breast cancer microarray data sets\n BMC normalization",
                       colorVar = "series_id", # color = colorPalette,
-                      shapeVar = "channel_count", shape = 15:16,
+                      shapeVar = "channel_count", shape = c(1, 4),
                       # sizeVar = "age", sizeRange = c(2, 6),
                       # symmetryAxes = "separate",
                       topGenes = 20, topGenesJust = c(1, 0), topGenesCex = 2, topGenesColor = "darkgrey",
                       topSamples = 15, topSamplesVar = "patient_ID", topSamplesColor = "black",
                       topSamplesJust = c(1, 0), topSamplesCex = 3,
-                      dim = 3:4)
-)
+                      dim = 3:4, returnAnalysis = TRUE)
+      
 
-print(esetSpectralMap(combat15es,
+com12 <- esetVis::esetSpectralMap(combat15es,
                       title = "15 batch seperated breast cancer microarray data sets\n ComBat normalization",
                       colorVar = "series_id", # color = colorPalette,
-                      shapeVar = "channel_count", shape = 15:16,
-                      # sizeVar = "age", sizeRange = c(2, 6),
-                      # symmetryAxes = "separate",
-                      topGenes = 20, topGenesJust = c(1, 0), topGenesCex = 2, topGenesColor = "darkgrey",
-                      topSamples = 15, topSamplesVar = "patient_ID", topSamplesColor = "black",
-                      topSamplesJust = c(1, 0), topSamplesCex = 3)
-)
-
-print(esetSpectralMap(combat15es,
-                      title = "15 batch seperated breast cancer samples \n ComBat normalization",
-                      colorVar = "series_id", # color = colorPalette,
-                      shapeVar = "channel_count", shape = 15:16,
+                      shapeVar = "channel_count", shape = c(1, 4),
                       # sizeVar = "age", sizeRange = c(2, 6),
                       # symmetryAxes = "separate",
                       topGenes = 20, topGenesJust = c(1, 0), topGenesCex = 2, topGenesColor = "darkgrey",
                       topSamples = 15, topSamplesVar = "patient_ID", topSamplesColor = "black",
                       topSamplesJust = c(1, 0), topSamplesCex = 3,
-                      dim = 3:4)
-)
+                      returnAnalysis = TRUE)
+      
+com34 <- esetVis::esetSpectralMap(combat15es,
+                      title = "15 batch seperated breast cancer samples \n ComBat normalization",
+                      colorVar = "series_id", # color = colorPalette,
+                      shapeVar = "channel_count", shape = c(1, 4),
+                      # sizeVar = "age", sizeRange = c(2, 6),
+                      # symmetryAxes = "separate",
+                      topGenes = 20, topGenesJust = c(1, 0), topGenesCex = 2, topGenesColor = "darkgrey",
+                      topSamples = 15, topSamplesVar = "patient_ID", topSamplesColor = "black",
+                      topSamplesJust = c(1, 0), topSamplesCex = 3,
+                      dim = 3:4, returnAnalysis = TRUE)
 
-# TODO: compute pam50 $ other subtypes
-# get infogan embeddings
-files <- list.files("ml/InfoGANs_latent_codes/curatedBreastData/")
-cig <-  map(files, ~ read_csv(paste0("ml/InfoGANs_latent_codes/curatedBreastData/", .))) %>%
-  set_names(str_remove(files, ".csv"))
+esp <- c(non12, non34, bmc12, bmc34, com12, com34)
+for(n in esp) print(n)
 
-# make table of info on 15 studies
-bcStudies <- names(cbc) %>%
-  str_split("_", n = 4) %>%
-  transpose() %>%
-  map(unlist) %>%
-  set_names(c("x", "gse", "gpl", "batch")) %>%
-  as_tibble() %>%
-  select(- x) %>%
-  mutate(gse = paste0("GSE", gse), batch = na_if(batch, "all"))
+# plots showing outcome
+non12_2 <- esetVis::esetSpectralMap(noNorm15es,
+                                  title = "15 batch seperated breast cancer microarray data sets\n no normalization",
+                                  colorVar = "series_id", # color = colorPalette,
+                                  shapeVar = "posOutcome2", shape = c(1, 4, 20),
+                                  # shapeVar = "channel_count", shape = 15:16,
+                                  # sizeVar = "age", sizeRange = c(2, 6),
+                                  # symmetryAxes = "separate",
+                                  topGenes = 20, topGenesJust = c(1, 0), topGenesCex = 2, topGenesColor = "darkgrey",
+                                  topSamples = 15, topSamplesVar = "patient_ID", topSamplesColor = "black",
+                                  topSamplesJust = c(1, 0), topSamplesCex = 3,
+                                  returnAnalysis = TRUE)
 
-# get sample & feature counts
-bcCounts <- map(cbcMat, dim) %>%
-  transpose() %>%
-  map(unlist) %>%
-  set_names(c("n genes", "n samples")) %>%
-  as_tibble()
-bcStudies <- bind_cols(bcStudies, bcCounts)
 
-# use geometadb to find additional for geo studies
-# GEOmetadb::getSQLiteFile("/mnt/biodata/GEO")
-con <- DBI::dbConnect(RSQLite::SQLite(), "/mnt/biodata/GEO/GEOmetadb.sqlite")
-gse <- tbl(con, "gse") %>%
-  filter(gse %in% !!bcStudies$gse) %>%
-  select(gse, title, pubmed_id, summary, web_link, overall_design, repeats, repeats_sample_list)
-bcStudies <- left_join(bcStudies, gse, copy = TRUE)
-DBI::dbDisconnect(con)
+non34_2 <- esetVis::esetSpectralMap(noNorm15es,
+                                  title = "15 batch seperated breast cancer microarray data sets\n no normalization",
+                                  colorVar = "series_id", # color = colorPalette,
+                                  shapeVar = "posOutcome2", shape = c(1, 4, 20),
+                                  # sizeVar = "age", sizeRange = c(2, 6),
+                                  # symmetryAxes = "separate",
+                                  topGenes = 20, topGenesJust = c(1, 0), topGenesCex = 2, topGenesColor = "darkgrey",
+                                  topSamples = 15, topSamplesVar = "patient_ID", topSamplesColor = "black",
+                                  topSamplesJust = c(1, 0), topSamplesCex = 3,
+                                  dim = 3:4, returnAnalysis = TRUE)
 
-# add channel counts
-bcChannelCounts <- read_csv("data/curatedBreastData/bcStudyChannelCount.csv") %>%
-  select(-2) %>%
-  transmute(gse = str_remove(study_ID, ",GSE25066|GSE16716,"), channel_count = channel_count) %>%
-  distinct()
-bcStudies <- left_join(bcStudies, bcChannelCounts)
+bmc12_2 <- esetVis::esetSpectralMap(bmc15es,
+                                  title = "15 batch seperated breast cancer microarray data sets\n BMC normalization",
+                                  colorVar = "series_id", # color = colorPalette,
+                                  shapeVar = "posOutcome2", shape = c(1, 4, 20),
+                                  # sizeVar = "age", sizeRange = c(2, 6),
+                                  # symmetryAxes = "separate",
+                                  topGenes = 20, topGenesJust = c(1, 0), topGenesCex = 2, topGenesColor = "darkgrey",
+                                  topSamplesJust = c(1, 0), topSamplesCex = 3,
+                                  returnAnalysis = TRUE)
 
-# save complete table (repeats are all NA)
-bcStudies <- select(bcStudies, - repeats, - repeats_sample_list)
-write_csv(bcStudies, "data/curatedBreastData/bcStudiesInfo.csv")
+bmc34_2 <- esetVis::esetSpectralMap(bmc15es,
+                                  title = "15 batch seperated breast cancer microarray data sets\n BMC normalization",
+                                  colorVar = "series_id", # color = colorPalette,
+                                  shapeVar = "posOutcome2", shape = c(1, 4, 20),
+                                  # sizeVar = "age", sizeRange = c(2, 6),
+                                  # symmetryAxes = "separate",
+                                  topGenes = 20, topGenesJust = c(1, 0), topGenesCex = 2, topGenesColor = "darkgrey",
+                                  topSamples = 15, topSamplesVar = "patient_ID", topSamplesColor = "black",
+                                  topSamplesJust = c(1, 0), topSamplesCex = 3,
+                                  dim = 3:4, returnAnalysis = TRUE)
 
-# make markup table of 15 merged studies for README
-bc15studies <- filter(bcStudies, gse %in% (pull(pdata, series_id) %>% str_remove(",GSE25066|GSE16716,"))) %>%
-  filter(`n samples` >= 40) %>%
-  mutate(pubmed_id = paste0("[", pubmed_id, "](https://pubmed.ncbi.nlm.nih.gov/", pubmed_id, "/)"))
-bc15studies <- bc15studies[, c(1, 6:8, 10, 2:5, 11)]
 
-# convert to markdown for pasting in to readme
-#  merge batch lines (GSE17705 & GSE25065) by hand and add link to GSE20194 summary - http://edkb.fda.gov/MAQC/
-knitr::kable(bc15studies, "pipe")
+com12_2 <- esetVis::esetSpectralMap(combat15es,
+                                  title = "15 batch seperated breast cancer microarray data sets\n ComBat normalization",
+                                  colorVar = "series_id", # color = colorPalette,
+                                  shapeVar = "posOutcome2", shape = c(1, 4, 20),
+                                  # sizeVar = "age", sizeRange = c(2, 6),
+                                  # symmetryAxes = "separate",
+                                  topGenes = 20, topGenesJust = c(1, 0), topGenesCex = 2, topGenesColor = "darkgrey",
+                                  topSamples = 15, topSamplesVar = "patient_ID", topSamplesColor = "black",
+                                  topSamplesJust = c(1, 0), topSamplesCex = 3,
+                                  returnAnalysis = TRUE)
+
+com34_2 <- esetVis::esetSpectralMap(combat15es,
+                                  title = "15 batch seperated breast cancer samples \n ComBat normalization",
+                                  colorVar = "series_id", # color = colorPalette,
+                                  shapeVar = "posOutcome2", shape = c(1, 4, 20),
+                                  # sizeVar = "age", sizeRange = c(2, 6),
+                                  # symmetryAxes = "separate",
+                                  topGenes = 20, topGenesJust = c(1, 0), topGenesCex = 2, topGenesColor = "darkgrey",
+                                  topSamples = 15, topSamplesVar = "patient_ID", topSamplesColor = "black",
+                                  topSamplesJust = c(1, 0), topSamplesCex = 3,
+                                  dim = 3:4, returnAnalysis = TRUE)
+
+esp_2 <- c(non12_2, non34_2, bmc12_2, bmc34_2, com12_2, com34_2)
+for(n in esp_2) print(n)
+
+# analyze individual studies gse9893 and gse20194 with bmc normalization
+gse9893 <- read_csv("data/curatedBreastData/microarray data/example15bmc/study_9893_GPL5049_all-bmc15.csv.xz")
+pdata9893 <- filter(pdata15, patient_ID %in% gse9893$patient_ID) %>%
+  # mutate(RFS = as.logical(RFS)) %>%
+  column_to_rownames("patient_ID")
+gse9893es <- t(gse9893[, -1])
+colnames(gse9893es) <- gse9893$patient_ID
+gse9893es <- Biobase::ExpressionSet(gse9893es, Biobase::AnnotatedDataFrame(pdata9893))
+s9893 <- esetVis::esetSpectralMap(gse9893es,
+                               title = "GSE9893 microarray data set\n BMC normalization",
+                               colorVar = "pam_coincide", # color = ggplotColours(5),
+                               shapeVar = "RFS", shape = c(1, 4),
+                               # shapeVar = "channel_count", shape = 15:16,
+                               # sizeVar = "age", sizeRange = c(2, 6),
+                               # symmetryAxes = "separate",
+                               topGenes = 20, topGenesJust = c(1, 0), topGenesCex = 2, topGenesColor = "darkgrey",
+                               topSamples = 15, topSamplesVar = "patient_ID", topSamplesColor = "black",
+                               topSamplesJust = c(1, 0), topSamplesCex = 3,
+                               returnAnalysis = TRUE)
+print(s9893$plot)
+
+s9893_34 <- esetVis::esetSpectralMap(gse9893es,
+                                  title = "GSE9893 microarray data set\n BMC normalization",
+                                  colorVar = "pam_coincide", # color = colorPalette,
+                                  shapeVar = "RFS", shape = c(1, 4),
+                                  # shapeVar = "channel_count", shape = 15:16,
+                                  # sizeVar = "age", sizeRange = c(2, 6),
+                                  # symmetryAxes = "separate",
+                                  topGenes = 20, topGenesJust = c(1, 0), topGenesCex = 2, topGenesColor = "darkgrey",
+                                  topSamples = 15, topSamplesVar = "patient_ID", topSamplesColor = "black",
+                                  topSamplesJust = c(1, 0), topSamplesCex = 3,
+                                  dim = 3:4, returnAnalysis = TRUE)
+print(s9893_34$plot)
+
+gse20194 <- read_csv("data/curatedBreastData/microarray data/example15bmc/study_20194_GPL96_all-bmc15.csv.xz")
+pdata20194 <- filter(pdata15, patient_ID %in% gse20194$patient_ID) %>%
+  # mutate(pCR = as.logical(pCR)) %>%
+  column_to_rownames("patient_ID")
+gse20194es <- t(gse20194[, -1])
+colnames(gse20194es) <- gse20194$patient_ID
+gse20194es <- Biobase::ExpressionSet(gse20194es, Biobase::AnnotatedDataFrame(pdata20194))
+s20194 <- esetVis::esetSpectralMap(GOexpress::subEset(gse20194es, list(treatment_protocol_number = c(1, 5))),
+                               title = "GSE20194 breast cancer microarray data set\n BMC normalization",
+                               colorVar = "pam_coincide", # color = colorPalette,
+                               shapeVar = "pCR", shape = c(1, 4),
+                               # shapeVar = "channel_count", shape = 15:16,
+                               sizeVar = "treatment_protocol_number", sizeRange = c(2, 4),
+                               # symmetryAxes = "separate",
+                               topGenes = 20, topGenesJust = c(1, 0), topGenesCex = 2, topGenesColor = "darkgrey",
+                               topSamples = 15, topSamplesVar = "patient_ID", topSamplesColor = "black",
+                               topSamplesJust = c(1, 0), topSamplesCex = 3,
+                               returnAnalysis = TRUE)
+
+print(s20194$plot)
+
+s20194_34 <- esetVis::esetSpectralMap(GOexpress::subEset(gse20194es, list(treatment_protocol_number = c(1, 5))),
+                                   title = "GSE20194 breast cancer microarray data set\n BMC normalization",
+                                   colorVar = "pam_coincide", # color = colorPalette,
+                                   shapeVar = "pCR", shape = c(1, 4),
+                                   # shapeVar = "channel_count", shape = 15:16,
+                                   sizeVar = "treatment_protocol_number", sizeRange = c(2, 4),
+                                   # symmetryAxes = "separate",
+                                   topGenes = 20, topGenesJust = c(1, 0), topGenesCex = 2, topGenesColor = "darkgrey",
+                                   topSamples = 15, topSamplesVar = "patient_ID", topSamplesColor = "black",
+                                   topSamplesJust = c(1, 0), topSamplesCex = 3,
+                                   dim = 3:4, returnAnalysis = TRUE)
+
+print(s20194_34$plot)
+
+save(bmc15es, combat15es, noNorm15es, gse9893es, gse20194es, file = "data/curatedBreastData/mlEsets.rdata")
+broman::manyboxplot(Biobase::exprs(noNorm15es))
+broman::manyboxplot(Biobase::exprs(bmc15es))
+broman::manyboxplot(Biobase::exprs(combat15es))
+broman::manyboxplot(Biobase::exprs(gse9893es))
+broman::manyboxplot(Biobase::exprs(gse20194es))
+
