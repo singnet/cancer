@@ -1,0 +1,785 @@
+loading /home/noskill/projects/cancer/data/curatedBreastData/merged-combat15.csv.xz
+running baseline
+
+testing on ['RFSorDFS']
+0
+study_1379_GPL1223_all-bmc15
+accuracy: 0.6
+auc: 0.6071428571428572
+bias: 0.5333333333333333
+studies better than bias 1
+1
+study_1379_GPL1223_all-bmc15
+accuracy: 0.6
+auc: 0.6071428571428572
+bias: 0.5333333333333333
+studies better than bias 1
+2
+study_1379_GPL1223_all-bmc15
+accuracy: 0.6
+auc: 0.6071428571428572
+bias: 0.5333333333333333
+studies better than bias 1
+3
+study_1379_GPL1223_all-bmc15
+accuracy: 0.6
+auc: 0.6071428571428572
+bias: 0.5333333333333333
+studies better than bias 1
+4
+study_1379_GPL1223_all-bmc15
+accuracy: 0.6
+auc: 0.6071428571428572
+bias: 0.5333333333333333
+studies better than bias 1
+recall: 0.9607774393668845
+precision: 0.7541702822191233
+f1: 0.8423068814770353
+confusion: [[ 2.30769231 31.38461538]
+ [ 3.76923077 91.30769231]]
+train_f1: 1.0
+train_confusion: [[ 404.30769231    0.        ]
+ [   0.         1140.92307692]]
+bias: 0.7483800925484967
+accuracy: 0.739714212301112
+auc: 0.6032099910276848
+studies better than bias {'study_1379_GPL1223_all-bmc15'}
+running PCA
+
+
+
+PCA components 25
+
+testing on ['RFSorDFS']
+0
+study_1379_GPL1223_all-bmc15
+accuracy: 0.5666666666666667
+auc: 0.6216517857142857
+bias: 0.5333333333333333
+studies better than bias 1
+1
+study_1379_GPL1223_all-bmc15
+accuracy: 0.5666666666666667
+auc: 0.6216517857142857
+bias: 0.5333333333333333
+studies better than bias 1
+2
+study_1379_GPL1223_all-bmc15
+accuracy: 0.5666666666666667
+auc: 0.6216517857142857
+bias: 0.5333333333333333
+studies better than bias 1
+3
+study_1379_GPL1223_all-bmc15
+accuracy: 0.5666666666666667
+auc: 0.6216517857142857
+bias: 0.5333333333333333
+studies better than bias 1
+4
+study_1379_GPL1223_all-bmc15
+accuracy: 0.5666666666666667
+auc: 0.6216517857142857
+bias: 0.5333333333333333
+studies better than bias 1
+recall: 0.9262931651877665
+precision: 0.7591252831390694
+f1: 0.8289319628399292
+confusion: [[ 3.38461538 30.30769231]
+ [ 7.         88.07692308]]
+train_f1: 1.0
+train_confusion: [[ 404.30769231    0.        ]
+ [   0.         1140.92307692]]
+bias: 0.7483800925484967
+accuracy: 0.7200462750535217
+auc: 0.5987683572970844
+studies better than bias {'study_1379_GPL1223_all-bmc15'}
+
+
+PCA components 50
+
+testing on ['RFSorDFS']
+0
+study_1379_GPL1223_all-bmc15
+accuracy: 0.5666666666666667
+auc: 0.6205357142857143
+bias: 0.5333333333333333
+study_17705_GPL96_MDACC_Tissue_BC_Tamoxifen-bmc15
+accuracy: 0.7333333333333333
+auc: 0.6222428913101249
+bias: 0.7282051282051282
+study_19615_GPL570_all-bmc15
+accuracy: 0.8818181818181818
+auc: 0.7819940476190477
+bias: 0.8727272727272727
+studies better than bias 3
+1
+study_1379_GPL1223_all-bmc15
+accuracy: 0.5666666666666667
+auc: 0.6205357142857143
+bias: 0.5333333333333333
+study_17705_GPL96_MDACC_Tissue_BC_Tamoxifen-bmc15
+accuracy: 0.7333333333333333
+auc: 0.6222428913101249
+bias: 0.7282051282051282
+study_19615_GPL570_all-bmc15
+accuracy: 0.8818181818181818
+auc: 0.7819940476190477
+bias: 0.8727272727272727
+studies better than bias 3
+2
+study_1379_GPL1223_all-bmc15
+accuracy: 0.5666666666666667
+auc: 0.6205357142857143
+bias: 0.5333333333333333
+study_17705_GPL96_MDACC_Tissue_BC_Tamoxifen-bmc15
+accuracy: 0.7333333333333333
+auc: 0.6222428913101249
+bias: 0.7282051282051282
+study_19615_GPL570_all-bmc15
+accuracy: 0.8818181818181818
+auc: 0.7819940476190477
+bias: 0.8727272727272727
+studies better than bias 3
+3
+study_1379_GPL1223_all-bmc15
+accuracy: 0.5666666666666667
+auc: 0.6205357142857143
+bias: 0.5333333333333333
+study_17705_GPL96_MDACC_Tissue_BC_Tamoxifen-bmc15
+accuracy: 0.7333333333333333
+auc: 0.6222428913101249
+bias: 0.7282051282051282
+study_19615_GPL570_all-bmc15
+accuracy: 0.8818181818181818
+auc: 0.7819940476190477
+bias: 0.8727272727272727
+studies better than bias 3
+4
+study_1379_GPL1223_all-bmc15
+accuracy: 0.5666666666666667
+auc: 0.6205357142857143
+bias: 0.5333333333333333
+study_17705_GPL96_MDACC_Tissue_BC_Tamoxifen-bmc15
+accuracy: 0.7333333333333333
+auc: 0.6222428913101249
+bias: 0.7282051282051282
+study_19615_GPL570_all-bmc15
+accuracy: 0.8818181818181818
+auc: 0.7819940476190477
+bias: 0.8727272727272727
+studies better than bias 3
+recall: 0.9330074401647593
+precision: 0.7512102773908582
+f1: 0.8274920089327373
+confusion: [[ 2.69230769 31.        ]
+ [ 5.84615385 89.23076923]]
+train_f1: 1.0
+train_confusion: [[ 404.30769231    0.        ]
+ [   0.         1140.92307692]]
+bias: 0.7483800925484967
+accuracy: 0.7162415582612062
+auc: 0.6161265587373784
+studies better than bias {'study_17705_GPL96_MDACC_Tissue_BC_Tamoxifen-bmc15', 'study_1379_GPL1223_all-bmc15', 'study_19615_GPL570_all-bmc15'}
+
+
+PCA components 75
+
+testing on ['RFSorDFS']
+0
+study_1379_GPL1223_all-bmc15
+accuracy: 0.55
+auc: 0.5569196428571428
+bias: 0.5333333333333333
+study_2034_GPL96_all-bmc15
+accuracy: 0.6328671328671329
+auc: 0.5971388294261996
+bias: 0.6258741258741258
+studies better than bias 2
+1
+study_1379_GPL1223_all-bmc15
+accuracy: 0.55
+auc: 0.5569196428571428
+bias: 0.5333333333333333
+study_2034_GPL96_all-bmc15
+accuracy: 0.6328671328671329
+auc: 0.5971388294261996
+bias: 0.6258741258741258
+studies better than bias 2
+2
+study_1379_GPL1223_all-bmc15
+accuracy: 0.55
+auc: 0.5569196428571428
+bias: 0.5333333333333333
+study_2034_GPL96_all-bmc15
+accuracy: 0.6328671328671329
+auc: 0.5971388294261996
+bias: 0.6258741258741258
+studies better than bias 2
+3
+study_1379_GPL1223_all-bmc15
+accuracy: 0.55
+auc: 0.5569196428571428
+bias: 0.5333333333333333
+study_2034_GPL96_all-bmc15
+accuracy: 0.6328671328671329
+auc: 0.5971388294261996
+bias: 0.6258741258741258
+studies better than bias 2
+4
+study_1379_GPL1223_all-bmc15
+accuracy: 0.55
+auc: 0.5569196428571428
+bias: 0.5333333333333333
+study_2034_GPL96_all-bmc15
+accuracy: 0.6328671328671329
+auc: 0.5971388294261996
+bias: 0.6258741258741258
+studies better than bias 2
+recall: 0.9386321971964315
+precision: 0.7556013323476565
+f1: 0.8313979341004326
+confusion: [[ 2.46153846 31.23076923]
+ [ 5.46153846 89.61538462]]
+train_f1: 1.0
+train_confusion: [[ 404.30769231    0.        ]
+ [   0.         1140.92307692]]
+bias: 0.7483800925484967
+accuracy: 0.7217162675963584
+auc: 0.6191549119376023
+studies better than bias {'study_2034_GPL96_all-bmc15', 'study_1379_GPL1223_all-bmc15'}
+
+
+PCA components 100
+
+testing on ['RFSorDFS']
+0
+study_2034_GPL96_all-bmc15
+accuracy: 0.6433566433566433
+auc: 0.6024643658956821
+bias: 0.6258741258741258
+studies better than bias 1
+1
+study_2034_GPL96_all-bmc15
+accuracy: 0.6433566433566433
+auc: 0.6024643658956821
+bias: 0.6258741258741258
+studies better than bias 1
+2
+study_2034_GPL96_all-bmc15
+accuracy: 0.6433566433566433
+auc: 0.6024643658956821
+bias: 0.6258741258741258
+studies better than bias 1
+3
+study_2034_GPL96_all-bmc15
+accuracy: 0.6433566433566433
+auc: 0.6024643658956821
+bias: 0.6258741258741258
+studies better than bias 1
+4
+study_2034_GPL96_all-bmc15
+accuracy: 0.6433566433566433
+auc: 0.6024643658956821
+bias: 0.6258741258741258
+studies better than bias 1
+recall: 0.9404213535105619
+precision: 0.7582211999753127
+f1: 0.8342231589208066
+confusion: [[ 3.07692308 30.61538462]
+ [ 5.46153846 89.61538462]]
+train_f1: 1.0
+train_confusion: [[ 404.30769231    0.        ]
+ [   0.         1140.92307692]]
+bias: 0.7483800925484967
+accuracy: 0.7261845797868658
+auc: 0.6310224063416441
+studies better than bias {'study_2034_GPL96_all-bmc15'}
+
+
+PCA components 125
+
+testing on ['RFSorDFS']
+0
+study_1379_GPL1223_all-bmc15
+accuracy: 0.55
+auc: 0.4877232142857143
+bias: 0.5333333333333333
+study_2034_GPL96_all-bmc15
+accuracy: 0.6328671328671329
+auc: 0.5798308359003812
+bias: 0.6258741258741258
+study_25065_GPL96_USO-bmc15
+accuracy: 0.8148148148148148
+auc: 0.6810506566604128
+bias: 0.7592592592592593
+studies better than bias 3
+1
+study_1379_GPL1223_all-bmc15
+accuracy: 0.55
+auc: 0.4877232142857143
+bias: 0.5333333333333333
+study_2034_GPL96_all-bmc15
+accuracy: 0.6328671328671329
+auc: 0.5798308359003812
+bias: 0.6258741258741258
+study_25065_GPL96_USO-bmc15
+accuracy: 0.8148148148148148
+auc: 0.6810506566604128
+bias: 0.7592592592592593
+studies better than bias 3
+2
+study_1379_GPL1223_all-bmc15
+accuracy: 0.55
+auc: 0.4877232142857143
+bias: 0.5333333333333333
+study_2034_GPL96_all-bmc15
+accuracy: 0.6328671328671329
+auc: 0.5798308359003812
+bias: 0.6258741258741258
+study_25065_GPL96_USO-bmc15
+accuracy: 0.8148148148148148
+auc: 0.6810506566604128
+bias: 0.7592592592592593
+studies better than bias 3
+3
+study_1379_GPL1223_all-bmc15
+accuracy: 0.55
+auc: 0.4877232142857143
+bias: 0.5333333333333333
+study_2034_GPL96_all-bmc15
+accuracy: 0.6328671328671329
+auc: 0.5798308359003812
+bias: 0.6258741258741258
+study_25065_GPL96_USO-bmc15
+accuracy: 0.8148148148148148
+auc: 0.6810506566604128
+bias: 0.7592592592592593
+studies better than bias 3
+4
+study_1379_GPL1223_all-bmc15
+accuracy: 0.55
+auc: 0.4877232142857143
+bias: 0.5333333333333333
+study_2034_GPL96_all-bmc15
+accuracy: 0.6328671328671329
+auc: 0.5798308359003812
+bias: 0.6258741258741258
+study_25065_GPL96_USO-bmc15
+accuracy: 0.8148148148148148
+auc: 0.6810506566604128
+bias: 0.7592592592592593
+studies better than bias 3
+recall: 0.9505305306355532
+precision: 0.7596526857735751
+f1: 0.8399216046643612
+confusion: [[ 2.76923077 30.92307692]
+ [ 4.92307692 90.15384615]]
+train_f1: 1.0
+train_confusion: [[ 404.30769231    0.        ]
+ [   0.         1140.92307692]]
+bias: 0.7483800925484967
+accuracy: 0.7356055780093926
+auc: 0.6262073865633554
+studies better than bias {'study_25065_GPL96_USO-bmc15', 'study_2034_GPL96_all-bmc15', 'study_1379_GPL1223_all-bmc15'}
+
+
+PCA components 150
+
+testing on ['RFSorDFS']
+0
+study_1379_GPL1223_all-bmc15
+accuracy: 0.55
+auc: 0.5580357142857143
+bias: 0.5333333333333333
+study_9893_GPL5049_all-bmc15
+accuracy: 0.6621621621621622
+auc: 0.6235977564102565
+bias: 0.6486486486486487
+study_22226_GPL1708_all-bmc15
+accuracy: 0.6953125
+auc: 0.5823863636363636
+bias: 0.6875
+studies better than bias 3
+1
+study_1379_GPL1223_all-bmc15
+accuracy: 0.55
+auc: 0.5580357142857143
+bias: 0.5333333333333333
+study_9893_GPL5049_all-bmc15
+accuracy: 0.6621621621621622
+auc: 0.6235977564102565
+bias: 0.6486486486486487
+study_22226_GPL1708_all-bmc15
+accuracy: 0.6953125
+auc: 0.5823863636363636
+bias: 0.6875
+studies better than bias 3
+2
+study_1379_GPL1223_all-bmc15
+accuracy: 0.55
+auc: 0.5580357142857143
+bias: 0.5333333333333333
+study_9893_GPL5049_all-bmc15
+accuracy: 0.6621621621621622
+auc: 0.6235977564102565
+bias: 0.6486486486486487
+study_22226_GPL1708_all-bmc15
+accuracy: 0.6953125
+auc: 0.5823863636363636
+bias: 0.6875
+studies better than bias 3
+3
+study_1379_GPL1223_all-bmc15
+accuracy: 0.55
+auc: 0.5580357142857143
+bias: 0.5333333333333333
+study_9893_GPL5049_all-bmc15
+accuracy: 0.6621621621621622
+auc: 0.6235977564102565
+bias: 0.6486486486486487
+study_22226_GPL1708_all-bmc15
+accuracy: 0.6953125
+auc: 0.5823863636363636
+bias: 0.6875
+studies better than bias 3
+4
+study_1379_GPL1223_all-bmc15
+accuracy: 0.55
+auc: 0.5580357142857143
+bias: 0.5333333333333333
+study_9893_GPL5049_all-bmc15
+accuracy: 0.6621621621621622
+auc: 0.6235977564102565
+bias: 0.6486486486486487
+study_22226_GPL1708_all-bmc15
+accuracy: 0.6953125
+auc: 0.5823863636363636
+bias: 0.6875
+studies better than bias 3
+recall: 0.9643688446743242
+precision: 0.7515404872479579
+f1: 0.8409075369457014
+confusion: [[ 1.84615385 31.84615385]
+ [ 3.46153846 91.61538462]]
+train_f1: 1.0
+train_confusion: [[ 404.30769231    0.        ]
+ [   0.         1140.92307692]]
+bias: 0.7483800925484967
+accuracy: 0.733929480013706
+auc: 0.6468174203149114
+studies better than bias {'study_9893_GPL5049_all-bmc15', 'study_22226_GPL1708_all-bmc15', 'study_1379_GPL1223_all-bmc15'}
+
+
+PCA components 175
+
+testing on ['RFSorDFS']
+0
+study_19615_GPL570_all-bmc15
+accuracy: 0.8818181818181818
+auc: 0.652529761904762
+bias: 0.8727272727272727
+studies better than bias 1
+1
+study_19615_GPL570_all-bmc15
+accuracy: 0.8818181818181818
+auc: 0.652529761904762
+bias: 0.8727272727272727
+studies better than bias 1
+2
+study_19615_GPL570_all-bmc15
+accuracy: 0.8818181818181818
+auc: 0.652529761904762
+bias: 0.8727272727272727
+studies better than bias 1
+3
+study_19615_GPL570_all-bmc15
+accuracy: 0.8818181818181818
+auc: 0.652529761904762
+bias: 0.8727272727272727
+studies better than bias 1
+4
+study_19615_GPL570_all-bmc15
+accuracy: 0.8818181818181818
+auc: 0.652529761904762
+bias: 0.8727272727272727
+studies better than bias 1
+recall: 0.9560248623039784
+precision: 0.7555368113844744
+f1: 0.8396238182836712
+confusion: [[ 2.         31.69230769]
+ [ 3.84615385 91.23076923]]
+train_f1: 1.0
+train_confusion: [[ 404.30769231    0.        ]
+ [   0.         1140.92307692]]
+bias: 0.7483800925484967
+accuracy: 0.7337009933374693
+auc: 0.5915492623513552
+studies better than bias {'study_19615_GPL570_all-bmc15'}
+
+
+PCA components 200
+
+testing on ['RFSorDFS']
+0
+study_1379_GPL1223_all-bmc15
+accuracy: 0.55
+auc: 0.5066964285714286
+bias: 0.5333333333333333
+study_2034_GPL96_all-bmc15
+accuracy: 0.6328671328671329
+auc: 0.622722288936459
+bias: 0.6258741258741258
+study_25055_GPL96_MDACC_M-bmc15
+accuracy: 0.8009049773755657
+auc: 0.6478260869565218
+bias: 0.7918552036199095
+studies better than bias 3
+1
+study_1379_GPL1223_all-bmc15
+accuracy: 0.55
+auc: 0.5066964285714286
+bias: 0.5333333333333333
+study_2034_GPL96_all-bmc15
+accuracy: 0.6328671328671329
+auc: 0.622722288936459
+bias: 0.6258741258741258
+study_25055_GPL96_MDACC_M-bmc15
+accuracy: 0.8009049773755657
+auc: 0.6478260869565218
+bias: 0.7918552036199095
+studies better than bias 3
+2
+study_1379_GPL1223_all-bmc15
+accuracy: 0.55
+auc: 0.5066964285714286
+bias: 0.5333333333333333
+study_2034_GPL96_all-bmc15
+accuracy: 0.6328671328671329
+auc: 0.622722288936459
+bias: 0.6258741258741258
+study_25055_GPL96_MDACC_M-bmc15
+accuracy: 0.8009049773755657
+auc: 0.6478260869565218
+bias: 0.7918552036199095
+studies better than bias 3
+3
+study_1379_GPL1223_all-bmc15
+accuracy: 0.55
+auc: 0.5066964285714286
+bias: 0.5333333333333333
+study_2034_GPL96_all-bmc15
+accuracy: 0.6328671328671329
+auc: 0.622722288936459
+bias: 0.6258741258741258
+study_25055_GPL96_MDACC_M-bmc15
+accuracy: 0.8009049773755657
+auc: 0.6478260869565218
+bias: 0.7918552036199095
+studies better than bias 3
+4
+study_1379_GPL1223_all-bmc15
+accuracy: 0.55
+auc: 0.5066964285714286
+bias: 0.5333333333333333
+study_2034_GPL96_all-bmc15
+accuracy: 0.6328671328671329
+auc: 0.622722288936459
+bias: 0.6258741258741258
+study_25055_GPL96_MDACC_M-bmc15
+accuracy: 0.8009049773755657
+auc: 0.6478260869565218
+bias: 0.7918552036199095
+studies better than bias 3
+recall: 0.9662029153506493
+precision: 0.7544648356736601
+f1: 0.842911391008385
+confusion: [[ 2.07692308 31.61538462]
+ [ 2.84615385 92.23076923]]
+train_f1: 1.0
+train_confusion: [[ 404.30769231    0.        ]
+ [   0.         1140.92307692]]
+bias: 0.7483800925484967
+accuracy: 0.7373450415923986
+auc: 0.6052727377390431
+studies better than bias {'study_25055_GPL96_MDACC_M-bmc15', 'study_2034_GPL96_all-bmc15', 'study_1379_GPL1223_all-bmc15'}
+
+
+PCA components 225
+
+testing on ['RFSorDFS']
+0
+study_2034_GPL96_all-bmc15
+accuracy: 0.6363636363636364
+auc: 0.6653265806923196
+bias: 0.6258741258741258
+studies better than bias 1
+1
+study_2034_GPL96_all-bmc15
+accuracy: 0.6363636363636364
+auc: 0.6653265806923196
+bias: 0.6258741258741258
+studies better than bias 1
+2
+study_2034_GPL96_all-bmc15
+accuracy: 0.6363636363636364
+auc: 0.6653265806923196
+bias: 0.6258741258741258
+studies better than bias 1
+3
+study_2034_GPL96_all-bmc15
+accuracy: 0.6363636363636364
+auc: 0.6653265806923196
+bias: 0.6258741258741258
+studies better than bias 1
+4
+study_2034_GPL96_all-bmc15
+accuracy: 0.6363636363636364
+auc: 0.6653265806923196
+bias: 0.6258741258741258
+studies better than bias 1
+recall: 0.9594018431416509
+precision: 0.7466957190491555
+f1: 0.8359858315637898
+confusion: [[ 1.23076923 32.46153846]
+ [ 3.53846154 91.53846154]]
+train_f1: 1.0
+train_confusion: [[ 404.30769231    0.        ]
+ [   0.         1140.92307692]]
+bias: 0.7483800925484967
+accuracy: 0.7254979273136996
+auc: 0.5846550699400658
+studies better than bias {'study_2034_GPL96_all-bmc15'}
+
+
+PCA components 250
+
+testing on ['RFSorDFS']
+0
+study_2034_GPL96_all-bmc15
+accuracy: 0.6328671328671329
+auc: 0.6356184409753041
+bias: 0.6258741258741258
+study_9893_GPL5049_all-bmc15
+accuracy: 0.6756756756756757
+auc: 0.5911458333333334
+bias: 0.6486486486486487
+study_17705_GPL96_MDACC_Tissue_BC_Tamoxifen-bmc15
+accuracy: 0.7384615384615385
+auc: 0.6655593941004517
+bias: 0.7282051282051282
+studies better than bias 3
+1
+study_2034_GPL96_all-bmc15
+accuracy: 0.6328671328671329
+auc: 0.6356184409753041
+bias: 0.6258741258741258
+study_9893_GPL5049_all-bmc15
+accuracy: 0.6756756756756757
+auc: 0.5911458333333334
+bias: 0.6486486486486487
+study_17705_GPL96_MDACC_Tissue_BC_Tamoxifen-bmc15
+accuracy: 0.7384615384615385
+auc: 0.6655593941004517
+bias: 0.7282051282051282
+studies better than bias 3
+2
+study_2034_GPL96_all-bmc15
+accuracy: 0.6328671328671329
+auc: 0.6356184409753041
+bias: 0.6258741258741258
+study_9893_GPL5049_all-bmc15
+accuracy: 0.6756756756756757
+auc: 0.5911458333333334
+bias: 0.6486486486486487
+study_17705_GPL96_MDACC_Tissue_BC_Tamoxifen-bmc15
+accuracy: 0.7384615384615385
+auc: 0.6655593941004517
+bias: 0.7282051282051282
+studies better than bias 3
+3
+study_2034_GPL96_all-bmc15
+accuracy: 0.6328671328671329
+auc: 0.6356184409753041
+bias: 0.6258741258741258
+study_9893_GPL5049_all-bmc15
+accuracy: 0.6756756756756757
+auc: 0.5911458333333334
+bias: 0.6486486486486487
+study_17705_GPL96_MDACC_Tissue_BC_Tamoxifen-bmc15
+accuracy: 0.7384615384615385
+auc: 0.6655593941004517
+bias: 0.7282051282051282
+studies better than bias 3
+4
+study_2034_GPL96_all-bmc15
+accuracy: 0.6328671328671329
+auc: 0.6356184409753041
+bias: 0.6258741258741258
+study_9893_GPL5049_all-bmc15
+accuracy: 0.6756756756756757
+auc: 0.5911458333333334
+bias: 0.6486486486486487
+study_17705_GPL96_MDACC_Tissue_BC_Tamoxifen-bmc15
+accuracy: 0.7384615384615385
+auc: 0.6655593941004517
+bias: 0.7282051282051282
+studies better than bias 3
+recall: 0.963176658510866
+precision: 0.7508374764685054
+f1: 0.8397817607016831
+confusion: [[ 1.76923077 31.92307692]
+ [ 3.38461538 91.69230769]]
+train_f1: 1.0
+train_confusion: [[ 404.30769231    0.        ]
+ [   0.         1140.92307692]]
+bias: 0.7483800925484967
+accuracy: 0.7318538974085865
+auc: 0.6014205314246727
+studies better than bias {'study_17705_GPL96_MDACC_Tissue_BC_Tamoxifen-bmc15', 'study_2034_GPL96_all-bmc15', 'study_9893_GPL5049_all-bmc15'}
+
+
+PCA components 275
+
+testing on ['RFSorDFS']
+0
+study_17705_GPL96_JBI_Tissue_BC_Tamoxifen-bmc15
+accuracy: 0.8349514563106796
+auc: 0.6013071895424836
+bias: 0.8252427184466019
+studies better than bias 1
+1
+study_17705_GPL96_JBI_Tissue_BC_Tamoxifen-bmc15
+accuracy: 0.8349514563106796
+auc: 0.6013071895424836
+bias: 0.8252427184466019
+studies better than bias 1
+2
+study_17705_GPL96_JBI_Tissue_BC_Tamoxifen-bmc15
+accuracy: 0.8349514563106796
+auc: 0.6013071895424836
+bias: 0.8252427184466019
+studies better than bias 1
+3
+study_17705_GPL96_JBI_Tissue_BC_Tamoxifen-bmc15
+accuracy: 0.8349514563106796
+auc: 0.6013071895424836
+bias: 0.8252427184466019
+studies better than bias 1
+4
+study_17705_GPL96_JBI_Tissue_BC_Tamoxifen-bmc15
+accuracy: 0.8349514563106796
+auc: 0.6013071895424836
+bias: 0.8252427184466019
+studies better than bias 1
+recall: 0.9522533185121054
+precision: 0.753467674685644
+f1: 0.8363848365374165
+confusion: [[ 1.76923077 31.92307692]
+ [ 3.92307692 91.15384615]]
+train_f1: 1.0
+train_confusion: [[ 404.30769231    0.        ]
+ [   0.         1140.92307692]]
+bias: 0.7483800925484967
+accuracy: 0.7279865854002641
+auc: 0.5882486631242573
+studies better than bias {'study_17705_GPL96_JBI_Tissue_BC_Tamoxifen-bmc15'}
