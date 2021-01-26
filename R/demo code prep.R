@@ -81,7 +81,7 @@ combat15es <- Biobase::ExpressionSet(combat15es, Biobase::AnnotatedDataFrame(pda
 
 # qc plots showing channel counts
 non12 <- esetVis::esetSpectralMap(noNorm15es,
-                      title = "15 batch seperated breast cancer microarray data sets\n no normalization",
+                      # title = "15 batch seperated breast cancer microarray data sets\n no normalization",
                       colorVar = "series_id", # color = colorPalette,
                       shapeVar = "channel_count", shape = c(1, 4),
                       # shapeVar = "channel_count", shape = 15:16,
@@ -94,7 +94,7 @@ non12 <- esetVis::esetSpectralMap(noNorm15es,
 
 
 non34 <- esetVis::esetSpectralMap(noNorm15es,
-                      title = "15 batch seperated breast cancer microarray data sets\n no normalization",
+                      # title = "15 batch seperated breast cancer microarray data sets\n no normalization",
                       colorVar = "series_id", # color = colorPalette,
                       shapeVar = "channel_count", shape = c(1, 4),
                       # sizeVar = "age", sizeRange = c(2, 6),
@@ -105,7 +105,7 @@ non34 <- esetVis::esetSpectralMap(noNorm15es,
                       dim = 3:4, returnAnalysis = TRUE)
       
 bmc12 <- esetVis::esetSpectralMap(bmc15es,
-                      title = "15 batch seperated breast cancer microarray data sets\n BMC normalization",
+                      # title = "15 batch seperated breast cancer microarray data sets\n BMC normalization",
                       colorVar = "series_id", # color = colorPalette,
                       shapeVar = "channel_count", shape = c(1, 4),
                       # sizeVar = "age", sizeRange = c(2, 6),
@@ -115,7 +115,7 @@ bmc12 <- esetVis::esetSpectralMap(bmc15es,
                       returnAnalysis = TRUE)
       
 bmc34 <- esetVis::esetSpectralMap(bmc15es,
-                      title = "15 batch seperated breast cancer microarray data sets\n BMC normalization",
+                      # title = "15 batch seperated breast cancer microarray data sets\n BMC normalization",
                       colorVar = "series_id", # color = colorPalette,
                       shapeVar = "channel_count", shape = c(1, 4),
                       # sizeVar = "age", sizeRange = c(2, 6),
@@ -127,7 +127,7 @@ bmc34 <- esetVis::esetSpectralMap(bmc15es,
       
 
 com12 <- esetVis::esetSpectralMap(combat15es,
-                      title = "15 batch seperated breast cancer microarray data sets\n ComBat normalization",
+                      # title = "15 batch seperated breast cancer microarray data sets\n ComBat normalization",
                       colorVar = "series_id", # color = colorPalette,
                       shapeVar = "channel_count", shape = c(1, 4),
                       # sizeVar = "age", sizeRange = c(2, 6),
@@ -138,7 +138,7 @@ com12 <- esetVis::esetSpectralMap(combat15es,
                       returnAnalysis = TRUE)
       
 com34 <- esetVis::esetSpectralMap(combat15es,
-                      title = "15 batch seperated breast cancer samples \n ComBat normalization",
+                      # title = "15 batch seperated breast cancer samples \n ComBat normalization",
                       colorVar = "series_id", # color = colorPalette,
                       shapeVar = "channel_count", shape = c(1, 4),
                       # sizeVar = "age", sizeRange = c(2, 6),
@@ -151,11 +151,15 @@ com34 <- esetVis::esetSpectralMap(combat15es,
 esp <- c(non12, non34, bmc12, bmc34, com12, com34)
 for(n in esp) print(n)
 
+# save data for r notebook
+save(non12, non34, bmc12, bmc34, com12, com34, file = "reports/set15specQC.rdata")
+
+
 # plots showing outcome
 non12_2 <- esetVis::esetSpectralMap(noNorm15es,
                                   title = "15 batch seperated breast cancer microarray data sets\n no normalization",
                                   colorVar = "series_id", # color = colorPalette,
-                                  shapeVar = "posOutcome2", shape = c(1, 4, 20),
+                                  shapeVar = "posOutcome", shape = c(1, 4, 20),
                                   # shapeVar = "channel_count", shape = 15:16,
                                   # sizeVar = "age", sizeRange = c(2, 6),
                                   # symmetryAxes = "separate",
@@ -168,7 +172,7 @@ non12_2 <- esetVis::esetSpectralMap(noNorm15es,
 non34_2 <- esetVis::esetSpectralMap(noNorm15es,
                                   title = "15 batch seperated breast cancer microarray data sets\n no normalization",
                                   colorVar = "series_id", # color = colorPalette,
-                                  shapeVar = "posOutcome2", shape = c(1, 4, 20),
+                                  shapeVar = "posOutcome", shape = c(1, 4, 20),
                                   # sizeVar = "age", sizeRange = c(2, 6),
                                   # symmetryAxes = "separate",
                                   topGenes = 20, topGenesJust = c(1, 0), topGenesCex = 2, topGenesColor = "darkgrey",
@@ -179,7 +183,7 @@ non34_2 <- esetVis::esetSpectralMap(noNorm15es,
 bmc12_2 <- esetVis::esetSpectralMap(bmc15es,
                                   title = "15 batch seperated breast cancer microarray data sets\n BMC normalization",
                                   colorVar = "series_id", # color = colorPalette,
-                                  shapeVar = "posOutcome2", shape = c(1, 4, 20),
+                                  shapeVar = "posOutcome", shape = c(1, 4, 20),
                                   # sizeVar = "age", sizeRange = c(2, 6),
                                   # symmetryAxes = "separate",
                                   topGenes = 20, topGenesJust = c(1, 0), topGenesCex = 2, topGenesColor = "darkgrey",
@@ -189,7 +193,7 @@ bmc12_2 <- esetVis::esetSpectralMap(bmc15es,
 bmc34_2 <- esetVis::esetSpectralMap(bmc15es,
                                   title = "15 batch seperated breast cancer microarray data sets\n BMC normalization",
                                   colorVar = "series_id", # color = colorPalette,
-                                  shapeVar = "posOutcome2", shape = c(1, 4, 20),
+                                  shapeVar = "posOutcome", shape = c(1, 4, 20),
                                   # sizeVar = "age", sizeRange = c(2, 6),
                                   # symmetryAxes = "separate",
                                   topGenes = 20, topGenesJust = c(1, 0), topGenesCex = 2, topGenesColor = "darkgrey",
@@ -201,7 +205,7 @@ bmc34_2 <- esetVis::esetSpectralMap(bmc15es,
 com12_2 <- esetVis::esetSpectralMap(combat15es,
                                   title = "15 batch seperated breast cancer microarray data sets\n ComBat normalization",
                                   colorVar = "series_id", # color = colorPalette,
-                                  shapeVar = "posOutcome2", shape = c(1, 4, 20),
+                                  shapeVar = "posOutcome", shape = c(1, 4, 20),
                                   # sizeVar = "age", sizeRange = c(2, 6),
                                   # symmetryAxes = "separate",
                                   topGenes = 20, topGenesJust = c(1, 0), topGenesCex = 2, topGenesColor = "darkgrey",
@@ -212,7 +216,7 @@ com12_2 <- esetVis::esetSpectralMap(combat15es,
 com34_2 <- esetVis::esetSpectralMap(combat15es,
                                   title = "15 batch seperated breast cancer samples \n ComBat normalization",
                                   colorVar = "series_id", # color = colorPalette,
-                                  shapeVar = "posOutcome2", shape = c(1, 4, 20),
+                                  shapeVar = "posOutcome", shape = c(1, 4, 20),
                                   # sizeVar = "age", sizeRange = c(2, 6),
                                   # symmetryAxes = "separate",
                                   topGenes = 20, topGenesJust = c(1, 0), topGenesCex = 2, topGenesColor = "darkgrey",
@@ -221,7 +225,7 @@ com34_2 <- esetVis::esetSpectralMap(combat15es,
                                   dim = 3:4, returnAnalysis = TRUE)
 
 esp_2 <- c(non12_2, non34_2, bmc12_2, bmc34_2, com12_2, com34_2)
-for(n in esp_2) print(n)
+for(n in esp_2) print(n$plot)
 
 # analyze individual studies gse9893 and gse20194 with bmc normalization
 gse9893 <- read_csv("data/curatedBreastData/microarray data/example15bmc/study_9893_GPL5049_all-bmc15.csv.xz")
@@ -232,7 +236,7 @@ gse9893es <- t(gse9893[, -1])
 colnames(gse9893es) <- gse9893$patient_ID
 gse9893es <- Biobase::ExpressionSet(gse9893es, Biobase::AnnotatedDataFrame(pdata9893))
 s9893 <- esetVis::esetSpectralMap(gse9893es,
-                               title = "GSE9893 microarray data set\n BMC normalization",
+                               # title = "GSE9893 microarray data set\n BMC normalization",
                                colorVar = "pam_coincide", # color = ggplotColours(5),
                                shapeVar = "RFS", shape = c(1, 4),
                                # shapeVar = "channel_count", shape = 15:16,
@@ -245,7 +249,7 @@ s9893 <- esetVis::esetSpectralMap(gse9893es,
 print(s9893$plot)
 
 s9893_34 <- esetVis::esetSpectralMap(gse9893es,
-                                  title = "GSE9893 microarray data set\n BMC normalization",
+                                  # title = "GSE9893 microarray data set\n BMC normalization",
                                   colorVar = "pam_coincide", # color = colorPalette,
                                   shapeVar = "RFS", shape = c(1, 4),
                                   # shapeVar = "channel_count", shape = 15:16,
@@ -256,6 +260,8 @@ s9893_34 <- esetVis::esetSpectralMap(gse9893es,
                                   topSamplesJust = c(1, 0), topSamplesCex = 3,
                                   dim = 3:4, returnAnalysis = TRUE)
 print(s9893_34$plot)
+
+save(s9893, s9893_34, file = "reports/gse9893_pam50.rdata")
 
 gse20194 <- read_csv("data/curatedBreastData/microarray data/example15bmc/study_20194_GPL96_all-bmc15.csv.xz")
 pdata20194 <- filter(pdata15, patient_ID %in% gse20194$patient_ID) %>%
@@ -293,9 +299,13 @@ s20194_34 <- esetVis::esetSpectralMap(GOexpress::subEset(gse20194es, list(treatm
 print(s20194_34$plot)
 
 save(bmc15es, combat15es, noNorm15es, gse9893es, gse20194es, file = "data/curatedBreastData/mlEsets.rdata")
+
+
 broman::manyboxplot(Biobase::exprs(noNorm15es))
 broman::manyboxplot(Biobase::exprs(bmc15es))
 broman::manyboxplot(Biobase::exprs(combat15es))
 broman::manyboxplot(Biobase::exprs(gse9893es))
 broman::manyboxplot(Biobase::exprs(gse20194es))
+broman::manyboxplot(Biobase::exprs(gse9893cbt))
+broman::manyboxplot(Biobase::exprs(gse20194cbt))
 

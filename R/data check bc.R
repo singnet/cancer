@@ -427,6 +427,7 @@ bc15studies <- bc15studies[, c(1, 6:8, 10, 2:5, 11)]
 # convert to markdown for pasting in to readme
 #  merge batch lines (GSE17705 & GSE25065) by hand and add link to GSE20194 summary - http://edkb.fda.gov/MAQC/
 knitr::kable(bc15studies, "pipe")
+
 # add hormone, chemo, sx and outcome variables to heatmap
 mldat <- read_csv("data/curatedBreastData/bmc15mldata1.csv") %>%
   # select(patient_ID:hormone) %>%
