@@ -556,6 +556,8 @@ symbolMap <- mutate(symbolMap, alt = map2(`Previous symbols`, `Alias symbols`, c
 symbolMap <- bind_rows(symbolMap, mutate(symbolMap, alt = `Approved symbol`) %>% distinct()) %>%
   arrange(`Approved symbol`)
 
+write_csv(symbolMap, "data/curatedBreastData/hgncSymbolMap21aug20long.csv")
+
 bcSymbols <- map(cbcMat, ~ pull(., hgnc))
 
 # % outdated symbols
