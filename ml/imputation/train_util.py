@@ -25,8 +25,6 @@ from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 from sklearn.impute import SimpleImputer, KNNImputer
 
 
-
-
 params = {'n_estimators': [300, 400, 500, 600, 700],
               'learning_rate': [0.01, 0.02, 0.03, 0.05, 0.07],
               'gamma': [0.5, 1, 1.5, 2, 5],
@@ -37,6 +35,7 @@ params = {'n_estimators': [300, 400, 500, 600, 700],
 
 seed = 42
 st_cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=seed)
+
 
 def calc_scores(clf, X_test, y_test):
     y_pred = clf.predict(X_test)
@@ -138,6 +137,7 @@ def evaluate_ge(x_train, y_train, x_test, y_test, outcome_cols, feats=None, jobs
         x_test = x_test[cols]
     rand_search = param_tuning(x_train, y_train, scoring=rand_scoring, jobs=jobs)
     params = rand_search.best_params_
+    params['eval_metric'] = 'error'
     clf = XGBClassifier(**params)
     cv_res = cross_validate(clf, x_train, y_train,scoring=scoring, cv=st_cv, n_jobs=jobs)
 

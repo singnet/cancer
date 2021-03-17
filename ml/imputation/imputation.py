@@ -2,13 +2,16 @@ import torch
 import pandas as pd
 import numpy
 from MF import MFImputer
-from util import *
+from train_util import *
 
 
-def test_imputer(ge_state_outcome_df, state_df, imputer):
-    knn_imputer = imputer
-    df = ge_state_outcome_df.drop(["patient_ID"], axis=1)
-    df_new = knn_imputer.fit_transform(df)
+def impute(imputer, data):
+    df = data.drop(["patient_ID"], axis=1)
+    df_new = imputer.fit_transform(df)
+    return df_new
+
+
+def test_imputer(df_new, df, state_df):
     ge_state_outcome_df_v2 = pd.DataFrame(df_new, columns=df.columns)
     patient_id = state_df["patient_ID"]
     ge_state_outcome_df_v2 = pd.concat([patient_id, ge_state_outcome_df_v2], axis=1)
@@ -44,9 +47,30 @@ def main():
     state_df["p5"] = p5_code_df = state_df["p5"].astype("category").cat.codes
     state_df["gpl"] = gpl_code = state_df["gpl"].astype("category").cat.codes
     ge_state_outcome_df = pd.merge(state_df, ge_df, on="patient_ID")
-
-    train1, test1 = test_imputer(ge_state_outcome_df.copy(), state_df, KNNImputer(n_neighbors=9))
-    train2, test2 = test_imputer(ge_state_outcome_df.copy(), state_df, MFImputer(25).to(device))
+    df = ge_state_outcome_df.drop(["patient_ID"], axis=1)
+    constant = SimpleImputer(fill_value=0, strategy="constant")
+    most_freq = SimpleImputer(strategy='most_frequent')
+    mean = SimpleImputer(strategy='mean')
+    median = SimpleImputer(strategy='median')
+    knn = KNNImputer(n_neighbors=9)
+    mf = MFImputer(25).to(device)
+    knn_new = impute(knn, ge_state_outcome_df.copy())
+    constant_new = impute(constant, ge_state_outcome_df.copy())
+    most_freq_new = impute(most_freq, ge_state_outcome_df.copy())
+    mean_new = impute(mean, ge_state_outcome_df.copy())
+    median_new = impute(median, ge_state_outcome_df.copy())
+    mf_new = impute(mf, ge_state_outcome_df.copy())
+    U_new = pd.DataFrame(mf.U.detach().cpu().numpy(), index=ge_state_outcome_df.patient_ID)
+    V_new = pd.DataFrame(mf.V.detach().cpu().numpy().T, columns=ge_state_outcome_df.columns[
+1:])
+    U_new.to_csv('patients_embed.csv')
+    V_new.to_csv('genes_embed.csv')
+    train1, test1 = test_imputer(knn_new, df, state_df)
+    train2, test2 = test_imputer(mf_new, df, state_df)
+    train3, test3 = test_imputer(constant_new, df, state_df)
+    train4, test4 = test_imputer(most_freq_new, df, state_df)
+    train5, test5 = test_imputer(mean_new, df, state_df)
+    train6, test6 = test_imputer(median_new, df, state_df)
     print("train KNN vs matrix factorization")
     print(train1)
     print(train2)

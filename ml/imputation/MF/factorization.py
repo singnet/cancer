@@ -12,15 +12,36 @@ def numpy_nonzero(tensor):
     return torch.unbind(tensor.nonzero(), 1)
 
 
-def loss(A, U, V, missing, median, w):
-    tmp = U @ V.T
+def loss(A, U, V, missing, target_for_missing, w, batch_size=100):
+    # select minibatch
+    select_U = torch.randperm(U.shape[0])[:batch_size]
+    batch_size_V = int(V.shape[0] / U.shape[0] * batch_size)
+    select_V = torch.randperm(V.shape[0])[:batch_size_V]
+    # matrix product
+    tmp = U[select_U] @ V[select_V].T
+    # targets
+    target_for_missing = target_for_missing[select_U][:, select_V]
+    A = A[select_U][:, select_V]
+    # selectors
+    missing = missing[select_U][:, select_V]
     select1 = numpy_nonzero(1 - missing)
-    loss_present = ((A[select1] - tmp[select1]) ** 2)
+    result = None
+    # optimize difference between product and A
+    if torch.numel(select1[0]):
+        loss_present = ((A[select1] - tmp[select1]) ** 2)
+        result = loss_present.mean()
+    # optimize difference between product and target_for_missing
     select2 = numpy_nonzero(missing)
-    loss_missing = (median[select2] - tmp[select2]) ** 2
-    if any(torch.isnan(loss_missing).flatten()):
-        import pdb;pdb.set_trace()
-    return loss_present.mean() + loss_missing.mean() * w
+    if torch.numel(select2[0]):
+        loss_missing = (target_for_missing[select2] - tmp[select2]) ** 2
+        if any(torch.isnan(loss_missing).flatten()):
+            # try to debug?
+            import pdb;pdb.set_trace()
+        if result is None:
+            result = loss_missing.mean() * w
+        else:
+            result = result + loss_missing.mean() * w
+    return result
 
 
 def main():
@@ -33,10 +54,10 @@ def main():
     train_embedding(A, 2)
 
 
-def train_embedding(A, embed_size, device='cpu'):
+def train_embedding(A, embed_size, batch_size=100, device='cpu'):
     print('using device {0}'.format(device))
     A = torch.from_numpy(A).to(device)
-    weight_missing = 0.01
+    weight_missing = 0.001
     num_patients = A.shape[0]
     num_variables = A.shape[1]
 
@@ -44,15 +65,15 @@ def train_embedding(A, embed_size, device='cpu'):
     V = nn.Embedding(num_variables, embed_size).to(device)
 
     missing = numpy.isnan(A.cpu())  * 1.0
-    median = torch.ones_like(A) * torch.from_numpy(numpy.nanmedian(A.cpu(), axis=0)).to(A)
     median = torch.zeros_like(A)
+    median = torch.ones_like(A) * torch.from_numpy(numpy.nanmedian(A.cpu(), axis=0)).to(A)
     # todo: median or zeros might be an
     # obvious solution and wrong solution
-    optimizer = optim.Adam([{'params': U.parameters()},
+    optimizer = optim.RMSprop([{'params': U.parameters()},
                             {'params': V.parameters()}], lr=0.0001)
     i = 0
-    thresh = 0.000005
-    patience = 3000
+    thresh = 0.0001
+    patience = 10
     prev_loss = 100
     while True:
         optimizer.zero_grad()
@@ -60,20 +81,19 @@ def train_embedding(A, embed_size, device='cpu'):
         l.backward()
         optimizer.step()
         current = l.detach().item()
-        if (prev_loss - current) < thresh:
-            patience -= 1
-        else:
-            patience = 3000
-        if current < prev_loss:
-            prev_loss = current
-            patience += 1
         i += 1
         if patience <= 0:
             print('No improvement {0}\'th iteration'.format(i))
             break
-        if i % 200 == 0:
-           print(l)
-        if i == 30000:
+        if i % (batch_size * 4) == 0:
+           if (prev_loss - current) < thresh:
+               print('patience {0}'.format(patience))
+               patience -= 1
+           else:
+               patience = 10
+           prev_loss = current
+           print('iteration {0} loss {1}'.format(i, current))
+        if i == 200000:
             print('stopping at {0}\'th iteration'.format(i))
             break
     return U.weight, V.weight
@@ -100,10 +120,14 @@ class MFImputer:
     def __init__(self, size):
         self.size = size
         self.device = 'cpu'
+        self.U = None
+        self.V = None
 
     def fit_transform(self, X):
         X = numpy.asarray(X)
         U, V = train_embedding(X, self.size, device=self.device)
+        self.U = U
+        self.V = V
         X_new = X.copy()
         missing = numpy.isnan(X)
         P = U @ V.T
