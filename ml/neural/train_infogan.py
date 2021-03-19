@@ -23,20 +23,27 @@ def main():
         skip_study = None
     train_set, test_set = get_merged_common_dataset(opt, skip_study=skip_study)
     size = train_set.features.shape[1]
+    if opt.use_covars:
+        size -= 1
     train_loader = torch.utils.data.DataLoader(train_set,
             batch_size=opt.batch_size, shuffle=True, num_workers=10)
 
     # Initialize generator and discriminator
+    discriminator = Discriminator(opt, size, train_set.binary, train_set.continious)
     if hasattr(opt, 'train_polynomial_model') and opt.train_polynomial_model:
         generator = StudyGen(opt, size, train_set.binary)
+    elif opt.use_covars:
+        generator = CovarGen(opt, size, train_set.binary, train_set.continious)
+        discriminator = CovarDisc(opt, size, train_set.binary, train_set.continious)
     else:
         generator = Generator(opt, size, train_set.binary)
-    discriminator = Discriminator(opt, size, train_set.binary)
     # load weights
     if hasattr(opt, 'disc_path') and opt.disc_path:
-       discriminator.load_state_dict(torch.load(opt.disc_path))
+        print('loading weights from ' + opt.disc_path)
+        discriminator.load_state_dict(torch.load(opt.disc_path), strict=False)
     if hasattr(opt, 'gen_path') and opt.gen_path:
-       generator.load_state_dict(torch.load(opt.gen_path))
+        print('loading weights from ' + opt.gen_path)
+        generator.load_state_dict(torch.load(opt.gen_path), strict=False)
 
     model = InfoGAN(generator, discriminator)
     device = 'cpu'
@@ -48,8 +55,8 @@ def main():
 
 
     # Optimizers
-    optimizer_G = torch.optim.Adam(generator.parameters(), lr=opt.lr, betas=(opt.b1, opt.b2))
-    optimizer_D = torch.optim.Adam(discriminator.parameters(), lr=opt.lr, betas=(opt.b1, opt.b2))
+    optimizer_G = torch.optim.Adam(generator.get_params(), lr=opt.lr, betas=(opt.b1, opt.b2))
+    optimizer_D = torch.optim.Adam(discriminator.get_params(), lr=opt.lr, betas=(opt.b1, opt.b2))
     optimizer_info = torch.optim.Adam(
         itertools.chain(generator.parameters(), discriminator.parameters()), lr=opt.lr, betas=(opt.b1, opt.b2)
     )

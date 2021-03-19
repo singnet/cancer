@@ -7,12 +7,13 @@ from data_util import util, metagx_util
 
 
 class GeneDataset(torch.utils.data.Dataset):
-    def __init__(self, features, labels, transform=None, binary=0):
+    def __init__(self, features, labels, transform=None, binary=0, continious=0):
         self.features = features
         self.labels = labels
         assert len(features) == len(labels)
         self.transform = transform
         self.binary = binary
+        self.continious = continious
 
     def __getitem__(self, idx):
         return self.transform(data=self.features.iloc[idx],
@@ -34,7 +35,8 @@ def get_merged_common_dataset(opt, skip_study=None, dataset_dict_cache=[], data_
     if data_cache:
         data = data_cache[0]
     else:
-        data = metagx_util.load_metagx_dataset(opt.metagx_data_dir, min_genes=opt.min_genes)
+        data = metagx_util.load_metagx_dataset(opt.metagx_data_dir, min_genes=opt.min_genes,
+                label='vital_status', version='rlNorm')
         data_cache.append(data)
     merged = data['merged'].copy()
     genes_list = data['genes_features'].copy()
@@ -47,7 +49,6 @@ def get_merged_common_dataset(opt, skip_study=None, dataset_dict_cache=[], data_
         study_to_skip = None
 
     merged_common = util.merge_metagx_curated(merged, mergedCurated)
-
     merged_treatments = list(metagx_util.treatment_columns_metagx) + util.treatment_columns_bmc
     merged_treatments = [x for x in merged_treatments if x in merged_common]
     merged_treatments = list(set(merged_treatments))
@@ -55,6 +56,7 @@ def get_merged_common_dataset(opt, skip_study=None, dataset_dict_cache=[], data_
     cont_columns = [x for x in merged_treatments if len(merged_common[x].unique()) > 20]
     merged_treatments = [x for x in merged_treatments if x not in cont_columns]
     common_genes_list = [x for x in genes_list if x in merged_common]
+    merged_common = merged
     if opt.use_covars:
         non_genes = cont_columns + merged_treatments + ['posOutcome']
     else:
@@ -93,15 +95,20 @@ def get_merged_common_dataset(opt, skip_study=None, dataset_dict_cache=[], data_
     add_treat = Compose([AdditiveUniformTriary(0.0, 0.05, x) for x in merged_treatments])
     lst = []
     if 'posOutcome' in train_data.columns:
-        lst = [add_age, add_tumor_size, add_posOutcome, add_treat]
+        lst = [add_age, add_tumor_size, add_treat]
     compose = Compose(lst + [to_tensor, to_float])
     compose_label = Compose([add_posOutcome, to_tensor, to_float])
-    num_binary = len(merged_treatments + ['posOutcome'])
-    num_binary = 0
+    if opt.use_covars:
+        continious = len(cont_columns)
+        num_binary = len(merged_treatments)
+    else:
+        num_binary = 0
+        continious = 0
     transform = DataLabelCompose(compose, compose_label)
-
-    train_set = GeneDataset(train_data, train_labels, transform, binary=num_binary)
-    test_set = GeneDataset(val_data, val_labels, transform, binary=num_binary)
+    train_set = GeneDataset(train_data, train_labels, transform, binary=num_binary,
+            continious=continious)
+    test_set = GeneDataset(val_data, val_labels, transform, binary=num_binary,
+            continious=continious)
     return train_set, test_set
 
 
