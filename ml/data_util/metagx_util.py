@@ -50,7 +50,7 @@ def process_continious(column):
     return column
 
 
-def convert_covars(merged):
+def convert_covars(merged, label='vital_status'):
     dummies = pandas.get_dummies(merged.treatment, prefix='t', dummy_na=True)
 #Index(['treatment_chemo.plus.hormono', 'treatment_chemotherapy',
 #       'treatment_hormonotherapy', 'treatment_untreated'],
@@ -71,8 +71,14 @@ def convert_covars(merged):
     tmp = merged[merged.chemo == 1]
     assert shape_chemo_hormono == tmp[tmp.hormone == 1].shape
     # create posOutcome from vital_status
-    posOutcome = (merged.vital_status == 'living') * 1
-    posOutcome += (merged.vital_status == 'deceased') * -1
+    if label == 'vital_status':
+        posOutcome = (merged.vital_status == 'living') * 1
+        posOutcome += (merged.vital_status == 'deceased') * -1
+    elif label == 'recurrence_status':
+        posOutcome = (merged.recurrence_status == 'recurrence') * 1
+        posOutcome += (merged.recurrence_status == 'norecurrence') * -1
+    else:
+        assert False
     merged.insert(3, 'posOutcome', posOutcome)
     merged.N = ternary_column(merged.N)
     merged.grade = process_continious(merged.grade)
@@ -85,7 +91,7 @@ def convert_covars(merged):
 
 
 metagx_study_mapping = dict()
-def load_metagx_dataset(base_path, min_genes=10000, study_mapping=metagx_study_mapping, norm=False):
+def load_metagx_dataset(base_path, label, min_genes=10000, study_mapping=metagx_study_mapping, version='sqnorm'):
     """
     load and merge metagx dataset
 
@@ -101,6 +107,7 @@ def load_metagx_dataset(base_path, min_genes=10000, study_mapping=metagx_study_m
     norm_path1 = os.path.join(microarray_path, 'mGXrlNormNoBatch.tar.xz')
     not_norm_path = os.path.join(microarray_path, 'mGXnoNorm.tar.xz')
     not_norm_path1 = os.path.join(microarray_path, 'mGXnoNormNoBatch.tar.xz')
+    sqnorm = os.path.join(microarray_path, 'mGXsqNorm_recur_scaled.tar.xz')
     covariates_path = os.path.join(base_path, 'metaGXcovarTable.csv.xz')
 
     dtype = {'hormonotherapy': pandas.Int64Dtype(),
@@ -110,13 +117,20 @@ def load_metagx_dataset(base_path, min_genes=10000, study_mapping=metagx_study_m
 
     covariates_table = pandas.read_csv(lzma.open(covariates_path), dtype=dtype)
     study_tables = dict()
-    if norm:
+    if version == 'rlNorm':
         tar1 = tarfile.open(norm_path, "r:xz")
         tar2 = tarfile.open(norm_path1, 'r:xz')
-    else:
+    elif version == 'noNorm':
         tar1 = tarfile.open(not_norm_path, 'r:xz')
         tar2 = tarfile.open(not_norm_path1, 'r:xz')
+    elif version == 'sqnorm':
+        tar1 = tarfile.open(sqnorm, 'r:xz')
+        tar2 = None
+    else:
+        assert False
     for tar in (tar1, tar2):
+        if tar is None:
+            continue
         print('reading {0}'.format(tar.name))
         for member in tar.getmembers():
             f = tar.extractfile(member)
@@ -166,16 +180,13 @@ def load_metagx_dataset(base_path, min_genes=10000, study_mapping=metagx_study_m
             genes_columns=genes_list,
             merged=merged)
 
-    convert_covars(merged)
+    convert_covars(merged, label=label)
     return result
 
 
 if __name__ == '__main__':
-    cancer_data_dir = '/home/noskill/projects/cancer.old/data'
-    dataset_dict = util.load_merged_dataset(cancer_data_dir)
-    mergedCurated = dataset_dict['merged']
-
-    data = load_metagx_dataset('/home/noskill/projects/cancer/data/metaGxBreast/', min_genes=5000)
+    data = load_metagx_dataset('/home/noskill/projects/cancer/data/metaGxBreast/', min_genes=5000, label='recurrence_status')
+    import pdb;pdb.set_trace()
     merged = data['merged']
     genes_list = data['genes_features']
 

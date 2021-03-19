@@ -30,6 +30,8 @@ def get_metagx():
 
 def main():
     dataset_type = 'metagx'
+    dataset_type = 'curated'
+    single_study = True
     if dataset_type == 'metagx':
         dataset_dict = get_metagx()
     elif dataset_type == 'curated':
@@ -43,10 +45,9 @@ def main():
     elif dataset_type == 'curated':
         from util import study_mapping
         aggregated_treatment_columns = ['radio', 'chemo', 'hormone']
-        feature_columns = genes_columns + aggregated_treatment_columns# [x for x in xgboost_top_100 if x not in treatment_columns] + treatment_columns #xgboost_top_100 # + treatment_columns # label_columns +  # pam50col #  +   + aggregated_treatment_columns
+        feature_columns = genes_columns + ['study_specific_protocol_number'] # + treatment_columns + aggregated_treatment_columns# [x for x in xgboost_top_100 if x not in treatment_columns] + treatment_columns #xgboost_top_100 # + treatment_columns # label_columns +  # pam50col #  +   + aggregated_treatment_columns
     label_columns = ['pCR', 'RFS', 'DFS', 'posOutcome']
-    label_column = 'pCR'
-    label_column = 'posOutcome'
+    label_column = 'DFS'
     label_columns = [label_column]
     merged = dataset_dict['merged']
     # filter rows with nans in label_column
@@ -55,7 +56,8 @@ def main():
        merged = merged[merged.posOutcome.isin([-1, 1])]
        merged.posOutcome += merged.posOutcome < 0
 
-    bin_data = binarize_dataset(merged, genes_columns, feature_columns, to_letters=False)
+    bin_data = binarize_dataset(merged,
+            genes_columns, feature_columns, to_letters=False)
 
     subset_moses_features = label_columns + feature_columns
     subset_moses_features = [x for x in subset_moses_features if x in bin_data.columns]
@@ -66,7 +68,16 @@ def main():
     for study_name, study_id in study_mapping.items():
         if study_id not in studies:
             continue
-        train_data, train_labels, val_data, val_labels = next(split_by_study(bin_data,
+        if single_study:
+            tmp = bin_data[bin_data.study == study_id]
+            num = len(tmp) // 10
+            train, val = select_random_idx(tmp, num)
+            train_data = train[subset_moses_features]
+            val_data = val[subset_moses_features]
+            train_labels = train[label_columns]
+            val_labels = val[label_columns]
+        else:
+            train_data, train_labels, val_data, val_labels = next(split_by_study(bin_data,
                                                                   subset_moses_features,
                                                                   label_columns,
                                                                   study=study_id,
@@ -78,9 +89,9 @@ def main():
             continue
         os.makedirs('/tmp/bin', exist_ok=True)
         l = train_data.shape[1]
-        train_data.to_csv('/tmp/bin/cancer_bin_{0}_train_leave_study_{1}.csv'.format(l, study_name),
+        train_data.to_csv('/tmp/bin/cancer_bin_{0}_train_leave_{1}.csv'.format(l, study_name),
                           header=True, index=False)
-        val_data.to_csv('/tmp/bin/cancer_bin_{0}_val_leave_study_{1}.csv'.format(l, study_name),
+        val_data.to_csv('/tmp/bin/cancer_bin_{0}_val_leave_{1}.csv'.format(l, study_name),
                         header=True, index=False)
 
 if __name__ == '__main__':
