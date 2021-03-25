@@ -563,8 +563,8 @@ missingMap <- filter(missingMap, !is.na(ref))
 matches <- match(missingMap$mgx, gse58644genes)
 missingMatches <- is.na(matches)
 gse58644genes[matches[!missingMatches]] <- missingMap$cbc[!missingMatches]
-length(intersect(gse58644genes, names(expData)))
-# [1] 8724
+length(setdiff(names(expData), gse58644genes))
+# [1] 109
 
 names(gse58644no)[-1] <- gse58644genes
 gse58644no <- dplyr::select(gse58644no, sample_name, intersect(names(gse58644no), names(expData))) %>%
@@ -602,12 +602,13 @@ gse58644Pheno <- read_csv("data/metaGxBreast/metaGXcovarTable.csv.xz", guess_max
   mutate(RFS = as.numeric(RFS == "norecurrence"), ER = as.numeric(ER == "positive"),
          HER2 = as.numeric(HER2 == "positive"), PR = as.numeric(PR == "positive"), radio = 0, posOutcome = RFS)
 
-write_csv(gse58644Pheno, "data/curatedBreastData/gse58644tamoxifenClinData.csv")
+write_csv(gse58644Pheno, "data/curatedBreastData/gse58644tamoxifenClinData.csv.xz")
 
 # genes missing from tomoxifen feature set
 missingGenes <- c('TSTA3', 'SPN', 'ZNF434', 'C12orf49', 'HIST1H1C', 'KIAA1609', 'ZNF192', 'PHF15', 'HRASLS', 'IMPAD1')
 
-gse58644Genes <- names(ebExp)
+setdiff(missingGenes, names(gse58644no))
+# [1] "ZNF192"
 
 basicVal <- glm(posOutcome ~ 1 + ER + radio, family = binomial(link = logit), data = cv)
 summary(basicVal)
