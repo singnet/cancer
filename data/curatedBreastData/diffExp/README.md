@@ -7,4 +7,4 @@
   
 **topXXXgenesXXstudies[Filtered].csv -** the XXX genes with p value for differential expression between <=5 year relapse group (posOutcome = 0) and no relapse group (posOutcome = 1) less than 0.05  
 
-**[cb, tam]XX[BP, MF, CC][01, 05].txt -** significant GO terms at p value alpha 0.01 or 0.05 for the 3 GO DAGs (biological process, molecular function, and cellular component) where **cb** is the 15 study set and **tam** is the 4 study subset
+**[cb15, tam4][f][BP, MF, CC][01, 05].txt -** significant GO terms at p value alpha 0.01 or 0.05 for the 3 GO DAGs (biological process, molecular function, and cellular component) where **cb15** is the 15 study set and **tam4** is the 4 study subset, and **f** indicates the filtered gene starting set
