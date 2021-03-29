@@ -1,8 +1,9 @@
 ## make gene lists for for cbd15 embedding experiments
+library(MASS)
 library(tidyverse)
 
 # get name translation file
-idmap <- read_tsv("data/curatedBreastData/hgncSymbolMap21aug20.tsv")
+idmap <- read_csv("data/curatedBreastData/hgncSymbolMap21aug20long.csv")
 
 # get gene lists from esets
 load("~/R/cancer/data/curatedBreastData/mlEsets2.rdata")
@@ -82,3 +83,102 @@ moses50eg <- filter(idmap, `Approved symbol` %in% moses50) %>%
 save(pam50, moses50, xgb50, spec100, comSpec12, comSpec34, file = "geneLists.rdata")
 
 map(ls(pattern = "eg$"), ~write_lines(eval(as.name(.)), file = paste0("ml/embedding vectors/geneLists/", .)))
+
+# load diffExp gene lists
+cb15uni <- read_lines("data/curatedBreastData/diffExp/genes15studies.txt")
+cb15uniEn <- idmap$`NCBI Gene ID`[match(cb15uni, idmap$`Approved symbol`)] %>%
+  as.character() %>%
+  na.omit()
+
+cb15Funi <-read_lines("data/curatedBreastData/diffExp/filteredGenes15studies.txt")
+cb15FuniEn <- idmap$`NCBI Gene ID`[match(cb15Funi, idmap$`Approved symbol`)] %>%
+  as.character() %>%
+  na.omit()
+
+tamoxFuni <-read_lines("data/curatedBreastData/diffExp/filteredGenes4studies.txt")
+tamoxFuniEn <- idmap$`NCBI Gene ID`[match(tamoxFuni, idmap$`Approved symbol`)] %>%
+as.character() %>%
+na.omit()
+
+diffExp <- map(list(cb15 = "data/curatedBreastData/diffExp/top120genes15studies.csv",
+                    cb15f = "data/curatedBreastData/diffExp/top100genes15studiesFiltered.csv",
+                    tam4 = "data/curatedBreastData/diffExp/top2000genes4studies.csv",
+                    tam4f = "data/curatedBreastData/diffExp/top1100genes4studiesFiltered.csv"), read_csv)
+
+bestGeneSets <- map(diffExp, ~ pull(., symbol))
+bestGeneSetsE <- map(bestGeneSets, ~ idmap$`NCBI Gene ID`[match(., idmap$`Approved symbol`)]) %>%
+  map(as.character) %>%
+  map(na.omit)
+
+# run GOstats
+library(Homo.sapiens)
+library(GOstats)
+
+# setup function, ont in ("BP", "MF", "CC")
+makeHyperParam <- function(genes, universe, annot = "org.Hs.eg.db", ont, dir = "over") {
+  new("GOHyperGParams",
+      geneIds = genes,
+      universeGeneIds = universe,
+      annotation = annot,
+      ontology = ont,
+      pvalueCutoff = 1,
+      conditional = TRUE,
+      testDirection = dir)
+}
+
+enrichmentList <- function(genes, universe, annot = "org.Hs.eg.db", dir = "over") {
+ list(BP = hyperGTest(makeHyperParam(genes, universe, annot, ont = "BP", dir)),
+      MF = hyperGTest(makeHyperParam(genes, universe, annot, ont = "MF", dir)),
+      CC = hyperGTest(makeHyperParam(genes, universe, annot, ont = "CC", dir))
+      ) %>%
+  map(summary)
+}
+
+bestGeneSetsGO <- map2(bestGeneSetsE, list(cb15uniEn, cb15FuniEn, cb15uniEn, tamoxFuniEn),
+                       ~ enrichmentList(.x, .y))
+
+bestGeneSetsGOsum <- map(bestGeneSetsGO, ~ map(., as_tibble))
+for(i in 1:3) {
+  for(j in 1:3) {
+    names(bestGeneSetsGOsum[[i]][[j]]) <- c("GOID", "Pvalue","OddsRatio", "ExpCount", "Count", "Size", "Term")
+    }
+}
+
+bestGeneSetsGOsum <- map(bestGeneSetsGOsum, ~ bind_rows(., .id = "name space"))
+
+# TODO: add qvalues try on each namespace, p value density of combined tests is far from uniform
+# goq <- qvalue::qvalue(GOEtable$Pvalue)
+# goq$pi0
+# # [1] 1
+# GOEtable$qvalue <- goq$qvalues
+# GOEtable$lfdr <- goq$lfdr
+
+bestGenesBP01 <- map(bestGeneSetsGO, pluck, 1) %>%
+  map(filter, Pvalue < 0.01) %>%
+  map(pull, GOBPID)
+map2(bestGenesBP01, names(bestGenesBP01), ~ write_lines(.x, paste0("data/curatedBreastData/diffExp/", .y, "BP01.txt")))
+
+bestGenesMF01 <- map(bestGeneSetsGO, pluck, 2) %>%
+  map(filter, Pvalue < 0.01) %>%
+  map(pull, GOMFID)
+map2(bestGenesMF01, names(bestGenesMF01), ~ write_lines(.x, paste0("data/curatedBreastData/diffExp/", .y, "MF01.txt")))
+
+bestGenesCC01 <- map(bestGeneSetsGO, pluck, 3) %>%
+  map(filter, Pvalue < 0.01) %>%
+  map(pull, GOCCID)
+map2(bestGenesCC01, names(bestGenesCC01), ~ write_lines(.x, paste0("data/curatedBreastData/diffExp/", .y, "CC01.txt")))
+
+bestGenesBP05 <- map(bestGeneSetsGO, pluck, 1) %>%
+  map(filter, Pvalue < 0.05) %>%
+  map(pull, GOBPID)
+map2(bestGenesBP05, names(bestGenesBP05), ~ write_lines(.x, paste0("data/curatedBreastData/diffExp/", .y, "BP05.txt")))
+
+bestGenesMF05 <- map(bestGeneSetsGO, pluck, 2) %>%
+  map(filter, Pvalue < 0.05) %>%
+  map(pull, GOMFID)
+map2(bestGenesMF05, names(bestGenesMF05), ~ write_lines(.x, paste0("data/curatedBreastData/diffExp/", .y, "MF05.txt")))
+
+bestGenesCC05 <- map(bestGeneSetsGO, pluck, 3) %>%
+  map(filter, Pvalue < 0.05) %>%
+  map(pull, GOCCID)
+map2(bestGenesCC05, names(bestGenesCC05), ~ write_lines(.x, paste0("data/curatedBreastData/diffExp/", .y, "CC05.txt")))

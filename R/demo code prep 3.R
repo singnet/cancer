@@ -52,7 +52,7 @@ hist(lmflscb15$Amean)
 limma::plotSA(lmflscb15, main = "sigma (residual variance) vs mean log expression 15 studies")
 cb15lm <- limma::lmFit(cb15Eset[, !is.na(pData(cb15Eset)$posOutcome)], cbind(2, as.numeric(na.omit(pData(cb15fEset)[, "posOutcome"]))) - 1)
 cb15Eb <- limma::eBayes(cb15lm, trend = TRUE)
-cb15Top <- limma::topTable(cb15Eb, 2, number = 100) %>%
+cb15Top <- limma::topTable(cb15Eb, 2, number = 120) %>%
   rownames_to_column("symbol") %>%
   as_tibble()
 limma::volcanoplot(cb15Eb, coef = 2, highlight = 10, names = names(cb15fEb$Amean), main = "differential expression > 5 yr survival (15 studies not filtered)")
@@ -78,7 +78,7 @@ setdiff(cb15Top$symbol, cb15fTop$symbol)
 # [34] "GP1BB"   "KIF23"   "DUSP26"
 
 write_lines(cb15fTop$symbol, "data/curatedBreastData/diffExp/filteredGenes15studies.txt")
-write_csv(cb15Top, "data/curatedBreastData/diffExp/top100genes15studies.csv")
+write_csv(cb15Top, "data/curatedBreastData/diffExp/top120genes15studies.csv")
 write_csv(cb15fTop, "data/curatedBreastData/diffExp/top100genes15studiesFiltered.csv")
 
 
@@ -192,7 +192,7 @@ hist(lmflstamox$Amean, main = "mean log expression 4 studies")
 limma::plotSA(lmflstamox, main = "sigma (residual variance) vs mean log expression 4 studies")
 tamoxlm <- limma::lmFit(tamoxEset[, !is.na(pData(tamoxEset)$posOutcome)], cbind(2, as.numeric(na.omit(pData(tamoxEset)[, "posOutcome"]))) - 1)
 tamoxEb <- limma::eBayes(tamoxlm, trend = TRUE)
-tamoxTop <- limma::topTable(tamoxEb, 2, number = 100) %>%
+tamoxTop <- limma::topTable(tamoxEb, 2, number = 2000) %>%
   rownames_to_column("symbol") %>%
   as_tibble()
 limma::volcanoplot(tamoxEb, coef = 2, highlight = 10, names = names(tamoxEb$Amean), main = "differential expression > 5 yr survival (4 studies not filtered)")
@@ -206,7 +206,7 @@ hist(lmflstamoxF$Amean, main = "mean log expression 4 studies, filtered mean > 5
 tamoxfEset <- tamoxEset[keep,!is.na(pData(tamoxEset)$posOutcome)]
 tamoxflm <- limma::lmFit(tamoxfEset, cbind(2, as.numeric(pData(tamoxfEset)[, "posOutcome"])) - 1)
 tamoxfEb <- limma::eBayes(tamoxflm, trend = TRUE)
-tamoxfTop <- limma::topTable(tamoxfEb, 2, number = 100) %>%
+tamoxfTop <- limma::topTable(tamoxfEb, 2, number = 1100) %>%
   rownames_to_column("symbol") %>%
   as_tibble()
 limma::volcanoplot(tamoxfEb, coef = 2, highlight = 10, names = names(tamoxfEb$Amean), main = "differential expression > 5 yr survival (4 studies)")
@@ -225,9 +225,11 @@ identical(tam5Top, tamoxTop)
 identical(tam5fTop, tamoxfTop)
 # [1] TRUE
 
-write_lines(tamoxfTop$symbol, "data/curatedBreastData/diffExp/filteredGenes4studies.txt")
-write_csv(tamoxTop, "data/curatedBreastData/diffExp/top100genes4studies.csv")
-write_csv(tamoxfTop, "data/curatedBreastData/diffExp/top100genes4studiesFiltered.csv")
+write_lines(rownames(exprs(tamoxfEset)), "data/curatedBreastData/diffExp/filteredGenes4studies.txt")
+write_lines(rownames(exprs(cb15fEset)), "data/curatedBreastData/diffExp/filteredGenes15studies.txt")
+write_lines(rownames(exprs(cb15Eset)), "data/curatedBreastData/diffExp/genes15studies.txt")
+write_csv(tamoxTop, "data/curatedBreastData/diffExp/top2000genes4studies.csv")
+write_csv(tamoxfTop, "data/curatedBreastData/diffExp/top1100genes4studiesFiltered.csv")
 
 # try tidyTranscriptomics
 library(tidybulk)
