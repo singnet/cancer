@@ -241,3 +241,100 @@ def evaluate_predictor(model, code, labels):
 
 def detach_numpy(tensor):
     return tensor.cpu().detach().numpy()
+
+
+def infogan_loss_outcome(model: 'InfoGAN', batch_gexs, labels, optimizers, opt):
+    train_only_D = True
+    param = next(model.parameters())
+
+    batch_size = len(batch_gexs)
+    # Sample noise and labels as generator input
+    z, label_input, code_input, random_category = sample_random_variables(batch_size, opt, param)
+    # label_input and code input are to be reconstructed
+
+    # Adversarial ground truths
+    valid = torch.ones((batch_size, 1)).to(param) - torch.as_tensor(np.random.uniform(0.0, 0.05, (batch_size, 1))).to(param)
+    fake = torch.zeros((batch_size, 1)).to(param) + torch.as_tensor(np.random.uniform(0.0, 0.05, (batch_size, 1))).to(param)
+
+
+    # Configure input
+    real_gexs = batch_gexs.to(param)
+    outcome_noise = torch.as_tensor(np.random.uniform(0.0, 0.05, (batch_size))).to(param)
+    outcome_real = (labels - outcome_noise) * (labels > 0.5) + (labels + outcome_noise) * (labels <= 0.5)
+    outcome_real = labels.to(param)
+    real_data = {'genes': real_gexs, 'outcomes': outcome_real.to(param).unsqueeze(1)}
+    inverted_data = {'genes': real_gexs, 'outcomes': 1 - outcome_real.to(param).unsqueeze(1)}
+
+
+#    concat_real = torch.cat([real_data['genes'], real_data['outcomes']], dim=1)
+#    concat_fake = torch.cat([inverted_data['genes'], inverted_data['outcomes']], dim=1)
+#    xdata = torch.cat([concat_real, concat_fake])
+#    xlabels = numpy.ones(len(xdata))
+#    xlabels[len(xdata) // 2: ] = 0
+
+    categorical_loss = torch.nn.CrossEntropyLoss()
+
+    if not train_only_D:
+        # output of generator and descriminator on fake data
+        out_fake = model(z, label_input, code_input)
+        info_loss = 0
+
+        # infogan loss including categorical loss
+        if out_fake['categorical'] is not None:
+            cat_loss = opt.lambda_cat * categorical_loss(out_fake['categorical'], random_category)
+            info_loss = cat_loss + info_loss
+
+    # real output
+    real_pred, _, _ = model.discriminator(real_data)
+    real_inverted_pred, _, _ = model.discriminator(inverted_data)
+
+    # optimizers
+    if optimizers is not None:
+        optimizer_info = optimizers['info']
+        optimizer_D = optimizers['D']
+        optimizer_G = optimizers['G']
+        optimizer_info.zero_grad()
+        optimizer_G.zero_grad()
+        optimizer_D.zero_grad()
+
+    # -----------------
+    # Discriminator Loss
+    # -----------------
+    d_real_loss = cross_entropy(valid, real_pred)
+    d_real_inverted_loss = cross_entropy(fake, real_inverted_pred)
+    if not train_only_D:
+        d_fake_loss = cross_entropy(fake, out_fake['validity']).mean()
+        d_loss = (d_fake_loss / 3 + d_real_loss / 3 + d_real_inverted_loss / 3).mean()
+    else:
+        d_loss = (d_real_loss / 2 + d_real_inverted_loss / 2).mean()
+
+    if optimizers is not None:
+        d_loss.backward(retain_graph=True)
+
+
+    # -----------------
+    # Generator Loss
+    # -----------------
+    if not train_only_D:
+        g_loss = cross_entropy(valid, out_fake['validity']).mean()
+        g_loss.backward(retain_graph=True)
+
+    # ------------------
+    # Information Loss
+    # ------------------
+        info_loss.backward()
+    result = dict()
+    if optimizers is not None:
+        optimizer_D.step()
+    if not train_only_D:
+        optimizer_G.step()
+        optimizer_info.step()
+
+        losses = dict(info_loss=[detach_numpy(info_loss)],
+                      g_loss=[detach_numpy(g_loss)])
+        result['fake_pred'] = [detach_numpy(out_fake['validity'].mean())]
+        result.update(losses)
+    result['d_loss'] = [detach_numpy(d_loss)]
+    result['real_pred'] = [detach_numpy(real_pred.mean()) ]
+    result['inverted_pred'] = [detach_numpy(real_inverted_pred.mean())]
+    return result

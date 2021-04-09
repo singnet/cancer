@@ -18,6 +18,12 @@ def weights_init_normal(m):
         torch.nn.init.constant_(m.bias.data, 0.0)
 
 
+def init_weights_xavier(m):
+    if type(m) == nn.Linear:
+        torch.nn.init.xavier_uniform(m.weight)
+        m.bias.data.fill_(0.01)
+
+
 def to_categorical(y, num_columns):
     """Returns one-hot encoded Variable"""
     y_cat = np.zeros((y.shape[0], num_columns))
@@ -48,10 +54,10 @@ class Generator(nn.Module):
 
         self.dense_block = nn.Sequential(
             nn.Linear(input_dim, 512),
-            nn.BatchNorm1d(512),
+            #nn.BatchNorm1d(512),
             nn.LeakyReLU(inplace=True),
             nn.Linear(512, 512),
-            nn.BatchNorm1d(512),
+            #nn.BatchNorm1d(512),
             nn.LeakyReLU(inplace=True),
             nn.Linear(512, size - binary - continious),
         )
@@ -114,10 +120,10 @@ class StudyGen(nn.Module):
         input_dim = opt.latent_dim + opt.code_dim
         self.dense_block = nn.Sequential(
             nn.Linear(input_dim, 512),
-            nn.BatchNorm1d(512),
+            #nn.BatchNorm1d(512),
             nn.LeakyReLU(inplace=True),
             nn.Linear(512, 512),
-            nn.BatchNorm1d(512),
+            #nn.BatchNorm1d(512),
             nn.LeakyReLU(inplace=True),
             nn.Linear(512, size),
         )
@@ -201,4 +207,110 @@ class Discriminator(nn.Module):
 class CovarDisc(Discriminator):
     def get_params(self):
         return self.adv_layer_covars.parameters()
+
+
+class CovarGenOutcome(nn.Module):
+    def __init__(self, opt, size, continious=0, binary=0):
+        super().__init__()
+        self.apply(init_weights_xavier)
+        input_dim = opt.latent_dim + opt.n_classes + opt.code_dim
+        self.opt = opt
+
+        self.dense_block = nn.Sequential(
+            nn.Linear(input_dim, 512),
+            nn.LeakyReLU(inplace=True),
+            #nn.BatchNorm1d(512),
+            nn.Linear(512, 512),
+            nn.LeakyReLU(inplace=True),
+            #nn.BatchNorm1d(512),
+        )
+
+        self.gene_layer = nn.Linear(512, size - binary - continious)
+        self.outcome_layer = nn.Sequential(nn.Linear(512, 256),
+                                           nn.LeakyReLU(inplace=True),
+                                           #nn.BatchNorm1d(256),
+                                           nn.Linear(256, 1),
+                                           nn.LeakyReLU(inplace=True))
+
+        assert(continious == 0)
+        self.apply(init_weights_xavier)
+
+    def forward(self, noise, labels, code):
+        assert self.opt.latent_dim == noise.shape[1]
+        assert self.opt.n_classes == labels.shape[1]
+        assert self.opt.code_dim == code.shape[1]
+
+        gen_input = torch.cat((noise, labels, code), -1)
+        dense = self.dense_block(gen_input)
+        genes = self.gene_layer(dense)
+        outcomes = torch.sigmoid(self.outcome_layer(dense))
+        result = dict()
+        result['genes'] = genes
+        result['outcomes'] = outcomes
+        return result
+
+    def get_params(self):
+        return self.parameters()
+
+
+class DiscriminatorOutcome(nn.Module):
+    def __init__(self, opt, size, continious=0, binary=0):
+        super().__init__()
+        self.dense_blocks = nn.Sequential(
+            nn.Linear(size - binary - continious, 512),
+            nn.LeakyReLU(inplace=False),
+            #nn.BatchNorm1d(512),
+
+            nn.Linear(512, 512),
+            nn.LeakyReLU(inplace=False),
+            #nn.BatchNorm1d(512),
+
+            nn.Linear(512, 512),
+            nn.LeakyReLU(inplace=False),
+            #nn.BatchNorm1d(512),
+
+            nn.Linear(512, 512),
+            nn.LeakyReLU(inplace=False),
+            #nn.BatchNorm1d(512),
+        )
+
+        self.disc_outcome_genes = nn.Sequential(
+                nn.Linear(512 + 1, 512),
+                nn.LeakyReLU(inplace=False),
+                #nn.BatchNorm1d(512),
+
+                nn.Linear(512, 256),
+                nn.LeakyReLU(inplace=False),
+                #nn.BatchNorm1d(256),
+
+                nn.Linear(256, 256),
+                nn.LeakyReLU(inplace=False),
+                #nn.BatchNorm1d(256),
+
+                nn.Linear(256, 1),
+                torch.nn.Sigmoid())
+
+ #       self.reconstruct = nn.Sequential(nn.Linear(512, 128),
+ #               nn.LeakyReLU(inplace=False),
+ #               #nn.BatchNorm1d(128),
+ #               nn.Linear(128, 128),
+ #               nn.LeakyReLU(inplace=False),
+ #               #nn.BatchNorm1d(128),
+ #               nn.Linear(128, opt.n_classes),
+ #               nn.Softmax(dim=1))
+        self.apply(init_weights_xavier)
+
+    def forward(self, gen_out):
+        genes = gen_out['genes']
+        outcomes = gen_out['outcomes']
+        dense = self.dense_blocks(genes)
+        # stack dense with outcome
+        sample = torch.cat([dense, outcomes], dim=1)
+        fake_real = self.disc_outcome_genes(sample)
+        # categorical = self.reconstruct(dense)
+        categorical = None
+        return fake_real, categorical, None
+
+    def get_params(self):
+        return self.parameters()
 

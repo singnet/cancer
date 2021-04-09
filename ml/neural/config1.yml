@@ -10,3 +10,4 @@ n_classes: 17 # number of classes for dataset
 img_size: 32 # size of each image dimension
 channels: 1 # number of image channels
 sample_interval: 800 # interval between image sampling
+

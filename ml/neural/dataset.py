@@ -1,9 +1,11 @@
 import torch
+import os
 import pandas
 from transform import DataLabelCompose, ToTensor, AdditiveUniform,\
         AdditiveUniformTriary, Compose, ToType
 from data_util.metagx_util import load_metagx_dataset
 from data_util import util, metagx_util
+from sklearn.model_selection import train_test_split
 
 
 class GeneDataset(torch.utils.data.Dataset):
@@ -109,6 +111,38 @@ def get_merged_common_dataset(opt, skip_study=None, dataset_dict_cache=[], data_
             continious=continious)
     test_set = GeneDataset(val_data, val_labels, transform, binary=num_binary,
             continious=continious)
+    return train_set, test_set
+
+
+def get_tamoxifen_dataset(opt, dataset_dict_cache=[]):
+    cancer_data_dir = opt.curated_breast_data_dir
+    if dataset_dict_cache:
+        dataset_dict = dataset_dict_cache[0]
+    else:
+        dataset_dict = util.load_curated(cancer_data_dir)
+        dataset_dict_cache.append(dataset_dict)
+    mrmr_path = os.path.join('/home/noskill/projects/cancer/data/curatedBreastData/feats_100_raw_nn.txt')
+    with open(mrmr_path) as f:
+        mrmr_feats = [x.strip() for x in f.readlines()]
+    merged = dataset_dict['merged']
+    # compute dfs or rfs
+    posOutcome = ((dataset_dict['merged'].RFS.fillna(0) + dataset_dict['merged'].DFS.fillna(0)) > 0) * 1
+    merged.posOutcome = posOutcome
+    # filter tamoxifen
+    df = merged[merged.tamoxifen > 0]
+    dataset = df[mrmr_feats + ['posOutcome']]
+    # split
+    train, test = train_test_split(dataset, test_size=0.15)
+    cont_columns = [x for x in dataset.columns if len(dataset[x].unique()) > 20]
+    to_tensor = ToTensor()
+    to_float = ToType('float')
+    compose = Compose([to_tensor, to_float])
+    compose_label = Compose([to_tensor, to_float])
+    num_binary = 0
+    continious = 0
+    transform = DataLabelCompose(compose, compose_label)
+    train_set = GeneDataset(train.drop(columns=['posOutcome']), train.posOutcome, transform, binary=num_binary, continious=continious)
+    test_set = GeneDataset(test.drop(columns=['posOutcome']), test.posOutcome, transform, binary=num_binary, continious=continious)
     return train_set, test_set
 
 
