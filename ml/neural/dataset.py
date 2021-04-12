@@ -130,9 +130,13 @@ def get_tamoxifen_dataset(opt, dataset_dict_cache=[]):
     merged.posOutcome = posOutcome
     # filter tamoxifen
     df = merged[merged.tamoxifen > 0]
-    dataset = df[mrmr_feats + ['posOutcome']]
+    dataset = df[mrmr_feats + ['posOutcome', 'patient_ID']]
     # split
-    train, test = train_test_split(dataset, test_size=0.15)
+    train, test = train_test_split(dataset, test_size=opt.test_ratio)
+    train.to_csv('current_train.csv', index=False)
+    test.to_csv('current_test.csv', index=False)
+    train = train.drop(columns=['patient_ID'])
+    test = test.drop(columns=['patient_ID'])
     cont_columns = [x for x in dataset.columns if len(dataset[x].unique()) > 20]
     to_tensor = ToTensor()
     to_float = ToType('float')

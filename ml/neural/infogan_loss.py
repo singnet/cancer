@@ -1,10 +1,12 @@
 import torch
+from collections import Counter
 from sklearn.metrics import accuracy_score
 import numpy
 from infogan import to_categorical
 from metrics import compute_metrics, compute_auc
 from collections import defaultdict
 from torch.nn import functional as F
+from common import mutual_information
 np = numpy
 
 
@@ -244,7 +246,8 @@ def detach_numpy(tensor):
 
 
 def infogan_loss_outcome(model: 'InfoGAN', batch_gexs, labels, optimizers, opt):
-    train_only_D = True
+    train = optimizers is not None
+    train_only_D = False
     param = next(model.parameters())
 
     batch_size = len(batch_gexs)
@@ -261,17 +264,15 @@ def infogan_loss_outcome(model: 'InfoGAN', batch_gexs, labels, optimizers, opt):
     real_gexs = batch_gexs.to(param)
     outcome_noise = torch.as_tensor(np.random.uniform(0.0, 0.05, (batch_size))).to(param)
     outcome_real = (labels - outcome_noise) * (labels > 0.5) + (labels + outcome_noise) * (labels <= 0.5)
-    outcome_real = labels.to(param)
     real_data = {'genes': real_gexs, 'outcomes': outcome_real.to(param).unsqueeze(1)}
     inverted_data = {'genes': real_gexs, 'outcomes': 1 - outcome_real.to(param).unsqueeze(1)}
 
 
-#    concat_real = torch.cat([real_data['genes'], real_data['outcomes']], dim=1)
-#    concat_fake = torch.cat([inverted_data['genes'], inverted_data['outcomes']], dim=1)
-#    xdata = torch.cat([concat_real, concat_fake])
-#    xlabels = numpy.ones(len(xdata))
-#    xlabels[len(xdata) // 2: ] = 0
-
+    concat_real = torch.cat([real_data['genes'], real_data['outcomes']], dim=1)
+    concat_fake = torch.cat([inverted_data['genes'], inverted_data['outcomes']], dim=1)
+    xdata = torch.cat([concat_real, concat_fake])
+    xlabels = numpy.ones(len(xdata))
+    xlabels[len(xdata) // 2: ] = 0
     categorical_loss = torch.nn.CrossEntropyLoss()
 
     if not train_only_D:
@@ -285,11 +286,28 @@ def infogan_loss_outcome(model: 'InfoGAN', batch_gexs, labels, optimizers, opt):
             info_loss = cat_loss + info_loss
 
     # real output
-    real_pred, _, _ = model.discriminator(real_data)
+    real_pred, code_real, _ = model.discriminator(real_data)
+    code_real = code_real.argmax(dim=1)
+    # ------------------
+    # Mutual Information
+    # ------------------
+    counter = Counter()
+    counter.update(code_real.cpu().numpy())
+    p_c = {k: v / len(code_real) for (k, v) in counter.items()}
+    counter = Counter()
+    counter.update(((labels > 0.5) * 1).cpu().numpy())
+    p_outcome = {k: v / len(code_real) for (k, v) in counter.items()}
+    counter = Counter()
+    counter.update(zip(code_real.cpu().numpy(), ((labels > 0.5) * 1).cpu().numpy()))
+    p_c_outcome = defaultdict(int)
+    p_c_outcome.update({k: v / len(code_real) for (k, v) in counter.items()})
+    mi = mutual_information(p_c_outcome, p_c, p_outcome)
     real_inverted_pred, _, _ = model.discriminator(inverted_data)
 
+    stacked_pred = torch.cat([real_pred, real_inverted_pred])
+
     # optimizers
-    if optimizers is not None:
+    if train:
         optimizer_info = optimizers['info']
         optimizer_D = optimizers['D']
         optimizer_G = optimizers['G']
@@ -308,14 +326,15 @@ def infogan_loss_outcome(model: 'InfoGAN', batch_gexs, labels, optimizers, opt):
     else:
         d_loss = (d_real_loss / 2 + d_real_inverted_loss / 2).mean()
 
-    if optimizers is not None:
+    if train:
         d_loss.backward(retain_graph=True)
 
 
+    result = dict()
     # -----------------
     # Generator Loss
     # -----------------
-    if not train_only_D:
+    if train and not train_only_D:
         g_loss = cross_entropy(valid, out_fake['validity']).mean()
         g_loss.backward(retain_graph=True)
 
@@ -323,18 +342,23 @@ def infogan_loss_outcome(model: 'InfoGAN', batch_gexs, labels, optimizers, opt):
     # Information Loss
     # ------------------
         info_loss.backward()
-    result = dict()
-    if optimizers is not None:
+
+    if train:
         optimizer_D.step()
-    if not train_only_D:
+
+    if train and not train_only_D:
         optimizer_G.step()
         optimizer_info.step()
 
         losses = dict(info_loss=[detach_numpy(info_loss)],
                       g_loss=[detach_numpy(g_loss)])
         result['fake_pred'] = [detach_numpy(out_fake['validity'].mean())]
+        result['info_accuracy'] = [accuracy_score(random_category.cpu(), out_fake['categorical'].argmax(dim=1).detach().cpu())]
         result.update(losses)
+
+    result['MI(c, outcome)'] = [mi]
     result['d_loss'] = [detach_numpy(d_loss)]
     result['real_pred'] = [detach_numpy(real_pred.mean()) ]
     result['inverted_pred'] = [detach_numpy(real_inverted_pred.mean())]
+    result['accuracy real inverted'] = [accuracy_score(xlabels, stacked_pred.cpu().detach().numpy() >= 0.5)]
     return result

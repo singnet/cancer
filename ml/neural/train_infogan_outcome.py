@@ -52,7 +52,7 @@ def main():
 
     # Optimizers
     optimizer_G = torch.optim.AdamW(generator.get_params(), lr=opt.lr)
-    optimizer_D = torch.optim.AdamW(discriminator.get_params(), lr=opt.lr)
+    optimizer_D = torch.optim.AdamW(discriminator.get_params(), lr=opt.lr * 0.1)
     optimizer_info = torch.optim.AdamW(
         itertools.chain(
             generator.parameters(),

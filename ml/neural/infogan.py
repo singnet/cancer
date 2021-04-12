@@ -257,6 +257,7 @@ class DiscriminatorOutcome(nn.Module):
     def __init__(self, opt, size, continious=0, binary=0):
         super().__init__()
         self.dense_blocks = nn.Sequential(
+            nn.Dropout(p=0.2),
             nn.Linear(size - binary - continious, 512),
             nn.LeakyReLU(inplace=False),
             #nn.BatchNorm1d(512),
@@ -280,6 +281,7 @@ class DiscriminatorOutcome(nn.Module):
                 #nn.BatchNorm1d(512),
 
                 nn.Linear(512, 256),
+                nn.Dropout(p=0.2),
                 nn.LeakyReLU(inplace=False),
                 #nn.BatchNorm1d(256),
 
@@ -290,14 +292,17 @@ class DiscriminatorOutcome(nn.Module):
                 nn.Linear(256, 1),
                 torch.nn.Sigmoid())
 
- #       self.reconstruct = nn.Sequential(nn.Linear(512, 128),
- #               nn.LeakyReLU(inplace=False),
- #               #nn.BatchNorm1d(128),
- #               nn.Linear(128, 128),
- #               nn.LeakyReLU(inplace=False),
- #               #nn.BatchNorm1d(128),
- #               nn.Linear(128, opt.n_classes),
- #               nn.Softmax(dim=1))
+        self.reconstruct = nn.Sequential(
+                nn.Dropout(p=0.7),
+                nn.Linear(512, 128),
+                nn.LeakyReLU(inplace=False),
+                #nn.BatchNorm1d(128),
+                nn.Linear(128, 128),
+                nn.Dropout(p=0.5),
+                nn.LeakyReLU(inplace=False),
+                #nn.BatchNorm1d(128),
+                nn.Linear(128, opt.n_classes),
+                nn.Softmax(dim=1))
         self.apply(init_weights_xavier)
 
     def forward(self, gen_out):
@@ -307,8 +312,7 @@ class DiscriminatorOutcome(nn.Module):
         # stack dense with outcome
         sample = torch.cat([dense, outcomes], dim=1)
         fake_real = self.disc_outcome_genes(sample)
-        # categorical = self.reconstruct(dense)
-        categorical = None
+        categorical = self.reconstruct(dense)
         return fake_real, categorical, None
 
     def get_params(self):
