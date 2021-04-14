@@ -3,7 +3,7 @@
 **genes15studies.txt -** the 8832  genes from the 15 study expression set intersection  
 
 **filteredGenesXXstudies.txt -** above list minus genes with expression levels < 5.0  
-  **15** for complete set, **4** for the four studies with tamoxifen treatment  
+  **15** for complete set, **4** for the four studies with tamoxifen treatment (n = 4665 for both)  
   
 **topXXXgenesXXstudies[Filtered].csv -** the XXX genes with p value less than 0.05 for differential expression between <= 5 year relapse group (posOutcome = 0) and no relapse group (posOutcome = 1)  
 
