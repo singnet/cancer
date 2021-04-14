@@ -1,12 +1,11 @@
 import torch
-from collections import Counter
 from sklearn.metrics import accuracy_score
 import numpy
 from infogan import to_categorical
 from metrics import compute_metrics, compute_auc
 from collections import defaultdict
 from torch.nn import functional as F
-from common import mutual_information
+from common import mutual_information, compute_mi_stats
 np = numpy
 
 
@@ -291,17 +290,9 @@ def infogan_loss_outcome(model: 'InfoGAN', batch_gexs, labels, optimizers, opt):
     # ------------------
     # Mutual Information
     # ------------------
-    counter = Counter()
-    counter.update(code_real.cpu().numpy())
-    p_c = {k: v / len(code_real) for (k, v) in counter.items()}
-    counter = Counter()
-    counter.update(((labels > 0.5) * 1).cpu().numpy())
-    p_outcome = {k: v / len(code_real) for (k, v) in counter.items()}
-    counter = Counter()
-    counter.update(zip(code_real.cpu().numpy(), ((labels > 0.5) * 1).cpu().numpy()))
-    p_c_outcome = defaultdict(int)
-    p_c_outcome.update({k: v / len(code_real) for (k, v) in counter.items()})
+    p_c, p_outcome, p_c_outcome = compute_mi_stats(code_real.cpu().numpy(), ((labels > 0.5) * 1).cpu().numpy())
     mi = mutual_information(p_c_outcome, p_c, p_outcome)
+
     real_inverted_pred, _, _ = model.discriminator(inverted_data)
 
     stacked_pred = torch.cat([real_pred, real_inverted_pred])

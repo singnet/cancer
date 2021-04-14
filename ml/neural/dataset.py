@@ -114,7 +114,7 @@ def get_merged_common_dataset(opt, skip_study=None, dataset_dict_cache=[], data_
     return train_set, test_set
 
 
-def get_tamoxifen_dataset(opt, dataset_dict_cache=[]):
+def get_tamoxifen_dataset(opt, dataset_dict_cache=[], additional_columns=[]):
     cancer_data_dir = opt.curated_breast_data_dir
     if dataset_dict_cache:
         dataset_dict = dataset_dict_cache[0]
@@ -130,9 +130,9 @@ def get_tamoxifen_dataset(opt, dataset_dict_cache=[]):
     merged.posOutcome = posOutcome
     # filter tamoxifen
     df = merged[merged.tamoxifen > 0]
-    dataset = df[mrmr_feats + ['posOutcome', 'patient_ID']]
-    # split
-    train, test = train_test_split(dataset, test_size=opt.test_ratio)
+    dataset = df[mrmr_feats + ['posOutcome', 'patient_ID'] + additional_columns]
+    # random split, number is chosen with fair dice
+    train, test = train_test_split(dataset, test_size=opt.test_ratio, random_state=4)
     train.to_csv('current_train.csv', index=False)
     test.to_csv('current_test.csv', index=False)
     train = train.drop(columns=['patient_ID'])
@@ -168,5 +168,3 @@ def get_metagx_dataset(ratio=0.1):
     train_set = GeneDataset(train_data, train_labels, transform)
     test_set = GeneDataset(val_data, val_labels, transform)
     return train_set, test_set
-
-

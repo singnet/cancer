@@ -263,10 +263,12 @@ class DiscriminatorOutcome(nn.Module):
             #nn.BatchNorm1d(512),
 
             nn.Linear(512, 512),
+            nn.Dropout(p=0.2),
             nn.LeakyReLU(inplace=False),
             #nn.BatchNorm1d(512),
 
             nn.Linear(512, 512),
+            nn.Dropout(p=0.2),
             nn.LeakyReLU(inplace=False),
             #nn.BatchNorm1d(512),
 
@@ -314,6 +316,11 @@ class DiscriminatorOutcome(nn.Module):
         fake_real = self.disc_outcome_genes(sample)
         categorical = self.reconstruct(dense)
         return fake_real, categorical, None
+
+    def compute_code(self, genes):
+        dense = self.dense_blocks(genes)
+        categorical = self.reconstruct(dense)
+        return categorical
 
     def get_params(self):
         return self.parameters()

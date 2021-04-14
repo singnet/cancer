@@ -66,7 +66,7 @@ def main():
     # ----------
     if opt.test_ratio:
         test_loader = torch.utils.data.DataLoader(test_set,
-            batch_size=opt.batch_size, shuffle=True, num_workers=7)
+            batch_size=len(test_set), shuffle=True, num_workers=7)
 
     loss = infogan_loss_outcome
     optimizers = dict(G=optimizer_G, D=optimizer_D,
