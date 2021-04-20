@@ -1,10 +1,10 @@
-n_epochs: 200 # number of epochs of training
+n_epochs: 60 # number of epochs of training
 batch_size: 64 # size of the batches
 lr: 0.0005 # adam: learning rate
 b1: 0.5 # adam: decay of first order momentum of gradient
 b2: 0.999 # adam: decay of first order momentum of gradient
 n_cpu: 8 # number of cpu threads to use during batch generation
-latent_dim: 6 # dimensionality of the latent space
+latent_dim: 3 # dimensionality of the latent space
 code_dim: 0 # latent code - reconstructed
 n_classes: 4 # number of classes for dataset - reconstructed categorical
 img_size: 32 # size of each image dimension
@@ -17,10 +17,10 @@ lambda_con: 1.0 # weight for continous loss
 test_ratio: 0.2 #  test ratio
 min_genes: 5000 # keep studies with more than min_genes genes
 test_interval: 5 
-save_interval: 20
+save_interval: 10
 skip_study: -1 # study index to skip, set to -1 to use all studies 
-#gen_path: "generator519.pth"
-#disc_path: "discriminator519.pth"
+#gen_path: "generator59.pth"
+#disc_path: "discriminator40.pth"
 use_covars: True # use covarates and outcome in infogan
 train_descriminator: False # train descriminator on pretrained generator
 train_polynomial_model: False # train study-specific polynomial model in infogan
