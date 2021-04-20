@@ -121,15 +121,24 @@ def get_tamoxifen_dataset(opt, dataset_dict_cache=[], additional_columns=[]):
     else:
         dataset_dict = util.load_curated(cancer_data_dir)
         dataset_dict_cache.append(dataset_dict)
-    mrmr_path = os.path.join('/home/noskill/projects/cancer/data/curatedBreastData/feats_100_raw_nn.txt')
+
+    embedding_and_outcome = pandas.read_csv('../../data/curatedBreastData/embedding_vector_state_and_outcome.csv')
+    pam_table = embedding_and_outcome[['patient_ID', 'pam_coincide']]
+
+    mrmr_path = os.path.join('../../data/curatedBreastData/feats_100_raw_nn.txt')
     with open(mrmr_path) as f:
         mrmr_feats = [x.strip() for x in f.readlines()]
     merged = dataset_dict['merged']
+    merged = merged.merge(pam_table, on='patient_ID')
+    merged = merged[~merged.study_ID.isin([19615, 16391])]
+
     # compute dfs or rfs
-    posOutcome = ((dataset_dict['merged'].RFS.fillna(0) + dataset_dict['merged'].DFS.fillna(0)) > 0) * 1
+    posOutcome = ((merged.RFS.fillna(0) + merged.DFS.fillna(0)) > 0) * 1
     merged.posOutcome = posOutcome
+
     # filter tamoxifen
     df = merged[merged.tamoxifen > 0]
+    print('using studies ', ' '.join(str(x) for x in df.study_ID.unique()))
     dataset = df[mrmr_feats + ['posOutcome', 'patient_ID'] + additional_columns]
     # random split, number is chosen with fair dice
     train, test = train_test_split(dataset, test_size=opt.test_ratio, random_state=4)
