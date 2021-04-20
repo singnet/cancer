@@ -75,12 +75,12 @@ def main():
 
     for epoch in range(opt.start_epoch, opt.start_epoch + opt.n_epochs):
     #   start = time.monotonic()
-        if (epoch + 1) % opt.test_interval == 0 and opt.test_ratio:
+        if epoch % opt.test_interval == 0 and opt.test_ratio:
             loss_test = lambda *args, **kwargs: loss(*args, **kwargs, optimizers=None, opt=opt)
             test(model, loss_test, device, test_loader)
         loss_f = lambda *args, **kwargs: loss(*args, **kwargs, opt=opt)
         train(model, loss_f, device, train_loader, optimizers, epoch + 1)
-        if (epoch + 1) % opt.save_interval == 0:
+        if epoch and epoch % opt.save_interval == 0:
             torch.save(model.discriminator.state_dict(), 'discriminator{0}.pth'.format(epoch))
             torch.save(model.generator.state_dict(), 'generator{0}.pth'.format(epoch))
     #    end = time.monotonic()
