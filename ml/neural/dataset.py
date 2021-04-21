@@ -115,6 +115,8 @@ def get_merged_common_dataset(opt, skip_study=None, dataset_dict_cache=[], data_
 
 
 def get_tamoxifen_dataset(opt, dataset_dict_cache=[], additional_columns=[]):
+    keep_patient_id = 'patient_ID' in additional_columns
+    additional_columns = [x for x in additional_columns if x != 'patient_ID']
     cancer_data_dir = opt.curated_breast_data_dir
     if dataset_dict_cache:
         dataset_dict = dataset_dict_cache[0]
@@ -144,9 +146,10 @@ def get_tamoxifen_dataset(opt, dataset_dict_cache=[], additional_columns=[]):
     train, test = train_test_split(dataset, test_size=opt.test_ratio, random_state=4)
     train.to_csv('current_train.csv', index=False)
     test.to_csv('current_test.csv', index=False)
-    train = train.drop(columns=['patient_ID'])
-    test = test.drop(columns=['patient_ID'])
-    cont_columns = [x for x in dataset.columns if len(dataset[x].unique()) > 20]
+    if not keep_patient_id:
+        train = train.drop(columns=['patient_ID'])
+        test = test.drop(columns=['patient_ID'])
+    cont_columns = [x for x in dataset.columns if x != 'patient_ID' and len(dataset[x].unique()) > 20]
     to_tensor = ToTensor()
     to_float = ToType('float')
     compose = Compose([to_tensor, to_float])

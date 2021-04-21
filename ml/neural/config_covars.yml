@@ -20,7 +20,7 @@ test_interval: 5
 save_interval: 10
 skip_study: -1 # study index to skip, set to -1 to use all studies 
 #gen_path: "generator59.pth"
-#disc_path: "discriminator40.pth"
+disc_path: "discriminator50.pth"
 use_covars: True # use covarates and outcome in infogan
 train_descriminator: False # train descriminator on pretrained generator
 train_polynomial_model: False # train study-specific polynomial model in infogan

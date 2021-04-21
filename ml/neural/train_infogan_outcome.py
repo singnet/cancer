@@ -92,6 +92,10 @@ def main():
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", help="config file name", required=True)
+    parser.add_argument("--eval-on-train", help="compute mi on train", required=False,
+            default=False, action='store_true', dest='eval_on_train')
+    parser.add_argument("--eval-on-test", help="compute mi on test", required=False,
+            default=False, action='store_false', dest='eval_on_train')
     parser.add_argument('--start-epoch', type=int, default=0, required=False,
             help="epoch to start the count of epochs")
     args = parser.parse_args()
@@ -99,6 +103,7 @@ def parse_args():
     # load config
     with open(args.config, 'r') as f:
         y = yaml.load(f, Loader=yaml.SafeLoader)
+        y['eval_on_train'] = args.eval_on_train
     opt = argparse.Namespace(start_epoch=args.start_epoch, **y)
     return opt
 
