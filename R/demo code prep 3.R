@@ -231,6 +231,10 @@ write_lines(rownames(exprs(cb15Eset)), "data/curatedBreastData/diffExp/genes15st
 write_csv(tamoxTop, "data/curatedBreastData/diffExp/top2000genes4studies.csv")
 write_csv(tamoxfTop, "data/curatedBreastData/diffExp/top1100genes4studiesFiltered.csv")
 
+# save esets & limma ebayes results for broad gsea
+save(cb15Eset, cb15fEset, tamoxEset, tamoxfEset, file = "data/curatedBreastData/diffExp/diffExpEsets.rdata")
+save(cb15Eb, cb15fEb, tamoxEb, tamoxfEb, file = "data/curatedBreastData/diffExp/diffExpLimmaEbayes.rdata")
+
 # try tidyTranscriptomics
 library(tidybulk)
 # library(SummarizedExperiment)
