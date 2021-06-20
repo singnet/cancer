@@ -1,0 +1,61 @@
+ID,Name
+GO:0062012,"Any process that modulates the rate, frequency or extent of a small molecule metabolic process."
+GO:0006654,"The chemical reactions and pathways resulting in the formation of phosphatidic acid, any derivative of glycerol phosphate in which both the remaining hydroxyl groups of the glycerol moiety are esterified with fatty acids."
+GO:0043632,"The chemical reactions and pathways resulting in the breakdown of a macromolecule, initiated by covalent modification of the target molecule."
+GO:0016032,"A multi-organism process in which a virus is a participant. The other participant is the host. Includes infection of a host cell, replication of the viral genome, and assembly of progeny virus particles. In some cases the viral genetic material may integrate into the host genome and only subsequently, under particular circumstances, 'complete' its life cycle."
+GO:0090090,"Any process that decreases the rate, frequency, or extent of the Wnt signaling pathway through beta-catenin, the series of molecular signals initiated by binding of a Wnt protein to a frizzled family receptor on the surface of the target cell, followed by propagation of the signal via beta-catenin, and ending with a change in transcription of target genes."
+GO:0006793,"The chemical reactions and pathways involving the nonmetallic element phosphorus or compounds that contain phosphorus, usually in the form of a phosphate group (PO4)."
+GO:0042180,"The chemical reactions and pathways involving any of a class of organic compounds that contain the carbonyl group, CO, and in which the carbonyl group is bonded only to carbon atoms, as carried out by individual cells. The general formula for a ketone is RCOR, where R and R are alkyl or aryl groups."
+GO:0005743,"The inner, i.e. lumen-facing, lipid bilayer of the mitochondrial envelope. It is highly folded to form cristae."
+GO:0042886,"The directed movement of an amide, any compound containing one, two, or three acyl groups attached to a nitrogen atom, into, out of or within a cell, or between cells, by means of some agent such as a transporter or pore."
+GO:0005524,"Interacting selectively and non-covalently with ATP, adenosine 5'-triphosphate, a universally important coenzyme and enzyme regulator."
+GO:0005654,That part of the nuclear content other than the chromosomes or the nucleolus.
+GO:0019882,The process in which an antigen-presenting cell expresses antigen (peptide or lipid) on its cell surface in association with an MHC protein complex.
+GO:0045599,"Any process that stops, prevents, or reduces the frequency, rate or extent of adipocyte differentiation."
+GO:0055076,"Any process involved in the maintenance of an internal steady state of transition metal ions within an organism or cell. A transition metal is an element whose atom has an incomplete d-subshell of extranuclear electrons, or which gives rise to a cation or cations with an incomplete d-subshell. Transition metals often have more than one valency state. Biologically relevant transition metals include vanadium, manganese, iron, copper, cobalt, nickel, molybdenum and silver."
+GO:0070647,"A protein modification process in which one or more groups of a small protein, such as ubiquitin or a ubiquitin-like protein, are covalently attached to or removed from a target protein."
+GO:0016579,The removal of one or more ubiquitin groups from a protein.
+GO:0085020,"A protein ubiquitination process in which a polymer of ubiquitin, formed by linkages between lysine residues at position 6 of the ubiquitin monomers, is added to a protein. K6-linked ubiquitination is involved in DNA repair."
+GO:0016310,"The process of introducing a phosphate group into a molecule, usually with the formation of a phosphoric ester, a phosphoric anhydride or a phosphoric amide."
+GO:0006521,"Any process that modulates the frequency, rate or extent of the chemical reactions and pathways involving amino acids."
+GO:0006511,"The chemical reactions and pathways resulting in the breakdown of a protein or peptide by hydrolysis of its peptide bonds, initiated by the covalent attachment of a ubiquitin group, or multiple ubiquitin groups, to the protein."
+GO:0099003,Any vesicle-mediated transport that occurs in a synapse.
+GO:0043687,The process of covalently altering one or more amino acids in a protein after the protein has been completely translated and released from the ribosome.
+GO:0006402,"The chemical reactions and pathways resulting in the breakdown of mRNA, messenger RNA, which is responsible for carrying the coded genetic 'message', transcribed from DNA, to sites of protein assembly at the ribosomes."
+GO:1903047,A process that is part of the mitotic cell cycle.
+GO:0001736,"Coordinated organization of groups of cells in the plane of an epithelium, such that they all orient to similar coordinates."
+GO:0000165,"An intracellular protein kinase cascade containing at least a MAPK, a MAPKK and a MAP3K. The cascade can also contain an additional tiers: the upstream MAP4K. The kinases in each tier phosphorylate and activate the kinase in the downstream tier to transmit a signal within a cell."
+GO:0002478,The process in which an antigen-presenting cell expresses a peptide antigen of exogenous origin on its cell surface in association with an MHC protein complex. The peptide is typically a fragment of a larger exogenous protein which has been degraded within the cell.
+GO:1903034,"Any process that modulates the frequency, rate or extent of response to wounding."
+GO:0051301,"The process resulting in division and partitioning of components of a cell to form more cells; may or may not be accompanied by the physical separation of a cell into distinct, individually membrane-bounded daughter cells."
+GO:0035425,"Signaling between cells of the same type. The signal produced by the signaling cell binds to a receptor on, and affects a cell of the same type."
+GO:0033240,"Any process that activates or increases the frequency, rate or extent of the chemical reactions and pathways involving amines."
+GO:0060071,The series of molecular signals initiated by binding of a Wnt protein to a receptor on the surface of the target cell where activated receptors signal via downstream effectors including C-Jun N-terminal kinase (JNK) to modulate cytoskeletal elements and control cell polarity.
+GO:0035019,"Any process by which an organism retains a population of somatic stem cells, undifferentiated cells in the embryo or adult which can undergo unlimited division and give rise to cell types of the body other than those of the germ-line."
+GO:0070102,"A series of molecular signals initiated by the binding of interleukin-6 to a receptor on the surface of a cell, and ending with regulation of a downstream cellular process, e.g. transcription."
+GO:1901564,The chemical reactions and pathways involving organonitrogen compound.
+GO:0035624,"The process in which a receptor is activated by another receptor. Receptor transactivation can occur through different mechanisms and includes cross-talk between signaling pathways where one receptor activates a receptor for a different ligand, and also activation of subunits within a receptor oligomer."
+GO:0008017,"Interacting selectively and non-covalently with microtubules, filaments composed of tubulin monomers."
+GO:0031145,"The chemical reactions and pathways resulting in the breakdown of a protein or peptide by hydrolysis of its peptide bonds, initiated by the covalent attachment of ubiquitin, with ubiquitin-protein ligation catalyzed by the anaphase-promoting complex, and mediated by the proteasome."
+GO:0031146,"The chemical reactions and pathways resulting in the breakdown of a protein or peptide by hydrolysis of its peptide bonds, initiated by the covalent attachment of ubiquitin, with ubiquitin-protein ligation catalyzed by an SCF (Skp1/Cul1/F-box protein) complex, and mediated by the proteasome."
+GO:0045747,"Any process that activates or increases the frequency, rate or extent of the Notch signaling pathway."
+GO:2000027,"Any process that modulates the frequency, rate or extent of animal organ morphogenesis."
+GO:0005923,An occluding cell-cell junction that is composed of a branching network of sealing strands that completely encircles the apical end of each cell in an epithelial sheet; the outer leaflets of the two interacting plasma membranes are seen to be tightly apposed where sealing strands are present. Each sealing strand is composed of a long row of transmembrane adhesion proteins embedded in each of the two interacting plasma membranes.
+GO:0015450,"Primary active carrier-mediated transport of a protein across a membrane, driven by the hydrolysis of the diphosphate bond of inorganic pyrophosphate, ATP, or another nucleoside triphosphate. The transport protein may or may not be transiently phosphorylated, but the substrate is not phosphorylated."
+GO:1902579,A localization which involves another organism.
+GO:0048842,"Any process that activates, maintains or increases the frequency, rate or extent of axon extension involved in axon guidance."
+GO:0034058,The homotypic fusion of endocytic vesicles to form or add to an early endosome.
+GO:0000209,"Addition of multiple ubiquitin groups to a protein, forming a ubiquitin chain."
+GO:0036211,"The covalent alteration of one or more amino acids occurring in proteins, peptides and nascent polypeptides (co-translational, post-translational modifications). Includes the modification of charged tRNAs that are destined to occur in a protein (pre-translation modification)."
+GO:0044106,"The chemical reactions and pathways involving any organic compound that is weakly basic in character and contains an amino or a substituted amino group, as carried out by individual cells. Amines are called primary, secondary, or tertiary according to whether one, two, or three carbon atoms are attached to the nitrogen atom."
+GO:0071453,"Any process that results in a change in state or activity of a cell (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of a stimulus reflecting the presence, absence, or concentration of oxygen."
+GO:0010498,The chemical reactions and pathways resulting in the breakdown of a protein or peptide by hydrolysis of its peptide bonds that is mediated by the proteasome.
+GO:0034452,Interacting selectively and non-covalently with any part of a dynactin complex; dynactin is a large protein complex that activates dynein-based motor activity.
+GO:0010608,"Any process that modulates the frequency, rate or extent of gene expression after the production of an RNA transcript."
+GO:0007512,"The process whose specific outcome is the progression of the adult heart over time, from its formation to the mature structure."
+GO:0007566,Attachment of the blastocyst to the uterine lining.
+GO:0022900,A process in which a series of electron carriers operate together to transfer electrons from donors to any of several different terminal electron acceptors to generate a transmembrane electrochemical gradient.
+GO:0007339,The process in which the sperm binds to the zona pellucida glycoprotein layer of the egg. The process begins with the attachment of the sperm plasma membrane to the zona pellucida and includes attachment of the acrosome inner membrane to the zona pellucida after the acrosomal reaction takes place.
+GO:0009892,"Any process that stops, prevents, or reduces the frequency, rate or extent of the chemical reactions and pathways within a cell or an organism."
+GO:0071840,"A process that results in the biosynthesis of constituent macromolecules, assembly, arrangement of constituent parts, or disassembly of a cellular component."
+GO:0044267,"The chemical reactions and pathways involving a specific protein, rather than of proteins in general, occurring at the level of an individual cell. Includes cellular protein modification."

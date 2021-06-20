@@ -1,0 +1,95 @@
+ID,Name
+GO:0062012,"Any process that modulates the rate, frequency or extent of a small molecule metabolic process."
+GO:0043624,"The disaggregation of a protein complex into its constituent components, occurring at the level of an individual cell. Protein complexes may have other associated non-protein prosthetic groups, such as nucleic acids, metal ions or carbohydrate groups."
+GO:0043632,"The chemical reactions and pathways resulting in the breakdown of a macromolecule, initiated by covalent modification of the target molecule."
+GO:0016032,"A multi-organism process in which a virus is a participant. The other participant is the host. Includes infection of a host cell, replication of the viral genome, and assembly of progeny virus particles. In some cases the viral genetic material may integrate into the host genome and only subsequently, under particular circumstances, 'complete' its life cycle."
+GO:0090090,"Any process that decreases the rate, frequency, or extent of the Wnt signaling pathway through beta-catenin, the series of molecular signals initiated by binding of a Wnt protein to a frizzled family receptor on the surface of the target cell, followed by propagation of the signal via beta-catenin, and ending with a change in transcription of target genes."
+GO:0006793,"The chemical reactions and pathways involving the nonmetallic element phosphorus or compounds that contain phosphorus, usually in the form of a phosphate group (PO4)."
+GO:0045930,"Any process that stops, prevents or reduces the rate or extent of progression through the mitotic cell cycle."
+GO:0070837,"The directed movement of dehydroascorbate into, out of or within a cell, or between cells, by means of some agent such as a transporter or pore. Dehydroascorbate, 5-(1,2-dihydroxyethyl)furan-2,3,4(5H)-trione, is an oxidized form of vitamin C."
+GO:0005750,"A protein complex located in the mitochondrial inner membrane that forms part of the mitochondrial respiratory chain. Contains about 10 polypeptide subunits including four redox centers: cytochrome b/b6, cytochrome c1 and an 2Fe-2S cluster. Catalyzes the oxidation of ubiquinol by oxidized cytochrome c1."
+GO:0005762,The larger of the two subunits of a mitochondrial ribosome. Two sites on the ribosomal large subunit are involved in translation: the aminoacyl site (A site) and peptidyl site (P site).
+GO:0005743,"The inner, i.e. lumen-facing, lipid bilayer of the mitochondrial envelope. It is highly folded to form cristae."
+GO:0042770,A cascade of processes induced by the detection of DNA damage within a cell.
+GO:0005844,A multiribosomal structure representing a linear array of ribosomes held together by messenger RNA. They represent the active complexes in cellular protein synthesis and are able to incorporate amino acids into polypeptides both in vivo and in vitro.
+GO:0042886,"The directed movement of an amide, any compound containing one, two, or three acyl groups attached to a nitrogen atom, into, out of or within a cell, or between cells, by means of some agent such as a transporter or pore."
+GO:0005832,A multisubunit ring-shaped complex that mediates protein folding in the cytosol without a cofactor.
+GO:0005524,"Interacting selectively and non-covalently with ATP, adenosine 5'-triphosphate, a universally important coenzyme and enzyme regulator."
+GO:0030496,"A thin cytoplasmic bridge formed between daughter cells at the end of cytokinesis. The midbody forms where the contractile ring constricts, and may persist for some time before finally breaking to complete cytokinesis."
+GO:0005654,That part of the nuclear content other than the chromosomes or the nucleolus.
+GO:0019882,The process in which an antigen-presenting cell expresses antigen (peptide or lipid) on its cell surface in association with an MHC protein complex.
+GO:0006122,"The transfer of electrons from ubiquinol to cytochrome c that occurs during oxidative phosphorylation, mediated by the multisubunit enzyme known as complex III."
+GO:0030950,"Any cellular process that results in the specification, formation or maintenance of polarized actin-based cytoskeletal structures."
+GO:0045602,"Any process that stops, prevents, or reduces the frequency, rate or extent of endothelial cell differentiation."
+GO:0055056,Enables the transfer of the D-enantiomer of the hexose monosaccharide glucose from one side of a membrane to the other.
+GO:0055076,"Any process involved in the maintenance of an internal steady state of transition metal ions within an organism or cell. A transition metal is an element whose atom has an incomplete d-subshell of extranuclear electrons, or which gives rise to a cation or cations with an incomplete d-subshell. Transition metals often have more than one valency state. Biologically relevant transition metals include vanadium, manganese, iron, copper, cobalt, nickel, molybdenum and silver."
+GO:0070647,"A protein modification process in which one or more groups of a small protein, such as ubiquitin or a ubiquitin-like protein, are covalently attached to or removed from a target protein."
+GO:0090306,"The aggregation, arrangement and bonding together of a set of components to form the spindle that contributes to the process of meiosis."
+GO:0016538,"Modulates the activity of a cyclin-dependent protein serine/threonine kinase, enzymes of the protein kinase family that are regulated through association with cyclins and other proteins."
+GO:0016579,The removal of one or more ubiquitin groups from a protein.
+GO:0085020,"A protein ubiquitination process in which a polymer of ubiquitin, formed by linkages between lysine residues at position 6 of the ubiquitin monomers, is added to a protein. K6-linked ubiquitination is involved in DNA repair."
+GO:0006953,An acute inflammatory response that involves non-antibody proteins whose concentrations in the plasma increase in response to infection or injury of homeothermic animals.
+GO:0016310,"The process of introducing a phosphate group into a molecule, usually with the formation of a phosphoric ester, a phosphoric anhydride or a phosphoric amide."
+GO:0006511,"The chemical reactions and pathways resulting in the breakdown of a protein or peptide by hydrolysis of its peptide bonds, initiated by the covalent attachment of a ubiquitin group, or multiple ubiquitin groups, to the protein."
+GO:0031465,A ubiquitin ligase complex in which a cullin from the Cul4B subfamily and a RING domain protein form the catalytic core; substrate specificity is conferred by unknown subunits.
+GO:0043488,Any process that modulates the propensity of mRNA molecules to degradation. Includes processes that both stabilize and destabilize mRNAs.
+GO:0031442,"Any process that activates or increases the frequency, rate or extent of mRNA 3'-end processing."
+GO:1905330,"Any process that modulates the frequency, rate or extent of morphogenesis of an epithelium."
+GO:0043687,The process of covalently altering one or more amino acids in a protein after the protein has been completely translated and released from the ribosome.
+GO:0006409,The directed movement of tRNA from the nucleus to the cytoplasm.
+GO:1903047,A process that is part of the mitotic cell cycle.
+GO:0002478,The process in which an antigen-presenting cell expresses a peptide antigen of exogenous origin on its cell surface in association with an MHC protein complex. The peptide is typically a fragment of a larger exogenous protein which has been degraded within the cell.
+GO:0090263,"Any process that increases the rate, frequency, or extent of the Wnt signaling pathway through beta-catenin, the series of molecular signals initiated by binding of a Wnt protein to a frizzled family receptor on the surface of the target cell, followed by propagation of the signal via beta-catenin, and ending with a change in transcription of target genes."
+GO:1903034,"Any process that modulates the frequency, rate or extent of response to wounding."
+GO:0051301,"The process resulting in division and partitioning of components of a cell to form more cells; may or may not be accompanied by the physical separation of a cell into distinct, individually membrane-bounded daughter cells."
+GO:0035425,"Signaling between cells of the same type. The signal produced by the signaling cell binds to a receptor on, and affects a cell of the same type."
+GO:0033300,"Enables the transfer of dehydroascorbate, 5-(1,2-dihydroxyethyl)furan-2,3,4(5H)-trione, from one side of a membrane to the other."
+GO:0045333,The enzymatic release of energy from inorganic and organic compounds (especially carbohydrates and fats) which either requires oxygen (aerobic respiration) or does not (anaerobic respiration).
+GO:0070498,"A series of molecular signals initiated by the binding of interleukin-1 to a receptor on the surface of a cell, and ending with regulation of a downstream cellular process, e.g. transcription."
+GO:0033240,"Any process that activates or increases the frequency, rate or extent of the chemical reactions and pathways involving amines."
+GO:0004984,Combining with an odorant and transmitting the signal from one side of the membrane to the other to initiate a change in cell activity in response to detection of smell.
+GO:0050911,The series of events involved in the perception of smell in which an olfactory chemical stimulus is received and converted into a molecular signal.
+GO:0060071,The series of molecular signals initiated by binding of a Wnt protein to a receptor on the surface of the target cell where activated receptors signal via downstream effectors including C-Jun N-terminal kinase (JNK) to modulate cytoskeletal elements and control cell polarity.
+GO:0035019,"Any process by which an organism retains a population of somatic stem cells, undifferentiated cells in the embryo or adult which can undergo unlimited division and give rise to cell types of the body other than those of the germ-line."
+GO:1901988,"Any process that stops, prevents or reduces the frequency, rate or extent of cell cycle phase transition."
+GO:1901998,"The directed movement of a toxin into, out of or within a cell, or between cells, by means of some agent such as a transporter or pore."
+GO:0070126,"The process resulting in the release of a polypeptide chain from the ribosome in a mitochondrion, usually in response to a termination codon (note that mitochondria use variants of the universal genetic code that differ between different taxa)."
+GO:0070125,The successive addition of amino acid residues to a nascent polypeptide chain during protein biosynthesis in a mitochondrion.
+GO:0070102,"A series of molecular signals initiated by the binding of interleukin-6 to a receptor on the surface of a cell, and ending with regulation of a downstream cellular process, e.g. transcription."
+GO:1901564,The chemical reactions and pathways involving organonitrogen compound.
+GO:0072687,"A spindle that forms as part of meiosis. Several proteins, such as budding yeast Spo21p, fission yeast Spo2 and Spo13, and C. elegans mei-1, localize specifically to the meiotic spindle and are absent from the mitotic spindle."
+GO:0035624,"The process in which a receptor is activated by another receptor. Receptor transactivation can occur through different mechanisms and includes cross-talk between signaling pathways where one receptor activates a receptor for a different ligand, and also activation of subunits within a receptor oligomer."
+GO:0008017,"Interacting selectively and non-covalently with microtubules, filaments composed of tubulin monomers."
+GO:0031145,"The chemical reactions and pathways resulting in the breakdown of a protein or peptide by hydrolysis of its peptide bonds, initiated by the covalent attachment of ubiquitin, with ubiquitin-protein ligation catalyzed by the anaphase-promoting complex, and mediated by the proteasome."
+GO:2000027,"Any process that modulates the frequency, rate or extent of animal organ morphogenesis."
+GO:0005923,An occluding cell-cell junction that is composed of a branching network of sealing strands that completely encircles the apical end of each cell in an epithelial sheet; the outer leaflets of the two interacting plasma membranes are seen to be tightly apposed where sealing strands are present. Each sealing strand is composed of a long row of transmembrane adhesion proteins embedded in each of the two interacting plasma membranes.
+GO:0015934,"The larger of the two subunits of a ribosome. Two sites on the ribosomal large subunit are involved in translation, namely the aminoacyl site (A site) and peptidyl site (P site)."
+GO:0003735,The action of a molecule that contributes to the structural integrity of the ribosome.
+GO:0015867,"The directed movement of ATP, adenosine triphosphate, into, out of or within a cell, or between cells, by means of some agent such as a transporter or pore."
+GO:0097431,"Either of the ends of a mitotic spindle, a spindle that forms as part of mitosis, where spindle microtubules are organized; usually contains a microtubule organizing center and accessory molecules, spindle microtubules and astral microtubules."
+GO:0071347,"Any process that results in a change in state or activity of a cell (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of an interleukin-1 stimulus."
+GO:0034058,The homotypic fusion of endocytic vesicles to form or add to an early endosome.
+GO:0000209,"Addition of multiple ubiquitin groups to a protein, forming a ubiquitin chain."
+GO:0036211,"The covalent alteration of one or more amino acids occurring in proteins, peptides and nascent polypeptides (co-translational, post-translational modifications). Includes the modification of charged tRNAs that are destined to occur in a protein (pre-translation modification)."
+GO:1904851,"Any process that activates or increases the frequency, rate or extent of establishment of protein localization to telomere."
+GO:1904874,"Any process that activates or increases the frequency, rate or extent of telomerase RNA localization to Cajal body."
+GO:1904871,"Any process that activates or increases the frequency, rate or extent of protein localization to Cajal body."
+GO:0044106,"The chemical reactions and pathways involving any organic compound that is weakly basic in character and contains an amino or a substituted amino group, as carried out by individual cells. Amines are called primary, secondary, or tertiary according to whether one, two, or three carbon atoms are attached to the nitrogen atom."
+GO:0071482,"Any process that results in a change in state or activity of a cell (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of a light stimulus, electromagnetic radiation of wavelengths classified as infrared, visible or ultraviolet light."
+GO:0071453,"Any process that results in a change in state or activity of a cell (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of a stimulus reflecting the presence, absence, or concentration of oxygen."
+GO:0071474,"Any process that results in a change in state or activity of a cell (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of detection of, or exposure to, a hyperosmotic environment, i.e. an environment with a higher concentration of solutes than the organism or cell."
+GO:0010498,The chemical reactions and pathways resulting in the breakdown of a protein or peptide by hydrolysis of its peptide bonds that is mediated by the proteasome.
+GO:0034452,Interacting selectively and non-covalently with any part of a dynactin complex; dynactin is a large protein complex that activates dynein-based motor activity.
+GO:0010608,"Any process that modulates the frequency, rate or extent of gene expression after the production of an RNA transcript."
+GO:0007566,Attachment of the blastocyst to the uterine lining.
+GO:0022900,A process in which a series of electron carriers operate together to transfer electrons from donors to any of several different terminal electron acceptors to generate a transmembrane electrochemical gradient.
+GO:0010972,Any signalling pathway that decreases or inhibits the activity of a cell cycle cyclin-dependent protein kinase to modulate the switch from G2 phase to M phase of the mitotic cell cycle.
+GO:0007339,The process in which the sperm binds to the zona pellucida glycoprotein layer of the egg. The process begins with the attachment of the sperm plasma membrane to the zona pellucida and includes attachment of the acrosome inner membrane to the zona pellucida after the acrosomal reaction takes place.
+GO:0009892,"Any process that stops, prevents, or reduces the frequency, rate or extent of the chemical reactions and pathways within a cell or an organism."
+GO:0071840,"A process that results in the biosynthesis of constituent macromolecules, assembly, arrangement of constituent parts, or disassembly of a cellular component."
+GO:0044267,"The chemical reactions and pathways involving a specific protein, rather than of proteins in general, occurring at the level of an individual cell. Includes cellular protein modification."
+GO:0140059,The process in which the anatomical structures of a dendritic tree are generated and organized into dendritic branches.
+GO:0031570,"A signaling process that controls cell cycle progression in response to changes in DNA structure by monitoring the integrity of the DNA. The DNA integrity checkpoint begins with detection of DNA damage, defects in DNA structure or DNA replication, and progresses through signal transduction and ends with cell cycle effector processes."
+GO:0000776,A multisubunit complex that is located at the centromeric region of DNA and provides an attachment point for the spindle microtubules.
+GO:0000791,A dispersed and relatively uncompacted form of chromatin.
+GO:0007095,A mitotic cell cycle checkpoint that detects and negatively regulates progression through the G2/M transition of the cell cycle in response to DNA damage.
