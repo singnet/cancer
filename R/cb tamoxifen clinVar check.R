@@ -513,8 +513,13 @@ basic2BothCM
 # make eset for combat reference
 expData <- read_csv("data/curatedBreastData/microarray data/merged-combat15.csv.xz")
 tamExp <- filter(expData, patient_ID %in% cv$patient_ID) %>%
-  arrange(patient_ID) %>%
-  column_to_rownames("patient_ID")
+  arrange(patient_ID) 
+
+# save data for asmoses validation
+left_join(select(cv, patient_ID, RFS, DFS, posOutcome), mutate(tamExp, patient_ID = as.numeric(patient_ID))) %>%
+  write_csv("ml/asmoses/tamox4expSet.csv")
+
+tamExp <- column_to_rownames(tamExp, "patient_ID")
 
 ebExp <- filter(expData, patient_ID %in% tpheno$patient_ID) %>%
   arrange(patient_ID) %>%

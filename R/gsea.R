@@ -105,39 +105,6 @@ bestGenesCC05 <- map(bestGeneSetsGO, pluck, 3) %>%
   map(pull, GOCCID)
 map2(bestGenesCC05, names(bestGenesCC05), ~ write_lines(.x, paste0("data/curatedBreastData/diffExp/", .y, "CC05.txt")))
 
-# broad gsea
-library(GSEA)
-
-# drop chromosome region sets to fix error
-CBgmts <- pathwayPCA::read_gmt("/mnt/biodata/msigdb/msigdb.v7.4.CBsymbol.gmt")
-pathwayPCA::write_gmt(map(CBgmts, ~ .[-1:-278]), "/mnt/biodata/msigdb/msigdb.v7.4.CBsymbol-chromCoord.gmt")
-pathwayPCA::write_gmt(map(CBgmts, ~ .[grep("^GO[BCM]|^REACT", CBgmts$TERMS)]), "/mnt/biodata/msigdb/msigdb.v7.4.CBsymbol-as.gmt")
-CBasgmts <- pathwayPCA::read_gmt("/mnt/biodata/msigdb/msigdb.v7.4.CBsymbol-as.gmt")
-CBasgmts$TERMS[c(5000, 8000, 10000, 11000)]
-# [1] "GOBP_NEGATIVE_REGULATION_OF_GLIAL_CELL_PROLIFERATION"
-# [2] "GOCC_RDNA_HETEROCHROMATIN"                           
-# [3] "GOMF_LEUCINE_BINDING"                                
-# [4] "REACTOME_KSRP_KHSRP_BINDS_AND_DESTABILIZES_MRNA"     
-
-rm(CBgmts, CBasgmts)
-
-# make ranked gene list files
-load("data/curatedBreastData/diffExp/diffExpLimmaEbayes.rdata")
-
-bestRNK <- map(bestGeneSets, ~ tibble(CBsymbol = names(.), foldDiff = .))
-map2(bestRNK, names(bestRNK),
-     ~ write_tsv(.x, paste0("data/curatedBreastData/diffExp/gsea/gsea_", .y, ".rnk"), col_names = FALSE))
-
-map2(list.files("data/curatedBreastData/diffExp/gsea/", "rnk$", full.names = TRUE), names(bestRNK),
-    ~ GSEA(.x,
-           output.directory = "data/curatedBreastData/diffExp/gsea/",
-           doc.string = paste0(.y, "_results_"),
-           gs.db = "/mnt/biodata/msigdb/msigdb.v7.4.CBsymbol-chromCoord.gmt",
-           gs.size.threshold.min = 1,
-           gs.size.threshold.max = 1000,
-           random.seed = 123456789,
-           gsea.type = "preranked"))
-
 # make feature by sample file (GCT) and pheno label files (CLS)
 load("data/curatedBreastData/diffExp/diffExpEsets.rdata")
 esets <- list(cb15Eset, cb15fEset, tamoxEset, tamoxfEset)
@@ -165,22 +132,93 @@ for(n in 1:4) {
   ArrayTools::output.cls(pData(esets[[n]]), "posOutcome", names(esets)[n])
 }
 
-# parallel
-library(furrr)
-options(parallelly.fork.enable = TRUE)
-plan(multicore, workers = 4)
+rm(esets)
+setwd("../../../..")
 
-future_map(names(esets),
-     ~ GSEA(input.ds = paste0(., ".gct"),
-            input.cls = paste0(., ".cls"),
-            doc.string = paste0(., "_results_"),
-            gs.db = "/mnt/biodata/msigdb/msigdb.v7.4.CBsymbol-as.gmt",
-            gs.size.threshold.min = 1,
-            gs.size.threshold.max = 1000,
-            random.seed = 123456789,
-            save.intermediate.results = TRUE,
-            use.fast.enrichment.routine = TRUE,
-            gsea.type = "GSEA"))
+# get GSEA results from cli java binary
+gseasets <- list("cb15", "cb15f", "tamox", "tamoxf", "cb15_as", "cb15f_as", "tamox_as", "tamoxf_as") %>%
+  set_names()
+
+d <- "data/curatedBreastData/diffExp/gsea/"
+
+genesets <- map(gseasets, ~ read_tsv(paste(d, ., "gene_set_sizes.tsv", sep = "/"))) %>%
+  map(~ select(., -X5, -TITLE)) %>%
+  map(~ replace_na(., list(STATUS = "OK")))
+
+genelists <- map(gseasets[1:4],
+             ~ read_tsv(paste(d, ., str_subset(list.files(paste0(d, .)), "^ranked_g"), sep = "/"))) %>%
+  map(~select(., - TITLE, - X4))
+
+e1 <- map(gseasets,
+          ~ read_tsv(paste(d, ., str_subset(list.files(paste0(d, .), "tsv$"), "r_1_"), sep = "/")),
+          na = "---") %>%
+  map(~select(., - 2, - 3, - X12))
+
+e0 <- map(gseasets,
+          ~ read_tsv(paste(d, ., str_subset(list.files(paste0(d, .), "tsv$"), "r_0_"), sep = "/")),
+          na = "---") %>%
+  map(~select(., - 2, - 3, - X12))
+
+# get GO & reactome ids
+msig74 <- XML::xmlParse("/mnt/biodata/msigdb/msigdb_v7.4.xml")
+msig74 <- XML::xmlToList(msig74)
+
+# save list parse for future use
+save(msig74, "/mnt/biodata/msigdb/msig74.rdata")
+
+msig74 <- set_names(msig74, NULL) %>%
+  transpose() %>%
+  map(unlist) %>%
+  map( ~ na_if(., "")) %>%
+  as_tibble()
+
+# save info table
+write_tsv(msig74, "/mnt/biodata/msigdb/msig74.tsv.xz")
+
+msig74 <- select(msig74, STANDARD_NAME, EXACT_SOURCE, DESCRIPTION_BRIEF, PMID, GEOID)
+write_csv(msig74, "data/curatedBreastData/diffExp/msig74info.csv.xz")
+
+# add gene set info
+names(msig74)[1] <- "NAME"
+
+genesets <- map_at(genesets, 1:4, ~ left_join(., msig74))
+genesets <- map_at(genesets, 5:8, ~ left_join(., select(msig74, - PMID, - GEOID)))
+
+e0 <- map(e0, ~ left_join(., select(msig74, NAME, EXACT_SOURCE)))
+
+e1 <- map(e1, ~ left_join(., select(msig74, NAME, EXACT_SOURCE)))
+
+# make genesets column with portion of measured genes in gene sets
+genesets <- map(genesets, ~ mutate(., coverage = `AFTER RESTRICTING TO DATASET` / `ORIGINAL SIZE`))
+write_csv(genesets$tamoxf, "data/curatedBreastData/diffExp/msigdb_tamox4k.csv.xz")
+
+e0 <- map2(e0, genesets, ~ left_join(.x, select(.y, NAME, coverage)))
+write_csv(e0$tamoxf_as, "data/curatedBreastData/diffExp/gsea/gseaGOreactome_tamox4k.csv.xz")
+
+e1 <- map2(e1, genesets, ~ left_join(.x, select(.y, NAME, coverage)))
+write_csv(e1$tamoxf_as, "data/curatedBreastData/diffExp/gsea/gseaGOreactome_tamox4k_1.csv.xz")
+
+# GSEA R package is not maintained, use cli bundle instead
+# broad gsea
+
+# library(GSEA)
+#
+# # parallel
+# library(furrr)
+# options(parallelly.fork.enable = TRUE)
+# plan(multicore, workers = 4)
+# 
+# future_map(names(esets),
+#      ~ GSEA(input.ds = paste0(., ".gct"),
+#             input.cls = paste0(., ".cls"),
+#             doc.string = paste0(., "_results_"),
+#             gs.db = "/mnt/biodata/msigdb/msigdb.v7.4.CBsymbol-as.gmt",
+#             gs.size.threshold.min = 1,
+#             gs.size.threshold.max = 1000,
+#             random.seed = 123456789,
+#             save.intermediate.results = TRUE,
+#             use.fast.enrichment.routine = TRUE,
+#             gsea.type = "GSEA"))
 
 # [1] "Computing random permutations' enrichment for gene set: 11691 REACTOME_SIGNALING_BY_THE_B_CELL_RECEPTOR_BCR"
 # [1] "Computing random permutations' enrichment for gene set: 11692 REACTOME_ION_CHANNEL_TRANSPORT"
@@ -190,6 +228,21 @@ future_map(names(esets),
 #     1: In readLines(file) : incomplete final line found on 'cb15.cls'
 #   2: UNRELIABLE VALUE: Future (‘<none>’) unexpectedly generated random numbers without specifying argument 'seed'. There is a risk that those random numbers are not statistically sound and the overall results might be invalid. To fix this, specify 'seed=TRUE'. This ensures that proper, parallel-safe random numbers are produced via the L'Ecuyer-CMRG method. To disable this check, use 'seed=NULL', or set option 'future.rng.onMisuse' to "ignore". 
 
-setwd("../../../..")
+# make ranked gene list files
+# TODO: these need to be complete lists not filtered for significance
+# load("data/curatedBreastData/diffExp/diffExpLimmaEbayes.rdata")
+# 
+# bestRNK <- map(bestGeneSets, ~ tibble(CBsymbol = names(.), foldDiff = .))
+# map2(bestRNK, names(bestRNK),
+#      ~ write_tsv(.x, paste0("data/curatedBreastData/diffExp/gsea/gsea_", .y, ".rnk"), col_names = FALSE))
+# 
+# map2(list.files("data/curatedBreastData/diffExp/gsea/", "rnk$", full.names = TRUE), names(bestRNK),
+#     ~ GSEA(.x,
+#            output.directory = "data/curatedBreastData/diffExp/gsea/",
+#            doc.string = paste0(.y, "_results_"),
+#            gs.db = "/mnt/biodata/msigdb/msigdb.v7.4.CBsymbol-chromCoord.gmt",
+#            gs.size.threshold.min = 1,
+#            gs.size.threshold.max = 1000,
+#            random.seed = 123456789,
+#            gsea.type = "preranked"))
 
-# get results from running java binary

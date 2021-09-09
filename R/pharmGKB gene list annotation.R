@@ -55,5 +55,5 @@ pgkbSet2 <- str_split(c('PA152530845_overexp',
 
 write_csv(pgkbSet2, "data/curatedBreastData/diffExp/PLNpgkbSetsRelative.csv")
 
-# The postfix _overexp or _underexp are dueto the normalization, which tells that the member genes are overexpressed or under expressed. (edited) 
+# The postfix _overexp or _underexp are due to the normalization, which tells that the member genes are overexpressed or under expressed. (edited) 
 

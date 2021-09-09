@@ -8,11 +8,6 @@ library(tidyverse)
 
 library(EGSEA)
 
-# make current genesets
-msig74 <- XML::xmlParse("/mnt/biodata/msigdb/msigdb_v7.4.xml")
-msig74 <- XML::xmlToList(msig74)
-save(msig74,file = "/mnt/biodata/msigdb/msig74.rdata")
-
 # make msigdb gmt file with matching symbol versions
 symMap <- read_csv("data/curatedBreastData/hgncSymbolMap21aug20long.csv")
 msigRaw <- read_lines("/mnt/biodata/msigdb/msigdb.v7.4.symbols.gmt") %>%

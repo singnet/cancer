@@ -282,7 +282,7 @@ t4rct_aes1pc <- AESPCA_pVals(
   adjustment = "BY"
 )
 
-# annotate $ save
+# annotate & save
 save(t4gobp_aes1pc, t4gobp_omics, t4gocc_aes1pc, t4gocc_omics, t4gomf_aes1pc, t4gomf_omics, t4rct_aes1pc, t4rct_omics, file = "data/curatedBreastData/diffExp/pathwayPCAtam4.rdata")
 
 tam4gobp <- mutate(t4gobp_aes1pc$pVals_df, STANDARD_NAME = str_replace(terms, "^GOBP", "GO")) %>%
@@ -308,6 +308,284 @@ tam4rct <- mutate(t4rct_aes1pc$pVals_df, STANDARD_NAME = terms) %>%
   select(-HISTORICAL_NAMES:-GENESET_LISTING_URL, -DESCRIPTION_FULL, -TAGS, -FOUNDER_NAMES:-BUILD_DATE, -MEMBERS:-MEMBERS_MAPPING) %>%
   mutate(ID = str_remove(EXTERNAL_DETAILS_URL, "http://www.reactome.org/cgi-bin/eventbrowser_st_id?ST_ID=REACT_"))
 write_tsv(tam4rct, "data/curatedBreastData/diffExp/tam4_pathwayPCA_reactome_msigdb74.tsv")
+
+# repeat with expression level filter
+library(Biobase)
+tamoxFuni <-read_lines("data/curatedBreastData/diffExp/filteredGenes4studies.txt")
+tam4fEset <- tam4Eset[tamoxFuni,]
+
+t4fgobp_omics <- CreateOmics(
+  
+  # protein expression data
+  assayData_df = tibble(sample = rownames(pData(tam4fEset)), as_tibble(t(exprs(tam4fEset)))),
+  
+  # pathway collection
+  pathwayCollection_ls = gobpCBgenes,
+  
+  # category phenotype
+  response = tibble(sample = rownames(pData(tam4fEset)), no_relapse = as.factor(pData(tam4fEset)$posOutcome)),
+  respType = "categorical",
+  
+  # retain pathways with > n proteins
+  minPathSize = 1
+)
+# ======  Creating object of class OmicsCateg  =======
+#   The input pathway database included 15440 unique features.
+# The input assay dataset included 8832 features.
+# Only pathways with at least 1 or more features included in the assay dataset are
+# tested (specified by minPathSize parameter). There are 7440 pathways which meet
+# this criterion.
+# Because pathwayPCA is a self-contained test (PMID: 17303618), only features in
+# both assay data and pathway database are considered for analysis. There are 3711
+# such features shared by the input assay and pathway database.
+
+t4fgobp_aes1pc <- AESPCA_pVals(
+  
+  # The Omics data container
+  object = t4fgobp_omics,
+  
+  # One principal component per pathway
+  numPCs = 1,
+  
+  # Use parallel computing with 2 cores
+  parallel = TRUE, numCores = 8,
+  
+  # Estimate the p-values parametrically
+  numReps = 0,
+  
+  # Control FDR via Benjamini-Hochberg
+  adjustment = "BY"
+)
+
+t4fgocc_omics <- CreateOmics(
+  
+  # protein expression data
+  assayData_df = tibble(sample = rownames(pData(tam4fEset)), as_tibble(t(exprs(tam4fEset)))),
+  
+  # pathway collection
+  pathwayCollection_ls = goccCBgenes,
+  
+  # category phenotype
+  response = tibble(sample = rownames(pData(tam4fEset)), no_relapse = as.factor(pData(tam4fEset)$posOutcome)),
+  respType = "categorical",
+  
+  # retain pathways with > n proteins
+  minPathSize = 1
+)
+
+t4fgocc_aes1pc <- AESPCA_pVals(
+  
+  # The Omics data container
+  object = t4fgocc_omics,
+  
+  # One principal component per pathway
+  numPCs = 1,
+  
+  # Use parallel computing with 2 cores
+  parallel = TRUE, numCores = 8,
+  
+  # Estimate the p-values parametrically
+  numReps = 0,
+  
+  # Control FDR via Benjamini-Hochberg
+  adjustment = "BY"
+)
+
+t4fgomf_omics <- CreateOmics(
+  
+  # protein expression data
+  assayData_df = tibble(sample = rownames(pData(tam4fEset)), as_tibble(t(exprs(tam4fEset)))),
+  
+  # pathway collection
+  pathwayCollection_ls = gomfCBgenes,
+  
+  # category phenotype
+  response = tibble(sample = rownames(pData(tam4fEset)), no_relapse = as.factor(pData(tam4fEset)$posOutcome)),
+  respType = "categorical",
+  
+  # retain pathways with > n proteins
+  minPathSize = 1
+)
+
+t4fgomf_aes1pc <- AESPCA_pVals(
+  
+  # The Omics data container
+  object = t4fgomf_omics,
+  
+  # One principal component per pathway
+  numPCs = 1,
+  
+  # Use parallel computing with 2 cores
+  parallel = TRUE, numCores = 8,
+  
+  # Estimate the p-values parametrically
+  numReps = 0,
+  
+  # Control FDR via Benjamini-Hochberg
+  adjustment = "BY"
+)
+
+t4frct_omics <- CreateOmics(
+  
+  # protein expression data
+  assayData_df = tibble(sample = rownames(pData(tam4fEset)), as_tibble(t(exprs(tam4fEset)))),
+  
+  # pathway collection
+  pathwayCollection_ls = reactomeCBgenes,
+  
+  # category phenotype
+  response = tibble(sample = rownames(pData(tam4fEset)), no_relapse = as.factor(pData(tam4fEset)$posOutcome)),
+  respType = "categorical",
+  
+  # retain pathways with > n proteins
+  minPathSize = 1
+)
+
+t4frct_aes1pc <- AESPCA_pVals(
+  
+  # The Omics data container
+  object = t4frct_omics,
+  
+  # One principal component per pathway
+  numPCs = 1,
+  
+  # Use parallel computing with 2 cores
+  parallel = TRUE, numCores = 8,
+  
+  # Estimate the p-values parametrically
+  numReps = 0,
+  
+  # Control FDR via Benjamini-Hochberg
+  adjustment = "BY"
+)
+
+# annotate & save
+save(t4fgobp_aes1pc, t4fgobp_omics, t4fgocc_aes1pc, t4fgocc_omics, t4fgomf_aes1pc, t4fgomf_omics, t4frct_aes1pc, t4frct_omics, file = "data/curatedBreastData/diffExp/pathwayPCAtam4f.rdata")
+
+# get annotation table with GO & reactome IDs
+msAnn <- read_csv("data/curatedBreastData/diffExp/msigdb_tamox4k.csv.xz", guess_max = 13000)
+
+tam4f_pvals <- list(bp = t4fgobp_aes1pc, cc = t4fgocc_aes1pc, mf = t4fgomf_aes1pc, rct = t4frct_aes1pc) %>%
+  map(pluck, 1) %>%
+  map(left_join, msAnn, by = c("terms" = "NAME")) %>%
+  map(select, c(- n_tested, - PMID, - GEOID))
+  
+tam4f_pcs <- list(bp = t4fgobp_aes1pc, cc = t4fgocc_aes1pc, mf = t4fgomf_aes1pc, rct = t4frct_aes1pc) %>%
+  map(pluck, 2) %>%
+  map(~ map(., pluck, 1)) %>%
+  map(~ bind_cols(sample = rownames(pData(tam4fEset)), .))
+
+for(i in 1:4) names(tam4f_pcs[[i]])[-1] <- tam4f_pvals[[i]]$EXACT_SOURCE
+
+
+# TODO: debug SuperPCA_pvals
+# repeat with supervised version on expression level filtered expression set
+t4fgobp_sup <- SuperPCA_pVals(
+  
+  # The Omics data container
+  object = t4fgobp_omics,
+  
+  # One principal component per pathway
+  numPCs = 1,
+  
+  # Use parallel computing with 2 cores
+  parallel = TRUE, numCores = 8,
+  
+  # Control FDR via Benjamini-Hochberg
+  adjustment =  c("BY", "Hoch", "SidakSD")
+)
+# Initializing Computing Cluster: DONE
+# Calculating Pathway Test Statistics in Parallel: Error in checkForRemoteErrors(val) : 
+#   8 nodes produced errors; first error: 'x' must be an array of at least two dimensions
+
+t4fgocc_sup <- SuperPCA_pVals(
+  
+  # The Omics data container
+  object = t4fgocc_omics,
+  
+  # One principal component per pathway
+  numPCs = 1,
+  
+  # Use parallel computing with 2 cores
+  parallel = TRUE, numCores = 8,
+  
+  # Estimate the p-values parametrically
+  numReps = 0,
+  
+  # Control FDR via Benjamini-Hochberg
+  adjustment = "BY"
+)
+# Initializing Computing Cluster: DONE
+# Calculating Pathway Test Statistics in Parallel: Error in checkForRemoteErrors(val) : 
+#   8 nodes produced errors; first error: dim(X) must have a positive length
+
+t4fgomf_omics <- CreateOmics(
+  
+  # protein expression data
+  assayData_df = tibble(sample = rownames(pData(tam4fEset)), as_tibble(t(exprs(tam4fEset)))),
+  
+  # pathway collection
+  pathwayCollection_ls = gomfCBgenes,
+  
+  # category phenotype
+  response = tibble(sample = rownames(pData(tam4fEset)), no_relapse = as.factor(pData(tam4fEset)$posOutcome)),
+  respType = "categorical",
+  
+  # retain pathways with > n proteins
+  minPathSize = 1
+)
+
+t4fgomf_aes1pc <- AESPCA_pVals(
+  
+  # The Omics data container
+  object = t4fgomf_omics,
+  
+  # One principal component per pathway
+  numPCs = 1,
+  
+  # Use parallel computing with 2 cores
+  parallel = TRUE, numCores = 8,
+  
+  # Estimate the p-values parametrically
+  numReps = 0,
+  
+  # Control FDR via Benjamini-Hochberg
+  adjustment = "BY"
+)
+
+t4frct_omics <- CreateOmics(
+  
+  # protein expression data
+  assayData_df = tibble(sample = rownames(pData(tam4fEset)), as_tibble(t(exprs(tam4fEset)))),
+  
+  # pathway collection
+  pathwayCollection_ls = reactomeCBgenes,
+  
+  # category phenotype
+  response = tibble(sample = rownames(pData(tam4fEset)), no_relapse = as.factor(pData(tam4fEset)$posOutcome)),
+  respType = "categorical",
+  
+  # retain pathways with > n proteins
+  minPathSize = 1
+)
+
+t4frct_aes1pc <- AESPCA_pVals(
+  
+  # The Omics data container
+  object = t4frct_omics,
+  
+  # One principal component per pathway
+  numPCs = 1,
+  
+  # Use parallel computing with 2 cores
+  parallel = TRUE, numCores = 8,
+  
+  # Estimate the p-values parametrically
+  numReps = 0,
+  
+  # Control FDR via Benjamini-Hochberg
+  adjustment = "BY"
+)
 
 # repeat for 15 study data set
 cb15gobp_omics <- CreateOmics(
@@ -448,7 +726,7 @@ cb15rct_aes1pc <- AESPCA_pVals(
   adjustment = "BY"
 )
 
-# annotate $ save
+# annotate & save
 save(cb15gobp_aes1pc, cb15gobp_omics, cb15gocc_aes1pc, cb15gocc_omics, cb15gomf_aes1pc, cb15gomf_omics, cb15rct_aes1pc, cb15rct_omics, file = "data/curatedBreastData/diffExp/pathwayPCAcb15.rdata")
 
 cb15gobp <- mutate(cb15gobp_aes1pc$pVals_df, STANDARD_NAME = str_replace(terms, "^GOBP", "GO")) %>%
@@ -475,3 +753,4 @@ cb15rct <- mutate(cb15rct_aes1pc$pVals_df, STANDARD_NAME = terms) %>%
   mutate(ID = str_remove(EXTERNAL_DETAILS_URL, "http://www.reactome.org/cgi-bin/eventbrowser_st_id?ST_ID=REACT_"))
 write_tsv(cb15rct, "data/curatedBreastData/diffExp/cb15_pathwayPCA_reactome_msigdb74.tsv")
 
+ 

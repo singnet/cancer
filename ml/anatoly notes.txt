@@ -1,0 +1,17 @@
+:
+I made a union of DFS and RFS on curated breast dataset and trained xgboost in cross-study setting. There is one study with better than bias accuracy. It's study_1379_GPL1223_all-bmc15 @michael do you think that it is suitable for our demo?
+@michael i decided to do some more experiments and visualizations and I got somewhat better results with PCA -compressed data with 100 components. There are 4 studies with better than bias accuracy out of 13.
+
+study_2034_GPL96_all-bmc15
+accuracy: 0.6293706293706294
+auc: 0.6279434031222262
+bias: 0.6258741258741258study_17705_GPL96_JBI_Tissue_BC_Tamoxifen-bmc15
+accuracy: 0.8349514563106796
+auc: 0.7261437908496733
+bias: 0.8252427184466019study_17705_GPL96_MDACC_Tissue_BC_Tamoxifen-bmc15
+accuracy: 0.7384615384615385
+auc: 0.6722030294977411
+bias: 0.7282051282051282study_25065_GPL96_USO-bmc15
+accuracy: 0.7777777777777778
+auc: 0.6397748592870544
+bias: 0.7592592592592593
