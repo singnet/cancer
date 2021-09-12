@@ -13,12 +13,6 @@ from sklearn.svm import SVC
 from metrics import compute_metrics, compute_auc
 
 
-class Opt:
-    def __init__(self):
-        self.use_covars = False
-        self.curated_breast_data_dir = ''
-        self.metagx_data_dir = ''
-
 
 def get_data(t_set):
     data = t_set.features
@@ -30,7 +24,7 @@ def get_data(t_set):
     labels += labels < 0
     return data[nonzero], labels
 
-
+xgb = False
 def xgboost_test(extractor, opt):
     import xgboost as xgb
     res = defaultdict(list)
@@ -47,15 +41,18 @@ def xgboost_test(extractor, opt):
             train_features = train_data
             val_features = val_data
         # train the model
-        model = xgb.XGBClassifier()
-        clf = model.fit(train_features, train_labels.astype(int),
-                        eval_set=[(val_features, val_labels)],
-                        early_stopping_rounds=50, verbose=True,
-                        eval_metric='auc')
-        #model = LogisticRegression()
-        #model = SVC(probability=True, class_weight='balanced')
-        #clf = model.fit(train_features, train_labels.astype(int))
+        if xgb:
+            model = xgb.XGBClassifier()
+            clf = model.fit(train_features, train_labels.astype(int),
+                            eval_set=[(val_features, val_labels)],
+                            early_stopping_rounds=50, verbose=False,
+                            eval_metric='auc')
+        else:
+            #model = LogisticRegression(max_iter=1000)
+            model = SVC(probability=True, class_weight='balanced')
+            clf = model.fit(train_features, train_labels.astype(int))
 
+        assert train_labels.astype(int).min() >= 0
         print(val_data.shape)
         res['bias'].append(val_labels.sum() / len(val_labels))
         print(res['bias'][-1])
@@ -76,6 +73,7 @@ def xgboost_test(extractor, opt):
 def main():
     from train_infogan import parse_args
     opt = parse_args()
+    import pdb;pdb.set_trace()
     train_set, test_set = get_merged_common_dataset(opt)
     size = train_set.features.shape[1]
     discriminator = Discriminator(opt, size, train_set.binary)

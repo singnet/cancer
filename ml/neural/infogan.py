@@ -18,6 +18,12 @@ def weights_init_normal(m):
         torch.nn.init.constant_(m.bias.data, 0.0)
 
 
+def init_weights_xavier(m):
+    if type(m) == nn.Linear:
+        torch.nn.init.xavier_uniform_(m.weight)
+        m.bias.data.fill_(0.01)
+
+
 def to_categorical(y, num_columns):
     """Returns one-hot encoded Variable"""
     y_cat = np.zeros((y.shape[0], num_columns))
@@ -48,12 +54,12 @@ class Generator(nn.Module):
 
         self.dense_block = nn.Sequential(
             nn.Linear(input_dim, 512),
-            nn.BatchNorm1d(512),
+            #nn.BatchNorm1d(512),
             nn.LeakyReLU(inplace=True),
             nn.Linear(512, 512),
-            nn.BatchNorm1d(512),
+            #nn.BatchNorm1d(512),
             nn.LeakyReLU(inplace=True),
-            nn.Linear(512, size),
+            nn.Linear(512, size - binary - continious),
         )
         self.binary = binary
         self.continious = continious
@@ -63,11 +69,47 @@ class Generator(nn.Module):
         gen_input = torch.cat((noise, labels, code), -1)
         img = self.dense_block(gen_input)
         result = img
-        if self.binary:
-            assert False
-            s = torch.tanh(img[:, -self.binary:])
-            result = torch.cat([img[:, :-self.binary], s], dim=1)
+        assert not self.continious
+        assert not self.binary
         return result
+
+    def get_params(self):
+        return self.parameters()
+
+
+class CovarGen(Generator):
+    def __init__(self, opt, size, continious=0, binary=0):
+        super().__init__(opt, size, continious=continious, binary=binary)
+        inp_size = opt.latent_dim + opt.code_dim
+        self.gen_covars = nn.Sequential(nn.Linear(inp_size, 256), nn.LeakyReLU(),
+            # one for positive and one for negative outcome
+            nn.Linear(256, (continious + binary) * 2))
+        init_weights(self)
+
+    def forward(self, noise, labels, code):
+        gen_input = torch.cat((labels, code), -1)
+        gexs = self.dense_block(gen_input)
+        # duplicate gexs
+        gexs = torch.stack([gexs, gexs], dim=0)
+        gexs = torch.flatten(gexs, end_dim=1)
+        covar_input = torch.cat((code, noise), dim=1)
+        covars = self.gen_covars(covar_input)
+        covars = torch.stack([covars[:, :self.binary + self.continious],
+                              covars[:, self.binary + self.continious:]], dim=0)
+
+        covars = torch.flatten(covars, end_dim=1)
+        if self.binary:
+            contin = covars[:, :self.continious]
+            assert covars.shape[-1] - self.binary == self.continious
+            bins = torch.tanh(covars[:, -self.binary:])
+            outcomes = torch.ones(len(contin) // 2).to(contin)
+            outcomes = torch.stack([outcomes, outcomes * 0], dim=0)
+            outcomes = outcomes.flatten().unsqueeze(1)
+        result = torch.cat([gexs, contin, bins, outcomes], dim=1)
+        return result
+
+    def get_params(self):
+        return self.gen_covars.parameters()
 
 
 class StudyGen(nn.Module):
@@ -78,10 +120,10 @@ class StudyGen(nn.Module):
         input_dim = opt.latent_dim + opt.code_dim
         self.dense_block = nn.Sequential(
             nn.Linear(input_dim, 512),
-            nn.BatchNorm1d(512),
+            #nn.BatchNorm1d(512),
             nn.LeakyReLU(inplace=True),
             nn.Linear(512, 512),
-            nn.BatchNorm1d(512),
+            #nn.BatchNorm1d(512),
             nn.LeakyReLU(inplace=True),
             nn.Linear(512, size),
         )
@@ -101,14 +143,16 @@ class StudyGen(nn.Module):
         result = result + self.poly_param[0][lab]
         return result
 
+    def get_params(self):
+        return self.parameters()
+
 
 class Discriminator(nn.Module):
     def __init__(self, opt, size, continious=0, binary=0):
         super().__init__()
 
-        assert not binary
         self.dense_blocks = nn.Sequential(
-            nn.utils.spectral_norm(nn.Linear(size - binary, 512)),
+            nn.utils.spectral_norm(nn.Linear(size - binary - continious, 512)),
             nn.LeakyReLU(inplace=True),
             nn.utils.spectral_norm(nn.Linear(512, 512)),
             nn.LeakyReLU(inplace=True),
@@ -124,8 +168,9 @@ class Discriminator(nn.Module):
             tmp = tmp + (nn.Tanh(), )
         self.latent_layer = nn.Sequential(*tmp)
         self.binary = binary
+        self.continious = continious
         if binary:
-            self.adv_layer = nn.Sequential(nn.Linear(opt.code_dim + binary, 256),
+            self.adv_layer_covars = nn.Sequential(nn.Linear(opt.code_dim + binary + continious + 1, 256),
                                            nn.LeakyReLU(),
                                            nn.Linear(256, 256),
                                            nn.LeakyReLU(),
@@ -135,19 +180,149 @@ class Discriminator(nn.Module):
 
     def forward(self, img):
         if self.binary:
-            genes = img[:, :-self.binary]
-            binary = img[:, -self.binary:]
+            genes = img[:, :-self.binary - self.continious]
+            # -1 for posOutcome
+            covars = img[:, -self.binary - self.continious - 1:]
         else:
             genes = img
         out = self.dense_blocks(genes)
         categorical_code = self.category_layer(out)
         latent_code = self.latent_layer(out)
-        if self.binary:
-            assert False # handle binary and continious
         validity = self.adv_layer(out)
+        if self.binary or self.continious:
+            validity = self.adv_layer_covars(torch.cat([latent_code, covars]))
         return validity, categorical_code, latent_code
 
     def extract_features(self, gexs):
         valid, categorical, latent_code = self(torch.as_tensor(gexs).to(next(self.parameters())))
         return latent_code
+        # return torch.cat([latent_code, categorical, torch.as_tensor(gexs).to(latent_code)], dim=1)
+        # return torch.cat([latent_code, torch.as_tensor(gexs).to(latent_code)],
+        #        dim=1)
+
+    def get_params(self):
+        return self.parameters()
+
+
+class CovarDisc(Discriminator):
+    def get_params(self):
+        return self.adv_layer_covars.parameters()
+
+
+class CovarGenOutcome(nn.Module):
+    def __init__(self, opt, size, continious=0, binary=0):
+        super().__init__()
+        input_dim = opt.latent_dim + opt.n_classes + opt.code_dim
+        self.opt = opt
+        num = 512
+
+        self.dense_block = nn.Sequential(
+            nn.Linear(input_dim, num),
+            nn.LeakyReLU(inplace=True),
+            #nn.BatchNorm1d(num),
+            nn.Linear(num, num),
+            nn.LeakyReLU(inplace=True),
+            #nn.BatchNorm1d(num),
+        )
+
+        self.gene_layer = nn.Linear(num, size - binary - continious)
+        self.outcome_layer = nn.Sequential(nn.Linear(num, 256),
+                                           nn.LeakyReLU(inplace=True),
+                                           #nn.BatchNorm1d(256),
+                                           nn.Linear(256, 1),
+                                           nn.LeakyReLU(inplace=True))
+
+        assert(continious == 0)
+        self.apply(init_weights_xavier)
+
+    def forward(self, noise, labels, code):
+        assert self.opt.latent_dim == noise.shape[1]
+        assert self.opt.n_classes == labels.shape[1]
+        assert self.opt.code_dim == code.shape[1]
+
+        gen_input = torch.cat((noise, labels, code), -1)
+        dense = self.dense_block(gen_input)
+        genes = self.gene_layer(dense)
+        outcomes = torch.sigmoid(self.outcome_layer(dense))
+        result = dict()
+        result['genes'] = genes
+        result['outcomes'] = outcomes
+        return result
+
+    def get_params(self):
+        return self.parameters()
+
+
+class DiscriminatorOutcome(nn.Module):
+    def __init__(self, opt, size, continious=0, binary=0):
+        super().__init__()
+        num = 256
+        self.dense_blocks = nn.Sequential(
+            nn.Dropout(p=0.2),
+            nn.Linear(size - binary - continious, num),
+            nn.LeakyReLU(inplace=False),
+            #nn.BatchNorm1d(num),
+
+            nn.Linear(num, num),
+            nn.Dropout(p=0.2),
+            nn.LeakyReLU(inplace=False),
+            #nn.BatchNorm1d(num),
+
+            nn.Linear(num, num),
+            nn.Dropout(p=0.2),
+            nn.LeakyReLU(inplace=False),
+            #nn.BatchNorm1d(num),
+
+            nn.Linear(num, num),
+            nn.LeakyReLU(inplace=False),
+            #nn.BatchNorm1d(num),
+        )
+
+        self.disc_outcome_genes = nn.Sequential(
+                nn.Linear(num + 1, num),
+                nn.LeakyReLU(inplace=False),
+                #nn.BatchNorm1d(num),
+
+                nn.Linear(num, num),
+                nn.Dropout(p=0.2),
+                nn.LeakyReLU(inplace=False),
+                #nn.BatchNorm1d(256),
+
+                nn.Linear(num, num),
+                nn.LeakyReLU(inplace=False),
+                #nn.BatchNorm1d(256),
+
+                nn.Linear(num, 1),
+                torch.nn.Sigmoid())
+
+        self.reconstruct = nn.Sequential(
+                nn.Dropout(p=0.7),
+                nn.Linear(num, 128),
+                nn.LeakyReLU(inplace=False),
+                #nn.BatchNorm1d(128),
+                nn.Linear(128, 128),
+                nn.Dropout(p=0.5),
+                nn.LeakyReLU(inplace=False),
+                #nn.BatchNorm1d(128),
+                nn.Linear(128, opt.n_classes),
+                nn.Softmax(dim=1))
+        self.apply(init_weights_xavier)
+
+    def forward(self, gen_out):
+        genes = gen_out['genes']
+        outcomes = gen_out['outcomes']
+        dense = self.dense_blocks(genes)
+        # stack dense with outcome
+        sample = torch.cat([dense, outcomes], dim=1)
+        fake_real = self.disc_outcome_genes(sample)
+        categorical = self.reconstruct(dense)
+        return fake_real, categorical, None
+
+    def compute_code(self, genes):
+        dense = self.dense_blocks(genes)
+        categorical = self.reconstruct(dense)
+        return categorical
+
+    def get_params(self):
+        return self.parameters()
 

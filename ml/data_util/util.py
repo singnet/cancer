@@ -10,6 +10,7 @@ from typing import *
 import numpy
 import pandas
 
+from sklearn import metrics
 from sklearn.metrics import recall_score, precision_score, f1_score, confusion_matrix
 from sklearn.metrics import accuracy_score
 
@@ -231,11 +232,14 @@ for i in range(16):
     res_ar[i] = [int(x) for x in ar0]
 
 
-def binary_genes(merged, genes_columns):
+def binary_genes(merged, genes_columns, by_study=True):
     # raw improves the performance
     # multiplication by one convertes bool to int
-    for study in merged.study.unique():
-        merged.loc[merged.study == study, genes_columns] = merged.loc[merged.study == study, genes_columns].apply(digitize_genes_by_median, raw=True) * 1
+    if by_study:
+        for study in merged.study.unique():
+            merged.loc[merged.study == study, genes_columns] = merged.loc[merged.study == study, genes_columns].apply(digitize_genes_by_median, raw=True) * 1
+    else:
+       merged[genes_columns] = merged[genes_columns].apply(digitize_genes_by_median, raw=True) * 1
     # but not in case if only subset of rows are modified
     merged[genes_columns] = merged[genes_columns].astype('int16')
     return merged
@@ -303,20 +307,28 @@ def binarize_dataset(merged, genes_columns, feature_colum, to_letters):
     return copy
 
 
-def compute_metrics(result, y_true, y_pred, x_true, x_pred, multilabel=False):
+def compute_metrics(result, y_true, y_pred_prob, x_true, x_pred_prob, multilabel=False):
     if multilabel:
+        x_pred = x_pred_prob
+        y_pred = y_pred_prob
         result['train_accuracy'].append(accuracy_score(x_true, x_pred))
         result['accuracy'].append(accuracy_score(y_true, y_pred))
         return
+    y_pred = y_pred_prob > 0.5
+    x_pred = x_pred_prob > 0.5
     result['recall'].append(recall_score(y_true, y_pred))
     result['precision'].append( precision_score(y_true, y_pred))
     result['f1'].append(f1_score(y_true, y_pred))
     result['confusion'].append(confusion_matrix(y_true, y_pred))
     result['train_f1'].append(f1_score(x_true, x_pred))
     result['train_confusion'].append(confusion_matrix(x_true, x_pred))
+    result['bias'].append(numpy.mean(y_true))
     confusion = result['confusion'][-1]
     accuracy = (confusion[0][0] + confusion[1][1]) / (sum(confusion[0]) + sum(confusion[1]))
     result['accuracy'].append(accuracy)
+    fpr, tpr, thresholds = metrics.roc_curve(y_true, y_pred_prob, pos_label=1)
+    auc = metrics.auc(fpr, tpr)
+    result['auc'].append(auc)
 
 
 # Convertors for mapping string data to numbers
